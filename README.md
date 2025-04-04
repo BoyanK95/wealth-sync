@@ -44,7 +44,7 @@ git clone https://github.com/yourusername/wealth-sync.git
 cd wealth-sync
 
 # 2. Install dependencies
-pnpm install
+yarn install
 
 # 3. Start the dev server
-pnpm dev
+yarn dev
