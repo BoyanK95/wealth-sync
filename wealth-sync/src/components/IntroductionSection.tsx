@@ -48,13 +48,13 @@ const IntroductionSection = () => {
             </div>
           </div>
           <div className="flex items-center justify-center">
-            <div className="bg-background relative h-[300px] w-full overflow-hidden rounded-lg border p-2 sm:h-[400px] lg:h-[500px]">
+            <div className="bg-background relative w-full overflow-hidden rounded-lg p-2 sm:h-[400px] lg:h-[500px]">
               <Image
-                src="/placeholder.svg?height=600&width=800"
+                src="/calculatior.png"
                 alt="Dashboard Preview"
-                width={800}
-                height={600}
-                className="object-cover"
+                fill
+                className="object-contain"
+                priority
               />
             </div>
           </div>
