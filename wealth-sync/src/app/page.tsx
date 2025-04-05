@@ -4,63 +4,14 @@ import { ArrowRight, BarChart3, ChevronRight, LineChart, PieChart, Shield, Smart
 
 import { Button } from "@/components/ui/button"
 import Footer from "@/components/Footer"
+import IntroductionSection from "@/components/IntroductionSection"
 
 export default function HomePage() {
   return (
     <div className="flex min-h-screen flex-col">
       {/* Main content starts with padding for the fixed navbar */}
       <main className="flex-1 pt-16">
-        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
-          <div className="container px-4 md:px-6">
-            <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
-              <div className="flex flex-col justify-center space-y-4">
-                <div className="space-y-2">
-                  <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
-                    Your complete financial portfolio in one place
-                  </h1>
-                  <p className="max-w-[600px] text-muted-foreground md:text-xl">
-                    Connect to multiple exchanges, track your investments, and analyze your performance with powerful
-                    charts and insights.
-                  </p>
-                </div>
-                <div className="flex flex-col gap-2 min-[400px]:flex-row">
-                  <Button size="lg" className="bg-green-700 hover:bg-green-800">
-                    Get Started
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                  <Button size="lg" variant="outline">
-                    View Demo
-                  </Button>
-                </div>
-                <div className="flex items-center space-x-4 text-sm">
-                  <div className="flex items-center space-x-1">
-                    <Shield className="h-4 w-4 text-green-700" />
-                    <span className="text-xs sm:text-sm">Secure Connections</span>
-                  </div>
-                  <div className="flex items-center space-x-1">
-                    <Zap className="h-4 w-4 text-green-700" />
-                    <span className="text-xs sm:text-sm">Real-time Updates</span>
-                  </div>
-                  <div className="flex items-center space-x-1">
-                    <Smartphone className="h-4 w-4 text-green-700" />
-                    <span className="text-xs sm:text-sm">Mobile App</span>
-                  </div>
-                </div>
-              </div>
-              <div className="flex items-center justify-center">
-                <div className="relative w-full h-[300px] sm:h-[400px] lg:h-[500px] overflow-hidden rounded-lg border bg-background p-2">
-                  <Image
-                    src="/placeholder.svg?height=600&width=800"
-                    alt="Dashboard Preview"
-                    width={800}
-                    height={600}
-                    className="object-cover"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <IntroductionSection />
         <section id="features" className="w-full py-12 md:py-24 lg:py-32 bg-muted/50">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
