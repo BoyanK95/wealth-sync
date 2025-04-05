@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -64,6 +66,10 @@ export default function LoginPage() {
         <Button
           variant="outline"
           className="w-full cursor-pointer hover:bg-red-700 hover:text-white"
+          onClick={() => {
+            // TODO: add google login
+            console.log("google login");
+          }}
         >
           Google
         </Button>
