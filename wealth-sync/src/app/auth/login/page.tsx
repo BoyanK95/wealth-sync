@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -9,9 +11,27 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
 
 export default function LoginPage() {
+
+  const handleLogin = async (signInProvider: string) => {
+    try {
+      const result = await signIn(signInProvider, {
+        callbackUrl: "/",
+        redirect: true,
+      });
+      console.log("Login result:", result);
+
+      if (result?.error) {
+        console.error("Login error:", result.error);
+      }
+    } catch (error) {
+      console.error("Login failed:", error);
+    }
+  };
+
   return (
     <Card className="border-0 shadow-none">
       <CardHeader className="space-y-1">
@@ -58,12 +78,18 @@ export default function LoginPage() {
         <Button
           variant="outline"
           className="w-full cursor-pointer hover:bg-blue-500 hover:text-white"
+          onClick={() => handleLogin("facebook")}
+          type="button"
         >
           FaceBook
         </Button>
         <Button
           variant="outline"
           className="w-full cursor-pointer hover:bg-red-700 hover:text-white"
+          onClick={() => {
+            // TODO: add google login
+            console.log("google login");
+          }}
         >
           Google
         </Button>
