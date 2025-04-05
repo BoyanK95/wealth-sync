@@ -74,7 +74,7 @@ export default function LoginPage() {
             href="/auth/register"
             className="hover:text-primary underline underline-offset-4"
           >
-            Don&apos;t have an account? Sign Up
+            Don&apos;t have an account? Register here
           </Link>
         </p>
       </CardFooter>
