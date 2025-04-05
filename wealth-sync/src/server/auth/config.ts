@@ -1,6 +1,7 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { type DefaultSession, type NextAuthConfig } from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
+import Facebook from "next-auth/providers/facebook";
 
 import { db } from "@/server/db";
 
@@ -33,6 +34,10 @@ declare module "next-auth" {
 export const authConfig = {
   providers: [
     DiscordProvider,
+    Facebook({
+      clientId: process.env.FACEBOOK_CLIENT_ID,
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+    }),
     /**
      * ...add more providers here.
      *
