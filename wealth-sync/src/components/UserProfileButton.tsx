@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import {
   DropdownMenu,
@@ -6,9 +8,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { signOut } from "@/server/auth";
 import { Button } from "./ui/button";
+import { signOut } from "next-auth/react";
 import type { User } from "next-auth";
+import Link from "next/link";
 
 const UserProfileButton = ({
   session,
@@ -20,6 +23,10 @@ const UserProfileButton = ({
     };
   };
 }) => {
+  const handleSignOut = async () => {
+    await signOut({ callbackUrl: "/" });
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -39,20 +46,13 @@ const UserProfileButton = ({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem>Profile</DropdownMenuItem>
-        <DropdownMenuItem>Settings</DropdownMenuItem>
         <DropdownMenuItem>
-          <form
-            action={async () => {
-              "use server";
-              await signOut();
-            }}
-          >
-            <button type="submit" className="w-full text-left">
-              Log out
-            </button>
-          </form>
+          <Link href={"/profile"}>Profile</Link>
         </DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link href={"/settings"}>Settings</Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem onSelect={handleSignOut}>Log out</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
