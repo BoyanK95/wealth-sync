@@ -38,23 +38,38 @@ export default function LoginPage() {
             autoComplete="current-password"
           />
         </div>
-        <Button className="w-full">Sign In</Button>
+        <Button className="w-full cursor-pointer">Sign In</Button>
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
             <span className="w-full border-t" />
           </div>
           <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-background px-2 text-muted-foreground">
+            <span className="bg-background text-muted-foreground px-2">
               Or continue with
             </span>
           </div>
         </div>
-        <Button variant="outline" className="w-full">
+        <Button
+          variant="outline"
+          className="w-full cursor-pointer hover:bg-neutral-400 hover:text-white"
+        >
           GitHub
+        </Button>
+        <Button
+          variant="outline"
+          className="w-full cursor-pointer hover:bg-blue-500 hover:text-white"
+        >
+          FaceBook
+        </Button>
+        <Button
+          variant="outline"
+          className="w-full cursor-pointer hover:bg-red-700 hover:text-white"
+        >
+          Google
         </Button>
       </CardContent>
       <CardFooter>
-        <p className="text-sm text-muted-foreground text-center w-full">
+        <p className="text-muted-foreground w-full text-center text-sm">
           <Link
             href="/auth/register"
             className="hover:text-primary underline underline-offset-4"
