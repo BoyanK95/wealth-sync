@@ -15,7 +15,7 @@ export function Navbar() {
 
         <Button asChild variant="outline">
             {/* TODO add login page */}
-          <Link href="/auth/signin">Login</Link>
+          <Link href="/auth/login">Login</Link>
         </Button>
       </div>
     </nav>
