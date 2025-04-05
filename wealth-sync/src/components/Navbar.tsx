@@ -1,14 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { auth } from "@/server/auth";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { signOut } from "@/server/auth";
+import UserProfileButton from "./UserProfileButton";
 
 export async function Navbar() {
   const session = await auth();
@@ -26,37 +19,7 @@ export async function Navbar() {
         </Link>
 
         {session?.user ? (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-                <Avatar className="h-8 w-8">
-                  <AvatarImage
-                    src={session.user.image ?? ""}
-                    alt={session.user.name ?? ""}
-                  />
-                  <AvatarFallback>
-                    {session.user.name?.charAt(0) ?? "U"}
-                  </AvatarFallback>
-                </Avatar>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem>Profile</DropdownMenuItem>
-              <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuItem>
-                <form
-                  action={async () => {
-                    "use server";
-                    await signOut();
-                  }}
-                >
-                  <button type="submit" className="w-full text-left">
-                    Log out
-                  </button>
-                </form>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <UserProfileButton session={session} />
         ) : (
           <Button asChild variant="outline">
             <Link href="/auth/login">Login</Link>
