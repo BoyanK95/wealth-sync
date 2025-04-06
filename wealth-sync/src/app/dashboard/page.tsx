@@ -26,6 +26,7 @@ import {
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { auth } from "@/server/auth";
+import { Routes } from "@/lib/constants/routes";
 
 export const metadata: Metadata = {
   title: "Dashboard | WealthSync",
@@ -376,7 +377,7 @@ export default async function DashboardPage() {
                         </CardDescription>
                       </div>
                       <Button variant="ghost" size="sm" asChild>
-                        <Link href="/dashboard/transactions">
+                        <Link href={Routes.ALL_TRANSACTIONS}>
                           View All
                           <ExternalLink className="ml-2 h-4 w-4" />
                         </Link>

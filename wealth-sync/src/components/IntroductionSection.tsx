@@ -30,7 +30,7 @@ const IntroductionSection = async () => {
             <div className="flex flex-col gap-2 min-[400px]:flex-row">
               {session?.user ? (
                 <Button size="lg" className="bg-green-700 hover:bg-green-800">
-                  <Link href="/dashboard">Go to Dashboard</Link>
+                  <Link href={Routes.DASHBOARD}>Go to Dashboard</Link>
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               ) : (

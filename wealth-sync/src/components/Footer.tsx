@@ -1,3 +1,4 @@
+import { Routes } from "@/lib/constants/routes";
 import Link from "next/link";
 import React from "react";
 
@@ -16,19 +17,19 @@ const Footer = () => {
         <div className="flex gap-4">
             {/* TODO ADD LINKs */}
           <Link
-            href="#"
+            href={Routes.TERMS}
             className="text-muted-foreground hover:text-foreground text-sm"
           >
             Terms
           </Link>
           <Link
-            href="#"
+            href={Routes.PRIVACY}
             className="text-muted-foreground hover:text-foreground text-sm"
           >
             Privacy
           </Link>
           <Link
-            href="#"
+            href={Routes.CONTACT}
             className="text-muted-foreground hover:text-foreground text-sm"
           >
             Contact

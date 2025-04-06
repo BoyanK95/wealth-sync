@@ -27,7 +27,7 @@ const WealcomeSection = async () => {
               className="bg-white text-green-700 hover:bg-green-50"
             >
               {session?.user ? (
-                <Link href="/dashboard">Go to Dashboard</Link>
+                <Link href={Routes.DASHBOARD}>Go to Dashboard</Link>
               ) : (
                 <Link href={Routes.LOGIN}>Get Started for Free</Link>
               )}

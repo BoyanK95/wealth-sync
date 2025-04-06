@@ -1,3 +1,4 @@
+import { Routes } from "@/lib/constants/routes";
 import Link from "next/link";
 
 export default function AuthLayout({
@@ -11,7 +12,7 @@ export default function AuthLayout({
         <div className="flex min-h-screen flex-1 flex-col justify-center bg-gradient-to-b from-[#026d32] to-[#15162c] px-6 py-12 lg:px-8">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <div className="flex justify-center text-2xl font-bold tracking-tight text-white">
-              <Link href="/" className="flex items-center gap-2">
+              <Link href={Routes.HOME} className="flex items-center gap-2">
                 <span>Wealth</span>
                 <span className="text-[hsl(128,35%,78%)]">Sync</span>
               </Link>
