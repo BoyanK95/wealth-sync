@@ -1,4 +1,5 @@
 import { Navbar } from "@/components/Navbar";
+import { ThemeProvider } from "@/components/theme-provider";
 import "@/styles/globals.css";
 
 import { type Metadata } from "next";
@@ -19,8 +20,18 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${geist.variable}`}>
-      <body><Navbar />{children}</body>
+    <html lang="en" className={`${geist.variable}`} suppressHydrationWarning>
+      <body>
+        <ThemeProvider
+          attribute={"class"}
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Navbar />
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
