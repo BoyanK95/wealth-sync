@@ -1,13 +1,20 @@
 import React from "react";
 import { ArrowRight, Shield, Smartphone, Zap } from "lucide-react";
 import { Button } from "./ui/button";
+import { auth } from "@/server/auth";
 import Image from "next/image";
 import Link from "next/link";
 
-const IntroductionSection = () => {
+const IntroductionSection = async () => {
+  const session = await auth();
   return (
     <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
       <div className="container px-4 md:px-6">
+        {session?.user && (
+          <h3>
+            Welcome back <span className="font-bold text-green-800">{session?.user?.name}</span>
+          </h3>
+        )}
         <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
           <div className="flex flex-col justify-center space-y-4">
             <div className="space-y-2">
@@ -20,15 +27,17 @@ const IntroductionSection = () => {
               </p>
             </div>
             <div className="flex flex-col gap-2 min-[400px]:flex-row">
-              <Button size="lg" className="bg-green-700 hover:bg-green-800">
-                <Link href="/auth/login">
-                  Get Started
-                </Link>
-                  <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-              <Button size="lg" variant="outline">
-                View Demo
-              </Button>
+              {session?.user ? (
+                <Button size="lg" className="bg-green-700 hover:bg-green-800">
+                  <Link href="/dashboard">Go to Dashboard</Link>
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              ) : (
+                <Button size="lg" className="bg-green-700 hover:bg-green-800">
+                  <Link href="/auth/login">Get Started</Link>
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              )}
             </div>
             <div className="flex items-center space-x-4 text-sm">
               <div className="flex items-center space-x-1">
