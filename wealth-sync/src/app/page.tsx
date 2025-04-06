@@ -3,8 +3,8 @@ import IntroductionSection from "@/components/IntroductionSection";
 import FeaturesSection from "@/components/FeaturesSection";
 import IntegrationSection from "@/components/IntegrationSection";
 import PricingSection from "@/components/PricingSection";
-import WealcomeSection from "@/components/WealcomeSection";
-import ChartPrievewSection from "@/components/AboutPageComponents/ChartPrievewSection";
+import ChartPrievewSection from "@/components/ChartPrievewSection";
+import ActionSection from "@/components/ActionSection";
 
 export default function HomePage() {
   return (
@@ -15,7 +15,7 @@ export default function HomePage() {
         <IntegrationSection />
         <ChartPrievewSection />
         <PricingSection />
-        <WealcomeSection />
+        <ActionSection />
       </main>
       <Footer />
     </div>

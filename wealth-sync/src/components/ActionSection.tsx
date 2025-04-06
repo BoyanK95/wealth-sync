@@ -5,7 +5,7 @@ import { auth } from "@/server/auth";
 import Link from "next/link";
 import { Routes } from "@/lib/constants/routes";
 
-const WealcomeSection = async () => {
+const ActionSection = async () => {
   const session = await auth();
 
   return (
@@ -40,4 +40,4 @@ const WealcomeSection = async () => {
   );
 };
 
-export default WealcomeSection;
+export default ActionSection;
