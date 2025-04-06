@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import Footer from "@/components/Footer"
 import IntroductionSection from "@/components/IntroductionSection"
 import FeaturesSection from "@/components/FeaturesSection"
+import IntegrationSection from "@/components/IntegrationSection"
 
 export default function HomePage() {
   return (
@@ -14,7 +15,7 @@ export default function HomePage() {
       <main className="flex-1 pt-16">
         <IntroductionSection />
         <FeaturesSection />
-        
+        <IntegrationSection />
         <section className="w-full py-12 md:py-24 lg:py-32 bg-muted/50">
           <div className="container px-4 md:px-6">
             <div className="grid gap-6 lg:grid-cols-2 lg:gap-12">
