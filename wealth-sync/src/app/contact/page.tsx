@@ -31,7 +31,7 @@ export default function AboutPage() {
   return (
     <div className="flex min-h-screen flex-col">
       <main className="flex-1 pt-16 pb-12">
-        <div className="container max-w-4xl py-12">
+        <div className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-12">
           <div className="flex flex-col space-y-8">
             {/* Header */}
             <div className="space-y-4 text-center">
