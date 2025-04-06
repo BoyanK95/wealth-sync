@@ -4,6 +4,7 @@ import { auth } from "@/server/auth";
 import UserProfileButton from "./UserProfileButton";
 import LogoHomeButton from "./LogoHomeButton";
 import { Routes } from "@/lib/constants/routes";
+import { ThemeModeToggle } from "./ThemeModeToggle";
 
 export async function Navbar() {
   const session = await auth();
@@ -37,6 +38,7 @@ export async function Navbar() {
         </div>
 
         <div className="flex items-center gap-4">
+          <ThemeModeToggle />
           {session?.user ? (
             <UserProfileButton session={session} />
           ) : (
