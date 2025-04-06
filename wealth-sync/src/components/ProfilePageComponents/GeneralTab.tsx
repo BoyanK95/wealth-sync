@@ -16,7 +16,7 @@ import { toast } from "sonner";
 import { Routes } from "@/lib/constants/routes";
 import { signOut } from "next-auth/react";
 import type { UserFormProps } from "./interfaces";
-
+import Link from "next/link";
 
 const GeneralTab = ({ user }: UserFormProps) => {
   const router = useRouter();
@@ -52,7 +52,7 @@ const GeneralTab = ({ user }: UserFormProps) => {
     setIsLoading(true);
 
     try {
-        //TODO : Implement profile update logic
+      //TODO : Implement profile update logic
       // In a real application, you would upload the image and update profile info
       // This is a mock implementation
       await new Promise((resolve) => setTimeout(resolve, 1500)); // Simulate API call
@@ -164,6 +164,12 @@ const GeneralTab = ({ user }: UserFormProps) => {
                 Log Out
               </Button>
 
+              <Button
+                variant="default"
+                className="cursor-pointer hover:bg-green-800 dark:hover:text-white"
+              >
+                <Link href={Routes.DASHBOARD}>Go to Dashboard</Link>
+              </Button>
               <Button
                 type="submit"
                 className="bg-green-700 hover:bg-green-800"
