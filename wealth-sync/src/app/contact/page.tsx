@@ -1,25 +1,3 @@
-import Link from "next/link";
-import Image from "next/image";
-import {
-  Facebook,
-  Instagram,
-  Linkedin,
-  Github,
-  Mail,
-  MessageSquare,
-} from "lucide-react";
-
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
 import CreatorInfo from "@/components/AboutPageComponents/CreatorInfo";
 import MyStory from "@/components/AboutPageComponents/MyStory";
