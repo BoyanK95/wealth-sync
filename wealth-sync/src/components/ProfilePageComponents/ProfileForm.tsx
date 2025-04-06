@@ -18,14 +18,17 @@ import { Routes } from "@/lib/constants/routes";
 interface ProfileFormProps {
   user: {
     id: string;
-    name: string | null;
+    name?: string | null | undefined;
     email?: string | null;
-    image?: string | null;
+    image?: string | null | undefined;
   };
 }
 
 export default function ProfileForm({ user }: ProfileFormProps) {
   const router = useRouter();
+  console.log(user);
+  console.log(user.image);
+  
 
   const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState(user.name || "");
@@ -33,11 +36,11 @@ export default function ProfileForm({ user }: ProfileFormProps) {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [profileImage, setProfileImage] = useState<string | null>(user.image);
+  const [profileImage, setProfileImage] = useState<string | null>(user?.image as string | null);
   const [imageFile, setImageFile] = useState<File | null>(null);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
+    if (e.target.files?.[0]) {
       const file = e.target.files[0];
       setImageFile(file);
 
@@ -92,7 +95,9 @@ export default function ProfileForm({ user }: ProfileFormProps) {
       setNewPassword("");
       setConfirmPassword("");
     } catch (error) {
-      toast.error("Failed to update password");
+      toast.error("Failed to update password", {
+        description: "Please check your current password and try again.",
+      });
     } finally {
       setIsLoading(false);
     }
@@ -128,16 +133,17 @@ export default function ProfileForm({ user }: ProfileFormProps) {
               <div className="flex flex-col items-center space-y-4">
                 <div className="relative h-32 w-32">
                   <div className="bg-muted flex h-full w-full items-center justify-center overflow-hidden rounded-full border-4 border-green-700">
-                    {/* {profileImage ? (
+                    {profileImage ? (
                       <Image
-                        src={profileImage || "/placeholder.svg"}
+                        src={profileImage ||"/profile-picture.png"}
                         alt="Profile"
                         fill
-                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        // className="object-fill"
                       />
                     ) : (
                       <User className="text-muted-foreground h-16 w-16" />
-                    )} */}
+                    )}
                   </div>
                   <label
                     htmlFor="profile-image"
@@ -155,7 +161,7 @@ export default function ProfileForm({ user }: ProfileFormProps) {
                   />
                 </div>
                 <div className="text-center">
-                  <h3 className="text-lg font-medium">{user.name || "User"}</h3>
+                  <h3 className="text-lg font-medium">{user.name ?? "User"}</h3>
                   <p className="text-muted-foreground text-sm">{user.email}</p>
                 </div>
               </div>
