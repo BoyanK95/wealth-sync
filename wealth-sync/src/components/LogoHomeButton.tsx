@@ -9,7 +9,7 @@ const LogoHomeButton = () => {
       className="text-primary flex items-center gap-2 text-2xl font-bold"
     >
       <span>Wealth</span>
-      <span className="text-green-800">Sync</span>
+      <span className="text-green-800 dark:text-green-600">Sync</span>
     </Link>
   );
 };

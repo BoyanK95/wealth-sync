@@ -17,15 +17,15 @@ export default async function AuthLayout({
   return (
     <div className="flex min-h-screen flex-col">
       <main className="flex flex-1">
-        <div className="flex min-h-screen flex-1 flex-col justify-center bg-gradient-to-b from-[#026d32] to-[#15162c] px-6 py-12 lg:px-8">
+        <div className="flex min-h-screen flex-1 flex-col justify-center bg-gradient-to-b from-[#66e37d] to-[#1f4923] px-6 py-12 lg:px-8 dark:bg-gradient-to-b dark:from-[#409e55] dark:to-[#000f01]">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <div className="flex justify-center text-2xl font-bold tracking-tight text-white">
               <Link href={Routes.HOME} className="flex items-center gap-2">
                 <span>Wealth</span>
-                <span className="text-[hsl(128,35%,78%)]">Sync</span>
+                <span className="text-[hsl(118,35%,19%)] dark:text-gray-800">Sync</span>
               </Link>
             </div>
-            <p className="bold mt-2 text-center text-xl text-emerald-200 shadow-2xl">
+            <p className="bold mt-2 text-center text-xl text-emerald-100 shadow-2xl">
               The calculator for your financial future.
             </p>
           </div>
