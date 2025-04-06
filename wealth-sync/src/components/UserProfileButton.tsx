@@ -52,7 +52,13 @@ const UserProfileButton = ({
         <DropdownMenuItem>
           <Link href={"/settings"}>Settings</Link>
         </DropdownMenuItem>
-        <DropdownMenuItem onSelect={handleSignOut}>Log out</DropdownMenuItem>
+        <DropdownMenuItem
+          className="cursor-pointer"
+          variant="destructive"
+          onSelect={handleSignOut}
+        >
+          Log out
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
