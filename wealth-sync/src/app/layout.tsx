@@ -1,4 +1,5 @@
 import { Navbar } from "@/components/Navbar";
+import { ToasterProvider } from "@/components/providers/toaster-provider";
 import { ThemeProvider } from "@/components/theme-provider";
 import "@/styles/globals.css";
 
@@ -30,6 +31,7 @@ export default function RootLayout({
         >
           <Navbar />
           {children}
+          <ToasterProvider />
         </ThemeProvider>
       </body>
     </html>

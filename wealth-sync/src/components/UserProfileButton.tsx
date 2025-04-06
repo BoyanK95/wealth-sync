@@ -12,6 +12,7 @@ import { Button } from "./ui/button";
 import { signOut } from "next-auth/react";
 import type { User } from "next-auth";
 import Link from "next/link";
+import { Routes } from "@/lib/constants/routes";
 
 const UserProfileButton = ({
   session,
@@ -24,7 +25,7 @@ const UserProfileButton = ({
   };
 }) => {
   const handleSignOut = async () => {
-    await signOut({ callbackUrl: "/" });
+    await signOut({ callbackUrl: Routes.HOME });
   };
 
   return (
