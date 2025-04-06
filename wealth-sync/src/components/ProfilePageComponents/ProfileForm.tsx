@@ -14,6 +14,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { Routes } from "@/lib/constants/routes";
+import { signOut } from "next-auth/react";
 
 interface ProfileFormProps {
   user: {
@@ -28,7 +29,6 @@ export default function ProfileForm({ user }: ProfileFormProps) {
   const router = useRouter();
   console.log(user);
   console.log(user.image);
-  
 
   const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState(user.name ?? "");
@@ -36,7 +36,9 @@ export default function ProfileForm({ user }: ProfileFormProps) {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [profileImage, setProfileImage] = useState<string | null>(user?.image as string | null);
+  const [profileImage, setProfileImage] = useState<string | null>(
+    user?.image as string | null,
+  );
   const [imageFile, setImageFile] = useState<File | null>(null);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -84,7 +86,7 @@ export default function ProfileForm({ user }: ProfileFormProps) {
     }
     setIsLoading(true);
     try {
-        //TODO : Implement password update logic
+      //TODO : Implement password update logic
       // In a real application, you would verify the current password and update to the new one
       // This is a mock implementation
       await new Promise((resolve) => setTimeout(resolve, 1500)); // Simulate API call
@@ -105,16 +107,16 @@ export default function ProfileForm({ user }: ProfileFormProps) {
 
   const handleLogout = async () => {
     setIsLoading(true);
-
     try {
-      // In a real application, you would call your logout API
-      // This is a mock implementation
-      await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate API call
-
-      // Redirect to login page
-      router.push(Routes.LOGIN);
+      await signOut({
+        callbackUrl: Routes.HOME,
+      });
     } catch (error) {
-     toast.error("Failed to logout");
+      toast.error("Failed to logout", {
+        description: error instanceof Error ? error.message : "Unknown error",
+      });
+      setIsLoading(false);
+    } finally {
       setIsLoading(false);
     }
   };
@@ -135,11 +137,10 @@ export default function ProfileForm({ user }: ProfileFormProps) {
                   <div className="bg-muted flex h-full w-full items-center justify-center overflow-hidden rounded-full border-4 border-green-700">
                     {profileImage ? (
                       <Image
-                        src={profileImage ||"/profile-picture.png"}
+                        src={profileImage || "/profile-picture.png"}
                         alt="Profile"
                         fill
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        // className="object-fill"
                       />
                     ) : (
                       <User className="text-muted-foreground h-16 w-16" />
@@ -197,6 +198,7 @@ export default function ProfileForm({ user }: ProfileFormProps) {
                   variant="outline"
                   onClick={handleLogout}
                   disabled={isLoading}
+                  className="cursor-pointer hover:bg-red-600 hover:text-white dark:hover:bg-red-800"
                 >
                   {isLoading ? (
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
