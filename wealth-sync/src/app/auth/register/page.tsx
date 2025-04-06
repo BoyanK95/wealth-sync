@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Routes } from "@/lib/constants/routes";
 import Link from "next/link";
 
 export default function RegisterPage() {
@@ -53,7 +54,7 @@ export default function RegisterPage() {
       <CardFooter>
         <p className="text-muted-foreground w-full text-center text-sm">
           <Link
-            href="/auth/login"
+            href={Routes.LOGIN}
             className="hover:text-primary underline underline-offset-4"
           >
             Already have an account? Sign In

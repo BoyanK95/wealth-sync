@@ -11,7 +11,6 @@ import WealcomeSection from "@/components/WealcomeSection";
 export default function HomePage() {
   return (
     <div className="flex min-h-screen flex-col">
-      {/* Main content starts with padding for the fixed navbar */}
       <main className="flex-1 pt-16">
         <IntroductionSection />
         <FeaturesSection />
@@ -30,12 +29,7 @@ export default function HomePage() {
                     and make informed decisions.
                   </p>
                 </div>
-                <div className="flex flex-col gap-2 min-[400px]:flex-row">
-                  <Button className="bg-green-700 hover:bg-green-800">
-                    Try it now
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </div>
+                <div className="flex flex-col gap-2 min-[400px]:flex-row"></div>
               </div>
               <div className="flex items-center justify-center">
                 <div className="grid grid-cols-2 gap-4 md:gap-8">

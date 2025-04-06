@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { auth } from "@/server/auth";
 import UserProfileButton from "./UserProfileButton";
 import LogoHomeButton from "./LogoHomeButton";
+import { Routes } from "@/lib/constants/routes";
 
 export async function Navbar() {
   const session = await auth();
@@ -15,19 +16,19 @@ export async function Navbar() {
 
           <div className="hidden items-center space-x-6 md:flex">
             <Link
-              href="#features"
+              href={Routes.FEATURES}
               className="text-muted-foreground hover:text-foreground text-sm font-medium transition-colors"
             >
               Features
             </Link>
             <Link
-              href="#integrations"
+              href={Routes.INTEGRATIONS}
               className="text-muted-foreground hover:text-foreground text-sm font-medium transition-colors"
             >
               Integrations
             </Link>
             <Link
-              href="#pricing"
+              href={Routes.PRICING}
               className="text-muted-foreground hover:text-foreground text-sm font-medium transition-colors"
             >
               Pricing
@@ -40,8 +41,13 @@ export async function Navbar() {
             <UserProfileButton session={session} />
           ) : (
             <div className="flex items-center gap-2">
-              <Button asChild size="sm" variant={'default'} className="hidden sm:flex hover:bg-green-700">
-                <Link href="/auth/login">Sign Up</Link>
+              <Button
+                asChild
+                size="sm"
+                variant={"default"}
+                className="hidden hover:bg-green-700 sm:flex"
+              >
+                <Link href={Routes.LOGIN}>Sign Up</Link>
               </Button>
             </div>
           )}

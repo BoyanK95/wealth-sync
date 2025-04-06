@@ -1,10 +1,11 @@
+import { Routes } from "@/lib/constants/routes";
 import Link from "next/link";
 import React from "react";
 
 const LogoHomeButton = () => {
   return (
     <Link
-      href="/"
+      href={Routes.HOME}
       className="text-primary flex items-center gap-2 text-2xl font-bold"
     >
       <span>Wealth</span>

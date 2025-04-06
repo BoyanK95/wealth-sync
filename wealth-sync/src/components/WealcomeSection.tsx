@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { auth } from "@/server/auth";
 import Link from "next/link";
+import { Routes } from "@/lib/constants/routes";
 
 const WealcomeSection = async () => {
   const session = await auth();
@@ -26,9 +27,9 @@ const WealcomeSection = async () => {
               className="bg-white text-green-700 hover:bg-green-50"
             >
               {session?.user ? (
-                <Link href="/dashboard">Go to Dashboard</Link>
+                <Link href={Routes.DASHBOARD}>Go to Dashboard</Link>
               ) : (
-                <Link href="/auth/login">Get Started for Free</Link>
+                <Link href={Routes.LOGIN}>Get Started for Free</Link>
               )}
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>

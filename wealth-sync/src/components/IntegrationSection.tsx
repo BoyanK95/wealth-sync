@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
+import { Routes } from "@/lib/constants/routes";
 
 const IntegrationSection = () => {
   return (
@@ -45,7 +46,7 @@ const IntegrationSection = () => {
         </div>
         <div className="flex justify-center">
           <Link
-            href="#"
+            href={Routes.PLATFORMS}
             className="group inline-flex items-center text-sm font-medium text-green-700 hover:text-green-800"
           >
             View all supported platforms
