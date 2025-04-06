@@ -1,12 +1,8 @@
 import React from "react";
-import {
-  ArrowRight,
-  Shield,
-  Smartphone,
-  Zap,
-} from "lucide-react";
+import { ArrowRight, Shield, Smartphone, Zap } from "lucide-react";
 import { Button } from "./ui/button";
-import Image from "next/image"
+import Image from "next/image";
+import Link from "next/link";
 
 const IntroductionSection = () => {
   return (
@@ -25,8 +21,10 @@ const IntroductionSection = () => {
             </div>
             <div className="flex flex-col gap-2 min-[400px]:flex-row">
               <Button size="lg" className="bg-green-700 hover:bg-green-800">
-                Get Started
-                <ArrowRight className="ml-2 h-4 w-4" />
+                <Link href="/auth/login">
+                  Get Started
+                </Link>
+                  <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
               <Button size="lg" variant="outline">
                 View Demo

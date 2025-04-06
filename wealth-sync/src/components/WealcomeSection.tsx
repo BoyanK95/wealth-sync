@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-
+import Link from "next/link";
 
 const WealcomeSection = () => {
   return (
@@ -22,7 +22,7 @@ const WealcomeSection = () => {
               size="lg"
               className="bg-white text-green-700 hover:bg-green-50"
             >
-              Get Started for Free
+              <Link href="/auth/login">Get Started for Free</Link>
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </div>
