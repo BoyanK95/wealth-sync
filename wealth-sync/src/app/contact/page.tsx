@@ -24,6 +24,7 @@ import { Separator } from "@/components/ui/separator";
 import CreatorInfo from "@/components/AboutPageComponents/CreatorInfo";
 import MyStory from "@/components/AboutPageComponents/MyStory";
 import ContactSection from "@/components/AboutPageComponents/ContactSection";
+import ContactFooter from "@/components/AboutPageComponents/ContactFooter";
 
 export const metadata = {
   title: "About Boyan | WealthSync",
@@ -41,20 +42,7 @@ export default function AboutPage() {
             <MyStory />
             <Separator />
             <ContactSection />
-
-            {/* CTA section */}
-            <div className="mt-8 space-y-4 rounded-lg border border-green-100 bg-green-50 p-6 text-center">
-              <h3 className="text-xl font-bold text-green-800">
-                Ready to simplify your investment tracking?
-              </h3>
-              <p className="mx-auto max-w-2xl text-green-700">
-                WealthSync brings all your investments together in one place,
-                giving you the complete picture of your financial portfolio.
-              </p>
-              <Button className="bg-green-700 hover:bg-green-800">
-                Get Started with WealthSync
-              </Button>
-            </div>
+            <ContactFooter />
           </div>
         </div>
       </main>
