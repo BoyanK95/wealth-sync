@@ -1,11 +1,19 @@
 import { Routes } from "@/lib/constants/routes";
 import Link from "next/link";
+import { auth } from "@/server/auth";
+import { redirect } from "next/navigation";
 
-export default function AuthLayout({
+export default async function AuthLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session = await auth();
+
+  if (session?.user) {
+    redirect(Routes.HOME);
+  }
+
   return (
     <div className="flex min-h-screen flex-col">
       <main className="flex flex-1">
@@ -17,7 +25,9 @@ export default function AuthLayout({
                 <span className="text-[hsl(128,35%,78%)]">Sync</span>
               </Link>
             </div>
-            <p className="mt-2 text-center bold shadow-2xl text-xl text-emerald-200">The calculator for your financial future.</p>
+            <p className="bold mt-2 text-center text-xl text-emerald-200 shadow-2xl">
+              The calculator for your financial future.
+            </p>
           </div>
 
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
