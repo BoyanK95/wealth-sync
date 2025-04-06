@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { auth } from "@/server/auth";
 import ProfileForm from "@/components/ProfilePageComponents/ProfileForm";
-// import ProfileForm from "@/components/profile/profile-form";
 
 export const metadata: Metadata = {
   title: "Your Profile | WealthSync",
@@ -33,6 +32,7 @@ export default async function ProfilePage() {
             </div>
 
             <ProfileForm user={session.user} />
+
           </div>
         </div>
       </main>
