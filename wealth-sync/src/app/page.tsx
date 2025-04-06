@@ -1,39 +1,93 @@
+import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import Footer from "@/components/Footer";
+import IntroductionSection from "@/components/IntroductionSection";
+import FeaturesSection from "@/components/FeaturesSection";
+import IntegrationSection from "@/components/IntegrationSection";
+import PricingSection from "@/components/PricingSection";
+import WealcomeSection from "@/components/WealcomeSection";
 
 export default function HomePage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#026d32] to-[#15162c] text-white">
-      <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
-        <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
-          Wealth <span className="text-[hsl(128,35%,78%)]">Sync</span> App
-        </h1>
-        <Button className="cursor-pointer">Get Started</Button>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-          <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-            href="https://create.t3.gg/en/usage/first-steps"
-            target="_blank"
-          >
-            <h3 className="text-2xl font-bold">First Steps →</h3>
-            <div className="text-lg">
-              Just the basics - Everything you need to know to set up your
-              database and authentication.
+    <div className="flex min-h-screen flex-col">
+      {/* Main content starts with padding for the fixed navbar */}
+      <main className="flex-1 pt-16">
+        <IntroductionSection />
+        <FeaturesSection />
+        <IntegrationSection />
+        <section className="bg-muted/50 w-full py-12 md:py-24 lg:py-32">
+          <div className="container px-4 md:px-6">
+            <div className="grid gap-6 lg:grid-cols-2 lg:gap-12">
+              <div className="flex flex-col justify-center space-y-4">
+                <div className="space-y-2">
+                  <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
+                    Powerful analytics at your fingertips
+                  </h2>
+                  <p className="text-muted-foreground max-w-[600px] md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                    Visualize your investment performance with interactive
+                    charts and detailed metrics. Identify trends, track growth,
+                    and make informed decisions.
+                  </p>
+                </div>
+                <div className="flex flex-col gap-2 min-[400px]:flex-row">
+                  <Button className="bg-green-700 hover:bg-green-800">
+                    Try it now
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+              <div className="flex items-center justify-center">
+                <div className="grid grid-cols-2 gap-4 md:gap-8">
+                  <div className="flex flex-col gap-4">
+                    <div className="bg-background rounded-lg border p-2">
+                      <Image
+                        src="/placeholder.svg?height=300&width=400"
+                        alt="Chart Preview"
+                        width={400}
+                        height={300}
+                        className="rounded-md object-cover"
+                      />
+                    </div>
+                    <div className="bg-background rounded-lg border p-2">
+                      <Image
+                        src="/placeholder.svg?height=300&width=400"
+                        alt="Chart Preview"
+                        width={400}
+                        height={300}
+                        className="rounded-md object-cover"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-4">
+                    <div className="bg-background rounded-lg border p-2">
+                      <Image
+                        src="/placeholder.svg?height=300&width=400"
+                        alt="Chart Preview"
+                        width={400}
+                        height={300}
+                        className="rounded-md object-cover"
+                      />
+                    </div>
+                    <div className="bg-background rounded-lg border p-2">
+                      <Image
+                        src="/placeholder.svg?height=300&width=400"
+                        alt="Chart Preview"
+                        width={400}
+                        height={300}
+                        className="rounded-md object-cover"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-          </Link>
-          <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-            href="https://create.t3.gg/en/introduction"
-            target="_blank"
-          >
-            <h3 className="text-2xl font-bold">Documentation →</h3>
-            <div className="text-lg">
-              Learn more about Create T3 App, the libraries it uses, and how to
-              deploy it.
-            </div>
-          </Link>
-        </div>
-      </div>
-    </main>
+          </div>
+        </section>
+        <PricingSection />
+        <WealcomeSection />
+      </main>
+      <Footer />
+    </div>
   );
 }
