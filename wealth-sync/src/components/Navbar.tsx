@@ -4,6 +4,8 @@ import { auth } from "@/server/auth";
 import UserProfileButton from "./UserProfileButton";
 import LogoHomeButton from "./LogoHomeButton";
 import { Routes } from "@/lib/constants/routes";
+import { ThemeModeToggle } from "./ThemeModeToggle";
+import NavbarLinks from "./NavbarLinks";
 
 export async function Navbar() {
   const session = await auth();
@@ -13,30 +15,11 @@ export async function Navbar() {
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-8">
           <LogoHomeButton />
-
-          <div className="hidden items-center space-x-6 md:flex">
-            <Link
-              href={Routes.FEATURES}
-              className="text-muted-foreground hover:text-foreground text-sm font-medium transition-colors"
-            >
-              Features
-            </Link>
-            <Link
-              href={Routes.INTEGRATIONS}
-              className="text-muted-foreground hover:text-foreground text-sm font-medium transition-colors"
-            >
-              Integrations
-            </Link>
-            <Link
-              href={Routes.PRICING}
-              className="text-muted-foreground hover:text-foreground text-sm font-medium transition-colors"
-            >
-              Pricing
-            </Link>
-          </div>
+          <NavbarLinks />
         </div>
 
         <div className="flex items-center gap-4">
+          <ThemeModeToggle />
           {session?.user ? (
             <UserProfileButton session={session} />
           ) : (
