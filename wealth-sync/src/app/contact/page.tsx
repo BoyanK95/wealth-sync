@@ -31,7 +31,7 @@ export default function AboutPage() {
   return (
     <div className="flex min-h-screen flex-col">
       <main className="flex-1 pt-16 pb-12">
-        <div className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-12">
+        <div className="container mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
           <div className="flex flex-col space-y-8">
             {/* Header */}
             <div className="space-y-4 text-center">
@@ -47,14 +47,16 @@ export default function AboutPage() {
             <div className="flex flex-col items-center gap-8 md:flex-row">
               <div className="relative h-48 w-48 flex-shrink-0 overflow-hidden rounded-full border-4 border-green-700">
                 <Image
-                  src="/placeholder.svg?height=200&width=200"
-                  alt="Boyan Koychev"
+                  src="https://avatars.githubusercontent.com/u/92653208?v=4"
+                  alt="Creator profile"
                   fill
                   className="object-cover"
                 />
               </div>
               <div className="space-y-4 text-center md:text-left">
-                <h2 className="text-2xl font-bold">Boyan Koychev</h2>
+                <h2 className="text-2xl font-bold text-green-800">
+                  Boyan Koychev
+                </h2>
                 <p className="text-muted-foreground">
                   Former Fixed-Income Trader | Software Engineer | Investor
                 </p>
@@ -135,8 +137,8 @@ export default function AboutPage() {
                   view of my financial position.
                 </p>
                 <p>
-                  That&apos;s when the idea for WealthSync was born. I combined my
-                  financial expertise with my software engineering skills to
+                  That&apos;s when the idea for WealthSync was born. I combined
+                  my financial expertise with my software engineering skills to
                   create a platform that solves this exact problem. WealthSync
                   connects to multiple investment platforms, aggregates your
                   data, and provides powerful analytics to help you make
@@ -168,8 +170,8 @@ export default function AboutPage() {
                   <CardHeader>
                     <CardTitle>Send a Message</CardTitle>
                     <CardDescription>
-                      Fill out the form below and I&apos;ll get back to you as soon
-                      as possible.
+                      Fill out the form below and I&apos;ll get back to you as
+                      soon as possible.
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -206,6 +208,7 @@ export default function AboutPage() {
                     </form>
                   </CardContent>
                   <CardFooter>
+                    {/* TODO: Add a button to submit the form */}
                     <Button className="w-full bg-green-700 hover:bg-green-800">
                       <MessageSquare className="mr-2 h-4 w-4" />
                       Send Message
