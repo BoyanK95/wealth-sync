@@ -1,9 +1,12 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { auth } from "@/server/auth";
 import Link from "next/link";
 
-const WealcomeSection = () => {
+const WealcomeSection = async () => {
+  const session = await auth();
+
   return (
     <section className="w-full bg-green-700 py-12 text-white md:py-24 lg:py-32">
       <div className="container px-4 md:px-6">
@@ -22,7 +25,11 @@ const WealcomeSection = () => {
               size="lg"
               className="bg-white text-green-700 hover:bg-green-50"
             >
-              <Link href="/auth/login">Get Started for Free</Link>
+              {session?.user ? (
+                <Link href="/dashboard">Go to Dashboard</Link>
+              ) : (
+                <Link href="/auth/login">Get Started for Free</Link>
+              )}
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </div>
