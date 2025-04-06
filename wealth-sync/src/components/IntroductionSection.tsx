@@ -29,12 +29,12 @@ const IntroductionSection = async () => {
             </div>
             <div className="flex flex-col gap-2 min-[400px]:flex-row">
               {session?.user ? (
-                <Button size="lg" className="bg-green-700 hover:bg-green-800">
+                <Button size="lg" className="bg-green-700 hover:bg-green-800 dark:hover:text-white cursor-pointer">
                   <Link href={Routes.DASHBOARD}>Go to Dashboard</Link>
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               ) : (
-                <Button size="lg" className="bg-green-700 hover:bg-green-800">
+                <Button size="lg" className="bg-green-700 hover:bg-green-800 dark:hover:text-white cursor-pointer">
                   <Link href={Routes.LOGIN}>Get Started</Link>
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>

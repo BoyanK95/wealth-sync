@@ -24,7 +24,7 @@ const ActionSection = async () => {
           <div className="flex flex-col gap-2 min-[400px]:flex-row">
             <Button
               size="lg"
-              className="bg-white text-green-700 hover:bg-green-50"
+              className="bg-white text-green-700 hover:bg-green-50 cursor-pointer"
             >
               {session?.user ? (
                 <Link href={Routes.DASHBOARD}>Go to Dashboard</Link>
