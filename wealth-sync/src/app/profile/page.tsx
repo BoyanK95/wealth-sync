@@ -24,10 +24,10 @@ export default async function ProfilePage() {
         <div className="container max-w-3xl py-12">
           <div className="flex flex-col space-y-8">
             <div>
-              <h1 className="text-3xl font-bold tracking-tight">
+              <h1 className="text-3xl font-bold text-center tracking-tight">
                 Your Profile
               </h1>
-              <p className="text-muted-foreground mt-2">
+              <p className="text-muted-foreground text-center mt-2">
                 Manage your account settings and profile information
               </p>
             </div>
