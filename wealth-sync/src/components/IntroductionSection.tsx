@@ -4,6 +4,7 @@ import { Button } from "./ui/button";
 import { auth } from "@/server/auth";
 import Image from "next/image";
 import Link from "next/link";
+import { Routes } from "@/lib/constants/routes";
 
 const IntroductionSection = async () => {
   const session = await auth();
@@ -34,7 +35,7 @@ const IntroductionSection = async () => {
                 </Button>
               ) : (
                 <Button size="lg" className="bg-green-700 hover:bg-green-800">
-                  <Link href="/auth/login">Get Started</Link>
+                  <Link href={Routes.LOGIN}>Get Started</Link>
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               )}

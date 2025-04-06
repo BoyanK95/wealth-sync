@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { auth } from "@/server/auth";
 import UserProfileButton from "./UserProfileButton";
 import LogoHomeButton from "./LogoHomeButton";
+import { Routes } from "@/lib/constants/routes";
 
 export async function Navbar() {
   const session = await auth();
@@ -41,7 +42,7 @@ export async function Navbar() {
           ) : (
             <div className="flex items-center gap-2">
               <Button asChild size="sm" variant={'default'} className="hidden sm:flex hover:bg-green-700">
-                <Link href="/auth/login">Sign Up</Link>
+                <Link href={Routes.LOGIN}>Sign Up</Link>
               </Button>
             </div>
           )}
