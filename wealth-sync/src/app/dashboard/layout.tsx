@@ -2,6 +2,7 @@ import type React from "react";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { auth } from "@/server/auth";
+import { Routes } from "@/lib/constants/routes";
 
 export const metadata: Metadata = {
   title: "Dashboard | WealthSync",
@@ -18,7 +19,7 @@ export default async function DashboardLayout({
 
   // Redirect to login if not authenticated
   if (!session?.user) {
-    redirect("/auth/login");
+    redirect(Routes.LOGIN);
   }
 
   return <div className="flex min-h-screen flex-col">{children}</div>;
