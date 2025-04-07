@@ -71,7 +71,7 @@ export default function RegisterPage() {
 
         // Store user data and redirect
         if (result.user) {
-          sessionStorage.setItem("user", JSON.stringify(result.user));
+          // sessionStorage.setItem("user", JSON.stringify(result.user));
           router.push(Routes.DASHBOARD);
         }
       }
