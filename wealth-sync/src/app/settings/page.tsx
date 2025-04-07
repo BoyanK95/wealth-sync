@@ -17,9 +17,9 @@ export default async function SettingsPage() {
 
         <Tabs defaultValue="account" className="space-y-6">
           <TabsList className="grid w-full grid-cols-3 lg:w-[400px]">
-            <TabsTrigger value="account">Account</TabsTrigger>
-            <TabsTrigger value="preferences">Preferences</TabsTrigger>
-            <TabsTrigger value="notifications">Notifications</TabsTrigger>
+            <TabsTrigger className="cursor-pointer" value="account">Account</TabsTrigger>
+            <TabsTrigger className="cursor-pointer" value="preferences">Preferences</TabsTrigger>
+            <TabsTrigger className="cursor-pointer" value="notifications">Notifications</TabsTrigger>
           </TabsList>
 
           <AccountSettingsTab />
