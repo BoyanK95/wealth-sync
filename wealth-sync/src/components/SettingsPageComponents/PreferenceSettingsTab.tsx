@@ -1,3 +1,5 @@
+'use client';
+
 import { TabsContent } from "@/components/ui/tabs";
 import {
   Card,
@@ -6,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Switch } from "@/components/ui/switch";
+import { useTheme } from "next-themes";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -16,8 +18,25 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Palette, Sun } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const PreferenceSettingsTab = () => {
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  // Avoid hydration mismatch by only rendering after mount
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const handleThemeChange = (value: string) => {
+    setTheme(value);
+  };
+
+  if (!mounted) {
+    return null;
+  }
+
   return (
     <TabsContent value="preferences" className="space-y-6">
       <Card>
@@ -33,7 +52,7 @@ const PreferenceSettingsTab = () => {
         <CardContent className="space-y-4">
           <div className="space-y-2">
             <Label>Theme</Label>
-            <Select defaultValue="system">
+            <Select value={theme} onValueChange={handleThemeChange}>
               <SelectTrigger>
                 <SelectValue placeholder="Select theme" />
               </SelectTrigger>
@@ -43,10 +62,6 @@ const PreferenceSettingsTab = () => {
                 <SelectItem value="system">System</SelectItem>
               </SelectContent>
             </Select>
-          </div>
-          <div className="flex items-center justify-between space-x-2">
-            <Label htmlFor="compact-mode">Compact Mode</Label>
-            <Switch id="compact-mode" />
           </div>
         </CardContent>
       </Card>
