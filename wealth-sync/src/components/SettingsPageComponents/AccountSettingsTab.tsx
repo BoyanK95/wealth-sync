@@ -34,7 +34,9 @@ const AccountSettingsTab = async () => {
               {session!.user.email}
             </p>
           </div>
-          <Button className="cursor-pointer" variant="outline">Update Email</Button>
+          <Button className="cursor-pointer" variant="outline">
+            Update Email
+          </Button>
         </CardContent>
       </Card>
 
@@ -53,7 +55,9 @@ const AccountSettingsTab = async () => {
             <Label htmlFor="2fa">Two-factor authentication</Label>
             <Switch id="2fa" />
           </div>
-          <Button className="cursor-pointer" variant="outline">Change Password</Button>
+          <Button className="cursor-pointer" variant="outline">
+            Change Password
+          </Button>
         </CardContent>
       </Card>
 
@@ -68,7 +72,9 @@ const AccountSettingsTab = async () => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Button className="cursor-pointer" variant="destructive">Delete Account</Button>
+          <Button className="cursor-pointer" variant="destructive">
+            Delete Account
+          </Button>
         </CardContent>
       </Card>
     </TabsContent>

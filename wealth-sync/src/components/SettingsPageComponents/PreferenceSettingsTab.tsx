@@ -53,13 +53,13 @@ const PreferenceSettingsTab = () => {
           <div className="space-y-2">
             <Label>Theme</Label>
             <Select value={theme} onValueChange={handleThemeChange}>
-              <SelectTrigger>
+              <SelectTrigger className="cursor-pointer">
                 <SelectValue placeholder="Select theme" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="light">Light</SelectItem>
-                <SelectItem value="dark">Dark</SelectItem>
-                <SelectItem value="system">System</SelectItem>
+                <SelectItem className="cursor-pointer" value="light">Light</SelectItem>
+                <SelectItem className="cursor-pointer" value="dark">Dark</SelectItem>
+                <SelectItem className="cursor-pointer" value="system">System</SelectItem>
               </SelectContent>
             </Select>
           </div>
