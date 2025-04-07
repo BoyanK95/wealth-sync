@@ -90,10 +90,10 @@ const SocialMediaLinksCard = () => {
           <div>
             <p className="font-medium">Email</p>
             <Link
-              href="mailto:contact@wealthsync.com"
+              href="mailto:b.koychev95@gmail.com"
               className="text-muted-foreground text-sm hover:text-green-700"
             >
-              contact@wealthsync.com
+              Send an email
             </Link>
           </div>
         </div>
