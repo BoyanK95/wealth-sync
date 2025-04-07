@@ -6,6 +6,8 @@ import CredentialsProvider from "next-auth/providers/credentials";
 
 import { db } from "@/server/db";
 import { Routes } from "@/lib/constants/routes";
+import Credentials from "next-auth/providers/credentials";
+import { credentialsConfig } from "./credentials";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -39,43 +41,10 @@ export const authConfig = {
   },
   pages: {
     signIn: Routes.LOGIN,
+    newUser: Routes.REGISTER,
   },
   providers: [
-    CredentialsProvider({
-      name: "Credentials",
-      credentials: {
-        email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" },
-      },
-      async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
-          return null;
-        }
-
-        const user = await db.user.findUnique({
-          where: { email: credentials.email },
-        });
-
-        if (!user || !user.password) {
-          return null;
-        }
-
-        const isPasswordValid = await compare(
-          credentials.password,
-          user.password,
-        );
-
-        if (!isPasswordValid) {
-          return null;
-        }
-
-        return {
-          id: user.id,
-          email: user.email,
-          name: user.name,
-        };
-      },
-    }),
+    Credentials(credentialsConfig),
     DiscordProvider,
     Facebook({
       clientId: process.env.FACEBOOK_CLIENT_ID,
@@ -123,4 +92,5 @@ export const authConfig = {
     //   },
     // }),
   },
+  
 } satisfies NextAuthConfig;

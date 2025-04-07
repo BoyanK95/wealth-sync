@@ -16,6 +16,7 @@ import { register } from "@/server/actions/auth";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useState } from "react";
+import { signIn } from "next-auth/react";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -42,8 +43,25 @@ export default function RegisterPage() {
       return;
     }
 
-    // Registration successful, redirect to login
-    router.push(Routes.LOGIN);
+    if (result.success) {
+      // Sign in the user directly with credentials
+      const signInResult = await signIn("credentials", {
+        email: data.email,
+        password: data.password,
+        redirect: false,
+      });
+
+      if (signInResult?.error) {
+        setError("Failed to sign in after registration");
+        setIsLoading(false);
+        return;
+      }
+
+      // Redirect to dashboard on success
+      router.push(Routes.DASHBOARD);
+    }
+
+    setIsLoading(false);
   }
 
   return (

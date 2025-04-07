@@ -3,12 +3,10 @@
 import { db } from "@/server/db";
 import { hash } from "bcryptjs";
 import { z } from "zod";
-
-const registerSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Invalid email address"),
-  password: z.string().min(8, "Password must be at least 8 characters"),
-});
+// import { registerSchema } from "./schema";
+import { generateSessionToken } from "../auth/session";
+import { registerSchema } from "./schema";
+// import { generateSessionToken } from "../auth/session";
 
 export type RegisterInput = z.infer<typeof registerSchema>;
 
@@ -28,26 +26,55 @@ export async function register(data: RegisterInput) {
     // Hash the password
     const hashedPassword = await hash(validated.password, 12);
 
-    // Create user
-    const user = await db.user.create({
-      data: {
-        name: validated.name,
-        email: validated.email,
-        password: hashedPassword, // Store hashed password
-      },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-      },
+    // Create user with account in a transaction
+    const result = await db.$transaction(async (tx) => {
+      // Create user
+      const user = await tx.user.create({
+        data: {
+          name: validated.name,
+          email: validated.email,
+          password: hashedPassword,
+        },
+      });
+
+      // Create account
+      await tx.account.create({
+        data: {
+          userId: user.id,
+          type: "credentials",
+          provider: "credentials",
+          providerAccountId: user.id,
+        },
+      });
+
+      // Create session
+      const thirtyDays = 30 * 24 * 60 * 60 * 1000;
+      const sessionToken = generateSessionToken();
+      await tx.session.create({
+        data: {
+          sessionToken,
+          userId: user.id,
+          expires: new Date(Date.now() + thirtyDays),
+        },
+      });
+
+      return {
+        user: {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+        },
+        sessionToken,
+      };
     });
 
-    return { success: true, user };
+    return {
+      success: true,
+      user: result.user,
+      sessionToken: result.sessionToken,
+    };
   } catch (error) {
-    console.error('Registration error:', error);
-    if (error instanceof z.ZodError) {
-      return { error: error.errors[0].message };
-    }
-    return { error: "Something went wrong during registration" };
+    console.error("Registration error:", error);
+    return { error: "Failed to register user" };
   }
 }
