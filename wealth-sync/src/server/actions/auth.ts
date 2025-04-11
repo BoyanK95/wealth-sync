@@ -5,7 +5,6 @@ import { hash } from "bcryptjs";
 import { z } from "zod";
 import { registerSchema } from "./schema";
 import { generateSessionToken } from "../auth/session";
-import crypto from 'crypto';
 
 export type RegisterInput = z.infer<typeof registerSchema>;
 
@@ -26,7 +25,8 @@ export async function register(data: RegisterInput) {
     const hashedPassword = await hash(validated.password, 12);
 
     // Generate OAuth-like tokens
-    const access_token = crypto.randomBytes(32).toString('hex');
+    const access_token = generateSessionToken();
+    
     const expires_at = Math.floor(Date.now() / 1000) + (30 * 24 * 60 * 60); // 30 days
 
     // Create user with account and session in a transaction

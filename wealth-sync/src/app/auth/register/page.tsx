@@ -60,7 +60,7 @@ export default function RegisterPage() {
         const signInResult = await signIn("credentials", {
           email: data.email,
           password: data.password,
-          redirect: false, // Changed to false to handle redirect manually
+          redirect: false,
         });
 
         if (signInResult?.error) {
