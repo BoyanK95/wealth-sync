@@ -1,6 +1,3 @@
-"use client";
-
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -13,35 +10,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Routes } from "@/lib/constants/routes";
-import { signIn } from "next-auth/react";
 import Link from "next/link";
-import { toast } from "sonner";
-import LoadingText from "@/components/LoadingText";
 import { Facebook, Github } from "lucide-react";
 import { FaGoogle } from "react-icons/fa";
+import LoginProviderButton from "@/components/LoginProviderButton";
 
 export default function LoginPage() {
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleLogin = async (signInProvider: string) => {
-    setIsLoading(true);
-    try {
-      const result = await signIn(signInProvider, {
-        callbackUrl: Routes.DASHBOARD,
-        redirect: true,
-      });
-
-      if (result?.error) {
-        toast.error("Login failed");
-      }
-    } catch (error) {
-      toast.error("Login failed", {
-        description: (error as Error).message,
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   return (
     <Card className="border-0 shadow-none">
@@ -80,48 +54,15 @@ export default function LoginPage() {
             </span>
           </div>
         </div>
-        <Button
-          variant="outline"
-          className="w-full cursor-pointer hover:bg-neutral-400 hover:text-white"
-          onClick={() => handleLogin("github")}
-          type="button"
-          disabled={isLoading}
-        >
-          <Github />
-          {isLoading ? (
-            <LoadingText text="Signing in..." />
-          ) : (
-            "GitHub"
-          )}
-        </Button>
-        <Button
-          variant="outline"
-          className="w-full cursor-pointer hover:bg-blue-500 hover:text-white"
-          onClick={() => handleLogin("facebook")}
-          type="button"
-          disabled={isLoading}
-        >
-          <Facebook />
-          {isLoading ? (
-            <LoadingText text="Signing in..." />
-          ) : (
-            "Facebook"
-          )}
-        </Button>
-        <Button
-          variant="outline"
-          className="w-full cursor-pointer hover:bg-red-700 hover:text-white"
-          onClick={() => handleLogin("google")}
-          type="button"
-          disabled={isLoading}
-        >
-          <FaGoogle />
-          {isLoading ? (
-            <LoadingText text="Signing in..." />
-          ) : (
-            "Google"
-          )}
-        </Button>
+        <LoginProviderButton providerLogo={<Github />} providerName="Github" />
+        <LoginProviderButton
+          providerLogo={<Facebook />}
+          providerName="Facebook"
+        />
+        <LoginProviderButton
+          providerLogo={<FaGoogle />}
+          providerName="Google"
+        />
       </CardContent>
       <CardFooter>
         <p className="text-muted-foreground w-full text-center text-sm">
