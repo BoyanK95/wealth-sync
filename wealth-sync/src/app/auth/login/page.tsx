@@ -24,7 +24,7 @@ export default function LoginPage() {
     setIsLoading(true);
     try {
       const result = await signIn(signInProvider, {
-        callbackUrl: "/",
+        callbackUrl: Routes.DASHBOARD,
         redirect: true,
       });
 
