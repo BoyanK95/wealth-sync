@@ -1,5 +1,3 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -12,26 +10,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Routes } from "@/lib/constants/routes";
-import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { Facebook, Github } from "lucide-react";
+import { FaGoogle } from "react-icons/fa";
+import LoginProviderButton from "@/components/LoginProviderButton";
 
 export default function LoginPage() {
-
-  const handleLogin = async (signInProvider: string) => {
-    try {
-      const result = await signIn(signInProvider, {
-        callbackUrl: "/",
-        redirect: true,
-      });
-      console.log("Login result:", result);
-
-      if (result?.error) {
-        console.error("Login error:", result.error);
-      }
-    } catch (error) {
-      console.error("Login failed:", error);
-    }
-  };
 
   return (
     <Card className="border-0 shadow-none">
@@ -70,30 +54,15 @@ export default function LoginPage() {
             </span>
           </div>
         </div>
-        <Button
-          variant="outline"
-          className="w-full cursor-pointer hover:bg-neutral-400 hover:text-white"
-        >
-          GitHub
-        </Button>
-        <Button
-          variant="outline"
-          className="w-full cursor-pointer hover:bg-blue-500 hover:text-white"
-          onClick={() => handleLogin("facebook")}
-          type="button"
-        >
-          FaceBook
-        </Button>
-        <Button
-          variant="outline"
-          className="w-full cursor-pointer hover:bg-red-700 hover:text-white"
-          onClick={() => {
-            // TODO: add google login
-            console.log("google login");
-          }}
-        >
-          Google
-        </Button>
+        <LoginProviderButton providerLogo={<Github />} providerName="Github" />
+        <LoginProviderButton
+          providerLogo={<Facebook />}
+          providerName="Facebook"
+        />
+        <LoginProviderButton
+          providerLogo={<FaGoogle />}
+          providerName="Google"
+        />
       </CardContent>
       <CardFooter>
         <p className="text-muted-foreground w-full text-center text-sm">

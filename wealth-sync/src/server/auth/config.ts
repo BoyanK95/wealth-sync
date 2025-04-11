@@ -3,6 +3,7 @@ import { type DefaultSession, type NextAuthConfig } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import DiscordProvider from "next-auth/providers/discord";
 import Facebook from "next-auth/providers/facebook";
+import GitHub from "next-auth/providers/github";
 import { db } from "@/server/db";
 import { Routes } from "@/lib/constants/routes";
 import bcrypt from "bcryptjs"; // Import the entire bcryptjs package
@@ -82,6 +83,12 @@ export const authConfig = {
     Facebook({
       clientId: process.env.FACEBOOK_CLIENT_ID,
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+      allowDangerousEmailAccountLinking: true, // Add this line
+    }),
+    GitHub({
+      clientId: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      allowDangerousEmailAccountLinking: true, // Add this line
     }),
     /**
      * ...add more providers here.
