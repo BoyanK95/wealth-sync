@@ -1,13 +1,10 @@
-import { auth } from "@/server/auth";
-import UserProfileButton from "./UserProfileButton";
 import LogoHomeButton from "./LogoHomeButton";
 import { ThemeModeToggle } from "./ThemeModeToggle";
 import NavbarLinks from "./NavbarLinks";
-import SignUpButton from "./SignUpButton";
+import { NavbarAuth } from "./NavbarAuth";
+// import { NavbarAuth } from "./NavbarAuth";
 
-export async function Navbar() {
-  const session = await auth();
-
+export function Navbar() {
   return (
     <nav className="bg-background/70 supports-[backdrop-filter]:bg-background/60 fixed top-0 z-50 w-full border-b backdrop-blur">
       <div className="container flex h-16 items-center justify-between">
@@ -18,13 +15,7 @@ export async function Navbar() {
 
         <div className="flex items-center gap-4">
           <ThemeModeToggle />
-          {session?.user ? (
-            <UserProfileButton session={session} />
-          ) : (
-            <div className="flex items-center gap-2">
-              <SignUpButton />
-            </div>
-          )}
+          <NavbarAuth />
         </div>
       </div>
     </nav>

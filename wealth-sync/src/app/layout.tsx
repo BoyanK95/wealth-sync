@@ -1,4 +1,5 @@
 import { Navbar } from "@/components/Navbar";
+import { Providers } from "@/components/Providers";
 import { ToasterProvider } from "@/components/providers/toaster-provider";
 import { ThemeProvider } from "@/components/theme-provider";
 import "@/styles/globals.css";
@@ -29,9 +30,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar />
-          {children}
-          <ToasterProvider />
+          <Providers>
+            <Navbar />
+            {children}
+            <ToasterProvider />
+          </Providers>
         </ThemeProvider>
       </body>
     </html>
