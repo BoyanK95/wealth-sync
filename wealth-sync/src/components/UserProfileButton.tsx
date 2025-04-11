@@ -34,7 +34,7 @@ const UserProfileButton = ({
   return (
     <DropdownMenu open={IsOpen} onOpenChange={setIsOpen}>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+        <Button variant="ghost" className="relative h-8 w-8 rounded-full cursor-pointer">
           <Avatar className="h-8 w-8">
             <AvatarImage
               src={
