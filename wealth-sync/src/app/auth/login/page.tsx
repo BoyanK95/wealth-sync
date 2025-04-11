@@ -12,7 +12,6 @@ import { Label } from "@/components/ui/label";
 import { Routes } from "@/lib/constants/routes";
 import Link from "next/link";
 import { Facebook, Github } from "lucide-react";
-
 import { FaGoogle } from "react-icons/fa";
 import LoginProviderButton from "@/components/LoginProviderButton";
 
