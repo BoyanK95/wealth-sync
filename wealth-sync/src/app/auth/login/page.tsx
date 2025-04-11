@@ -16,6 +16,9 @@ import { Routes } from "@/lib/constants/routes";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { toast } from "sonner";
+import LoadingText from "@/components/LoadingText";
+import { Facebook, Github } from "lucide-react";
+import { FaGoogle } from "react-icons/fa";
 
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -29,12 +32,12 @@ export default function LoginPage() {
       });
 
       if (result?.error) {
-        console.log(result.error);
         toast.error("Login failed");
       }
     } catch (error) {
-      console.error("Login failed:", error);
-      toast.error("Login failed");
+      toast.error("Login failed", {
+        description: (error as Error).message,
+      });
     } finally {
       setIsLoading(false);
     }
@@ -84,11 +87,9 @@ export default function LoginPage() {
           type="button"
           disabled={isLoading}
         >
+          <Github />
           {isLoading ? (
-            <div className="flex items-center gap-2">
-              <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></span>
-              Signing in...
-            </div>
+            <LoadingText text="Signing in..." />
           ) : (
             "GitHub"
           )}
@@ -100,11 +101,9 @@ export default function LoginPage() {
           type="button"
           disabled={isLoading}
         >
+          <Facebook />
           {isLoading ? (
-            <div className="flex items-center gap-2">
-              <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></span>
-              Signing in...
-            </div>
+            <LoadingText text="Signing in..." />
           ) : (
             "Facebook"
           )}
@@ -112,12 +111,16 @@ export default function LoginPage() {
         <Button
           variant="outline"
           className="w-full cursor-pointer hover:bg-red-700 hover:text-white"
-          onClick={() => {
-            // TODO: add google login
-            console.log("google login");
-          }}
+          onClick={() => handleLogin("google")}
+          type="button"
+          disabled={isLoading}
         >
-          Google
+          <FaGoogle />
+          {isLoading ? (
+            <LoadingText text="Signing in..." />
+          ) : (
+            "Google"
+          )}
         </Button>
       </CardContent>
       <CardFooter>
