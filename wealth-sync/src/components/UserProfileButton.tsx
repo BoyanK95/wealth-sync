@@ -51,10 +51,10 @@ const UserProfileButton = ({
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem onClick={() => setIsOpen(false)}>
-          <Link href={"/profile"}>Profile</Link>
+          <Link className="w-full" href={"/profile"}>Profile</Link>
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setIsOpen(false)}>
-          <Link href={"/settings"}>Settings</Link>
+          <Link className="w-full" href={"/settings"}>Settings</Link>
         </DropdownMenuItem>
         <DropdownMenuItem
           className="cursor-pointer"
