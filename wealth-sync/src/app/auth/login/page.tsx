@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -14,22 +15,28 @@ import { Label } from "@/components/ui/label";
 import { Routes } from "@/lib/constants/routes";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { toast } from "sonner";
 
 export default function LoginPage() {
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = async (signInProvider: string) => {
+    setIsLoading(true);
     try {
       const result = await signIn(signInProvider, {
         callbackUrl: "/",
         redirect: true,
       });
-      console.log("Login result:", result);
 
       if (result?.error) {
-        console.error("Login error:", result.error);
+        console.log(result.error);
+        toast.error("Login failed");
       }
     } catch (error) {
       console.error("Login failed:", error);
+      toast.error("Login failed");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -73,16 +80,34 @@ export default function LoginPage() {
         <Button
           variant="outline"
           className="w-full cursor-pointer hover:bg-neutral-400 hover:text-white"
+          onClick={() => handleLogin("github")}
+          type="button"
+          disabled={isLoading}
         >
-          GitHub
+          {isLoading ? (
+            <div className="flex items-center gap-2">
+              <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></span>
+              Signing in...
+            </div>
+          ) : (
+            "GitHub"
+          )}
         </Button>
         <Button
           variant="outline"
           className="w-full cursor-pointer hover:bg-blue-500 hover:text-white"
           onClick={() => handleLogin("facebook")}
           type="button"
+          disabled={isLoading}
         >
-          FaceBook
+          {isLoading ? (
+            <div className="flex items-center gap-2">
+              <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></span>
+              Signing in...
+            </div>
+          ) : (
+            "Facebook"
+          )}
         </Button>
         <Button
           variant="outline"
