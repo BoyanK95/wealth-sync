@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,12 +24,15 @@ const UserProfileButton = ({
     };
   };
 }) => {
+  const [IsOpen, setIsOpen] = useState(false);
+
   const handleSignOut = async () => {
+    setIsOpen(false);
     await signOut({ callbackUrl: Routes.HOME });
   };
 
   return (
-    <DropdownMenu>
+    <DropdownMenu open={IsOpen} onOpenChange={setIsOpen}>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-8 w-8">
@@ -47,10 +50,10 @@ const UserProfileButton = ({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setIsOpen(false)}>
           <Link href={"/profile"}>Profile</Link>
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setIsOpen(false)}>
           <Link href={"/settings"}>Settings</Link>
         </DropdownMenuItem>
         <DropdownMenuItem
