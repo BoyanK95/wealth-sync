@@ -56,6 +56,9 @@ const UserProfileButton = ({
         <DropdownMenuItem onClick={() => setIsOpen(false)}>
           <Link className="w-full" href={Routes.SETTINGS}>Settings</Link>
         </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setIsOpen(false)}>
+          <Link className="w-full hover:text-green-700 dark:hover:text-green-600" href={Routes.DASHBOARD}>Go to Dashboard</Link>
+        </DropdownMenuItem>
         <DropdownMenuItem
           className="cursor-pointer"
           variant="destructive"
