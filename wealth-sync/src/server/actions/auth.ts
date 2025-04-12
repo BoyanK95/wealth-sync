@@ -1,4 +1,4 @@
-'use server';
+"use server";
 
 import { db } from "@/server/db";
 import { hash } from "bcryptjs";
@@ -12,7 +12,6 @@ export async function register(data: RegisterInput) {
   try {
     const validated = registerSchema.parse(data);
 
-    // Check if user already exists
     const existingUser = await db.user.findUnique({
       where: { email: validated.email },
     });
@@ -21,23 +20,20 @@ export async function register(data: RegisterInput) {
       return { error: "Email already registered. Try logging in instead." };
     }
 
-    // Hash the password
     const hashedPassword = await hash(validated.password, 12);
 
-    // Generate OAuth-like tokens
     const access_token = generateSessionToken();
-    
-    const expires_at = Math.floor(Date.now() / 1000) + (30 * 24 * 60 * 60); // 30 days
+
+    const expires_at = Math.floor(Date.now() / 1000) + 30 * 24 * 60 * 60; // 30 days
 
     // Create user with account and session in a transaction
     const result = await db.$transaction(async (tx) => {
-      // Create user
       const user = await tx.user.create({
         data: {
           name: validated.name,
           email: validated.email,
           password: hashedPassword,
-          emailVerified: new Date(), // Mark as verified since we're creating it
+          emailVerified: new Date(),
         },
       });
 
