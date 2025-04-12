@@ -3,6 +3,7 @@ import { type DefaultSession, type NextAuthConfig } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import DiscordProvider from "next-auth/providers/discord";
 import Facebook from "next-auth/providers/facebook";
+import Google from "next-auth/providers/google";
 import GitHub from "next-auth/providers/github";
 import { db } from "@/server/db";
 import { Routes } from "@/lib/constants/routes";
@@ -88,6 +89,11 @@ export const authConfig = {
     GitHub({
       clientId: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      allowDangerousEmailAccountLinking: true, // Add this line
+    }),
+    Google({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       allowDangerousEmailAccountLinking: true, // Add this line
     }),
     /**
