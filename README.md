@@ -51,7 +51,7 @@ Built using the powerful **T3 Stack** (Next.js, tRPC, TailwindCSS, Prisma), Weal
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/yourusername/wealth-sync.git
+git clone https://github.com/BoyanK95/wealth-sync.git
 cd wealth-sync
 
 # 2. Install dependencies
