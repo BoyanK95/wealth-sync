@@ -15,7 +15,6 @@ const Footer = () => {
           © 2023 WealthSync. All rights reserved.
         </p>
         <div className="flex gap-4">
-          {/* TODO ADD LINKs */}
           <Link
             href={Routes.TERMS}
             className="text-muted-foreground hover:text-foreground text-sm"
