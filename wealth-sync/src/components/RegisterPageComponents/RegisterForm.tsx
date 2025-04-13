@@ -24,9 +24,16 @@ const RegisterForm = () => {
     const email = formData.get("email");
     const password = formData.get("password");
     const name = formData.get("name");
+    const confirmPassword = formData.get("repeat-password");
 
-    if (!email || !password || !name) {
+    if (!email || !name || !password || !confirmPassword) {
       setError("All fields are required");
+      setIsLoading(false);
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
       setIsLoading(false);
       return;
     }
@@ -109,6 +116,17 @@ const RegisterForm = () => {
             name="password"
             type="password"
             autoComplete="new-password"
+            required
+            disabled={isLoading}
+          />
+        </div>
+        <div className="grid gap-2">
+          <Label htmlFor="repeat-password">Repeat Password</Label>
+          <Input
+            id="repeat-password"
+            name="repeat-password"
+            type="password"
+            autoComplete="repeat-password"
             required
             disabled={isLoading}
           />
