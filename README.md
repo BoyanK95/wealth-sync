@@ -4,8 +4,6 @@
 
 Built using the powerful **T3 Stack** (Next.js, tRPC, TailwindCSS, Prisma), Wealth-Sync offers a full-stack TypeScript experience with blazing-fast performance and type safety from front to back. Hosted on **Vercel** for zero-config deployments and global availability.
 
----
-
 ## ✨ Features
 
 - 🔄 **Real-Time Market Data**  
@@ -22,6 +20,19 @@ Built using the powerful **T3 Stack** (Next.js, tRPC, TailwindCSS, Prisma), Weal
 
 - ☁️ **Deployed on Vercel**  
   Fast, serverless, and auto-scaling deployments.
+
+## 🚀 Quick Start
+
+1. Visit [wealth-sync.vercel.app](https://wealth-sync.vercel.app)
+2. Sign up using your preferred authentication method
+3. Connect your exchange accounts
+4. Start tracking your portfolio in real-time
+
+## 🔗 Links
+
+- [Documentation](https://wealth-sync.vercel.app/docs)
+<!-- - [Live Demo](https://wealth-sync.vercel.app) -->
+- [Report Bug](https://github.com/boyank95/wealth-sync/issues)
 
 ---
 
