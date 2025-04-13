@@ -7,11 +7,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Routes } from "@/lib/constants/routes";
 import { register } from "@/server/actions/auth";
-import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 
 const RegisterForm = () => {
-  const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -39,9 +37,9 @@ const RegisterForm = () => {
     }
 
     const data = {
-      name: name.toString().trim(),
-      email: email.toString().trim().toLowerCase(),
-      password: password.toString(),
+      name: (name as string).toString().trim(),
+      email: (email as string).toString().trim(),
+      password: (password as string).toString().trim(),
     };
 
     try {
@@ -53,22 +51,19 @@ const RegisterForm = () => {
         return;
       }
 
-      if (result.success) {
+      if (!result.error) {
         // Sign in the user directly with credentials
         const signInResult = await signIn("credentials", {
           email: data.email,
           password: data.password,
-          redirect: false,
+          redirect: true,
+          callbackUrl: Routes.DASHBOARD,
         });
 
         if (signInResult?.error) {
           setError("Failed to sign in after registration");
           setIsLoading(false);
           return;
-        }
-
-        if (result.user) {
-          router.push(Routes.DASHBOARD);
         }
       }
     } catch (err) {
