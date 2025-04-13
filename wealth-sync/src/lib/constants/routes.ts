@@ -16,4 +16,5 @@ export enum Routes {
   ALL_TRANSACTIONS = '/dashboard/transactions',
   PLATFORMS = '/dashboard/platforms',
   ACCOUNT = '/account',
+  DOCS = '/docs',
 }
