@@ -19,10 +19,12 @@ const RegisterForm = () => {
     setError(null);
 
     const formData = new FormData(event.currentTarget);
-    const email = formData.get("email");
-    const password = formData.get("password");
-    const name = formData.get("name");
-    const confirmPassword = formData.get("repeat-password");
+    const email = (formData.get("email") as string)?.toString().trim();
+    const password = (formData.get("password") as string)?.toString().trim();
+    const name = (formData.get("name") as string)?.toString().trim();
+    const confirmPassword = (formData.get("repeat-password") as string)
+      ?.toString()
+      .trim();
 
     if (!email || !name || !password || !confirmPassword) {
       setError("All fields are required");
@@ -37,9 +39,9 @@ const RegisterForm = () => {
     }
 
     const data = {
-      name: (name as string).toString().trim(),
-      email: (email as string).toString().trim(),
-      password: (password as string).toString().trim(),
+      name: name,
+      email: email,
+      password: password,
     };
 
     try {
