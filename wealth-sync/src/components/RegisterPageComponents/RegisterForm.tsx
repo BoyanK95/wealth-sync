@@ -7,11 +7,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Routes } from "@/lib/constants/routes";
 import { register } from "@/server/actions/auth";
-import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 
 const RegisterForm = () => {
-  const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -21,10 +19,12 @@ const RegisterForm = () => {
     setError(null);
 
     const formData = new FormData(event.currentTarget);
-    const email = formData.get("email");
-    const password = formData.get("password");
-    const name = formData.get("name");
-    const confirmPassword = formData.get("repeat-password");
+    const email = (formData.get("email") as string)?.toString().trim();
+    const password = (formData.get("password") as string)?.toString().trim();
+    const name = (formData.get("name") as string)?.toString().trim();
+    const confirmPassword = (formData.get("repeat-password") as string)
+      ?.toString()
+      .trim();
 
     if (!email || !name || !password || !confirmPassword) {
       setError("All fields are required");
@@ -39,9 +39,9 @@ const RegisterForm = () => {
     }
 
     const data = {
-      name: name.toString().trim(),
-      email: email.toString().trim().toLowerCase(),
-      password: password.toString(),
+      name: name,
+      email: email,
+      password: password,
     };
 
     try {
@@ -53,22 +53,19 @@ const RegisterForm = () => {
         return;
       }
 
-      if (result.success) {
+      if (!result.error) {
         // Sign in the user directly with credentials
         const signInResult = await signIn("credentials", {
           email: data.email,
           password: data.password,
-          redirect: false,
+          redirect: true,
+          callbackUrl: Routes.DASHBOARD,
         });
 
         if (signInResult?.error) {
           setError("Failed to sign in after registration");
           setIsLoading(false);
           return;
-        }
-
-        if (result.user) {
-          router.push(Routes.DASHBOARD);
         }
       }
     } catch (err) {
