@@ -12,7 +12,7 @@ export const Platforms: Platform[] = [
     logo: "/platforms/trading-212-icon.png",
   },
   { id: "etoro", name: "eToro", logo: "/platforms/etoro-logo-icon.png" },
-  { id: "binance", name: "Binance" },
+  { id: "binance", name: "Binance", logo: "/platforms/binance-logo.png" },
   { id: "interactive_brokers", name: "Interactive Brokers" },
   { id: "takione", name: "Takion" },
   //   { id: "robinhood", name: "Robinhood" },
