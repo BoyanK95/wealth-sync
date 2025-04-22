@@ -18,7 +18,7 @@ export const Platforms: Platform[] = [
     name: "Interactive Brokers",
     logo: "/platforms/ib-logo-icon.png",
   },
-  { id: "takione", name: "Takion" },
+  { id: "takione", name: "Takion" , logo: "/platforms/takion-logo-icon.png"},
   //   { id: "robinhood", name: "Robinhood" },
   //   { id: "coinbase", name: "Coinbase" },
 ];
