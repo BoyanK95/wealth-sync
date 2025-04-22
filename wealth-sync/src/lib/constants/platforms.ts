@@ -13,7 +13,11 @@ export const Platforms: Platform[] = [
   },
   { id: "etoro", name: "eToro", logo: "/platforms/etoro-logo-icon.png" },
   { id: "binance", name: "Binance", logo: "/platforms/binance-logo.png" },
-  { id: "interactive_brokers", name: "Interactive Brokers" },
+  {
+    id: "interactive_brokers",
+    name: "Interactive Brokers",
+    logo: "/platforms/ib-logo-icon.png",
+  },
   { id: "takione", name: "Takion" },
   //   { id: "robinhood", name: "Robinhood" },
   //   { id: "coinbase", name: "Coinbase" },
