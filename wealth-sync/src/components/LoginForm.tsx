@@ -8,8 +8,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { CardContent } from "@/components/ui/card";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -22,12 +24,17 @@ export default function LoginForm() {
       const result = await signIn("credentials", {
         email,
         password,
-        redirect: true,
-        callbackUrl: Routes.DASHBOARD,
+        redirect: false,
       });
+      console.log(result);
 
       if (result?.error) {
+        setEmail("");
+        setPassword("");
         toast.error("Invalid credentials");
+      } else if (result?.ok) {
+        router.push(Routes.DASHBOARD);
+        toast.success("Logged in successfully");
       }
     } catch (error) {
       toast.error("Failed to sign in", {
