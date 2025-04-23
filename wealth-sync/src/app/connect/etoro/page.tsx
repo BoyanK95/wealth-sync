@@ -17,7 +17,7 @@ export default function EtoroConnectPage() {
         <CardHeader>
           <div className="flex items-center gap-4">
             <Image
-              src="/platforms/etoro.png"
+              src="/platforms/etoro-logo-icon.png"
               alt="eToro"
               width={48}
               height={48}
@@ -32,7 +32,9 @@ export default function EtoroConnectPage() {
               <label className="text-sm font-medium">API Key</label>
               <Input type="password" placeholder="Enter your eToro API key" />
             </div>
-            <Button className="w-full">Connect eToro</Button>
+            <Button className="w-full cursor-pointer hover:bg-green-500">
+              Connect eToro
+            </Button>
           </form>
         </CardContent>
       </Card>

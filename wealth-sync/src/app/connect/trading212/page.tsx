@@ -30,12 +30,18 @@ export default function Trading212ConnectPage() {
           <form className="space-y-4">
             <div className="space-y-2">
               <label className="text-sm font-medium">API Key</label>
-              <Input type="password" placeholder="Enter your Trading212 API key" />
+              <Input
+                type="password"
+                placeholder="Enter your Trading212 API key"
+              />
               <p className="text-muted-foreground text-xs">
-                You can find your API key in Trading212 settings under the API section
+                You can find your API key in Trading212 settings under the API
+                section
               </p>
             </div>
-            <Button className="w-full">Connect Trading212</Button>
+            <Button className="w-full cursor-pointer hover:bg-green-500">
+              Connect Trading212
+            </Button>
           </form>
         </CardContent>
       </Card>

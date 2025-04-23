@@ -44,7 +44,9 @@ export default function BinanceConnectPage() {
                 Make sure to use read-only API keys for security
               </p>
             </div>
-            <Button className="w-full">Connect Binance</Button>
+            <Button className="w-full cursor-pointer hover:bg-green-500">
+              Connect Binance
+            </Button>
           </form>
         </CardContent>
       </Card>

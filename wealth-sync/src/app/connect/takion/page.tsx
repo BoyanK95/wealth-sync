@@ -32,7 +32,9 @@ export default function TakionConnectPage() {
               <label className="text-sm font-medium">API Key</label>
               <Input type="password" placeholder="Enter your Takion API key" />
             </div>
-            <Button className="w-full">Connect Takion</Button>
+            <Button className="w-full cursor-pointer hover:bg-green-500">
+              Connect Takion
+            </Button>
           </form>
         </CardContent>
       </Card>

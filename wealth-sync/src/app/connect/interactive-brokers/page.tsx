@@ -34,7 +34,7 @@ export default function IBConnectPage() {
               </label>
               <Input type="password" placeholder="Enter your IB API token" />
             </div>
-            <Button className="w-full cursor-pointer">
+            <Button className="w-full cursor-pointer hover:bg-green-500">
               Connect Interactive Brokers
             </Button>
           </form>
