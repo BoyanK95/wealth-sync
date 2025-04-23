@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -7,16 +6,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Routes } from "@/lib/constants/routes";
 import Link from "next/link";
 import { Facebook, Github } from "lucide-react";
 import { FaGoogle } from "react-icons/fa";
 import LoginProviderButton from "@/components/LoginProviderButton";
+import LoginForm from "@/components/LoginForm";
 
 export default function LoginPage() {
-
   return (
     <Card className="border-0 shadow-none">
       <CardHeader className="space-y-1">
@@ -25,25 +22,8 @@ export default function LoginPage() {
           Enter your email below to sign in to your account
         </CardDescription>
       </CardHeader>
+      <LoginForm />
       <CardContent className="grid gap-4">
-        <div className="grid gap-2">
-          <Label htmlFor="email">Email</Label>
-          <Input
-            id="email"
-            type="email"
-            placeholder="name@example.com"
-            autoComplete="email"
-          />
-        </div>
-        <div className="grid gap-2">
-          <Label htmlFor="password">Password</Label>
-          <Input
-            id="password"
-            type="password"
-            autoComplete="current-password"
-          />
-        </div>
-        <Button className="w-full cursor-pointer">Sign In</Button>
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
             <span className="w-full border-t" />
