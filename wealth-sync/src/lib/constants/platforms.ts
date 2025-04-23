@@ -36,7 +36,7 @@ export const Platforms: Platform[] = [
     isConnected: false,
   },
   {
-    id: "takione",
+    id: "takion",
     name: "Takion",
     logo: "/platforms/takion-logo-icon.png",
     connetUrl: "/connect/takion",
