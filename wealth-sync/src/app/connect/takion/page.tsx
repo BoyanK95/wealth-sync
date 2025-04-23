@@ -17,7 +17,7 @@ export default function TakionConnectPage() {
         <CardHeader>
           <div className="flex items-center gap-4">
             <Image
-              src="/platforms/Takion.png"
+              src="/platforms/takion-logo-icon.png"
               alt="Takion"
               width={48}
               height={48}

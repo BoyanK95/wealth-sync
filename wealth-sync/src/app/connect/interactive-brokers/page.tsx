@@ -17,7 +17,7 @@ export default function IBConnectPage() {
         <CardHeader>
           <div className="flex items-center gap-4">
             <Image
-              src="/platforms/interactive-brokers.png"
+              src="/platforms/ib-logo-icon.png"
               alt="Interactive Brokers"
               width={48}
               height={48}
@@ -29,10 +29,14 @@ export default function IBConnectPage() {
         <CardContent>
           <form className="space-y-4">
             <div className="space-y-2">
-              <label className="text-sm font-medium">Client Portal API Token</label>
+              <label className="text-sm font-medium">
+                Client Portal API Token
+              </label>
               <Input type="password" placeholder="Enter your IB API token" />
             </div>
-            <Button className="w-full">Connect Interactive Brokers</Button>
+            <Button className="w-full cursor-pointer">
+              Connect Interactive Brokers
+            </Button>
           </form>
         </CardContent>
       </Card>
