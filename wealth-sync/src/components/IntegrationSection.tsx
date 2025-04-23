@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { Routes } from "@/lib/constants/routes";
+import IntegrationPlatformsGrid from "./IntegrationPlatformsGrid";
 
 const IntegrationSection = () => {
   return (
@@ -21,29 +22,7 @@ const IntegrationSection = () => {
             </p>
           </div>
         </div>
-        <div className="mx-auto grid max-w-5xl grid-cols-2 gap-6 py-12 md:grid-cols-3 lg:grid-cols-6">
-          {[1, 2, 3, 4, 5, 6].map((i) => (
-            <div
-              key={i}
-              className="flex flex-col items-center space-y-2 rounded-lg border p-6"
-            >
-              <div className="bg-muted h-12 w-12 rounded-full"></div>
-              <span className="text-sm font-medium">
-                {i === 1
-                  ? "Trading212"
-                  : i === 2
-                    ? "Binance"
-                    : i === 3
-                      ? "Coinbase"
-                      : i === 4
-                        ? "Robinhood"
-                        : i === 5
-                          ? "Interactive Brokers"
-                          : "E*TRADE"}
-              </span>
-            </div>
-          ))}
-        </div>
+        <IntegrationPlatformsGrid />
         <div className="flex justify-center">
           <Link
             href={Routes.PLATFORMS}
