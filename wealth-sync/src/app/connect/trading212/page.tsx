@@ -1,9 +1,47 @@
+'use client';
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { Routes } from "@/lib/constants/routes";
 
 export default function Trading212ConnectPage() {
+  const [apiKey, setApiKey] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('/api/platforms/trading212/connect', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ apiKey }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to connect to Trading212');
+      }
+
+      toast.success('Successfully connected to Trading212');
+      router.push(Routes.DASHBOARD);
+    } catch (error) {
+      toast.error('Failed to connect', {
+        description: error instanceof Error ? error.message : 'Please try again',
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <>
       <div className="text-center">
@@ -27,20 +65,27 @@ export default function Trading212ConnectPage() {
           </div>
         </CardHeader>
         <CardContent>
-          <form className="space-y-4">
+          <form className="space-y-4" onSubmit={handleSubmit}>
             <div className="space-y-2">
               <label className="text-sm font-medium">API Key</label>
               <Input
                 type="password"
                 placeholder="Enter your Trading212 API key"
+                value={apiKey}
+                onChange={(e) => setApiKey(e.target.value)}
+                required
               />
               <p className="text-muted-foreground text-xs">
                 You can find your API key in Trading212 settings under the API
                 section
               </p>
             </div>
-            <Button className="w-full cursor-pointer hover:bg-green-500">
-              Connect Trading212
+            <Button 
+              type="submit" 
+              className="w-full cursor-pointer hover:bg-green-500"
+              disabled={isLoading}
+            >
+              {isLoading ? 'Connecting...' : 'Connect Trading212'}
             </Button>
           </form>
         </CardContent>
