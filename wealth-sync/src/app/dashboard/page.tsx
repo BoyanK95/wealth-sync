@@ -27,6 +27,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { auth } from "@/server/auth";
 import { Routes } from "@/lib/constants/routes";
+import { Trading212Portfolio } from "@/components/Dashboard/Trading212Dashboard/Trading212Portfolio";
 
 export const metadata: Metadata = {
   title: "Dashboard | WealthSync",
@@ -219,6 +220,8 @@ export default async function DashboardPage() {
                 </CardContent>
               </Card>
             </div>
+
+            <Trading212Portfolio />
 
             {/* Main content tabs */}
             <Tabs defaultValue="overview" className="space-y-4">

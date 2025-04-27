@@ -1,41 +1,52 @@
-'use client';
+"use client";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import Image from "next/image";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 import { Routes } from "@/lib/constants/routes";
+import { usePlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export default function Trading212ConnectPage() {
-  const [apiKey, setApiKey] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [apiKey, setApiKey] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
+  const { refreshConnections, getApiKey } = usePlatformConnection();
+
+  useEffect(() => {
+    const existingApiKey = getApiKey('trading212');
+    if (existingApiKey) {
+      setApiKey(existingApiKey);
+    }
+  }, [getApiKey]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      const response = await fetch('/api/platforms/trading212/connect', {
-        method: 'POST',
+      const response = await fetch("/api/platforms/trading212/connect", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ apiKey }),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to connect to Trading212');
+        throw new Error("Failed to connect to Trading212");
       }
 
-      toast.success('Successfully connected to Trading212');
+      await refreshConnections(); // Refresh the connections after successful connection
+      toast.success("Successfully connected to Trading212");
       router.push(Routes.DASHBOARD);
     } catch (error) {
-      toast.error('Failed to connect', {
-        description: error instanceof Error ? error.message : 'Please try again',
+      setApiKey("");
+      toast.error("Failed to connect", {
+        description: error instanceof Error ? error.message : "Please try again",
       });
     } finally {
       setIsLoading(false);
@@ -80,12 +91,12 @@ export default function Trading212ConnectPage() {
                 section
               </p>
             </div>
-            <Button 
-              type="submit" 
+            <Button
+              type="submit"
               className="w-full cursor-pointer hover:bg-green-500"
               disabled={isLoading}
             >
-              {isLoading ? 'Connecting...' : 'Connect Trading212'}
+              {isLoading ? "Connecting..." : "Connect Trading212"}
             </Button>
           </form>
         </CardContent>
