@@ -10,8 +10,6 @@ import {
   LineChart,
   PieChart,
   Plus,
-  RefreshCw,
-  Settings,
   Wallet,
 } from "lucide-react";
 
@@ -37,6 +35,7 @@ import {
   recentTransactions,
   assetAllocation,
 } from "@/lib/mockData/mockData";
+import DashboardWelcomeHeader from "@/components/Dashboard/DashbaordWelcomeHeader/DashboardWelcomeHeader";
 
 export const metadata: Metadata = {
   title: "Dashboard | WealthSync",
@@ -47,6 +46,8 @@ export const metadata: Metadata = {
 export default async function DashboardPage() {
   const session = await auth();
   const user = session?.user;
+  // console.log('user: ', user);
+  
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -54,27 +55,7 @@ export default async function DashboardPage() {
         <div className="container">
           <div className="flex flex-col space-y-6">
             {/* Welcome header */}
-            <div className="flex flex-col space-y-2 pt-6 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
-              <div>
-                <h1 className="text-3xl font-bold tracking-tight">
-                  Welcome back, {user?.name ?? "Investor"}
-                </h1>
-                <p className="text-muted-foreground">
-                  Here&apos;s an overview of your portfolio as of{" "}
-                  {new Date().toLocaleDateString()}
-                </p>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Button variant="outline" size="sm">
-                  <RefreshCw className="mr-2 h-4 w-4" />
-                  Refresh
-                </Button>
-                <Button variant="outline" size="sm">
-                  <Settings className="mr-2 h-4 w-4" />
-                  Settings
-                </Button>
-              </div>
-            </div>
+            <DashboardWelcomeHeader user={user} />
 
             {/* Portfolio summary */}
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
