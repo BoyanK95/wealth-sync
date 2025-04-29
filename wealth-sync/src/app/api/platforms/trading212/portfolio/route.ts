@@ -2,6 +2,50 @@ import { auth } from "@/server/auth";
 import { db } from "@/server/db";
 import { NextResponse } from "next/server";
 
+// Simple in-memory rate limiting
+const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
+const MAX_REQUESTS_PER_WINDOW = 30; // adjust this based on Trading212's limits
+const requestLog = new Map<string, number[]>();
+
+const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
+async function fetchWithRetry(url: string, headers: HeadersInit, maxRetries = 3) {
+  let retries = 0;
+  while (retries < maxRetries) {
+    try {
+      const response = await fetch(url, { headers });
+      
+      if (response.status === 429) {
+        const waitTime = Math.min(1000 * Math.pow(2, retries), 10000);
+        await delay(waitTime);
+        retries++;
+        continue;
+      }
+      
+      return response;
+    } catch (error) {
+      if (retries === maxRetries - 1) throw error;
+      retries++;
+      const waitTime = Math.min(1000 * Math.pow(2, retries), 10000);
+      await delay(waitTime);
+    }
+  }
+  throw new Error('Max retries reached');
+}
+
+function isRateLimited(userId: string): boolean {
+  const now = Date.now();
+  const userRequests = requestLog.get(userId) || [];
+  const recentRequests = userRequests.filter(time => time > now - RATE_LIMIT_WINDOW);
+  
+  if (recentRequests.length >= MAX_REQUESTS_PER_WINDOW) {
+    return true;
+  }
+  
+  requestLog.set(userId, [...recentRequests, now]);
+  return false;
+}
+
 export async function GET() {
   try {
     const session = await auth();
@@ -9,7 +53,13 @@ export async function GET() {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Get the user's Trading212 API key
+    if (isRateLimited(session.user.id)) {
+      return NextResponse.json(
+        { error: 'Rate limit exceeded. Please try again later.' },
+        { status: 429 }
+      );
+    }
+
     const connection = await db.platformConnection.findFirst({
       where: {
         userId: session.user.id,
@@ -21,20 +71,25 @@ export async function GET() {
       return NextResponse.json({ error: 'Trading212 not connected' }, { status: 400 });
     }
 
-    // Make request to Trading212's API
-    const response = await fetch('https://live.trading212.com/api/v0/equity/portfolio', {
-      headers: {
-        'Authorization': `${connection.apiKey}`,
-      },
-    });
-    console.log("Response:", response);
+    const response = await fetchWithRetry(
+      'https://live.trading212.com/api/v0/equity/portfolio',
+      { 'Authorization': connection.apiKey }
+    );
 
     if (!response.ok) {
-      throw new Error('Failed to fetch from Trading212');
+      console.error('Trading212 API error:', {
+        status: response.status,
+        statusText: response.statusText,
+      });
+      const errorText = await response.text();
+      console.error('Error response:', errorText);
+      return NextResponse.json(
+        { error: `Trading212 API error: ${response.statusText}` },
+        { status: response.status }
+      );
     }
 
     const data = await response.json();
-    console.log("Data from GET platforms trading212 route:", data);
     return NextResponse.json(data);
     
   } catch (error) {

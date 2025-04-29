@@ -10,6 +10,33 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
+const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
+const fetchWithRetry = async (url: string, options: RequestInit, maxRetries = 3) => {
+  let retries = 0;
+  while (retries < maxRetries) {
+    try {
+      const response = await fetch(url, options);
+      if (response.status === 429) {
+        const waitTime = Math.min(1000 * Math.pow(2, retries), 10000);
+        await delay(waitTime);
+        retries++;
+        continue;
+      }
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response;
+    } catch (error) {
+      if (retries === maxRetries - 1) throw error;
+      retries++;
+      const waitTime = Math.min(1000 * Math.pow(2, retries), 10000);
+      await delay(waitTime);
+    }
+  }
+  throw new Error('Max retries reached');
+};
+
 export default function Trading212ConnectPage() {
   const [apiKey, setApiKey] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -28,7 +55,7 @@ export default function Trading212ConnectPage() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("/api/platforms/trading212/connect", {
+      const response = await fetchWithRetry("/api/platforms/trading212/connect", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -36,11 +63,7 @@ export default function Trading212ConnectPage() {
         body: JSON.stringify({ apiKey }),
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to connect to Trading212");
-      }
-
-      await refreshConnections(); // Refresh the connections after successful connection
+      await refreshConnections();
       toast.success("Successfully connected to Trading212");
       router.push(Routes.DASHBOARD);
     } catch (error) {
