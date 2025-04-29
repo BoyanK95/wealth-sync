@@ -46,10 +46,7 @@ export function Trading212Portfolio() {
     async function fetchPortfolio() {
       try {
         const apiKey = getApiKey("trading212");
-        if (!apiKey) {
-          setError("Trading212 not connected");
-          return;
-        }
+        console.log("Api key in Trading212Portofolio:", apiKey);
 
         const service = new Trading212Service(apiKey);
         const data = await fetchWithRetry(() => service.getPortfolio());
@@ -64,7 +61,7 @@ export function Trading212Portfolio() {
     }
 
     fetchPortfolio();
-  }, [getApiKey]);
+  }, [getApiKey, portfolio]);
 
   const calculatePortfolioMetrics = () => {
     return portfolio.reduce(
