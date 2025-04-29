@@ -48,7 +48,7 @@ export function Trading212Portfolio() {
         const apiKey = getApiKey("trading212");
         console.log("Api key in Trading212Portofolio:", apiKey);
 
-        const service = new Trading212Service(apiKey);
+        const service = new Trading212Service(apiKey!);
         const data = await fetchWithRetry(() => service.getPortfolio());
         setPortfolio(data);
         console.log("Portfolio:", data);

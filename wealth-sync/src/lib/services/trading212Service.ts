@@ -13,12 +13,6 @@ interface Position {
   pnlPercentage: number;
 }
 
-interface Portfolio {
-  totalValue: number;
-  totalPnl: number;
-  totalPnlPercentage: number;
-  positions: Position[];
-}
 
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -60,7 +54,7 @@ export class Trading212Service {
     return response.json();
   }
 
-  async getPortfolio(): Promise<Portfolio> {
+  async getPortfolio(): Promise<Position[]> {
     return this.fetchFromApi('/portfolio');
   }
 
