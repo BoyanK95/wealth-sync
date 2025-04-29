@@ -5,12 +5,10 @@ import {
   ArrowUp,
   BarChart3,
   CreditCard,
-  DollarSign,
   ExternalLink,
   LineChart,
   PieChart,
   Plus,
-  Wallet,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -27,15 +25,12 @@ import { auth } from "@/server/auth";
 import { Routes } from "@/lib/constants/routes";
 import { Trading212Portfolio } from "@/components/Dashboard/Trading212Dashboard/Trading212Portfolio";
 import {
-  portfolioValue,
-  portfolioChange,
-  portfolioChangePercent,
-  isPositiveChange,
   connectedPlatforms,
   recentTransactions,
   assetAllocation,
 } from "@/lib/mockData/mockData";
 import DashboardWelcomeHeader from "@/components/Dashboard/DashbaordWelcomeHeader/DashboardWelcomeHeader";
+import AllPortfolioSummary from "@/components/Dashboard/AllPortfolioSummary/AllPortfolioSummary";
 
 export const metadata: Metadata = {
   title: "Dashboard | WealthSync",
@@ -46,98 +41,15 @@ export const metadata: Metadata = {
 export default async function DashboardPage() {
   const session = await auth();
   const user = session?.user;
-  // console.log('user: ', user);
-  
 
   return (
     <div className="flex min-h-screen flex-col">
       <main className="flex-1 pt-16 pb-12">
         <div className="container">
           <div className="flex flex-col space-y-6">
-            {/* Welcome header */}
             <DashboardWelcomeHeader user={user} />
-
-            {/* Portfolio summary */}
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">
-                    Total Portfolio Value
-                  </CardTitle>
-                  <DollarSign className="text-muted-foreground h-4 w-4" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">
-                    ${portfolioValue.toLocaleString()}
-                  </div>
-                  <div className="flex items-center pt-1">
-                    {isPositiveChange ? (
-                      <ArrowUp className="mr-1 h-4 w-4 text-green-700" />
-                    ) : (
-                      <ArrowDown className="mr-1 h-4 w-4 text-red-700" />
-                    )}
-                    <span
-                      className={
-                        isPositiveChange ? "text-green-700" : "text-red-700"
-                      }
-                    >
-                      {isPositiveChange ? "+" : "-"}$
-                      {Math.abs(portfolioChange).toLocaleString()} (
-                      {portfolioChangePercent}%)
-                    </span>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">
-                    Connected Platforms
-                  </CardTitle>
-                  <Wallet className="text-muted-foreground h-4 w-4" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">
-                    {connectedPlatforms.filter((p) => p.connected).length}
-                  </div>
-                  <p className="text-muted-foreground text-xs">
-                    of {connectedPlatforms.length} available integrations
-                  </p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">
-                    Top Performing Asset
-                  </CardTitle>
-                  <LineChart className="text-muted-foreground h-4 w-4" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">AAPL</div>
-                  <div className="flex items-center pt-1">
-                    <ArrowUp className="mr-1 h-4 w-4 text-green-700" />
-                    <span className="text-green-700">+8.2%</span>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">
-                    Monthly Change
-                  </CardTitle>
-                  <BarChart3 className="text-muted-foreground h-4 w-4" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">+4.3%</div>
-                  <div className="flex items-center pt-1">
-                    <ArrowUp className="mr-1 h-4 w-4 text-green-700" />
-                    <span className="text-green-700">+$5,120.45</span>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-
+            <AllPortfolioSummary />
             <Trading212Portfolio />
-
             {/* Main content tabs */}
             <Tabs defaultValue="overview" className="space-y-4">
               <TabsList>
