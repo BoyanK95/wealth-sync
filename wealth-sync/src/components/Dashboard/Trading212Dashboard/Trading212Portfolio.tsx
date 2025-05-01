@@ -46,7 +46,7 @@ export function Trading212Portfolio() {
     async function fetchPortfolio() {
       try {
         const apiKey = getApiKey("trading212");
-        console.log("Api key in Trading212Portofolio:", apiKey);
+        // console.log("Api key in Trading212Portofolio:", apiKey);
 
         const service = new Trading212Service(apiKey!);
         const data = await fetchWithRetry(() => service.getPortfolio());
@@ -161,7 +161,7 @@ export function Trading212Portfolio() {
                   className="flex items-center justify-between"
                 >
                   <div>
-                    <p className="font-medium">{item.ticker}</p>
+                    <p className="font-medium">{item.ticker.split("_")[0]}</p>
                     <p className="text-muted-foreground text-sm">
                       {item.quantity.toFixed(2)} shares @ ${item.currentPrice}
                     </p>
