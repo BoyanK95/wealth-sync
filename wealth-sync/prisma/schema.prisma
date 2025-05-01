@@ -64,6 +64,7 @@ model User {
     accounts      Account[]
     sessions      Session[]
     posts         Post[]
+    platformConnections PlatformConnection[]
 }
 
 model VerificationToken {
@@ -72,4 +73,17 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+model PlatformConnection {
+    id          String   @id @default(cuid())
+    userId      String
+    platformId  String
+    apiKey      String
+    isConnected Boolean  @default(false)
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+    user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@unique([userId, platformId])
 }

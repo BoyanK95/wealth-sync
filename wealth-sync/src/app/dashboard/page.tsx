@@ -5,14 +5,10 @@ import {
   ArrowUp,
   BarChart3,
   CreditCard,
-  DollarSign,
   ExternalLink,
   LineChart,
   PieChart,
   Plus,
-  RefreshCw,
-  Settings,
-  Wallet,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -27,6 +23,14 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { auth } from "@/server/auth";
 import { Routes } from "@/lib/constants/routes";
+import { Trading212Portfolio } from "@/components/Dashboard/Trading212Dashboard/Trading212Portfolio";
+import {
+  connectedPlatforms,
+  recentTransactions,
+  assetAllocation,
+} from "@/lib/mockData/mockData";
+import DashboardWelcomeHeader from "@/components/Dashboard/DashbaordWelcomeHeader/DashboardWelcomeHeader";
+import AllPortfolioSummary from "@/components/Dashboard/AllPortfolioSummary/AllPortfolioSummary";
 
 export const metadata: Metadata = {
   title: "Dashboard | WealthSync",
@@ -38,188 +42,14 @@ export default async function DashboardPage() {
   const session = await auth();
   const user = session?.user;
 
-  // Placeholder data - in a real app, this would come from your database
-  const portfolioValue = 124563.89;
-  const portfolioChange = 1243.45;
-  const portfolioChangePercent = 1.02;
-  const isPositiveChange = portfolioChange > 0;
-
-  const connectedPlatforms = [
-    {
-      name: "Trading212",
-      connected: true,
-      logo: "/placeholder.svg?height=40&width=40",
-    },
-    {
-      name: "Binance",
-      connected: true,
-      logo: "/placeholder.svg?height=40&width=40",
-    },
-    {
-      name: "Coinbase",
-      connected: false,
-      logo: "/placeholder.svg?height=40&width=40",
-    },
-    {
-      name: "Robinhood",
-      connected: false,
-      logo: "/placeholder.svg?height=40&width=40",
-    },
-  ];
-
-  const recentTransactions = [
-    {
-      id: 1,
-      type: "buy",
-      asset: "AAPL",
-      amount: "10",
-      value: 1750.3,
-      date: "2023-04-05",
-      platform: "Trading212",
-    },
-    {
-      id: 2,
-      type: "sell",
-      asset: "BTC",
-      amount: "0.25",
-      value: 6543.21,
-      date: "2023-04-03",
-      platform: "Binance",
-    },
-    {
-      id: 3,
-      type: "buy",
-      asset: "MSFT",
-      amount: "5",
-      value: 1250.75,
-      date: "2023-04-01",
-      platform: "Trading212",
-    },
-    {
-      id: 4,
-      type: "buy",
-      asset: "ETH",
-      amount: "1.5",
-      value: 2800.5,
-      date: "2023-03-28",
-      platform: "Binance",
-    },
-  ];
-
-  const assetAllocation = [
-    { type: "Stocks", percentage: 45, value: 56053.75 },
-    { type: "Crypto", percentage: 30, value: 37369.17 },
-    { type: "ETFs", percentage: 15, value: 18684.58 },
-    { type: "Cash", percentage: 10, value: 12456.39 },
-  ];
-
   return (
     <div className="flex min-h-screen flex-col">
       <main className="flex-1 pt-16 pb-12">
         <div className="container">
           <div className="flex flex-col space-y-6">
-            {/* Welcome header */}
-            <div className="flex flex-col space-y-2 pt-6 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
-              <div>
-                <h1 className="text-3xl font-bold tracking-tight">
-                  Welcome back, {user?.name ?? "Investor"}
-                </h1>
-                <p className="text-muted-foreground">
-                  Here&apos;s an overview of your portfolio as of{" "}
-                  {new Date().toLocaleDateString()}
-                </p>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Button variant="outline" size="sm">
-                  <RefreshCw className="mr-2 h-4 w-4" />
-                  Refresh
-                </Button>
-                <Button variant="outline" size="sm">
-                  <Settings className="mr-2 h-4 w-4" />
-                  Settings
-                </Button>
-              </div>
-            </div>
-
-            {/* Portfolio summary */}
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">
-                    Total Portfolio Value
-                  </CardTitle>
-                  <DollarSign className="text-muted-foreground h-4 w-4" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">
-                    ${portfolioValue.toLocaleString()}
-                  </div>
-                  <div className="flex items-center pt-1">
-                    {isPositiveChange ? (
-                      <ArrowUp className="mr-1 h-4 w-4 text-green-700" />
-                    ) : (
-                      <ArrowDown className="mr-1 h-4 w-4 text-red-700" />
-                    )}
-                    <span
-                      className={
-                        isPositiveChange ? "text-green-700" : "text-red-700"
-                      }
-                    >
-                      {isPositiveChange ? "+" : "-"}$
-                      {Math.abs(portfolioChange).toLocaleString()} (
-                      {portfolioChangePercent}%)
-                    </span>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">
-                    Connected Platforms
-                  </CardTitle>
-                  <Wallet className="text-muted-foreground h-4 w-4" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">
-                    {connectedPlatforms.filter((p) => p.connected).length}
-                  </div>
-                  <p className="text-muted-foreground text-xs">
-                    of {connectedPlatforms.length} available integrations
-                  </p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">
-                    Top Performing Asset
-                  </CardTitle>
-                  <LineChart className="text-muted-foreground h-4 w-4" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">AAPL</div>
-                  <div className="flex items-center pt-1">
-                    <ArrowUp className="mr-1 h-4 w-4 text-green-700" />
-                    <span className="text-green-700">+8.2%</span>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">
-                    Monthly Change
-                  </CardTitle>
-                  <BarChart3 className="text-muted-foreground h-4 w-4" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">+4.3%</div>
-                  <div className="flex items-center pt-1">
-                    <ArrowUp className="mr-1 h-4 w-4 text-green-700" />
-                    <span className="text-green-700">+$5,120.45</span>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-
+            <DashboardWelcomeHeader user={user} />
+            <AllPortfolioSummary />
+            <Trading212Portfolio />
             {/* Main content tabs */}
             <Tabs defaultValue="overview" className="space-y-4">
               <TabsList>
