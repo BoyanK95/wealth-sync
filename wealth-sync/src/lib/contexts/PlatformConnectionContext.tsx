@@ -35,7 +35,6 @@ export function PlatformConnectionProvider({ children }: { children: React.React
     console.log('Getting API key for platform:', platformId);
     
     const connection = connections.find(conn => conn.platformId === platformId);
-    console.log('Found connection:', connection);
     return connection?.apiKey ?? null;
   };
 
