@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import type { PortfolioItem } from "@/lib/constants/portfolio212";
 import PositionItem from "./PositionItem";
 import { detectCurrency, fetchExchangeRates } from "@/lib/utils/currencyUtils";
+import { PlatformLoadingCard } from "../PlatformLoadingCard";
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -114,7 +115,7 @@ export function Trading212Portfolio() {
     );
   };
 
-  if (loading) return <div>Loading Trading212 portfolio...</div>;
+  if (loading) return <PlatformLoadingCard platformName="Trading212" />;
   if (error) return <div>Error: {error}</div>;
   if (!portfolio.length) return null;
 
