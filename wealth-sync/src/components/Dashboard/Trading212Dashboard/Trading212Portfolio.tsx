@@ -4,6 +4,10 @@ import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { usePlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
 import { Trading212Service } from "@/lib/services/trading212Service";
+import { Button } from "@/components/ui/button";
+import type { PortfolioItem } from "@/lib/constants/portfolio212";
+import PositionItem from "./PositionItem";
+import { detectCurrency, fetchExchangeRates } from "@/lib/utils/currencyUtils";
 import { PlatformLoadingCard } from "../PlatformLoadingCard";
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -29,30 +33,43 @@ async function fetchWithRetry<T>(
   throw new Error("Max retries reached");
 }
 
-interface PortfolioItem {
-  ticker: string;
-  quantity: number;
-  averagePrice: number;
-  currentPrice: number;
-  ppl: number; // profit/loss
-}
-
 export function Trading212Portfolio() {
   const [portfolio, setPortfolio] = useState<PortfolioItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [showAllPositions, setShowAllPositions] = useState<boolean>(false);
+  const [exchangeRates, setExchangeRates] = useState<Record<string, number>>(
+    {},
+  );
   const { getApiKey } = usePlatformConnection();
+
+  // Fetch exchange rates on component mount
+  useEffect(() => {
+    async function loadExchangeRates() {
+      try {
+        const rates = await fetchExchangeRates("USD");
+        setExchangeRates(rates);
+      } catch (error) {
+        console.error("Failed to fetch exchange rates:", error);
+        // Set fallback rates
+        setExchangeRates({
+          EUR: 0.91,
+          GBP: 0.78,
+          USD: 1.0,
+        });
+      }
+    }
+
+    loadExchangeRates();
+  }, []);
 
   useEffect(() => {
     async function fetchPortfolio() {
       try {
         const apiKey = getApiKey("trading212");
-        // console.log("Api key in Trading212Portofolio:", apiKey);
-
         const service = new Trading212Service(apiKey!);
         const data = await fetchWithRetry(() => service.getPortfolio());
         setPortfolio(data);
-        console.log("Portfolio:", data);
       } catch (err) {
         setError("Failed to fetch portfolio data");
         console.error(err);
@@ -62,19 +79,30 @@ export function Trading212Portfolio() {
     }
 
     fetchPortfolio();
-  }, [getApiKey, portfolio]);
+  }, [getApiKey]); // Remove portfolio dependency
 
   const calculatePortfolioMetrics = () => {
     return portfolio.reduce(
       (acc, item) => {
-        const positionValue = item.quantity * item.currentPrice;
-        const investedValue = item.quantity * item.averagePrice;
-        const profitLoss = item.ppl;
+        // Detect currency for this position
+        const currency = detectCurrency(item.ticker);
+
+        // Get exchange rate (default to 1 if not found)
+        const rate = currency === "USD" ? 1 : exchangeRates[currency] ?? 1;
+
+        // Convert to USD using real-time rates
+        const currentPriceUSD = item.currentPrice / rate;
+        const averagePriceUSD = item.averagePrice / rate;
+        const pplUSD = item.ppl / rate;
+
+        // Calculate position metrics
+        const positionValue = item.quantity * currentPriceUSD;
+        const investedValue = item.quantity * averagePriceUSD;
 
         return {
           totalValue: acc.totalValue + positionValue,
           totalInvested: acc.totalInvested + investedValue,
-          totalProfitLoss: acc.totalProfitLoss + profitLoss,
+          totalProfitLoss: acc.totalProfitLoss + pplUSD,
           positions: acc.positions + 1,
         };
       },
@@ -92,6 +120,13 @@ export function Trading212Portfolio() {
   if (!portfolio.length) return null;
 
   const metrics = calculatePortfolioMetrics();
+
+  const toggleShowAllPositions = () => {
+    setShowAllPositions((prev) => !prev);
+  };
+
+  console.log("porftolio:", portfolio);
+
   const profitLossPercentage =
     (metrics.totalProfitLoss / metrics.totalInvested) * 100;
 
@@ -146,43 +181,46 @@ export function Trading212Portfolio() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Top Holdings</CardTitle>
+          <CardTitle>
+            {showAllPositions ? "All Holdings" : "Top Holdings"}
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {portfolio
-              .sort(
-                (a, b) =>
-                  b.quantity * b.currentPrice - a.quantity * a.currentPrice,
-              )
-              .slice(0, 5)
-              .map((item) => (
-                <div
-                  key={item.ticker}
-                  className="flex items-center justify-between"
-                >
-                  <div>
-                    <p className="font-medium">{item.ticker.split("_")[0]}</p>
-                    <p className="text-muted-foreground text-sm">
-                      {item.quantity.toFixed(2)} shares @ ${item.currentPrice}
-                    </p>
-                  </div>
-                  <div className="text-right">
-                    <p className="font-medium">
-                      $
-                      {(item.quantity * item.currentPrice).toLocaleString(
-                        undefined,
-                        { minimumFractionDigits: 2, maximumFractionDigits: 2 },
-                      )}
-                    </p>
-                    <p
-                      className={`text-sm ${item.ppl >= 0 ? "text-green-500" : "text-red-500"}`}
-                    >
-                      ${item.ppl.toFixed(2)}
-                    </p>
-                  </div>
-                </div>
-              ))}
+            {!showAllPositions
+              ? portfolio
+                  .sort(
+                    (a, b) =>
+                      b.quantity * b.currentPrice - a.quantity * a.currentPrice,
+                  )
+                  .slice(0, 5)
+                  .map((item) => (
+                    <PositionItem
+                      key={item.ticker}
+                      item={item}
+                      exchangeRates={exchangeRates}
+                    />
+                  ))
+              : portfolio
+                  .sort(
+                    (a, b) =>
+                      b.quantity * b.currentPrice - a.quantity * a.currentPrice,
+                  )
+                  .map((item) => (
+                    <PositionItem
+                      key={item.ticker}
+                      item={item}
+                      exchangeRates={exchangeRates}
+                    />
+                  ))}
+            <div className="mt-4 flex justify-center">
+              <Button
+                onClick={toggleShowAllPositions}
+                className="cursor-pointer"
+              >
+                {showAllPositions ? "Show Less" : "View All Positions"}
+              </Button>
+            </div>
           </div>
         </CardContent>
       </Card>
