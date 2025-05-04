@@ -34,8 +34,6 @@ const PositionItem = ({ item, exchangeRates }: PositionItemProps) => {
 
   // Original value in the native currency
   const nativeValue = item.quantity * item.currentPrice;
-  console.log("Positonitem", item);
-  console.log("GBX", isGbxTicker(item.ticker));
 
   return (
     <div className="flex items-center justify-between">

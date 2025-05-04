@@ -7,7 +7,12 @@ import { Trading212Service } from "@/lib/services/trading212Service";
 import { Button } from "@/components/ui/button";
 import type { PortfolioItem } from "@/lib/constants/portfolio212";
 import PositionItem from "./PositionItem";
-import { detectCurrency, fetchExchangeRates } from "@/lib/utils/currencyUtils";
+import {
+  convertGbxToUsd,
+  detectCurrency,
+  fetchExchangeRates,
+  isGbxTicker,
+} from "@/lib/utils/currencyUtils";
 import { PlatformLoadingCard } from "../PlatformLoadingCard";
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -91,8 +96,14 @@ export function Trading212Portfolio() {
         const rate = currency === "USD" ? 1 : (exchangeRates[currency] ?? 1);
 
         // Convert to USD using real-time rates
-        const currentPriceUSD = item.currentPrice / rate;
-        const averagePriceUSD = item.averagePrice / rate;
+        const currentPriceUSD = isGbxTicker(item.ticker)
+          ? convertGbxToUsd(item.currentPrice)
+          : item.currentPrice / rate;
+
+        const averagePriceUSD = isGbxTicker(item.ticker)
+          ? convertGbxToUsd(item.averagePrice)
+          : item.averagePrice / rate;
+
         const pplUSD = item.ppl / rate;
 
         // Calculate position metrics
