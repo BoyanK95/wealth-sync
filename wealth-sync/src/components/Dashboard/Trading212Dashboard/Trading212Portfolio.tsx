@@ -79,7 +79,7 @@ export function Trading212Portfolio() {
     }
 
     fetchPortfolio();
-  }, [getApiKey]); // Remove portfolio dependency
+  }, [getApiKey, portfolio]);
 
   const calculatePortfolioMetrics = () => {
     return portfolio.reduce(
@@ -88,7 +88,7 @@ export function Trading212Portfolio() {
         const currency = detectCurrency(item.ticker);
 
         // Get exchange rate (default to 1 if not found)
-        const rate = currency === "USD" ? 1 : exchangeRates[currency] ?? 1;
+        const rate = currency === "USD" ? 1 : (exchangeRates[currency] ?? 1);
 
         // Convert to USD using real-time rates
         const currentPriceUSD = item.currentPrice / rate;
