@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { usePlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
 import { Trading212Service } from "@/lib/services/trading212Service";
+import { PlatformLoadingCard } from "../PlatformLoadingCard";
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -86,7 +87,7 @@ export function Trading212Portfolio() {
     );
   };
 
-  if (loading) return <div>Loading Trading212 portfolio...</div>;
+  if (loading) return <PlatformLoadingCard platformName="Trading212" />;
   if (error) return <div>Error: {error}</div>;
   if (!portfolio.length) return null;
 
