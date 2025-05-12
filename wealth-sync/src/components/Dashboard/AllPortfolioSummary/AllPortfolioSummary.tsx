@@ -40,7 +40,9 @@ const AllPortfolioSummary = () => {
         const data = await service.getPortfolio();
         console.log("data", data);
 
-        // Calculate total value from positions
+        /**
+         * Calculate the total open postion portfolio value by adding all open positions
+         */
         const trading212Value = data.reduce((sum, position) => {
           if (isGbxTicker(position.ticker)) {
             return sum + position.currentPrice * 0.01 * position.quantity; // Convert from pence to pounds
@@ -77,7 +79,7 @@ const AllPortfolioSummary = () => {
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">
-            Total Portfolio Value
+            Total Open Positions Portfolio Value
           </CardTitle>
           <DollarSign className="text-muted-foreground h-4 w-4" />
         </CardHeader>
