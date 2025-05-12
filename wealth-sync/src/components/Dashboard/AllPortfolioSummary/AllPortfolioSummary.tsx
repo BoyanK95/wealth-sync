@@ -11,12 +11,11 @@ import {
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { usePlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Trading212Service } from "@/lib/services/trading212Service";
-import { PlatformLoadingCard } from "@/components/Dashboard/PlatformLoadingCard";
 import { isGbxTicker } from "@/lib/utils/currencyUtils";
 import ContainerCardLoadingState from "../ContainerCardLoadingState/ContainerCardLoadingState.tsx";
-// import ContainerCardLoadingState from "@/components/Dashboard/ContainerCardLoadingState/ContainerCardLoadingState";
+import ContainerCardErrorState from "@/components/Dashboard/ContainerCardErrorState/ContainerCardErrorState";
 
 const AllPortfolioSummary = () => {
   const [loading, setLoading] = useState(true);
@@ -27,7 +26,16 @@ const AllPortfolioSummary = () => {
     null,
   );
   const [connectedCount, setConnectedCount] = useState(0);
+
+  // const [topPerformingAsset, setTopPerformingAsset] = useState<string | null>(
+  //   null,
+  // );
+  // const [monthlyChange, setMonthlyChange] = useState<number | null>(null);
   const { connections, getApiKey } = usePlatformConnection();
+
+  const reloadPage = useCallback(() => {
+    window.location.reload();
+  }, []);
 
   useEffect(() => {
     async function fetchPortfolioData() {
@@ -75,14 +83,36 @@ const AllPortfolioSummary = () => {
 
   if (loading) {
     const loadingCards = [
-      { id: "portfolio", title: "Portfolio Value", hasValue: true, hasSubtext: true },
-      { id: "platforms", title: "Connected Platforms", hasValue: true, hasSubtext: true },
-      { id: "performance", title: "Top Performing Asset", hasValue: true, hasSubtext: true },
-      { id: "monthly", title: "Monthly Change", hasValue: true, hasSubtext: true }
+      {
+        id: "portfolio",
+        title: "Portfolio Value",
+        hasValue: true,
+        hasSubtext: true,
+      },
+      {
+        id: "platforms",
+        title: "Connected Platforms",
+        hasValue: true,
+        hasSubtext: true,
+      },
+      {
+        id: "performance",
+        title: "Top Performing Asset",
+        hasValue: true,
+        hasSubtext: true,
+      },
+      {
+        id: "monthly",
+        title: "Monthly Change",
+        hasValue: true,
+        hasSubtext: true,
+      },
     ];
     return <ContainerCardLoadingState cards={loadingCards} />;
   }
-  if (error) return <div>Error: {error}</div>;
+  if (error) {
+    return <ContainerCardErrorState error={error} onRetry={reloadPage} />;
+  }
 
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
