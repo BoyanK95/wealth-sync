@@ -15,6 +15,8 @@ import { useEffect, useState } from "react";
 import { Trading212Service } from "@/lib/services/trading212Service";
 import { PlatformLoadingCard } from "@/components/Dashboard/PlatformLoadingCard";
 import { isGbxTicker } from "@/lib/utils/currencyUtils";
+import ContainerCardLoadingState from "../ContainerCardLoadingState/ContainerCardLoadingState.tsx";
+// import ContainerCardLoadingState from "@/components/Dashboard/ContainerCardLoadingState/ContainerCardLoadingState";
 
 const AllPortfolioSummary = () => {
   const [loading, setLoading] = useState(true);
@@ -71,7 +73,15 @@ const AllPortfolioSummary = () => {
     fetchPortfolioData();
   }, [connections, getApiKey]);
 
-  if (loading) return <PlatformLoadingCard platformName="Portfolio" />;
+  if (loading) {
+    const loadingCards = [
+      { id: "portfolio", title: "Portfolio Value", hasValue: true, hasSubtext: true },
+      { id: "platforms", title: "Connected Platforms", hasValue: true, hasSubtext: true },
+      { id: "performance", title: "Top Performing Asset", hasValue: true, hasSubtext: true },
+      { id: "monthly", title: "Monthly Change", hasValue: true, hasSubtext: true }
+    ];
+    return <ContainerCardLoadingState cards={loadingCards} />;
+  }
   if (error) return <div>Error: {error}</div>;
 
   return (
