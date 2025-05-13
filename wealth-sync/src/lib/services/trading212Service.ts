@@ -38,4 +38,8 @@ export class Trading212Service {
   async getPositions(): Promise<Position[]> {
     return this.fetchFromApi("/positions");
   }
+
+  async getAccountInfo() {
+    return this.fetchFromApi("/account");
+  }
 }
