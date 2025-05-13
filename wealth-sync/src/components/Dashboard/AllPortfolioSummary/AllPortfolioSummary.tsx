@@ -48,16 +48,19 @@ const AllPortfolioSummary = () => {
         let platformsConnected = 0;
         let bestPerformer = { ticker: "", percentageChange: 0 };
 
-        // Get Trading212 data if connected
+        // Get Trading212 portfolioData if connected
         const trading212ApiKey = getApiKey("trading212");
         const service = new Trading212Service(trading212ApiKey!);
-        const data = await service.getPortfolio();
-        console.log("data", data);
+        const portfolioData = await service.getPortfolio();
+        const accountInfo = await service.getAccountInfo();
+        console.log("accountInfo", accountInfo);
+        
+        // console.log("portfolioData", portfolioData);
 
         /**
          * Calculate the total open postion portfolio value by adding all open positions
          */
-        const trading212Value = data.reduce((sum, position) => {
+        const trading212Value = portfolioData.reduce((sum, position) => {
           if (isGbxTicker(position.ticker)) {
             return sum + position.currentPrice * 0.01 * position.quantity; // Convert from pence to pounds
           }
@@ -65,7 +68,7 @@ const AllPortfolioSummary = () => {
         }, 0);
 
         // Find top performing asset
-        data.forEach((position) => {
+        portfolioData.forEach((position) => {
           const percentageChange =
             position.pnlPercentage ||
             ((position.currentPrice - position.averagePrice) /
@@ -98,12 +101,12 @@ const AllPortfolioSummary = () => {
         setTotalValue(portfolioTotal);
         setConnectedCount(platformsConnected);
 
-        // For now, using mock change data - this should be calculated from historical data
+        // For now, using mock change portfolioData - this should be calculated from historical portfolioData
         setTotalChange(portfolioTotal * 0.01); // Placeholder: 1% change
         setTotalChangePercent(1.0); // Placeholder: 1%
       } catch (err) {
-        console.error("Error fetching portfolio data:", err);
-        setError("Failed to load portfolio data");
+        console.error("Error fetching portfolio portfolioData:", err);
+        setError("Failed to load portfolio portfolioData");
       } finally {
         setLoading(false);
       }
