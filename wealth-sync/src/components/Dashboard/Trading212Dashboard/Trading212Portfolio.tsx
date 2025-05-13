@@ -65,6 +65,7 @@ export function Trading212Portfolio() {
       }
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     loadExchangeRates();
   }, []);
 
@@ -83,6 +84,7 @@ export function Trading212Portfolio() {
       }
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     fetchPortfolio();
   }, [getApiKey, portfolio]);
 

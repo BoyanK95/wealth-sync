@@ -13,7 +13,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { usePlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
 import { useEffect, useState, useCallback } from "react";
 import { Trading212Service } from "@/lib/services/trading212Service";
-import { isGbxTicker } from "@/lib/utils/currencyUtils";
+import { getCleanTickerName, isGbxTicker } from "@/lib/utils/currencyUtils";
 import ContainerCardLoadingState from "../ContainerCardLoadingState/ContainerCardLoadingState.tsx";
 import ContainerCardErrorState from "@/components/Dashboard/ContainerCardErrorState/ContainerCardErrorState";
 
@@ -27,10 +27,10 @@ const AllPortfolioSummary = () => {
   );
   const [connectedCount, setConnectedCount] = useState(0);
 
-  // const [topPerformingAsset, setTopPerformingAsset] = useState<string | null>(
-  //   null,
-  // );
-  // const [monthlyChange, setMonthlyChange] = useState<number | null>(null);
+  const [topPerformingAsset, setTopPerformingAsset] = useState<string | null>(
+    null,
+  );
+  const [monthlyChange, setMonthlyChange] = useState<number | null>(null);
   const { connections, getApiKey } = usePlatformConnection();
 
   const reloadPage = useCallback(() => {
@@ -43,6 +43,7 @@ const AllPortfolioSummary = () => {
         setLoading(true);
         let portfolioTotal = 0;
         let platformsConnected = 0;
+        let bestPerformer = { ticker: "", percentageChange: 0 };
 
         // Get Trading212 data if connected
         const trading212ApiKey = getApiKey("trading212");
@@ -59,6 +60,32 @@ const AllPortfolioSummary = () => {
           }
           return sum + position.currentPrice * position.quantity;
         }, 0);
+
+        // Find top performing asset
+        data.forEach((position) => {
+          // Calculate percentage change using pnlPercentage if available, otherwise calculate it
+          const percentageChange =
+            position.pnlPercentage ||
+            ((position.currentPrice - position.averagePrice) /
+              position.averagePrice) *
+              100;
+
+              console.log('bestPerformer', bestPerformer);
+              
+          if (percentageChange > bestPerformer.percentageChange) {
+            bestPerformer = {
+              ticker: getCleanTickerName(position.ticker),
+              percentageChange,
+            };
+          }
+        });
+
+        if (bestPerformer.ticker) {
+          setTopPerformingAsset(bestPerformer.ticker);
+          // Use the percentage for the monthly change as a placeholder
+          setMonthlyChange(bestPerformer.percentageChange);
+        }
+
         portfolioTotal += trading212Value;
         platformsConnected++;
 
@@ -169,10 +196,25 @@ const AllPortfolioSummary = () => {
           <LineChart className="text-muted-foreground h-4 w-4" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">AAPL</div>
+          <div className="text-2xl font-bold">
+            {topPerformingAsset ?? "N/A"}
+          </div>
           <div className="flex items-center pt-1">
-            <ArrowUp className="mr-1 h-4 w-4 text-green-700" />
-            <span className="text-green-700">+8.2%</span>
+            {monthlyChange && monthlyChange > 0 ? (
+              <ArrowUp className="mr-1 h-4 w-4 text-green-700" />
+            ) : (
+              <ArrowDown className="mr-1 h-4 w-4 text-red-700" />
+            )}
+            <span
+              className={
+                monthlyChange && monthlyChange > 0
+                  ? "text-green-700"
+                  : "text-red-700"
+              }
+            >
+              {monthlyChange && monthlyChange > 0 ? "+" : ""}
+              {monthlyChange ? monthlyChange.toFixed(2) : "0.00"}%
+            </span>
           </div>
         </CardContent>
       </Card>
