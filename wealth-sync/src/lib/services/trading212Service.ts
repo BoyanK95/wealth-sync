@@ -32,7 +32,7 @@ export class Trading212Service {
   }
 
   async getPortfolio(): Promise<Position[]> {
-    return this.fetchFromApi("/portfolio");
+    return this.fetchFromApi("/portfolio") as Promise<Position[]>;
   }
 
   async getPositions(): Promise<Position[]> {

@@ -138,8 +138,6 @@ export function Trading212Portfolio() {
     setShowAllPositions((prev) => !prev);
   };
 
-  console.log("porftolio:", portfolio);
-
   const profitLossPercentage =
     (metrics.totalProfitLoss / metrics.totalInvested) * 100;
 
