@@ -16,6 +16,7 @@ import { Trading212Service } from "@/lib/services/trading212Service";
 import { getCleanTickerName, isGbxTicker } from "@/lib/utils/currencyUtils";
 import ContainerCardLoadingState from "../ContainerCardLoadingState/ContainerCardLoadingState.tsx";
 import ContainerCardErrorState from "@/components/Dashboard/ContainerCardErrorState/ContainerCardErrorState";
+import { loadingCards } from "../ContainerCardLoadingState/constants";
 
 const AllPortfolioSummary = () => {
   const [loading, setLoading] = useState(true);
@@ -26,13 +27,13 @@ const AllPortfolioSummary = () => {
     null,
   );
   const [connectedCount, setConnectedCount] = useState(0);
-
   const [topPerformingAsset, setTopPerformingAsset] = useState<string | null>(
     null,
   );
   const [bestPerformerChange, setBestPerformerChange] = useState<number | null>(
     null,
   );
+
   const { connections, getApiKey } = usePlatformConnection();
 
   const reloadPage = useCallback(() => {
@@ -108,36 +109,11 @@ const AllPortfolioSummary = () => {
       }
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     fetchPortfolioData();
   }, [connections, getApiKey]);
 
   if (loading) {
-    const loadingCards = [
-      {
-        id: "portfolio",
-        title: "Portfolio Value",
-        hasValue: true,
-        hasSubtext: true,
-      },
-      {
-        id: "platforms",
-        title: "Connected Platforms",
-        hasValue: true,
-        hasSubtext: true,
-      },
-      {
-        id: "performance",
-        title: "Top Performing Asset",
-        hasValue: true,
-        hasSubtext: true,
-      },
-      {
-        id: "monthly",
-        title: "Monthly Change",
-        hasValue: true,
-        hasSubtext: true,
-      },
-    ];
     return <ContainerCardLoadingState cards={loadingCards} />;
   }
   if (error) {
