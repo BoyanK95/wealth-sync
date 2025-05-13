@@ -30,7 +30,9 @@ const AllPortfolioSummary = () => {
   const [topPerformingAsset, setTopPerformingAsset] = useState<string | null>(
     null,
   );
-  const [monthlyChange, setMonthlyChange] = useState<number | null>(null);
+  const [bestPerformerChange, setBestPerformerChange] = useState<number | null>(
+    null,
+  );
   const { connections, getApiKey } = usePlatformConnection();
 
   const reloadPage = useCallback(() => {
@@ -63,15 +65,16 @@ const AllPortfolioSummary = () => {
 
         // Find top performing asset
         data.forEach((position) => {
-          // Calculate percentage change using pnlPercentage if available, otherwise calculate it
           const percentageChange =
             position.pnlPercentage ||
             ((position.currentPrice - position.averagePrice) /
               position.averagePrice) *
               100;
 
-              console.log('bestPerformer', bestPerformer);
-              
+          if (!isFinite(percentageChange) || isNaN(percentageChange)) {
+            return;
+          }
+
           if (percentageChange > bestPerformer.percentageChange) {
             bestPerformer = {
               ticker: getCleanTickerName(position.ticker),
@@ -83,7 +86,7 @@ const AllPortfolioSummary = () => {
         if (bestPerformer.ticker) {
           setTopPerformingAsset(bestPerformer.ticker);
           // Use the percentage for the monthly change as a placeholder
-          setMonthlyChange(bestPerformer.percentageChange);
+          setBestPerformerChange(bestPerformer.percentageChange);
         }
 
         portfolioTotal += trading212Value;
@@ -200,20 +203,20 @@ const AllPortfolioSummary = () => {
             {topPerformingAsset ?? "N/A"}
           </div>
           <div className="flex items-center pt-1">
-            {monthlyChange && monthlyChange > 0 ? (
+            {bestPerformerChange && bestPerformerChange > 0 ? (
               <ArrowUp className="mr-1 h-4 w-4 text-green-700" />
             ) : (
               <ArrowDown className="mr-1 h-4 w-4 text-red-700" />
             )}
             <span
               className={
-                monthlyChange && monthlyChange > 0
+                bestPerformerChange && bestPerformerChange > 0
                   ? "text-green-700"
                   : "text-red-700"
               }
             >
-              {monthlyChange && monthlyChange > 0 ? "+" : ""}
-              {monthlyChange ? monthlyChange.toFixed(2) : "0.00"}%
+              {bestPerformerChange && bestPerformerChange > 0 ? "+" : ""}
+              {bestPerformerChange ? bestPerformerChange.toFixed(2) : "0.00"}%
             </span>
           </div>
         </CardContent>
