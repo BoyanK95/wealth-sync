@@ -35,15 +35,14 @@ export async function fetchExchangeRates(
       throw new Error("Failed to fetch exchange rates");
     }
 
-    const data = await response.json();
+    const data: { rates: Record<string, number> } = await response.json();
 
     // Update cache
     currencyCache = {
-      rates: data.rates.EUR as number,
+      rates: data.rates,
       timestamp: now,
       baseCurrency,
     };
-    console.log("Fetched exchange rates:", data.rates);
     return data.rates;
   } catch (error) {
     console.error("Error fetching exchange rates:", error);
@@ -55,7 +54,6 @@ export async function fetchExchangeRates(
     };
   }
 }
-
 /**
  * Detects the currency based on the ticker symbol pattern
  *

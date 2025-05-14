@@ -1,7 +1,7 @@
 export interface AccountData {
   blcoked: number | null;
   free: number | null;
-  inveted: number;
+  invested: number;
   pieCash: number | null;
   ppl: number;
   result: number;

@@ -107,10 +107,17 @@ export function Trading212Portfolio() {
     fetchPortfolio();
   }, [getApiKey, openPositionsPortfolio]);
 
-  const calculateTotalValue = useCallback(() => {
+  const calculateTotalAccoutValue = useCallback(() => {
     if (!accountData) return 0;
     const rate = exchangeRates.EUR ?? 1;
+    console.log("accountData", accountData);
     return accountData.total / rate;
+  }, [accountData, exchangeRates]);
+
+  const calculateTotalInvestedAmmount = useCallback(() => {
+    if (!accountData) return 0;
+    const rate = exchangeRates.EUR ?? 1;
+    return accountData.invested / rate;
   }, [accountData, exchangeRates]);
 
   const calculatePortfolioMetrics = () => {
@@ -183,16 +190,25 @@ export function Trading212Portfolio() {
             portfolioTitle="Open Positions Portfolio Value"
             tooltipText="Total value of all your open positions."
           />
-          <TotalInvested totalInvested={metrics.totalInvested} />
+          <TotalInvested
+            totalInvested={metrics.totalInvested}
+            totalInvestedTitle="Total Invested in Open Positions"
+            tooltipText="Total amount of dollars currently invested in open positions."
+          />
           <ProfitAndLoss
             totalProfitLoss={metrics.totalProfitLoss}
             profitLossPercentage={profitLossPercentage}
           />
           <Positions positions={metrics.positions} />
           <PortfolioValue
-            totalValue={calculateTotalValue()}
+            totalValue={calculateTotalAccoutValue()}
             portfolioTitle="Total Account Value"
             tooltipText="Total value of your account, including open and closed positions and cash."
+          />
+          <TotalInvested
+            totalInvested={calculateTotalInvestedAmmount()}
+            totalInvestedTitle="Total Invested Value"
+            tooltipText="The total amount of dollars currently invested in your account."
           />
         </CardContent>
       </Card>
