@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { usePlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
 import { Trading212Service } from "@/lib/services/trading212Service";
@@ -18,6 +18,7 @@ import PortfolioValue from "../PortfolioValue/PortfolioValue";
 import TotalInvested from "../TotalInvested/TotalInvested";
 import ProfitAndLoss from "../ProfitAndLoss/ProfitAndLoss";
 import Positions from "../Positions/Positions";
+import ContainerCardErrorState from "../ContainerCardErrorState/ContainerCardErrorState";
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -132,8 +133,13 @@ export function Trading212Portfolio() {
     );
   };
 
+  const reloadPage = useCallback(() => {
+    window.location.reload();
+  }, []);
+
   if (loading) return <PlatformLoadingCard platformName="Trading212" />;
-  if (error) return <div>Error: {error}</div>;
+  if (error)
+    return <ContainerCardErrorState error={error} onRetry={reloadPage} />;
   if (!portfolio.length) return null;
 
   const metrics = calculatePortfolioMetrics();
