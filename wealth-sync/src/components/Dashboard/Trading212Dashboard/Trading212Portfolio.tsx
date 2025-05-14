@@ -132,6 +132,13 @@ export function Trading212Portfolio() {
     return (accountData.result / rate / accountData.invested / rate) * 100;
   }, [accountData, exchangeRates]);
 
+  const calculateFreeCash = useCallback(() => {
+    if (!accountData) return 0;
+    if (!accountData.free) return 0;
+    const rate = exchangeRates.EUR ?? 1;
+    return accountData.free / rate;
+  }, [accountData, exchangeRates]);
+
   const calculatePortfolioMetrics = () => {
     return openPositionsPortfolio.reduce(
       (acc, item) => {
@@ -229,6 +236,11 @@ export function Trading212Portfolio() {
             profitLossPercentage={calculateProfitAndLossPercentage()}
             profitLossTitle="Account Profit/Loss"
             tooltipText="The total profit or loss of your account."
+          />
+          <TotalInvested
+            totalInvested={calculateFreeCash()}
+            totalInvestedTitle="Free Cash"
+            tooltipText="The total amount of cash available in your account."
           />
         </CardContent>
       </Card>
