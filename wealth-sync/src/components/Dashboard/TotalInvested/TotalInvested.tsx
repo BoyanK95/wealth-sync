@@ -27,7 +27,7 @@ const TotalInvested = ({ totalInvested }: { totalInvested: number }) => {
             align="center"
             className="dark:bg-background dark:text-foreground p-3 font-bold"
           >
-            <p>Total amount of money you have invested.</p>
+            <p>Total amount of money you have invested in your open possitions.</p>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
