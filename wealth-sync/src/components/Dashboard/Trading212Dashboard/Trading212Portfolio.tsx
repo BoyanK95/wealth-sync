@@ -93,8 +93,6 @@ export function Trading212Portfolio() {
         );
         setAccountData(accountData);
         setOpenPositionsPortfolio(portfolioData);
-        // console.log("accountData", accountData);
-        // console.log("portfolioData", portfolioData);
       } catch (err) {
         setError("Failed to fetch openPositionsPortfolio portfolioData");
         console.error(err);
@@ -110,7 +108,6 @@ export function Trading212Portfolio() {
   const calculateTotalAccoutValue = useCallback(() => {
     if (!accountData) return 0;
     const rate = exchangeRates.EUR ?? 1;
-    console.log("accountData", accountData);
     return accountData.total / rate;
   }, [accountData, exchangeRates]);
 
@@ -142,7 +139,6 @@ export function Trading212Portfolio() {
   const calculatePortfolioMetrics = () => {
     return openPositionsPortfolio.reduce(
       (acc, item) => {
-        // Detect currency for this position
         const currency = detectCurrency(item.ticker);
 
         // Get exchange rate (default to 1 if not found)
@@ -159,7 +155,6 @@ export function Trading212Portfolio() {
 
         const pplUSD = item.ppl / rate;
 
-        // Calculate position metrics
         const positionValue = item.quantity * currentPriceUSD;
         const investedValue = item.quantity * averagePriceUSD;
 
