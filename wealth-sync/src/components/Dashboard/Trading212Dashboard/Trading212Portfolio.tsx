@@ -17,6 +17,7 @@ import { PlatformLoadingCard } from "../PlatformLoadingCard";
 import PortfolioValue from "../PortfolioValue/PortfolioValue";
 import TotalInvested from "../TotalInvested/TotalInvested";
 import ProfitAndLoss from "../ProfitAndLoss/ProfitAndLoss";
+import Positions from "../Positions/Positions";
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -157,10 +158,7 @@ export function Trading212Portfolio() {
             totalProfitLoss={metrics.totalProfitLoss}
             profitLossPercentage={profitLossPercentage}
           />
-          <div className="space-y-2">
-            <p className="text-muted-foreground text-sm">Positions</p>
-            <p className="text-2xl font-bold">{metrics.positions}</p>
-          </div>
+          <Positions positions={metrics.positions} />
         </CardContent>
       </Card>
 
