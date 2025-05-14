@@ -16,6 +16,7 @@ import {
 import { PlatformLoadingCard } from "../PlatformLoadingCard";
 import PortfolioValue from "../PortfolioValue/PortfolioValue";
 import TotalInvested from "../TotalInvested/TotalInvested";
+import ProfitAndLoss from "../ProfitAndLoss/ProfitAndLoss";
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -152,21 +153,10 @@ export function Trading212Portfolio() {
         <CardContent className="grid grid-cols-2 gap-4 md:grid-cols-4">
           <PortfolioValue totalValue={metrics.totalValue} />
           <TotalInvested totalInvested={metrics.totalInvested} />
-          <div className="space-y-2">
-            <p className="text-muted-foreground text-sm">Profit/Loss</p>
-            <p
-              className={`text-2xl font-bold ${metrics.totalProfitLoss >= 0 ? "text-green-500" : "text-red-500"}`}
-            >
-              $
-              {metrics.totalProfitLoss.toLocaleString(undefined, {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              })}
-              <span className="ml-1 text-sm">
-                ({profitLossPercentage.toFixed(2)}%)
-              </span>
-            </p>
-          </div>
+          <ProfitAndLoss
+            totalProfitLoss={metrics.totalProfitLoss}
+            profitLossPercentage={profitLossPercentage}
+          />
           <div className="space-y-2">
             <p className="text-muted-foreground text-sm">Positions</p>
             <p className="text-2xl font-bold">{metrics.positions}</p>
