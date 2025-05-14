@@ -44,7 +44,9 @@ async function fetchWithRetry<T>(
 }
 
 export function Trading212Portfolio() {
-  const [portfolio, setPortfolio] = useState<PortfolioItem[]>([]);
+  const [openPositionsPortfolio, setOpenPositionsPortfolio] = useState<
+    PortfolioItem[]
+  >([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [showAllPositions, setShowAllPositions] = useState<boolean>(false);
@@ -79,10 +81,13 @@ export function Trading212Portfolio() {
       try {
         const apiKey = getApiKey("trading212");
         const service = new Trading212Service(apiKey!);
-        const data = await fetchWithRetry(() => service.getPortfolio());
-        setPortfolio(data);
+        const portfolioData = await fetchWithRetry(() =>
+          service.getPortfolio(),
+        );
+        setOpenPositionsPortfolio(portfolioData);
+        console.log("portfolioData", portfolioData);
       } catch (err) {
-        setError("Failed to fetch portfolio data");
+        setError("Failed to fetch openPositionsPortfolio portfolioData");
         console.error(err);
       } finally {
         setLoading(false);
@@ -91,10 +96,10 @@ export function Trading212Portfolio() {
 
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     fetchPortfolio();
-  }, [getApiKey, portfolio]);
+  }, [getApiKey, openPositionsPortfolio]);
 
   const calculatePortfolioMetrics = () => {
-    return portfolio.reduce(
+    return openPositionsPortfolio.reduce(
       (acc, item) => {
         // Detect currency for this position
         const currency = detectCurrency(item.ticker);
@@ -140,7 +145,7 @@ export function Trading212Portfolio() {
   if (loading) return <PlatformLoadingCard platformName="Trading212" />;
   if (error)
     return <ContainerCardErrorState error={error} onRetry={reloadPage} />;
-  if (!portfolio.length) return null;
+  if (!openPositionsPortfolio.length) return null;
 
   const metrics = calculatePortfolioMetrics();
 
@@ -177,7 +182,7 @@ export function Trading212Portfolio() {
         <CardContent>
           <div className="space-y-4">
             {!showAllPositions
-              ? portfolio
+              ? openPositionsPortfolio
                   .sort(
                     (a, b) =>
                       b.quantity * b.currentPrice - a.quantity * a.currentPrice,
@@ -190,7 +195,7 @@ export function Trading212Portfolio() {
                       exchangeRates={exchangeRates}
                     />
                   ))
-              : portfolio
+              : openPositionsPortfolio
                   .sort(
                     (a, b) =>
                       b.quantity * b.currentPrice - a.quantity * a.currentPrice,
