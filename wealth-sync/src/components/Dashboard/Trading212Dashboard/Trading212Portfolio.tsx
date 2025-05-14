@@ -14,6 +14,7 @@ import {
   isGbxTicker,
 } from "@/lib/utils/currencyUtils";
 import { PlatformLoadingCard } from "../PlatformLoadingCard";
+import PortfolioValue from "../PortfolioValue/PortfolioValue";
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -148,16 +149,7 @@ export function Trading212Portfolio() {
           <CardTitle>Trading212 Portfolio Summary</CardTitle>
         </CardHeader>
         <CardContent className="grid grid-cols-2 gap-4 md:grid-cols-4">
-          <div className="space-y-2">
-            <p className="text-muted-foreground text-sm">Portfolio Value</p>
-            <p className="text-2xl font-bold">
-              $
-              {metrics.totalValue.toLocaleString(undefined, {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              })}
-            </p>
-          </div>
+          <PortfolioValue totalValue={metrics.totalValue} />
           <div className="space-y-2">
             <p className="text-muted-foreground text-sm">Total Invested</p>
             <p className="text-2xl font-bold">
