@@ -62,6 +62,8 @@ export function Trading212Portfolio() {
     async function loadExchangeRates() {
       try {
         const rates = await fetchExchangeRates("USD");
+        // console.log("Exchange rates:", rates);
+
         setExchangeRates(rates);
       } catch (error) {
         console.error("Failed to fetch exchange rates:", error);
@@ -91,8 +93,8 @@ export function Trading212Portfolio() {
         );
         setAccountData(accountData);
         setOpenPositionsPortfolio(portfolioData);
-        console.log("accountData", accountData);
-        console.log("portfolioData", portfolioData);
+        // console.log("accountData", accountData);
+        // console.log("portfolioData", portfolioData);
       } catch (err) {
         setError("Failed to fetch openPositionsPortfolio portfolioData");
         console.error(err);
@@ -104,6 +106,12 @@ export function Trading212Portfolio() {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     fetchPortfolio();
   }, [getApiKey, openPositionsPortfolio]);
+
+  const calculateTotalValue = useCallback(() => {
+    if (!accountData) return 0;
+    const rate = exchangeRates.EUR ?? 1;
+    return accountData.total / rate;
+  }, [accountData, exchangeRates]);
 
   const calculatePortfolioMetrics = () => {
     return openPositionsPortfolio.reduce(
@@ -182,7 +190,7 @@ export function Trading212Portfolio() {
           />
           <Positions positions={metrics.positions} />
           <PortfolioValue
-            totalValue={accountData!.total}
+            totalValue={calculateTotalValue()}
             portfolioTitle="Total Account Value"
             tooltipText="Total value of your account, including open and closed positions and cash."
           />
