@@ -9,7 +9,6 @@ const DashboardWelcomeHeader = (user: User) => {
   const refreshPage = () => {
     window.location.reload();
   };
-  console.log("user", user);
 
   // Use a specific locale and format options to ensure consistency
   const formattedDate = new Date().toLocaleDateString("en-US", {

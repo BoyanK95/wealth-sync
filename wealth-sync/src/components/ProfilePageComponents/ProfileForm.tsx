@@ -8,9 +8,6 @@ import type { UserFormProps } from "./interfaces";
 import SecurityTab from "./SecurityTab";
 
 export default function ProfileForm({ user }: UserFormProps) {
-  console.log(user);
-  console.log(user.image);
-
   return (
     <Tabs defaultValue="general" className="w-full">
       <TabsList className="grid w-full grid-cols-2">
