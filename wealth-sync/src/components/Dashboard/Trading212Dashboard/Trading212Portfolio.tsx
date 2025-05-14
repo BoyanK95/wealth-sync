@@ -105,35 +105,31 @@ export function Trading212Portfolio() {
     fetchPortfolio();
   }, [getApiKey, openPositionsPortfolio]);
 
-  const calculateTotalAccoutValue = useCallback(() => {
-    if (!accountData) return 0;
-    const rate = exchangeRates.EUR ?? 1;
-    return accountData.total / rate;
-  }, [accountData, exchangeRates]);
+  const calculateAccountMetrics = useCallback(() => {
+    if (!accountData) {
+      return {
+        totalValue: 0,
+        totalInvested: 0,
+        profitLoss: 0,
+        profitLossPercentage: 0,
+        freeCash: 0,
+      };
+    }
 
-  const calculateTotalInvestedAmmount = useCallback(() => {
-    if (!accountData) return 0;
     const rate = exchangeRates.EUR ?? 1;
-    return accountData.invested / rate;
-  }, [accountData, exchangeRates]);
+    const totalValue = accountData.total / rate;
+    const totalInvested = accountData.invested / rate;
+    const profitLoss = accountData.result / rate;
+    const profitLossPercentage = (profitLoss / totalInvested) * 100;
+    const freeCash = accountData.free ? accountData.free / rate : 0;
 
-  const calculateProfitAndLossResult = useCallback(() => {
-    if (!accountData) return 0;
-    const rate = exchangeRates.EUR ?? 1;
-    return accountData.result / rate;
-  }, [accountData, exchangeRates]);
-
-  const calculateProfitAndLossPercentage = useCallback(() => {
-    if (!accountData) return 0;
-    const rate = exchangeRates.EUR ?? 1;
-    return (accountData.result / rate / accountData.invested / rate) * 100;
-  }, [accountData, exchangeRates]);
-
-  const calculateFreeCash = useCallback(() => {
-    if (!accountData) return 0;
-    if (!accountData.free) return 0;
-    const rate = exchangeRates.EUR ?? 1;
-    return accountData.free / rate;
+    return {
+      totalValue,
+      totalInvested,
+      profitLoss,
+      profitLossPercentage,
+      freeCash,
+    };
   }, [accountData, exchangeRates]);
 
   const calculatePortfolioMetrics = () => {
@@ -184,6 +180,7 @@ export function Trading212Portfolio() {
   if (!openPositionsPortfolio.length) return null;
 
   const metrics = calculatePortfolioMetrics();
+  const accountMetrics = calculateAccountMetrics();
 
   const toggleShowAllPositions = () => {
     setShowAllPositions((prev) => !prev);
@@ -217,23 +214,23 @@ export function Trading212Portfolio() {
           />
           <Positions positions={metrics.positions} />
           <PortfolioValue
-            totalValue={calculateTotalAccoutValue()}
+            totalValue={accountMetrics.totalValue}
             portfolioTitle="Total Account Value"
             tooltipText="Total value of your account, including open and closed positions and cash."
           />
           <TotalInvested
-            totalInvested={calculateTotalInvestedAmmount()}
+            totalInvested={accountMetrics.totalInvested}
             totalInvestedTitle="Total Invested Value"
             tooltipText="The total amount of dollars currently invested in your account."
           />
           <ProfitAndLoss
-            totalProfitLoss={calculateProfitAndLossResult()}
-            profitLossPercentage={calculateProfitAndLossPercentage()}
+            totalProfitLoss={accountMetrics.profitLoss}
+            profitLossPercentage={accountMetrics.profitLossPercentage}
             profitLossTitle="Account Profit/Loss"
             tooltipText="The total profit or loss of your account."
           />
           <TotalInvested
-            totalInvested={calculateFreeCash()}
+            totalInvested={accountMetrics.freeCash}
             totalInvestedTitle="Free Cash"
             tooltipText="The total amount of cash available in your account."
           />

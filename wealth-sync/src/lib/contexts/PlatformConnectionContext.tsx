@@ -36,8 +36,6 @@ export function PlatformConnectionProvider({
   };
 
   const getApiKey = (platformId: string): string | null => {
-    console.log("Getting API key for platform:", platformId);
-
     const connection = connections.find(
       (conn) => conn.platformId === platformId,
     );
