@@ -14,6 +14,10 @@ import {
   isGbxTicker,
 } from "@/lib/utils/currencyUtils";
 import { PlatformLoadingCard } from "../PlatformLoadingCard";
+import PortfolioValue from "../PortfolioValue/PortfolioValue";
+import TotalInvested from "../TotalInvested/TotalInvested";
+import ProfitAndLoss from "../ProfitAndLoss/ProfitAndLoss";
+import Positions from "../Positions/Positions";
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -148,45 +152,13 @@ export function Trading212Portfolio() {
           <CardTitle>Trading212 Portfolio Summary</CardTitle>
         </CardHeader>
         <CardContent className="grid grid-cols-2 gap-4 md:grid-cols-4">
-          <div className="space-y-2">
-            <p className="text-muted-foreground text-sm">Portfolio Value</p>
-            <p className="text-2xl font-bold">
-              $
-              {metrics.totalValue.toLocaleString(undefined, {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              })}
-            </p>
-          </div>
-          <div className="space-y-2">
-            <p className="text-muted-foreground text-sm">Total Invested</p>
-            <p className="text-2xl font-bold">
-              $
-              {metrics.totalInvested.toLocaleString(undefined, {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              })}
-            </p>
-          </div>
-          <div className="space-y-2">
-            <p className="text-muted-foreground text-sm">Profit/Loss</p>
-            <p
-              className={`text-2xl font-bold ${metrics.totalProfitLoss >= 0 ? "text-green-500" : "text-red-500"}`}
-            >
-              $
-              {metrics.totalProfitLoss.toLocaleString(undefined, {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              })}
-              <span className="ml-1 text-sm">
-                ({profitLossPercentage.toFixed(2)}%)
-              </span>
-            </p>
-          </div>
-          <div className="space-y-2">
-            <p className="text-muted-foreground text-sm">Positions</p>
-            <p className="text-2xl font-bold">{metrics.positions}</p>
-          </div>
+          <PortfolioValue totalValue={metrics.totalValue} />
+          <TotalInvested totalInvested={metrics.totalInvested} />
+          <ProfitAndLoss
+            totalProfitLoss={metrics.totalProfitLoss}
+            profitLossPercentage={profitLossPercentage}
+          />
+          <Positions positions={metrics.positions} />
         </CardContent>
       </Card>
 
