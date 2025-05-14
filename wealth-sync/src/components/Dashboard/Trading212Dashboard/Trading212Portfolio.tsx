@@ -19,6 +19,7 @@ import TotalInvested from "../TotalInvested/TotalInvested";
 import ProfitAndLoss from "../ProfitAndLoss/ProfitAndLoss";
 import Positions from "../Positions/Positions";
 import ContainerCardErrorState from "../ContainerCardErrorState/ContainerCardErrorState";
+import type { AccountData } from "@/app/api/platforms/trading212/account/res.interface";
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -47,6 +48,7 @@ export function Trading212Portfolio() {
   const [openPositionsPortfolio, setOpenPositionsPortfolio] = useState<
     PortfolioItem[]
   >([]);
+  const [accountData, setAccountData] = useState<AccountData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [showAllPositions, setShowAllPositions] = useState<boolean>(false);
@@ -84,7 +86,12 @@ export function Trading212Portfolio() {
         const portfolioData = await fetchWithRetry(() =>
           service.getPortfolio(),
         );
+        const accountData = await fetchWithRetry(() =>
+          service.getAccountInfo(),
+        );
+        setAccountData(accountData);
         setOpenPositionsPortfolio(portfolioData);
+        console.log("accountData", accountData);
         console.log("portfolioData", portfolioData);
       } catch (err) {
         setError("Failed to fetch openPositionsPortfolio portfolioData");

@@ -48,14 +48,10 @@ const AllPortfolioSummary = () => {
         let platformsConnected = 0;
         let bestPerformer = { ticker: "", percentageChange: 0 };
 
-        // Get Trading212 portfolioData if connected
         const trading212ApiKey = getApiKey("trading212");
         const service = new Trading212Service(trading212ApiKey!);
         const portfolioData = await service.getPortfolio();
-        const accountInfo = await service.getAccountInfo();
-        console.log("accountInfo", accountInfo);
-        
-        // console.log("portfolioData", portfolioData);
+        // const accountInfo = await service.getAccountInfo();
 
         /**
          * Calculate the total open postion portfolio value by adding all open positions
