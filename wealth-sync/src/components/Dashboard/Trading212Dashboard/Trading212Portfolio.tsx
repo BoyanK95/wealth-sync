@@ -120,6 +120,18 @@ export function Trading212Portfolio() {
     return accountData.invested / rate;
   }, [accountData, exchangeRates]);
 
+  const calculateProfitAndLossResult = useCallback(() => {
+    if (!accountData) return 0;
+    const rate = exchangeRates.EUR ?? 1;
+    return accountData.result / rate;
+  }, [accountData, exchangeRates]);
+
+  const calculateProfitAndLossPercentage = useCallback(() => {
+    if (!accountData) return 0;
+    const rate = exchangeRates.EUR ?? 1;
+    return (accountData.result / rate / accountData.invested / rate) * 100;
+  }, [accountData, exchangeRates]);
+
   const calculatePortfolioMetrics = () => {
     return openPositionsPortfolio.reduce(
       (acc, item) => {
@@ -198,6 +210,8 @@ export function Trading212Portfolio() {
           <ProfitAndLoss
             totalProfitLoss={metrics.totalProfitLoss}
             profitLossPercentage={profitLossPercentage}
+            profitLossTitle="Profit/Loss"
+            tooltipText="The total profit or loss of your open positions."
           />
           <Positions positions={metrics.positions} />
           <PortfolioValue
@@ -209,6 +223,12 @@ export function Trading212Portfolio() {
             totalInvested={calculateTotalInvestedAmmount()}
             totalInvestedTitle="Total Invested Value"
             tooltipText="The total amount of dollars currently invested in your account."
+          />
+          <ProfitAndLoss
+            totalProfitLoss={calculateProfitAndLossResult()}
+            profitLossPercentage={calculateProfitAndLossPercentage()}
+            profitLossTitle="Account Profit/Loss"
+            tooltipText="The total profit or loss of your account."
           />
         </CardContent>
       </Card>
