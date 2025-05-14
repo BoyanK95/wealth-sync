@@ -1,3 +1,4 @@
+import type { AccountData } from "@/app/api/platforms/trading212/account/res.interface";
 import { fetchWithRetry } from "../utils/fetchWithRetry";
 
 interface Position {
@@ -40,6 +41,6 @@ export class Trading212Service {
   }
 
   async getAccountInfo() {
-    return this.fetchFromApi("/account");
+    return this.fetchFromApi("/account") as Promise<AccountData>;
   }
 }
