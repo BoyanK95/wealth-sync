@@ -170,13 +170,22 @@ export function Trading212Portfolio() {
           <CardTitle>Trading212 Portfolio Summary</CardTitle>
         </CardHeader>
         <CardContent className="grid grid-cols-2 gap-4 md:grid-cols-4">
-          <PortfolioValue totalValue={metrics.totalValue} />
+          <PortfolioValue
+            totalValue={metrics.totalValue}
+            portfolioTitle="Open Positions Portfolio Value"
+            tooltipText="Total value of all your open positions."
+          />
           <TotalInvested totalInvested={metrics.totalInvested} />
           <ProfitAndLoss
             totalProfitLoss={metrics.totalProfitLoss}
             profitLossPercentage={profitLossPercentage}
           />
           <Positions positions={metrics.positions} />
+          <PortfolioValue
+            totalValue={accountData!.total}
+            portfolioTitle="Total Account Value"
+            tooltipText="Total value of your account, including open and closed positions and cash."
+          />
         </CardContent>
       </Card>
 
