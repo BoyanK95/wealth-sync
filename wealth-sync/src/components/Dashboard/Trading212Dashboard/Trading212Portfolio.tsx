@@ -15,6 +15,7 @@ import {
 } from "@/lib/utils/currencyUtils";
 import { PlatformLoadingCard } from "../PlatformLoadingCard";
 import PortfolioValue from "../PortfolioValue/PortfolioValue";
+import TotalInvested from "../TotalInvested/TotalInvested";
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -150,16 +151,7 @@ export function Trading212Portfolio() {
         </CardHeader>
         <CardContent className="grid grid-cols-2 gap-4 md:grid-cols-4">
           <PortfolioValue totalValue={metrics.totalValue} />
-          <div className="space-y-2">
-            <p className="text-muted-foreground text-sm">Total Invested</p>
-            <p className="text-2xl font-bold">
-              $
-              {metrics.totalInvested.toLocaleString(undefined, {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              })}
-            </p>
-          </div>
+          <TotalInvested totalInvested={metrics.totalInvested} />
           <div className="space-y-2">
             <p className="text-muted-foreground text-sm">Profit/Loss</p>
             <p
