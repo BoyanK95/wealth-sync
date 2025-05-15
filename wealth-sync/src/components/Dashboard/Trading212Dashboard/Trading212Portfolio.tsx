@@ -90,7 +90,6 @@ export function Trading212Portfolio() {
         const accountData = await fetchWithRetry(() =>
           service.getAccountInfo(),
         );
-        console.log("accountData", accountData);
 
         setAccountData(accountData);
         setOpenPositionsPortfolio(portfolioData);
