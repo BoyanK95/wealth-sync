@@ -20,8 +20,6 @@ import Link from "next/link";
 
 const GeneralTab = ({ user }: UserFormProps) => {
   const router = useRouter();
-  console.log(user);
-  console.log(user.image);
 
   const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState(user.name ?? "");

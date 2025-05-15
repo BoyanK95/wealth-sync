@@ -19,6 +19,7 @@ import TotalInvested from "../TotalInvested/TotalInvested";
 import ProfitAndLoss from "../ProfitAndLoss/ProfitAndLoss";
 import Positions from "../Positions/Positions";
 import ContainerCardErrorState from "../ContainerCardErrorState/ContainerCardErrorState";
+import type { AccountData } from "@/app/api/platforms/trading212/account/res.interface";
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -47,6 +48,7 @@ export function Trading212Portfolio() {
   const [openPositionsPortfolio, setOpenPositionsPortfolio] = useState<
     PortfolioItem[]
   >([]);
+  const [accountData, setAccountData] = useState<AccountData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [showAllPositions, setShowAllPositions] = useState<boolean>(false);
@@ -60,6 +62,7 @@ export function Trading212Portfolio() {
     async function loadExchangeRates() {
       try {
         const rates = await fetchExchangeRates("USD");
+
         setExchangeRates(rates);
       } catch (error) {
         console.error("Failed to fetch exchange rates:", error);
@@ -84,8 +87,13 @@ export function Trading212Portfolio() {
         const portfolioData = await fetchWithRetry(() =>
           service.getPortfolio(),
         );
+        const accountData = await fetchWithRetry(() =>
+          service.getAccountInfo(),
+        );
+        console.log("accountData", accountData);
+
+        setAccountData(accountData);
         setOpenPositionsPortfolio(portfolioData);
-        console.log("portfolioData", portfolioData);
       } catch (err) {
         setError("Failed to fetch openPositionsPortfolio portfolioData");
         console.error(err);
@@ -98,10 +106,36 @@ export function Trading212Portfolio() {
     fetchPortfolio();
   }, [getApiKey, openPositionsPortfolio]);
 
+  const calculateAccountMetrics = useCallback(() => {
+    if (!accountData) {
+      return {
+        totalValue: 0,
+        totalInvested: 0,
+        profitLoss: 0,
+        profitLossPercentage: 0,
+        freeCash: 0,
+      };
+    }
+
+    const rate = exchangeRates.EUR ?? 1;
+    const totalValue = accountData.total / rate;
+    const totalInvested = accountData.invested / rate;
+    const profitLoss = accountData.result / rate;
+    const profitLossPercentage = (profitLoss / totalInvested) * 100;
+    const freeCash = accountData.free ? accountData.free / rate : 0;
+
+    return {
+      totalValue,
+      totalInvested,
+      profitLoss,
+      profitLossPercentage,
+      freeCash,
+    };
+  }, [accountData, exchangeRates]);
+
   const calculatePortfolioMetrics = () => {
     return openPositionsPortfolio.reduce(
       (acc, item) => {
-        // Detect currency for this position
         const currency = detectCurrency(item.ticker);
 
         // Get exchange rate (default to 1 if not found)
@@ -118,7 +152,6 @@ export function Trading212Portfolio() {
 
         const pplUSD = item.ppl / rate;
 
-        // Calculate position metrics
         const positionValue = item.quantity * currentPriceUSD;
         const investedValue = item.quantity * averagePriceUSD;
 
@@ -148,6 +181,7 @@ export function Trading212Portfolio() {
   if (!openPositionsPortfolio.length) return null;
 
   const metrics = calculatePortfolioMetrics();
+  const accountMetrics = calculateAccountMetrics();
 
   const toggleShowAllPositions = () => {
     setShowAllPositions((prev) => !prev);
@@ -163,13 +197,44 @@ export function Trading212Portfolio() {
           <CardTitle>Trading212 Portfolio Summary</CardTitle>
         </CardHeader>
         <CardContent className="grid grid-cols-2 gap-4 md:grid-cols-4">
-          <PortfolioValue totalValue={metrics.totalValue} />
-          <TotalInvested totalInvested={metrics.totalInvested} />
+          <PortfolioValue
+            totalValue={metrics.totalValue}
+            portfolioTitle="Open Positions Portfolio Value"
+            tooltipText="Total value of all your open positions."
+          />
+          <TotalInvested
+            totalInvested={metrics.totalInvested}
+            totalInvestedTitle="Total Invested in Open Positions"
+            tooltipText="Total amount of dollars currently invested in open positions."
+          />
           <ProfitAndLoss
             totalProfitLoss={metrics.totalProfitLoss}
             profitLossPercentage={profitLossPercentage}
+            profitLossTitle="Profit/Loss"
+            tooltipText="The total profit or loss of your open positions."
           />
           <Positions positions={metrics.positions} />
+          <PortfolioValue
+            totalValue={accountMetrics.totalValue}
+            portfolioTitle="Total Account Value"
+            tooltipText="Total value of your account, including open and closed positions and cash."
+          />
+          <TotalInvested
+            totalInvested={accountMetrics.totalInvested}
+            totalInvestedTitle="Total Invested Value"
+            tooltipText="The total amount of dollars currently invested in your account."
+          />
+          <ProfitAndLoss
+            totalProfitLoss={accountMetrics.profitLoss}
+            profitLossPercentage={accountMetrics.profitLossPercentage}
+            profitLossTitle="Account Profit/Loss"
+            tooltipText="The total profit or loss of your account."
+          />
+          <TotalInvested
+            totalInvested={accountMetrics.freeCash}
+            totalInvestedTitle="Free Cash"
+            tooltipText="The total amount of cash available in your account."
+          />
         </CardContent>
       </Card>
 

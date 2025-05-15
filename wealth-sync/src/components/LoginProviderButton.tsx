@@ -17,8 +17,6 @@ const LoginProviderButton = ({
   const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = async (signInProvider: string) => {
-    console.log(signInProvider);
-    
     setIsLoading(true);
     try {
       const result = await signIn(signInProvider, {

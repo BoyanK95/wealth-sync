@@ -26,7 +26,6 @@ export default function LoginForm() {
         password,
         redirect: false,
       });
-      console.log(result);
 
       if (result?.error) {
         setEmail("");

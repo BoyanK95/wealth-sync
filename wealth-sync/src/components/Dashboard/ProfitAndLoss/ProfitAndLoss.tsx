@@ -8,9 +8,13 @@ import {
 const ProfitAndLoss = ({
   totalProfitLoss,
   profitLossPercentage,
+  profitLossTitle,
+  tooltipText,
 }: {
   totalProfitLoss: number;
   profitLossPercentage: number;
+  profitLossTitle: string;
+  tooltipText: string;
 }) => {
   return (
     <div>
@@ -18,7 +22,7 @@ const ProfitAndLoss = ({
         <Tooltip>
           <TooltipTrigger asChild>
             <div className="ml-15 inline-block cursor-default space-y-2">
-              <p className="text-muted-foreground text-sm">Profit/Loss</p>
+              <p className="text-muted-foreground text-sm">{profitLossTitle}</p>
               <p
                 className={`text-2xl font-bold ${totalProfitLoss >= 0 ? "text-green-500" : "text-red-500"}`}
               >
@@ -38,7 +42,7 @@ const ProfitAndLoss = ({
             align="center"
             className="dark:bg-background dark:text-foreground p-3 font-bold"
           >
-            <p>Total profit or loss from all your open positions.</p>
+            <p>{tooltipText}</p>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
