@@ -24,7 +24,7 @@ const ContainerCardErrorState = ({
           <Button
             onClick={onRetry}
             variant="outline"
-            className="mt-4 border-red-200 bg-white hover:bg-red-50 dark:border-red-800 dark:bg-red-950/50"
+            className="mt-4 cursor-pointer border-red-200 bg-white hover:bg-red-50 dark:border-red-800 dark:bg-red-950/50"
           >
             <RefreshCw className="mr-2 h-4 w-4" />
             Retry

@@ -62,7 +62,6 @@ export function Trading212Portfolio() {
     async function loadExchangeRates() {
       try {
         const rates = await fetchExchangeRates("USD");
-        // console.log("Exchange rates:", rates);
 
         setExchangeRates(rates);
       } catch (error) {
@@ -91,6 +90,8 @@ export function Trading212Portfolio() {
         const accountData = await fetchWithRetry(() =>
           service.getAccountInfo(),
         );
+        console.log("accountData", accountData);
+
         setAccountData(accountData);
         setOpenPositionsPortfolio(portfolioData);
       } catch (err) {
