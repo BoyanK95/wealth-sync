@@ -30,7 +30,7 @@ export default async function SettingsPage() {
             </TabsTrigger>
           </TabsList>
 
-          <AccountSettingsTab session={session} />
+          <AccountSettingsTab session={session!} />
           <PreferenceSettingsTab />
           <NotificationsSettingsTab />
         </Tabs>
