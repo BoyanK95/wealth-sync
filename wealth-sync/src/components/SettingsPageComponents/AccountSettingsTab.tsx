@@ -27,8 +27,9 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { deleteAccount } from "@/server/actions/user";
+import type { Session } from "next-auth";
 
-const AccountSettingsTab = ({ session }: { session: any }) => {
+const AccountSettingsTab = ({ session }: { session: Session }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
