@@ -14,6 +14,8 @@ export async function deleteAccount() {
   }
 
   try {
+    console.log("Deleting account...");
+
     await db.user.delete({
       where: {
         id: session.user.id,
