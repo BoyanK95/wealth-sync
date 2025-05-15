@@ -125,10 +125,12 @@ const AccountSettingsTab = ({ session }: { session: any }) => {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel className="cursor-pointer">
+              Cancel
+            </AlertDialogCancel>
             <AlertDialogAction
               onClick={handleDeleteAccount}
-              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90 hover:cursor-pointer hover:text-white dark:hover:bg-red-800"
             >
               Delete Account
             </AlertDialogAction>
