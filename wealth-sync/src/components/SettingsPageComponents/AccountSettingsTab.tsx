@@ -14,6 +14,8 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Loader2, Settings2, Shield, User } from "lucide-react";
 import { toast } from "sonner";
+import { signOut } from "next-auth/react";
+import { Routes } from "@/lib/constants/routes";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -34,6 +36,7 @@ const AccountSettingsTab = ({ session }: { session: any }) => {
     setIsLoading(true);
     try {
       await deleteAccount();
+      await signOut({ callbackUrl: Routes.HOME });
     } catch (error) {
       setIsLoading(false);
       toast.error("Failed to delete account", {
