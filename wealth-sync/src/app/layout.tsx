@@ -1,6 +1,5 @@
 import { Navbar } from "@/components/Navbar";
 import { Providers } from "@/components/Providers";
-import { ThemeProvider } from "@/components/theme-provider";
 import "@/styles/globals.css";
 
 import { type Metadata } from "next";
@@ -23,17 +22,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geist.variable}`} suppressHydrationWarning>
       <body>
-        <ThemeProvider
-          attribute={"class"}
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Providers>
-            <Navbar />
-            {children}
-          </Providers>
-        </ThemeProvider>
+        <Providers>
+          <Navbar />
+          {children}
+        </Providers>
       </body>
     </html>
   );
