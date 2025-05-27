@@ -11,6 +11,9 @@ import NoPlatformsConnected from "../NoPlatformsConnected/NoPlatformsConnected";
 const PlatformsDashboard = ({ user }: { user: User }) => {
   const { connections } = usePlatformConnection();
 
+    console.log("connections", connections);
+
+
   if (!connections.length) {
     return <NoPlatformsConnected />;
   }
