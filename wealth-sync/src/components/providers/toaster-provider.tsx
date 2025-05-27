@@ -2,10 +2,14 @@
 
 import { Toaster } from "sonner";
 
-export function ToasterProvider() {
+export function ToasterProvider({
+  position = "bottom-right",
+}: {
+  position?: "top-right" | "bottom-right" | "top-left" | "bottom-left";
+}) {
   return (
     <Toaster
-      position="bottom-right"
+      position={position}
       toastOptions={{
         style: {
           background: "hsl(var(--background))",
