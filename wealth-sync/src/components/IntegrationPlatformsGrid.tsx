@@ -18,7 +18,7 @@ const IntegrationPlatformsGrid = () => {
             key={platform.id}
             className="flex flex-col items-center space-y-2 rounded-lg border p-6"
           >
-            <div className="bg-muted h-12 w-12 rounded-full">
+            <div className="bg-muted rounded-full">
               {platform.logo && (
                 <Image
                   src={platform.logo}
