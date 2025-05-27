@@ -20,6 +20,8 @@ import ProfitAndLoss from "../ProfitAndLoss/ProfitAndLoss";
 import Positions from "../Positions/Positions";
 import ContainerCardErrorState from "../ContainerCardErrorState/ContainerCardErrorState";
 import type { AccountData } from "@/app/api/platforms/trading212/account/res.interface";
+import { TooltipText } from "@/lib/constants/tooltipText";
+import { TitleText } from "@/lib/constants/titleText";
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -198,41 +200,41 @@ export function Trading212Portfolio() {
         <CardContent className="grid grid-cols-2 gap-4 md:grid-cols-4">
           <PortfolioValue
             totalValue={metrics.totalValue}
-            portfolioTitle="Open Positions Portfolio Value"
-            tooltipText="Total value of all your open positions."
+            portfolioTitle={TitleText.OPEN_POSITIONS_TOTAL_VALUE}
+            tooltipText={TooltipText.OPEN_POSITIONS_TOTAL_VALUE}
           />
           <TotalInvested
             totalInvested={metrics.totalInvested}
-            totalInvestedTitle="Total Invested in Open Positions"
-            tooltipText="Total amount of dollars currently invested in open positions."
+            totalInvestedTitle={TitleText.TOTAL_INVESTED}
+            tooltipText={TooltipText.TOTAL_INVESTED}
           />
           <ProfitAndLoss
             totalProfitLoss={metrics.totalProfitLoss}
             profitLossPercentage={profitLossPercentage}
-            profitLossTitle="Profit/Loss"
-            tooltipText="The total profit or loss of your open positions."
+            profitLossTitle={TitleText.PROFIT_LOSS}
+            tooltipText={TooltipText.PROFIT_LOSS}
           />
           <Positions positions={metrics.positions} />
           <PortfolioValue
             totalValue={accountMetrics.totalValue}
-            portfolioTitle="Total Account Value"
-            tooltipText="Total value of your account, including open and closed positions and cash."
+            portfolioTitle={TitleText.TOTAL_ACCOUNT_VALUE}
+            tooltipText={TooltipText.PORTFOLIO_VALUE}
           />
           <TotalInvested
             totalInvested={accountMetrics.totalInvested}
-            totalInvestedTitle="Total Invested Value"
-            tooltipText="The total amount of dollars currently invested in your account."
+            totalInvestedTitle={TitleText.TOTAL_INVESTED_VALUE}
+            tooltipText={TooltipText.TOTAL_INVESTED}
           />
           <ProfitAndLoss
             totalProfitLoss={accountMetrics.profitLoss}
             profitLossPercentage={accountMetrics.profitLossPercentage}
-            profitLossTitle="Account Profit/Loss"
-            tooltipText="The total profit or loss of your account."
+            profitLossTitle={TitleText.ACCOUNT_PROFIT_LOSS}
+            tooltipText={TooltipText.ACCOUNT_PROFIT_LOSS}
           />
           <TotalInvested
             totalInvested={accountMetrics.freeCash}
-            totalInvestedTitle="Free Cash"
-            tooltipText="The total amount of free cash available in your account (Including open position orders). "
+            totalInvestedTitle={TitleText.FREE_CASH}
+            tooltipText={TooltipText.FREE_CASH}
           />
         </CardContent>
       </Card>

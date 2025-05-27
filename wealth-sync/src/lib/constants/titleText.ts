@@ -1,0 +1,17 @@
+export enum TitleText {
+  OPEN_POSITIONS_TOTAL_VALUE = "Open Positions Value",
+  TOTAL_INVESTED = "Total Invested in Open Positions",
+  TOTAL_INVESTED_VALUE = "Total Invested Value",
+  TOTAL_ACCOUNT_VALUE = "Total Account Value",
+  PROFIT_LOSS = "Profit/Loss",
+  ACCOUNT_PROFIT_LOSS = "Account Profit/Loss",
+  FREE_CASH = "Free Cash",
+  OPEN_POSITIONS = "Open Positions",
+  OPEN_POSITIONS_PROFIT_LOSS = "Open Positions Profit/Loss",
+  PORTFOLIO_CHANGE = "The change in value of your portfolio over the last month.",
+  PORTFOLIO_PERFORMANCE = "The performance of your portfolio over the last month.",
+  PORTFOLIO_TOP_PERFORMING_ASSET = "The top performing asset in your portfolio over the last month.",
+  PORTFOLIO_TOP_PERFORMING_ASSET_VALUE = "The value of the top performing asset in your portfolio over the last month.",
+  PORTFOLIO_TOP_PERFORMING_ASSET_CHANGE = "The change in value of the top performing asset in your portfolio over the last month.",
+  PORTFOLIO_TOP_PERFORMING_ASSET_PERFORMANCE_PERCENTAGE_CHANGE = "The change in performance of the top performing asset in your portfolio over the last month.",
+}
