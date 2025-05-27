@@ -232,7 +232,7 @@ export function Trading212Portfolio() {
           <TotalInvested
             totalInvested={accountMetrics.freeCash}
             totalInvestedTitle="Free Cash"
-            tooltipText="The total amount of cash available in your account."
+            tooltipText="The total amount of free cash available in your account (Including open position orders). "
           />
         </CardContent>
       </Card>
