@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import { auth } from "@/server/auth";
-import { Trading212Portfolio } from "@/components/Dashboard/Trading212Dashboard/Trading212Portfolio";
-import DashboardWelcomeHeader from "@/components/Dashboard/DashbaordWelcomeHeader/DashboardWelcomeHeader";
-import AllPortfolioSummary from "@/components/Dashboard/AllPortfolioSummary/AllPortfolioSummary";
-import DashboardTabs from "@/components/Dashboard/DashboardTabs/DashboardTabs";
+import PlatformsDashboard from "@/components/Dashboard/PlatformsDashboard/PlatformsDashboard";
 
 export const metadata: Metadata = {
   title: "Dashboard | WealthSync",
@@ -19,12 +16,7 @@ export default async function DashboardPage() {
     <div className="flex min-h-screen flex-col">
       <main className="flex-1 pt-16 pb-12">
         <div className="container">
-          <div className="flex flex-col space-y-6">
-            <DashboardWelcomeHeader user={user} />
-            <AllPortfolioSummary />
-            <Trading212Portfolio />
-            <DashboardTabs />
-          </div>
+          <PlatformsDashboard user={user} />
         </div>
       </main>
     </div>
