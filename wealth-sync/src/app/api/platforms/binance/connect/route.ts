@@ -10,13 +10,14 @@ export async function POST(request: Request) {
     }
 
     const { apiKey, apiSecret } = await request.json();
-
     if (!apiKey || !apiSecret) {
       return NextResponse.json(
         { error: "API key and secret are required" },
         { status: 400 },
       );
     }
+
+    const combinedKey = `${apiKey}:${apiSecret}`;
 
     // Store the connection in the database
     await db.platformConnection.upsert({
@@ -27,16 +28,14 @@ export async function POST(request: Request) {
         },
       },
       update: {
-        apiKey: apiKey as string,
-        apiSecret: apiSecret as string,
+        apiKey: combinedKey,
         isConnected: true,
         updatedAt: new Date(),
       },
       create: {
         userId: session.user.id,
         platformId: "binance",
-        apiKey: apiKey as string,
-        apiSecret: apiSecret as string,
+        apiKey: combinedKey,
         isConnected: true,
       },
     });
