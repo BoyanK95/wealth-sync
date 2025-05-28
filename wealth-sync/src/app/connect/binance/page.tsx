@@ -1,9 +1,56 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Routes } from "@/lib/constants/routes";
+import { usePlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export default function BinanceConnectPage() {
+  const [apiKey, setApiKey] = useState<string>("");
+  const [apiSecret, setApiSecret] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const router = useRouter();
+  const { refreshConnections, getApiKey } = usePlatformConnection();
+
+  useEffect(() => {
+    const existingApiKey = getApiKey('binance');
+    if (existingApiKey) {
+      setApiKey(existingApiKey);
+    }
+  }, [getApiKey]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      await fetch("/api/platforms/binance/connect", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ apiKey, apiSecret }),
+      });
+
+      await refreshConnections();
+      toast.success("Successfully connected to Binance");
+      router.push(Routes.DASHBOARD);
+    } catch (error) {
+      setApiKey("");
+      setApiSecret("");
+      toast.error("Failed to connect", {
+        description: error instanceof Error ? error.message : "Please try again",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <>
       <div className="text-center">
@@ -29,23 +76,36 @@ export default function BinanceConnectPage() {
           </div>
         </CardHeader>
         <CardContent>
-          <form className="space-y-4">
+          <form className="space-y-4" onSubmit={handleSubmit}>
             <div className="space-y-2">
               <label className="text-sm font-medium">API Key</label>
-              <Input type="password" placeholder="Enter your Binance API key" />
+              <Input 
+                type="password" 
+                placeholder="Enter your Binance API key" 
+                value={apiKey}
+                onChange={(e) => setApiKey(e.target.value)}
+                required
+              />
             </div>
             <div className="space-y-2">
               <label className="text-sm font-medium">API Secret</label>
               <Input
                 type="password"
                 placeholder="Enter your Binance API secret"
+                value={apiSecret}
+                onChange={(e) => setApiSecret(e.target.value)}
+                required
               />
               <p className="text-muted-foreground text-xs">
                 Make sure to use read-only API keys for security
               </p>
             </div>
-            <Button className="w-full cursor-pointer hover:bg-green-500">
-              Connect Binance
+            <Button 
+              type="submit"
+              className="w-full cursor-pointer hover:bg-green-500"
+              disabled={isLoading}
+            >
+              {isLoading ? "Connecting..." : "Connect Binance"}
             </Button>
           </form>
         </CardContent>

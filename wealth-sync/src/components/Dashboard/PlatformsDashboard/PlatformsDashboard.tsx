@@ -11,6 +11,8 @@ import NoPlatformsConnected from "../NoPlatformsConnected/NoPlatformsConnected";
 const PlatformsDashboard = ({ user }: { user: User }) => {
   const { connections } = usePlatformConnection();
 
+  console.log("connections", connections);
+
   if (!connections.length) {
     return <NoPlatformsConnected />;
   }
@@ -19,7 +21,9 @@ const PlatformsDashboard = ({ user }: { user: User }) => {
     <div className="flex flex-col space-y-6">
       <DashboardWelcomeHeader user={user} />
       <AllPortfolioSummary />
-      <Trading212Portfolio />
+      {connections.some(
+        (connection) => connection.platformId === "trading212",
+      ) && <Trading212Portfolio />}
       <DashboardTabs />
     </div>
   );
