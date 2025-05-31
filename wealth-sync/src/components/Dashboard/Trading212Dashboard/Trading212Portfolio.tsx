@@ -23,28 +23,28 @@ import type { AccountData } from "@/app/api/platforms/trading212/account/res.int
 import { TooltipText } from "@/lib/constants/tooltipText";
 import { TitleText } from "@/lib/constants/titleText";
 
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+// const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-async function fetchWithRetry<T>(
-  fetchFn: () => Promise<T>,
-  maxRetries = 3,
-): Promise<T> {
-  let retries = 0;
-  while (retries < maxRetries) {
-    try {
-      return await fetchFn();
-    } catch (error) {
-      if (error instanceof Response && error.status === 429) {
-        const waitTime = Math.min(1000 * Math.pow(2, retries), 10000);
-        await delay(waitTime);
-        retries++;
-        continue;
-      }
-      throw error;
-    }
-  }
-  throw new Error("Max retries reached");
-}
+// async function fetchWithRetry<T>(
+//   fetchFn: () => Promise<T>,
+//   maxRetries = 3,
+// ): Promise<T> {
+//   let retries = 0;
+//   while (retries < maxRetries) {
+//     try {
+//       return await fetchFn();
+//     } catch (error) {
+//       if (error instanceof Response && error.status === 429) {
+//         const waitTime = Math.min(1000 * Math.pow(2, retries), 10000);
+//         await delay(waitTime);
+//         retries++;
+//         continue;
+//       }
+//       throw error;
+//     }
+//   }
+//   throw new Error("Max retries reached");
+// }
 
 export function Trading212Portfolio() {
   const [openPositionsPortfolio, setOpenPositionsPortfolio] = useState<
@@ -81,7 +81,30 @@ export function Trading212Portfolio() {
     loadExchangeRates();
   }, []);
 
+  useEffect(() => {
+    async function fetchPortfolio() {
+      try {
+        const apiKey = getApiKey("trading212");
+        const service = new Trading212Service(apiKey!);
+        const portfolioData = await service.getPortfolio();
+        console.log("portfolioData", portfolioData);
+        
+        const accountData = await service.getAccountInfo();
+        console.log("accountData", accountData);
 
+        setAccountData(accountData);
+        setOpenPositionsPortfolio(portfolioData);
+      } catch (err) {
+        setError("Failed to fetch openPositionsPortfolio portfolioData");
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    fetchPortfolio();
+  }, [getApiKey, openPositionsPortfolio]);
 
   const calculateAccountMetrics = useCallback(() => {
     if (!accountData) {
@@ -147,6 +170,7 @@ export function Trading212Portfolio() {
       },
     );
   };
+  console.log();
 
   const reloadPage = useCallback(() => {
     // call the fetch portfolio function
