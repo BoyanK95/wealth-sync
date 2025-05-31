@@ -16,6 +16,11 @@ interface Position {
   pnlPercentage: number;
 }
 
+interface Symbol {
+  symbol: string;
+  price: number;
+}
+
 export class BinanceService {
   constructor(private apiKey: string) {}
 
@@ -35,6 +40,9 @@ export class BinanceService {
 
   async getPositions(): Promise<Position[]> {
     return this.fetchFromApi("/positions");
+  }
+  async getPrices(): Promise<Symbol> {
+    return this.fetchFromApi("/prices");
   }
 
   async getAccountInfo() {

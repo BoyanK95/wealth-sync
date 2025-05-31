@@ -15,21 +15,25 @@ import { TitleText } from "@/lib/constants/titleText";
 import { BinanceService } from "@/lib/services/binanceService";
 
 // Define interfaces for Binance data
-interface BinanceAsset {
+interface BinanceBalance {
   asset: string;
   free: string;
   locked: string;
-  totalValue?: number; // USD value
+}
+
+interface BinanceAccount {
+  balances: BinanceBalance[];
+  accountType: string;
+  canTrade: boolean;
+  // other fields as needed
 }
 
 interface BinancePosition {
   symbol: string;
   asset: string;
   quantity: number;
-  averagePrice: number;
   currentPrice: number;
   totalValue: number;
-  profitLoss: number;
 }
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -56,7 +60,7 @@ async function fetchWithRetry<T>(
 }
 
 export function BinancePortfolio() {
-  const [account, setAccount] = useState<any[]>([]);
+  const [account, setAccount] = useState<BinanceAccount | null>(null);
   const [positions, setPositions] = useState<BinancePosition[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -68,12 +72,61 @@ export function BinancePortfolio() {
       try {
         setLoading(true);
         const apiKey = getApiKey("binance");
-        const binanceService = new BinanceService(apiKey!);
-        const binanceAccountData = await fetchWithRetry(() =>
+        if (!apiKey) {
+          setError("Binance API key not found");
+          setLoading(false);
+          return;
+        }
+
+        const binanceService = new BinanceService(apiKey);
+
+        // Fetch account data
+        const accountData = await fetchWithRetry(() =>
           binanceService.getAccountInfo(),
         );
-        console.log("Binance data:", binanceAccountData);
-        // setAccount(binanceAccountData.balances);
+        const pricesData = await fetchWithRetry(() =>
+          binanceService.getPrices(),
+        );
+        console.log("Binance account data:", accountData);
+        console.log("Binance prices data:", pricesData);
+        
+        setAccount(accountData);
+
+        // Filter non-zero balances and calculate positions
+        const nonZeroBalances = accountData.balances.filter(
+          (balance: BinanceBalance) =>
+            parseFloat(balance.free) > 0 || parseFloat(balance.locked) > 0,
+        );
+
+        console.log("Non-zero balances:", nonZeroBalances);
+        
+        const calculatedPositions = nonZeroBalances
+          .map((balance: BinanceBalance) => {
+            const asset = balance.asset;
+            const quantity =
+              parseFloat(balance.free) + parseFloat(balance.locked);
+            const symbol = balance.asset.split('LD')[1];
+            console.log("Symbol:", symbol);
+            
+            const price = pricesData[`${symbol}USDT`];
+            console.log("Price:", price);
+            
+            const totalValue = quantity * price;
+
+            return {
+              symbol,
+              asset,
+              quantity,
+              currentPrice: price,
+              totalValue,
+            };
+          })
+          .filter((position) => position.totalValue > 0)
+          .sort((a, b) => b.totalValue - a.totalValue);
+
+        setPositions(calculatedPositions);
+        console.log("Calculated positions:", calculatedPositions);
+        
       } catch (err) {
         console.error("Error fetching Binance data:", err);
         setError(
@@ -88,24 +141,24 @@ export function BinancePortfolio() {
     fetchBinanceData();
   }, [getApiKey]);
 
-  // const calculatePortfolioMetrics = useCallback(() => {
-  //   return positions.reduce(
-  //     (acc, position) => {
-  //       return {
-  //         totalValue: acc.totalValue + position.totalValue,
-  //         totalInvested: acc.totalInvested + position.totalValue, // We don't have invested amount
-  //         totalProfitLoss: acc.totalProfitLoss + position.profitLoss,
-  //         positions: acc.positions + 1,
-  //       };
-  //     },
-  //     {
-  //       totalValue: 0,
-  //       totalInvested: 0,
-  //       totalProfitLoss: 0,
-  //       positions: 0,
-  //     },
-  //   );
-  // }, [positions]);
+  const calculatePortfolioMetrics = useCallback(() => {
+    return positions.reduce(
+      (acc, position) => {
+        return {
+          totalValue: acc.totalValue + position.totalValue,
+          totalInvested: acc.totalInvested + position.totalValue, // We don't have invested amount
+          totalProfitLoss: 0, // We don't have this data
+          positions: acc.positions + 1,
+        };
+      },
+      {
+        totalValue: 0,
+        totalInvested: 0,
+        totalProfitLoss: 0,
+        positions: 0,
+      },
+    );
+  }, [positions]);
 
   const reloadPage = useCallback(() => {
     window.location.reload();
@@ -116,6 +169,7 @@ export function BinancePortfolio() {
     return <ContainerCardErrorState error={error} onRetry={reloadPage} />;
   if (!positions.length) return null;
 
+  const metrics = calculatePortfolioMetrics();
   const toggleShowAllPositions = () => {
     setShowAllPositions((prev) => !prev);
   };
@@ -160,7 +214,6 @@ export function BinancePortfolio() {
           <div className="space-y-4">
             {!showAllPositions
               ? positions
-                  .sort((a, b) => b.totalValue - a.totalValue)
                   .slice(0, 5)
                   .map((position) => (
                     <BinancePositionItem
@@ -168,14 +221,12 @@ export function BinancePortfolio() {
                       position={position}
                     />
                   ))
-              : positions
-                  .sort((a, b) => b.totalValue - a.totalValue)
-                  .map((position) => (
-                    <BinancePositionItem
-                      key={position.symbol}
-                      position={position}
-                    />
-                  ))}
+              : positions.map((position) => (
+                  <BinancePositionItem
+                    key={position.symbol}
+                    position={position}
+                  />
+                ))}
           </div>
         </CardContent>
       </Card>
@@ -188,9 +239,9 @@ function BinancePositionItem({ position }: { position: BinancePosition }) {
     <div className="flex items-center justify-between rounded-lg border p-4">
       <div className="flex items-center space-x-4">
         <div>
-          <h3 className="font-medium">{position.asset}</h3>
+          <h3 className="font-medium">{position.symbol}</h3>
           <p className="text-muted-foreground text-sm">
-            {position.quantity.toFixed(6)} {position.asset}
+            {position.quantity.toFixed(6)} {position.symbol}
           </p>
         </div>
       </div>
