@@ -81,31 +81,7 @@ export function Trading212Portfolio() {
     loadExchangeRates();
   }, []);
 
-  useEffect(() => {
-    async function fetchPortfolio() {
-      try {
-        const apiKey = getApiKey("trading212");
-        const service = new Trading212Service(apiKey!);
-        const portfolioData = await fetchWithRetry(() =>
-          service.getPortfolio(),
-        );
-        const accountData = await fetchWithRetry(() =>
-          service.getAccountInfo(),
-        );
 
-        setAccountData(accountData);
-        setOpenPositionsPortfolio(portfolioData);
-      } catch (err) {
-        setError("Failed to fetch openPositionsPortfolio portfolioData");
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    fetchPortfolio();
-  }, [getApiKey, openPositionsPortfolio]);
 
   const calculateAccountMetrics = useCallback(() => {
     if (!accountData) {
@@ -173,7 +149,7 @@ export function Trading212Portfolio() {
   };
 
   const reloadPage = useCallback(() => {
-    window.location.reload();
+    // call the fetch portfolio function
   }, []);
 
   if (loading) return <PlatformLoadingCard platformName="Trading212" />;

@@ -24,7 +24,7 @@ async function fetchWithRetry(url: string, headers: HeadersInit, maxRetries = 3)
       
       return response;
     } catch (error) {
-      if (retries === maxRetries - 1) throw error;
+    if (retries === maxRetries - 1) throw error;
       retries++;
       const waitTime = Math.min(1000 * Math.pow(2, retries), 10000);
       await delay(waitTime);
