@@ -81,6 +81,8 @@ export function Trading212Portfolio() {
     loadExchangeRates();
   }, []);
 
+  console.log('test');
+
   useEffect(() => {
     async function fetchPortfolio() {
       try {
