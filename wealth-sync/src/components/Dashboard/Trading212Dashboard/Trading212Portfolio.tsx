@@ -172,7 +172,6 @@ export function Trading212Portfolio() {
       },
     );
   };
-  console.log();
 
   const reloadPage = useCallback(() => {
     window.location.reload();
