@@ -60,5 +60,8 @@ cd wealth-sync
 # 2. Install dependencies
 yarn install
 
-# 3. Start the dev server
+# 3. Apply migrations to the database
+yarn prisma migrate dev
+
+# 4. Start the dev server
 yarn dev
