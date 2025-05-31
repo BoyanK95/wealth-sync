@@ -1,9 +1,8 @@
 import type { AccountData } from "@/app/api/platforms/trading212/account/res.interface";
 import type { PortfolioItem } from "@/lib/constants/portfolio212";
-import { usePlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
-import { Trading212Service } from "@/lib/services/trading212Service";
-import { fetchWithRetry } from "@/lib/utils/fetchWithRetry";
 import { useEffect, useState } from "react";
+
+export default function useFetchPortfolio(service:any ){
 
 const [openPositionsPortfolio, setOpenPositionsPortfolio] = useState<
     PortfolioItem[]
@@ -11,23 +10,24 @@ const [openPositionsPortfolio, setOpenPositionsPortfolio] = useState<
   const [accountData, setAccountData] = useState<AccountData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [showAllPositions, setShowAllPositions] = useState<boolean>(false);
-  const [exchangeRates, setExchangeRates] = useState<Record<string, number>>(
-    {},
-  );
-  const { getApiKey } = usePlatformConnection();
 
-  useEffect(() => {
+
+useEffect(() => {
     async function fetchPortfolio() {
       try {
-        const apiKey = getApiKey("trading212");
-        const service = new Trading212Service(apiKey!);
         const portfolioData = await service.getPortfolio();
-        const accountData = await service.getAccountInfo();
         
+        const accountData = await service.getAccountInfo();
+        console.log("service", service);
+        console.log(portfolioData, "DATA");
+        
+        
+
         setAccountData(accountData);
         setOpenPositionsPortfolio(portfolioData);
       } catch (err) {
+        console.log(err, "errrrr");
+        
         setError("Failed to fetch openPositionsPortfolio portfolioData");
         console.error(err);
       } finally {
@@ -37,4 +37,12 @@ const [openPositionsPortfolio, setOpenPositionsPortfolio] = useState<
 
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     fetchPortfolio();
-  }, [getApiKey, openPositionsPortfolio]);
+  }, [service, openPositionsPortfolio])
+
+  return {
+    openPositionsPortfolio,
+    loading,
+    error,
+    accountData
+  }
+}

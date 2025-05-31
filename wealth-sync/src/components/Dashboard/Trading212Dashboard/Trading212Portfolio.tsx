@@ -22,42 +22,19 @@ import ContainerCardErrorState from "../ContainerCardErrorState/ContainerCardErr
 import type { AccountData } from "@/app/api/platforms/trading212/account/res.interface";
 import { TooltipText } from "@/lib/constants/tooltipText";
 import { TitleText } from "@/lib/constants/titleText";
-
-// const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
-// async function fetchWithRetry<T>(
-//   fetchFn: () => Promise<T>,
-//   maxRetries = 3,
-// ): Promise<T> {
-//   let retries = 0;
-//   while (retries < maxRetries) {
-//     try {
-//       return await fetchFn();
-//     } catch (error) {
-//       if (error instanceof Response && error.status === 429) {
-//         const waitTime = Math.min(1000 * Math.pow(2, retries), 10000);
-//         await delay(waitTime);
-//         retries++;
-//         continue;
-//       }
-//       throw error;
-//     }
-//   }
-//   throw new Error("Max retries reached");
-// }
+import useFetchPortfolio from "@/hooks/useFetchPortfolio";
 
 export function Trading212Portfolio() {
-  const [openPositionsPortfolio, setOpenPositionsPortfolio] = useState<
-    PortfolioItem[]
-  >([]);
-  const [accountData, setAccountData] = useState<AccountData | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [showAllPositions, setShowAllPositions] = useState<boolean>(false);
   const [exchangeRates, setExchangeRates] = useState<Record<string, number>>(
     {},
   );
   const { getApiKey } = usePlatformConnection();
+  const apiKey = getApiKey("trading212");
+  const service = new Trading212Service(apiKey!);
+  const {loading, error, accountData, openPositionsPortfolio} = useFetchPortfolio(service)
+
+  
 
   // Fetch exchange rates on component mount
   useEffect(() => {
@@ -81,30 +58,8 @@ export function Trading212Portfolio() {
     loadExchangeRates();
   }, []);
 
-  useEffect(() => {
-    async function fetchPortfolio() {
-      try {
-        const apiKey = getApiKey("trading212");
-        const service = new Trading212Service(apiKey!);
-        const portfolioData = await service.getPortfolio();
-        console.log("portfolioData", portfolioData);
-        
-        const accountData = await service.getAccountInfo();
-        console.log("accountData", accountData);
-
-        setAccountData(accountData);
-        setOpenPositionsPortfolio(portfolioData);
-      } catch (err) {
-        setError("Failed to fetch openPositionsPortfolio portfolioData");
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    fetchPortfolio();
-  }, [getApiKey, openPositionsPortfolio]);
+  console.log(openPositionsPortfolio, 'opeeennnnn');
+  
 
   const calculateAccountMetrics = useCallback(() => {
     if (!accountData) {
