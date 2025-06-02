@@ -30,9 +30,10 @@ export function Trading212Portfolio() {
   );
   const { getApiKey } = usePlatformConnection();
   const apiKey = getApiKey(ApiKeyStrings.TRADING_212);
+  const service = new Trading212Service(apiKey!);
 
   const { portfolio, accountData, loading, error, refreshData } =
-    useFetchPortfolioData(apiKey!, 15000);
+    useFetchPortfolioData(service, 15000);
 
   useEffect(() => {
     async function loadExchangeRates() {
