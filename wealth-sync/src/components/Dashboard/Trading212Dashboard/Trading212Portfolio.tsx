@@ -21,6 +21,7 @@ import ContainerCardErrorState from "../ContainerCardErrorState/ContainerCardErr
 import { TooltipText } from "@/lib/constants/tooltipText";
 import { TitleText } from "@/lib/constants/titleText";
 import { useFetchPortfolioData } from "@/hooks/useFetchPlatformData";
+import { ApiKeyStrings } from "@/lib/constants/apiKeyStrings";
 
 export function Trading212Portfolio() {
   const [showAllPositions, setShowAllPositions] = useState<boolean>(false);
@@ -28,7 +29,7 @@ export function Trading212Portfolio() {
     {},
   );
   const { getApiKey } = usePlatformConnection();
-  const apiKey = getApiKey("trading212");
+  const apiKey = getApiKey(ApiKeyStrings.TRADING_212);
 
   const { portfolio, accountData, loading, error, refreshData } =
     useFetchPortfolioData(apiKey!, 15000);
