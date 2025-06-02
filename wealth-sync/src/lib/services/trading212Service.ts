@@ -19,7 +19,9 @@ interface Position {
 export class Trading212Service {
   constructor(private apiKey: string) {}
 
-  private async fetchFromApi(endpoint: string) {
+  private async fetchFromApi(
+    endpoint: string,
+  ): Promise<Position[] | AccountData> {
     try {
       const response = await fetchWithRetry(
         `/api/platforms/trading212${endpoint}`,
@@ -33,7 +35,9 @@ export class Trading212Service {
       if (!response.ok) {
         const status = response.status;
         if (status === 403) {
-          throw new Error("API key unauthorized. Please reconnect your Trading212 account.");
+          throw new Error(
+            "API key unauthorized. Please reconnect your Trading212 account.",
+          );
         } else if (status === 429) {
           throw new Error("Rate limit exceeded. Please try again later.");
         } else {
@@ -41,19 +45,14 @@ export class Trading212Service {
         }
       }
 
-      return response.json();
+      return response.json() as Promise<Position[] | AccountData>;
     } catch (error) {
       console.error(`Error fetching from Trading212 API (${endpoint}):`, error);
       throw error;
     }
   }
-
   async getPortfolio(): Promise<Position[]> {
     return this.fetchFromApi("/portfolio") as Promise<Position[]>;
-  }
-
-  async getPositions(): Promise<Position[]> {
-    return this.fetchFromApi("/positions");
   }
 
   async getAccountInfo() {
