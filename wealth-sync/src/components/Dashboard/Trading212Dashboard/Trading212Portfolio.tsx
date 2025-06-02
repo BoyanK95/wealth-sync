@@ -122,10 +122,11 @@ export function Trading212Portfolio() {
   }, [refreshData]);
 
   if (loading) return <PlatformLoadingCard platformName="Trading212" />;
-  if (error)
+  if (error && !loading)
     return <ContainerCardErrorState error={error} onRetry={reloadPage} />;
   if (!portfolio.length) return null;
 
+  //TODO use different props from portfolio and accountData instead of calculating them here
   const metrics = calculatePortfolioMetrics();
   const accountMetrics = calculateAccountMetrics();
 

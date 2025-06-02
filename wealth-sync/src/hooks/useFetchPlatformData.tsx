@@ -3,10 +3,7 @@ import { Trading212Service } from "@/lib/services/trading212Service";
 import type { PortfolioItem } from "@/lib/constants/portfolio212";
 import type { AccountData } from "@/app/api/platforms/trading212/account/res.interface";
 
-export function useFetchPortfolioData(
-  apiKey: string,
-  refreshInterval = 30000
-) {
+export function useFetchPortfolioData(apiKey: string, refreshInterval = 30000) {
   const [portfolio, setPortfolio] = useState<PortfolioItem[]>([]);
   const [accountData, setAccountData] = useState<AccountData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -25,12 +22,12 @@ export function useFetchPortfolioData(
 
       const accountInfo = await service.getAccountInfo();
       const portfolioData = await service.getPortfolio();
-      
+
       setAccountData(accountInfo);
       setPortfolio(portfolioData);
       console.log("accountInfo", accountInfo);
       console.log("portfolioData", portfolioData);
-      
+
       setLastUpdated(new Date());
       setError(null);
     } catch (err) {
@@ -45,7 +42,7 @@ export function useFetchPortfolioData(
 
   // Initial fetch
   useEffect(() => {
-    fetchData();
+    void fetchData();
   }, [fetchData]);
 
   // Set up periodic refresh
@@ -53,7 +50,7 @@ export function useFetchPortfolioData(
     if (!refreshInterval) return;
 
     const intervalId = setInterval(() => {
-      fetchData();
+      void fetchData();
     }, refreshInterval);
 
     return () => clearInterval(intervalId);
