@@ -6,7 +6,7 @@ export async function GET() {
   try {
     const session = await auth();
     if (!session?.user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const connections = await db.platformConnection.findMany({
@@ -19,15 +19,13 @@ export async function GET() {
         isConnected: true,
       },
     });
-    console.log('Fetched connections:', connections);
-    
 
     return NextResponse.json(connections);
   } catch (error) {
-    console.error('Error fetching platform connections:', error);
+    console.error("Error fetching platform connections:", error);
     return NextResponse.json(
-      { error: 'Failed to fetch platform connections' },
-      { status: 500 }
+      { error: "Failed to fetch platform connections" },
+      { status: 500 },
     );
   }
 }
