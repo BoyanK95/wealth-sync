@@ -7,90 +7,43 @@ import { Button } from "@/components/ui/button";
 import { PlatformLoadingCard } from "../PlatformLoadingCard";
 import PortfolioValue from "../PortfolioValue/PortfolioValue";
 import TotalInvested from "../TotalInvested/TotalInvested";
-import ProfitAndLoss from "../ProfitAndLoss/ProfitAndLoss";
 import Positions from "../Positions/Positions";
 import ContainerCardErrorState from "../ContainerCardErrorState/ContainerCardErrorState";
 import { TooltipText } from "@/lib/constants/tooltipText";
 import { TitleText } from "@/lib/constants/titleText";
 import { BinanceService } from "@/lib/services/binanceService";
-
-// Define interfaces for Binance data
-interface BinanceBalance {
-  asset: string;
-  free: string;
-  locked: string;
-}
-
-interface BinanceAccount {
-  balances: BinanceBalance[];
-  accountType: string;
-  canTrade: boolean;
-  // other fields as needed
-}
-
-interface BinancePosition {
-  symbol: string;
-  asset: string;
-  quantity: number;
-  currentPrice: number;
-  totalValue: number;
-}
-
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
-async function fetchWithRetry<T>(
-  fetchFn: () => Promise<T>,
-  maxRetries = 3,
-): Promise<T> {
-  let retries = 0;
-  while (retries < maxRetries) {
-    try {
-      return await fetchFn();
-    } catch (error) {
-      if (error instanceof Response && error.status === 429) {
-        const waitTime = Math.min(1000 * Math.pow(2, retries), 10000);
-        await delay(waitTime);
-        retries++;
-        continue;
-      }
-      throw error;
-    }
-  }
-  throw new Error("Max retries reached");
-}
+import { ApiKeyStrings } from "@/lib/constants/apiKeyStrings";
+import { useFetchPortfolioData } from "@/hooks/useFetchPlatformData";
+import type {
+  BinanceBalance,
+  BinancePosition,
+} from "@/lib/constants/binanceAccounData.interface";
 
 export function BinancePortfolio() {
-  const [account, setAccount] = useState<BinanceAccount | null>(null);
   const [positions, setPositions] = useState<BinancePosition[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [showAllPositions, setShowAllPositions] = useState<boolean>(false);
+
   const { getApiKey } = usePlatformConnection();
+  const binanceApiKey = getApiKey(ApiKeyStrings.BINANCE);
+  const binanceService = new BinanceService(binanceApiKey!);
+  const { portfolio, accountData, loading, error, refreshData } =
+    useFetchPortfolioData(binanceService, 15000);
 
   useEffect(() => {
     async function fetchBinanceData() {
       try {
-        setLoading(true);
         const apiKey = getApiKey("binance");
         if (!apiKey) {
-          setError("Binance API key not found");
-          setLoading(false);
           return;
         }
 
         const binanceService = new BinanceService(apiKey);
 
         // Fetch account data
-        const accountData = await fetchWithRetry(() =>
-          binanceService.getAccountInfo(),
-        );
-        const pricesData = await fetchWithRetry(() =>
-          binanceService.getPrices(),
-        );
+        const accountData = await binanceService.getAccountInfo();
+        const pricesData = await binanceService.getPrices();
         console.log("Binance account data:", accountData);
         console.log("Binance prices data:", pricesData);
-        
-        setAccount(accountData);
 
         // Filter non-zero balances and calculate positions
         const nonZeroBalances = accountData.balances.filter(
@@ -98,19 +51,17 @@ export function BinancePortfolio() {
             parseFloat(balance.free) > 0 || parseFloat(balance.locked) > 0,
         );
 
-        console.log("Non-zero balances:", nonZeroBalances);
-        
+        // console.log("Non-zero balances:", nonZeroBalances);
+
         const calculatedPositions = nonZeroBalances
           .map((balance: BinanceBalance) => {
             const asset = balance.asset;
             const quantity =
               parseFloat(balance.free) + parseFloat(balance.locked);
-            const symbol = balance.asset.split('LD')[1];
-            console.log("Symbol:", symbol);
-            
+            const symbol = balance.asset.split("LD")[1];
+
             const price = pricesData[`${symbol}USDT`];
-            console.log("Price:", price);
-            
+
             const totalValue = quantity * price;
 
             return {
@@ -125,15 +76,8 @@ export function BinancePortfolio() {
           .sort((a, b) => b.totalValue - a.totalValue);
 
         setPositions(calculatedPositions);
-        console.log("Calculated positions:", calculatedPositions);
-        
       } catch (err) {
         console.error("Error fetching Binance data:", err);
-        setError(
-          err instanceof Error ? err.message : "Failed to fetch Binance data",
-        );
-      } finally {
-        setLoading(false);
       }
     }
 
@@ -160,14 +104,13 @@ export function BinancePortfolio() {
     );
   }, [positions]);
 
-  const reloadPage = useCallback(() => {
-    window.location.reload();
-  }, []);
+  const reloadPage = useCallback(async () => {
+    await refreshData();
+  }, [refreshData]);
 
   if (loading) return <PlatformLoadingCard platformName="Binance" />;
   if (error)
     return <ContainerCardErrorState error={error} onRetry={reloadPage} />;
-  if (!positions.length) return null;
 
   const metrics = calculatePortfolioMetrics();
   const toggleShowAllPositions = () => {

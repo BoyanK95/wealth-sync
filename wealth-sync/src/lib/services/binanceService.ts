@@ -1,4 +1,4 @@
-import type { AccountData } from "@/app/api/platforms/trading212/account/res.interface";
+import type { BinanceAccountData } from "../constants/binanceAccounData.interface";
 import { fetchWithRetry } from "../utils/fetchWithRetry";
 
 interface Position {
@@ -14,11 +14,6 @@ interface Position {
   pieQuantity: number;
   initialFillDate: string;
   pnlPercentage: number;
-}
-
-interface Symbol {
-  symbol: string;
-  price: number;
 }
 
 export class BinanceService {
@@ -41,11 +36,12 @@ export class BinanceService {
   async getPositions(): Promise<Position[]> {
     return this.fetchFromApi("/positions");
   }
-  async getPrices(): Promise<Symbol> {
+
+  async getPrices(): Promise<Record<string, number>> {
     return this.fetchFromApi("/prices");
   }
 
   async getAccountInfo() {
-    return this.fetchFromApi("/account") as Promise<AccountData>;
+    return this.fetchFromApi("/account") as Promise<BinanceAccountData>;
   }
 }
