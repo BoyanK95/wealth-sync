@@ -5,7 +5,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { usePlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
 import { Trading212Service } from "@/lib/services/trading212Service";
 import { Button } from "@/components/ui/button";
-import type { PortfolioItem } from "@/lib/constants/portfolio212";
 import PositionItem from "./PositionItem";
 import {
   convertGbxToUsd,
@@ -19,47 +18,23 @@ import TotalInvested from "../TotalInvested/TotalInvested";
 import ProfitAndLoss from "../ProfitAndLoss/ProfitAndLoss";
 import Positions from "../Positions/Positions";
 import ContainerCardErrorState from "../ContainerCardErrorState/ContainerCardErrorState";
-import type { AccountData } from "@/app/api/platforms/trading212/account/res.interface";
 import { TooltipText } from "@/lib/constants/tooltipText";
 import { TitleText } from "@/lib/constants/titleText";
-
-// const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
-// async function fetchWithRetry<T>(
-//   fetchFn: () => Promise<T>,
-//   maxRetries = 3,
-// ): Promise<T> {
-//   let retries = 0;
-//   while (retries < maxRetries) {
-//     try {
-//       return await fetchFn();
-//     } catch (error) {
-//       if (error instanceof Response && error.status === 429) {
-//         const waitTime = Math.min(1000 * Math.pow(2, retries), 10000);
-//         await delay(waitTime);
-//         retries++;
-//         continue;
-//       }
-//       throw error;
-//     }
-//   }
-//   throw new Error("Max retries reached");
-// }
+import { useFetchPortfolioData } from "@/hooks/useFetchPlatformData";
+import { ApiKeyStrings } from "@/lib/constants/apiKeyStrings";
 
 export function Trading212Portfolio() {
-  const [openPositionsPortfolio, setOpenPositionsPortfolio] = useState<
-    PortfolioItem[]
-  >([]);
-  const [accountData, setAccountData] = useState<AccountData | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [showAllPositions, setShowAllPositions] = useState<boolean>(false);
   const [exchangeRates, setExchangeRates] = useState<Record<string, number>>(
     {},
   );
   const { getApiKey } = usePlatformConnection();
+  const apiKey = getApiKey(ApiKeyStrings.TRADING_212);
+  const service = new Trading212Service(apiKey!);
 
-  // Fetch exchange rates on component mount
+  const { portfolio, accountData, loading, error, refreshData } =
+    useFetchPortfolioData(service, 15000);
+
   useEffect(() => {
     async function loadExchangeRates() {
       try {
@@ -80,31 +55,6 @@ export function Trading212Portfolio() {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     loadExchangeRates();
   }, []);
-
-  useEffect(() => {
-    async function fetchPortfolio() {
-      try {
-        const apiKey = getApiKey("trading212");
-        const service = new Trading212Service(apiKey!);
-        const portfolioData = await service.getPortfolio();
-        console.log("portfolioData", portfolioData);
-        
-        const accountData = await service.getAccountInfo();
-        console.log("accountData", accountData);
-
-        setAccountData(accountData);
-        setOpenPositionsPortfolio(portfolioData);
-      } catch (err) {
-        setError("Failed to fetch openPositionsPortfolio portfolioData");
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    fetchPortfolio();
-  }, [getApiKey, openPositionsPortfolio]);
 
   const calculateAccountMetrics = useCallback(() => {
     if (!accountData) {
@@ -134,14 +84,12 @@ export function Trading212Portfolio() {
   }, [accountData, exchangeRates]);
 
   const calculatePortfolioMetrics = () => {
-    return openPositionsPortfolio.reduce(
+    return portfolio.reduce(
       (acc, item) => {
         const currency = detectCurrency(item.ticker);
 
-        // Get exchange rate (default to 1 if not found)
         const rate = currency === "USD" ? 1 : (exchangeRates[currency] ?? 1);
 
-        // Convert to USD using real-time rates
         const currentPriceUSD = isGbxTicker(item.ticker)
           ? convertGbxToUsd(item.currentPrice)
           : item.currentPrice / rate;
@@ -170,17 +118,17 @@ export function Trading212Portfolio() {
       },
     );
   };
-  console.log();
 
-  const reloadPage = useCallback(() => {
-    window.location.reload();
-  }, []);
+  const reloadPage = useCallback(async () => {
+    await refreshData();
+  }, [refreshData]);
 
   if (loading) return <PlatformLoadingCard platformName="Trading212" />;
-  if (error)
+  if (error && !loading)
     return <ContainerCardErrorState error={error} onRetry={reloadPage} />;
-  if (!openPositionsPortfolio.length) return null;
+  if (!portfolio.length) return null;
 
+  //TODO use different props from portfolio and accountData instead of calculating them here
   const metrics = calculatePortfolioMetrics();
   const accountMetrics = calculateAccountMetrics();
 
@@ -248,7 +196,7 @@ export function Trading212Portfolio() {
         <CardContent>
           <div className="space-y-4">
             {!showAllPositions
-              ? openPositionsPortfolio
+              ? portfolio
                   .sort(
                     (a, b) =>
                       b.quantity * b.currentPrice - a.quantity * a.currentPrice,
@@ -261,7 +209,7 @@ export function Trading212Portfolio() {
                       exchangeRates={exchangeRates}
                     />
                   ))
-              : openPositionsPortfolio
+              : portfolio
                   .sort(
                     (a, b) =>
                       b.quantity * b.currentPrice - a.quantity * a.currentPrice,
