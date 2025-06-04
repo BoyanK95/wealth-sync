@@ -42,16 +42,15 @@ export class BinanceService {
     // Calculate positions similar to your existing logic
     const nonZeroBalances = accountData.balances.filter(
       (balance) =>
-        parseFloat(balance.free) > 0 || parseFloat(balance.locked) > 0,
-    );
+        parseFloat(balance.free) > 0 || parseFloat(balance.locked) > 0,    );
 
     const calculatedPositions = nonZeroBalances
       .map((balance) => {
         const asset = balance.asset;
         const quantity = parseFloat(balance.free) + parseFloat(balance.locked);
-        const symbol = balance.asset.split("LD")[1] || balance.asset;
+        const symbol = balance.asset.split("LD")[1] ?? balance.asset;
         const priceKey = `${symbol}USDT`;
-        const price = pricesData[priceKey] || 0;
+        const price = pricesData[priceKey] ?? 0;
         const totalValue = quantity * price;
 
         return {

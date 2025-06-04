@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import {  useState, useCallback } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { usePlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
 import { Button } from "@/components/ui/button";
@@ -29,7 +29,7 @@ export function BinancePortfolio() {
 
   const calculatePortfolioMetrics = useCallback(() => {
     return portfolio.reduce(
-      (acc, position) => {
+      (acc, position) => {        
         return {
           totalValue: acc.totalValue + position.totalValue,
           totalInvested: acc.totalInvested + position.totalValue, // We don't have invested amount
@@ -55,6 +55,7 @@ export function BinancePortfolio() {
     return <ContainerCardErrorState error={error} onRetry={reloadPage} />;
 
   const metrics = calculatePortfolioMetrics();
+
   const toggleShowAllPositions = () => {
     setShowAllPositions((prev) => !prev);
   };
@@ -76,7 +77,7 @@ export function BinancePortfolio() {
             totalInvestedTitle="Estimated Value"
             tooltipText="Estimated value of your crypto assets"
           />
-          <Positions portfolio={metrics.portfolio} />
+          <Positions positions={metrics.portfolio} />
         </CardContent>
       </Card>
 

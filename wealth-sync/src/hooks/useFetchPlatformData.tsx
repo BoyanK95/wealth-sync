@@ -3,7 +3,10 @@ import { type Trading212Service } from "@/lib/services/trading212Service";
 import { type BinanceService } from "@/lib/services/binanceService";
 import type { PortfolioItem } from "@/lib/constants/portfolio212";
 import type { Trading212AccountData } from "@/app/api/platforms/trading212/account/res.interface";
-import { type BinanceAccountData, type BinancePosition } from "@/lib/constants/binanceAccounData.interface";
+import {
+  type BinanceAccountData,
+  type BinancePosition,
+} from "@/lib/constants/binanceAccounData.interface";
 
 /**
  * Hook to fetch portfolio data for a specific platform using the provided service.
@@ -14,7 +17,9 @@ export function useFetchPortfolioData(
   service: Trading212Service | BinanceService,
   refreshInterval = 30000,
 ) {
-  const [portfolio, setPortfolio] = useState<PortfolioItem[]>([]);
+  const [portfolio, setPortfolio] = useState<
+    PortfolioItem[] | BinancePosition[]
+  >([]);
   const [accountData, setAccountData] = useState<
     Trading212AccountData | BinanceAccountData | null
   >(null);
@@ -31,9 +36,7 @@ export function useFetchPortfolioData(
 
     try {
       const accountInfo = await service.getAccountInfo();
-      const portfolioData = (await service.getPortfolio()) as
-        | PortfolioItem[]
-        | BinancePosition[];
+      const portfolioData = await service.getPortfolio();
 
       setAccountData(accountInfo);
       setPortfolio(portfolioData);
