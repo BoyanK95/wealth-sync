@@ -1,8 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
-import { Trading212Service } from "@/lib/services/trading212Service";
-import { BinanceService } from "@/lib/services/binanceService";
+import { type Trading212Service } from "@/lib/services/trading212Service";
+import { type BinanceService } from "@/lib/services/binanceService";
 import type { PortfolioItem } from "@/lib/constants/portfolio212";
 import type { Trading212AccountData } from "@/app/api/platforms/trading212/account/res.interface";
+import { type BinanceAccountData, type BinancePosition } from "@/lib/constants/binanceAccounData.interface";
 
 /**
  * Hook to fetch portfolio data for a specific platform using the provided service.
@@ -14,7 +15,9 @@ export function useFetchPortfolioData(
   refreshInterval = 30000,
 ) {
   const [portfolio, setPortfolio] = useState<PortfolioItem[]>([]);
-  const [accountData, setAccountData] = useState<Trading212AccountData | null>(null);
+  const [accountData, setAccountData] = useState<
+    Trading212AccountData | BinanceAccountData | null
+  >(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
@@ -28,11 +31,12 @@ export function useFetchPortfolioData(
 
     try {
       const accountInfo = await service.getAccountInfo();
-      const portfolioData = await service.getPortfolio();
+      const portfolioData = (await service.getPortfolio()) as
+        | PortfolioItem[]
+        | BinancePosition[];
 
       setAccountData(accountInfo);
       setPortfolio(portfolioData);
-
       setLastUpdated(new Date());
       setError(null);
     } catch (err) {
@@ -44,7 +48,6 @@ export function useFetchPortfolioData(
       setLoading(false);
     }
   }, [service]);
-
   // Initial fetch
   useEffect(() => {
     void fetchData();

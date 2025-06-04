@@ -14,95 +14,37 @@ import { TitleText } from "@/lib/constants/titleText";
 import { BinanceService } from "@/lib/services/binanceService";
 import { ApiKeyStrings } from "@/lib/constants/apiKeyStrings";
 import { useFetchPortfolioData } from "@/hooks/useFetchPlatformData";
-import type {
-  BinanceBalance,
-  BinancePosition,
-} from "@/lib/constants/binanceAccounData.interface";
+import type { BinancePosition } from "@/lib/constants/binanceAccounData.interface";
 
 export function BinancePortfolio() {
-  const [positions, setPositions] = useState<BinancePosition[]>([]);
   const [showAllPositions, setShowAllPositions] = useState<boolean>(false);
 
   const { getApiKey } = usePlatformConnection();
   const binanceApiKey = getApiKey(ApiKeyStrings.BINANCE);
   const binanceService = new BinanceService(binanceApiKey!);
-  const { portfolio, accountData, loading, error, refreshData } =
-    useFetchPortfolioData(binanceService, 15000);
-
-  useEffect(() => {
-    async function fetchBinanceData() {
-      try {
-        const apiKey = getApiKey("binance");
-        if (!apiKey) {
-          return;
-        }
-
-        const binanceService = new BinanceService(apiKey);
-
-        // Fetch account data
-        const accountData = await binanceService.getAccountInfo();
-        const pricesData = await binanceService.getPrices();
-        console.log("Binance account data:", accountData);
-        console.log("Binance prices data:", pricesData);
-
-        // Filter non-zero balances and calculate positions
-        const nonZeroBalances = accountData.balances.filter(
-          (balance: BinanceBalance) =>
-            parseFloat(balance.free) > 0 || parseFloat(balance.locked) > 0,
-        );
-
-        // console.log("Non-zero balances:", nonZeroBalances);
-
-        const calculatedPositions = nonZeroBalances
-          .map((balance: BinanceBalance) => {
-            const asset = balance.asset;
-            const quantity =
-              parseFloat(balance.free) + parseFloat(balance.locked);
-            const symbol = balance.asset.split("LD")[1];
-
-            const price = pricesData[`${symbol}USDT`];
-
-            const totalValue = quantity * price;
-
-            return {
-              symbol,
-              asset,
-              quantity,
-              currentPrice: price,
-              totalValue,
-            };
-          })
-          .filter((position) => position.totalValue > 0)
-          .sort((a, b) => b.totalValue - a.totalValue);
-
-        setPositions(calculatedPositions);
-      } catch (err) {
-        console.error("Error fetching Binance data:", err);
-      }
-    }
-
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    fetchBinanceData();
-  }, [getApiKey]);
+  const { portfolio, loading, error, refreshData } = useFetchPortfolioData(
+    binanceService,
+    15000,
+  );
 
   const calculatePortfolioMetrics = useCallback(() => {
-    return positions.reduce(
+    return portfolio.reduce(
       (acc, position) => {
         return {
           totalValue: acc.totalValue + position.totalValue,
           totalInvested: acc.totalInvested + position.totalValue, // We don't have invested amount
           totalProfitLoss: 0, // We don't have this data
-          positions: acc.positions + 1,
+          portfolio: acc.portfolio + 1,
         };
       },
       {
         totalValue: 0,
         totalInvested: 0,
         totalProfitLoss: 0,
-        positions: 0,
+        portfolio: 0,
       },
     );
-  }, [positions]);
+  }, [portfolio]);
 
   const reloadPage = useCallback(async () => {
     await refreshData();
@@ -134,7 +76,7 @@ export function BinancePortfolio() {
             totalInvestedTitle="Estimated Value"
             tooltipText="Estimated value of your crypto assets"
           />
-          <Positions positions={metrics.positions} />
+          <Positions portfolio={metrics.portfolio} />
         </CardContent>
       </Card>
 
@@ -156,7 +98,7 @@ export function BinancePortfolio() {
         <CardContent>
           <div className="space-y-4">
             {!showAllPositions
-              ? positions
+              ? portfolio
                   .slice(0, 5)
                   .map((position) => (
                     <BinancePositionItem
@@ -164,7 +106,7 @@ export function BinancePortfolio() {
                       position={position}
                     />
                   ))
-              : positions.map((position) => (
+              : portfolio.map((position) => (
                   <BinancePositionItem
                     key={position.symbol}
                     position={position}

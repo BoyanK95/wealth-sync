@@ -1,4 +1,7 @@
-import type { BinanceAccountData } from "../constants/binanceAccounData.interface";
+import type {
+  BinanceAccountData,
+  BinancePosition,
+} from "../constants/binanceAccounData.interface";
 import { fetchWithRetry } from "../utils/fetchWithRetry";
 
 interface Position {
@@ -29,8 +32,40 @@ export class BinanceService {
     return response.json();
   }
 
-  async getPortfolio(): Promise<Position[]> {
-    return this.fetchFromApi("/portfolio") as Promise<Position[]>;
+  async getPortfolio(): Promise<BinancePosition[]> {
+    // Fetch both account data and prices
+    const [accountData, pricesData] = await Promise.all([
+      this.getAccountInfo(),
+      this.getPrices(),
+    ]);
+
+    // Calculate positions similar to your existing logic
+    const nonZeroBalances = accountData.balances.filter(
+      (balance) =>
+        parseFloat(balance.free) > 0 || parseFloat(balance.locked) > 0,
+    );
+
+    const calculatedPositions = nonZeroBalances
+      .map((balance) => {
+        const asset = balance.asset;
+        const quantity = parseFloat(balance.free) + parseFloat(balance.locked);
+        const symbol = balance.asset.split("LD")[1] || balance.asset;
+        const priceKey = `${symbol}USDT`;
+        const price = pricesData[priceKey] || 0;
+        const totalValue = quantity * price;
+
+        return {
+          symbol,
+          asset,
+          quantity,
+          currentPrice: price,
+          totalValue,
+        };
+      })
+      .filter((position) => position.totalValue > 0)
+      .sort((a, b) => b.totalValue - a.totalValue);
+
+    return calculatedPositions;
   }
 
   async getPositions(): Promise<Position[]> {
