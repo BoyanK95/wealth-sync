@@ -1,6 +1,6 @@
 "use client";
 
-import {  useState, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { usePlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
 import { Button } from "@/components/ui/button";
@@ -29,7 +29,7 @@ export function BinancePortfolio() {
 
   const calculatePortfolioMetrics = useCallback(() => {
     return portfolio.reduce(
-      (acc, position) => {        
+      (acc, position) => {
         return {
           totalValue: acc.totalValue + position.totalValue,
           totalInvested: acc.totalInvested + position.totalValue, // We don't have invested amount
@@ -103,14 +103,14 @@ export function BinancePortfolio() {
                   .slice(0, 5)
                   .map((position) => (
                     <BinancePositionItem
-                      key={position.symbol}
-                      position={position}
+                      key={`${position.symbol}-${Math.random().toString()}`}
+                      position={position as BinancePosition}
                     />
                   ))
               : portfolio.map((position) => (
                   <BinancePositionItem
-                    key={position.symbol}
-                    position={position}
+                    key={`${position.symbol}-${Math.random().toString()}`}
+                    position={position as BinancePosition}
                   />
                 ))}
           </div>
