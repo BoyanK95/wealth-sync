@@ -10,6 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { ThemeAwareImage } from "@/components/ThemeImage/ThemeAwareImage";
+import { Routes } from "@/lib/constants/routes";
 
 export const metadata = {
   title: "Coming Soon | WealthSync",
@@ -123,7 +124,7 @@ export default function ComingSoonPage() {
 
             <div className="flex flex-col gap-4 pt-8 sm:flex-row">
               <Button variant="outline" asChild>
-                <Link href="/">
+                <Link href={Routes.HOME}>
                   <ArrowLeft className="mr-2 h-4 w-4" />
                   Back to Home
                 </Link>
@@ -132,7 +133,7 @@ export default function ComingSoonPage() {
                 className="bg-green-700 hover:bg-green-800 dark:bg-green-500 dark:hover:bg-green-600"
                 asChild
               >
-                <Link href="/dashboard">Go to Dashboard</Link>
+                <Link href={Routes.DASHBOARD}>Go to Dashboard</Link>
               </Button>
             </div>
             <Card className="w-full max-w-2xl p-12">
