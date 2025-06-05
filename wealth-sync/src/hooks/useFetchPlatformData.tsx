@@ -51,6 +51,7 @@ export function useFetchPortfolioData(
       setLoading(false);
     }
   }, [service]);
+
   // Initial fetch
   useEffect(() => {
     void fetchData();
