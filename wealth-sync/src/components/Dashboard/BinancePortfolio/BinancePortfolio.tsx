@@ -15,6 +15,7 @@ import { BinanceService } from "@/lib/services/binanceService";
 import { ApiKeyStrings } from "@/lib/constants/apiKeyStrings";
 import { useFetchPortfolioData } from "@/hooks/useFetchPlatformData";
 import type { BinancePosition } from "@/lib/constants/binanceAccounData.interface";
+import ShowAllPositionsButton from "../ShowAllPositionsButton/ShowAllPositionsButton";
 
 export function BinancePortfolio() {
   const [showAllPositions, setShowAllPositions] = useState<boolean>(false);
@@ -87,13 +88,6 @@ export function BinancePortfolio() {
             <CardTitle>
               {showAllPositions ? "All Assets" : "Top Assets"}
             </CardTitle>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={toggleShowAllPositions}
-            >
-              {showAllPositions ? "Show Less" : "Show All"}
-            </Button>
           </div>
         </CardHeader>
         <CardContent>
@@ -114,6 +108,10 @@ export function BinancePortfolio() {
                   />
                 ))}
           </div>
+          <ShowAllPositionsButton
+            showAllPositions={showAllPositions}
+            toggleShowAllPositions={toggleShowAllPositions}
+          />
         </CardContent>
       </Card>
     </div>

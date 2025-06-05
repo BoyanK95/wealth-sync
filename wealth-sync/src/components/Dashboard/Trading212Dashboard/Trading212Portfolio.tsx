@@ -22,6 +22,7 @@ import { TooltipText } from "@/lib/constants/tooltipText";
 import { TitleText } from "@/lib/constants/titleText";
 import { useFetchPortfolioData } from "@/hooks/useFetchPlatformData";
 import { ApiKeyStrings } from "@/lib/constants/apiKeyStrings";
+import ShowAllPositionsButton from "../ShowAllPositionsButton/ShowAllPositionsButton";
 
 export function Trading212Portfolio() {
   const [showAllPositions, setShowAllPositions] = useState<boolean>(false);
@@ -221,14 +222,10 @@ export function Trading212Portfolio() {
                       exchangeRates={exchangeRates}
                     />
                   ))}
-            <div className="mt-4 flex justify-center">
-              <Button
-                onClick={toggleShowAllPositions}
-                className="cursor-pointer"
-              >
-                {showAllPositions ? "Show Less" : "View All Positions"}
-              </Button>
-            </div>
+            <ShowAllPositionsButton
+              showAllPositions={showAllPositions}
+              toggleShowAllPositions={toggleShowAllPositions}
+            />
           </div>
         </CardContent>
       </Card>
