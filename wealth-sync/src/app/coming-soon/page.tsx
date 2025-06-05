@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowLeft, Bell, Hammer } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,6 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { ThemeAwareImage } from "@/components/ThemeImage/ThemeAwareImage";
 
 export const metadata = {
   title: "Coming Soon | WealthSync",
@@ -19,13 +19,14 @@ export const metadata = {
 
 export default function ComingSoonPage() {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col justify-center items-center">
       <main className="flex-1 pt-16 pb-12">
         <div className="container max-w-4xl py-12">
           <div className="flex flex-col items-center space-y-8 text-center">
             <div className="relative h-64 w-full max-w-md md:h-80">
-              <Image
-                src="/coming-soon.png"
+              <ThemeAwareImage
+                lightImageSrc="/coming-soon-dark.png"
+                darkImageSrc="/coming-soon-white.png"
                 alt="Builder working on construction"
                 fill
                 className="object-contain"
@@ -33,9 +34,8 @@ export default function ComingSoonPage() {
               />
             </div>
 
-            {/* Main Content */}
             <div className="max-w-2xl space-y-4">
-              <div className="flex items-center justify-center space-x-2 text-green-700">
+              <div className="flex items-center justify-center space-x-2 text-green-700 dark:text-green-500">
                 <Hammer className="h-6 w-6" />
                 <span className="text-sm font-medium tracking-wide uppercase">
                   Under Construction
@@ -47,13 +47,12 @@ export default function ComingSoonPage() {
               </h1>
 
               <p className="text-muted-foreground mx-auto max-w-lg text-xl">
-                We're working hard to bring you this feature. Our team is
+                We&apos;re working hard to bring you this feature. Our team is
                 building something amazing that will enhance your WealthSync
                 experience.
               </p>
             </div>
 
-            {/* Features Preview */}
             <div className="mt-12 grid w-full max-w-3xl gap-4 md:grid-cols-3">
               <Card className="text-center">
                 <CardHeader>
@@ -99,7 +98,6 @@ export default function ComingSoonPage() {
               </Card>
             </div>
 
-            {/* Notification Signup */}
             <Card className="w-full max-w-md">
               <CardHeader>
                 <CardTitle className="flex items-center justify-center space-x-2">
@@ -119,7 +117,7 @@ export default function ComingSoonPage() {
                   />
                   <Button
                     type="submit"
-                    className="bg-green-700 hover:bg-green-800"
+                    className="cursor-pointer bg-green-700 hover:bg-green-800 dark:bg-green-500 dark:hover:bg-green-600"
                   >
                     Notify Me
                   </Button>
@@ -127,7 +125,6 @@ export default function ComingSoonPage() {
               </CardContent>
             </Card>
 
-            {/* Action Buttons */}
             <div className="flex flex-col gap-4 pt-8 sm:flex-row">
               <Button variant="outline" asChild>
                 <Link href="/">
@@ -135,7 +132,10 @@ export default function ComingSoonPage() {
                   Back to Home
                 </Link>
               </Button>
-              <Button className="bg-green-700 hover:bg-green-800" asChild>
+              <Button
+                className="bg-green-700 hover:bg-green-800 dark:bg-green-500 dark:hover:bg-green-600"
+                asChild
+              >
                 <Link href="/dashboard">Go to Dashboard</Link>
               </Button>
             </div>
