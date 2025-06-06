@@ -12,7 +12,7 @@ export async function fetchWithRetry(url: string, options: RequestInit, maxRetri
         continue;
       }
       if (!response.ok) {
-        throw new Error(`Trading212 API error: ${response.statusText}`);
+        throw new Error(`Fetch with retry API error: ${response.statusText}`);
       }
       return response;
     } catch (error) {
