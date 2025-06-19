@@ -17,7 +17,8 @@ export default function Trading212ConnectPage() {
   const { refreshConnections, getApiKey } = usePlatformConnection();
 
   useEffect(() => {
-    const existingApiKey = getApiKey('trading212');
+    //TODO - check if api key exists in local storage and set page is connected to platform
+    const existingApiKey = getApiKey("trading212");
     if (existingApiKey) {
       setApiKey(existingApiKey);
     }
@@ -42,7 +43,8 @@ export default function Trading212ConnectPage() {
     } catch (error) {
       setApiKey("");
       toast.error("Failed to connect", {
-        description: error instanceof Error ? error.message : "Please try again",
+        description:
+          error instanceof Error ? error.message : "Please try again",
       });
     } finally {
       setIsLoading(false);

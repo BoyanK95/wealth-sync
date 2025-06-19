@@ -7,7 +7,7 @@ export interface PortfolioItem {
   maxBuy: number;
   maxSell: number;
   pieQuantity: number;
-  ppl: number; // profit/loss
+  ppl: number;
   quantity: number;
   ticker: string;
 }
