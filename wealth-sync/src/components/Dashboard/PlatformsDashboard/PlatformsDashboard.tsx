@@ -21,7 +21,7 @@ const PlatformsDashboard = ({ user }: { user: User }) => {
   return (
     <div className="flex flex-col space-y-6">
       <DashboardWelcomeHeader user={user} />
-      <AllPortfolioSummary />
+      {connections.length && <AllPortfolioSummary />}
       {connections.some(
         (connection) => connection.platformId === "trading212",
       ) && <Trading212Portfolio />}

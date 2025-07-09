@@ -4,7 +4,6 @@ import { useEffect, useState, useCallback } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { usePlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
 import { Trading212Service } from "@/lib/services/trading212Service";
-import { Button } from "@/components/ui/button";
 import PositionItem from "./PositionItem";
 import {
   convertGbxToUsd,

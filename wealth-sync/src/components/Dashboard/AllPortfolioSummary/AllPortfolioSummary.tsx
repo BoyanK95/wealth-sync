@@ -49,48 +49,50 @@ const AllPortfolioSummary = () => {
         let bestPerformer = { ticker: "", percentageChange: 0 };
 
         const trading212ApiKey = getApiKey("trading212");
-        const service = new Trading212Service(trading212ApiKey!);
-        const portfolioData = await service.getPortfolio();
-        // const accountInfo = await service.getAccountInfo();
 
-        /**
-         * Calculate the total open postion portfolio value by adding all open positions
-         */
-        const trading212Value = portfolioData.reduce((sum, position) => {
-          if (isGbxTicker(position.ticker)) {
-            return sum + position.currentPrice * 0.01 * position.quantity; // Convert from pence to pounds
+        if (trading212ApiKey) {
+          const service = new Trading212Service(trading212ApiKey);
+          const portfolioData = await service.getPortfolio();
+
+          /**
+           * Calculate the total open postion portfolio value by adding all open positions
+           */
+          const trading212Value = portfolioData.reduce((sum, position) => {
+            if (isGbxTicker(position.ticker)) {
+              return sum + position.currentPrice * 0.01 * position.quantity; // Convert from pence to pounds
+            }
+            return sum + position.currentPrice * position.quantity;
+          }, 0);
+
+          // Find top performing asset
+          portfolioData.forEach((position) => {
+            const percentageChange =
+              position.pnlPercentage ||
+              ((position.currentPrice - position.averagePrice) /
+                position.averagePrice) *
+                100;
+
+            if (!isFinite(percentageChange) || isNaN(percentageChange)) {
+              return;
+            }
+
+            if (percentageChange > bestPerformer.percentageChange) {
+              bestPerformer = {
+                ticker: getCleanTickerName(position.ticker),
+                percentageChange,
+              };
+            }
+          });
+
+          if (bestPerformer.ticker) {
+            setTopPerformingAsset(bestPerformer.ticker);
+            // Use the percentage for the monthly change as a placeholder
+            setBestPerformerChange(bestPerformer.percentageChange);
           }
-          return sum + position.currentPrice * position.quantity;
-        }, 0);
 
-        // Find top performing asset
-        portfolioData.forEach((position) => {
-          const percentageChange =
-            position.pnlPercentage ||
-            ((position.currentPrice - position.averagePrice) /
-              position.averagePrice) *
-              100;
-
-          if (!isFinite(percentageChange) || isNaN(percentageChange)) {
-            return;
-          }
-
-          if (percentageChange > bestPerformer.percentageChange) {
-            bestPerformer = {
-              ticker: getCleanTickerName(position.ticker),
-              percentageChange,
-            };
-          }
-        });
-
-        if (bestPerformer.ticker) {
-          setTopPerformingAsset(bestPerformer.ticker);
-          // Use the percentage for the monthly change as a placeholder
-          setBestPerformerChange(bestPerformer.percentageChange);
+          portfolioTotal += trading212Value;
+          platformsConnected++;
         }
-
-        portfolioTotal += trading212Value;
-        platformsConnected++;
 
         // Add other platforms here as they're implemented
 
