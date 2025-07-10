@@ -77,7 +77,7 @@ export function Trading212Portfolio() {
     const profitLoss = (accountData as Trading212AccountData).result / rate;
     const profitLossPercentage = (profitLoss / totalInvested) * 100;
     const freeCash = (accountData as Trading212AccountData).free
-      ? accountData.free / rate
+      ? ((accountData as Trading212AccountData).free ?? 0 / rate)
       : 0;
 
     return {
