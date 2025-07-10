@@ -28,7 +28,7 @@ const PlatformsDashboard = ({ user }: { user: User }) => {
       {connections.some(
         (connection) => connection.platformId === "binance",
       ) && <BinancePortfolio />}
-      <DashboardTabs />
+      <DashboardTabs connectedPlatforms={connections} />
     </div>
   );
 };

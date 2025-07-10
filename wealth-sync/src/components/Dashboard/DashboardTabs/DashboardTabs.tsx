@@ -20,13 +20,16 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { Routes } from "@/lib/constants/routes";
-import {
-  recentTransactions,
-  assetAllocation,
-  connectedPlatforms,
-} from "@/lib/mockData/mockData";
+import { recentTransactions, assetAllocation } from "@/lib/mockData/mockData";
+import type { PlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
 
-const DashboardTabs = () => {
+const DashboardTabs = ({
+  connectedPlatforms,
+}: {
+  connectedPlatforms: PlatformConnection[];
+}) => {
+  console.log("connectedPlatforms", connectedPlatforms);
+
   return (
     <Tabs defaultValue="overview" className="space-y-4">
       <TabsList>
@@ -151,21 +154,21 @@ const DashboardTabs = () => {
               <div className="space-y-4">
                 {connectedPlatforms.map((platform) => (
                   <div
-                    key={platform.name}
+                    key={platform.platformId}
                     className="flex items-center justify-between"
                   >
                     <div className="flex items-center">
                       <div className="bg-muted mr-3 flex h-10 w-10 items-center justify-center rounded-full">
-                        {platform.name.charAt(0)}
+                        {platform.platformId.charAt(0).toUpperCase()}
                       </div>
                       <div>
-                        <p className="font-medium">{platform.name}</p>
+                        <p className="font-medium">{platform.platformId}</p>
                         <p className="text-muted-foreground text-xs">
-                          {platform.connected ? "Connected" : "Not connected"}
+                          {platform.isConnected ? "Connected" : "Not connected"}
                         </p>
                       </div>
                     </div>
-                    {platform.connected ? (
+                    {platform.isConnected ? (
                       <Button variant="outline" size="sm">
                         Sync
                       </Button>
