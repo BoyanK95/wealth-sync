@@ -34,7 +34,7 @@ export async function GET() {
       throw new Error("API secret is missing");
     }
     const signature = crypto
-      .createHmac("sha256", apiSecret)
+      .createHmac("sha256", apiSecret as string)
       .update(queryString)
       .digest("hex");
 
@@ -43,7 +43,7 @@ export async function GET() {
       `https://api.binance.com/api/v3/account?${queryString}&signature=${signature}`,
       {
         headers: {
-          "X-MBX-APIKEY": actualApiKey,
+          "X-MBX-APIKEY": actualApiKey!,
         },
       },
     );

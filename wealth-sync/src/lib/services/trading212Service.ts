@@ -1,4 +1,4 @@
-import type { AccountData } from "@/app/api/platforms/trading212/account/res.interface";
+import type { Trading212AccountData } from "@/app/api/platforms/trading212/account/res.interface";
 import { fetchWithRetry } from "../utils/fetchWithRetry";
 
 interface Position {
@@ -21,7 +21,7 @@ export class Trading212Service {
 
   private async fetchFromApi(
     endpoint: string,
-  ): Promise<Position[] | AccountData> {
+  ): Promise<Position[] | Trading212AccountData> {
     try {
       const response = await fetchWithRetry(
         `/api/platforms/trading212${endpoint}`,
