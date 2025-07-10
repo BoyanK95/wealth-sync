@@ -24,7 +24,6 @@ const PositionItem = ({ item, exchangeRates }: PositionItemProps) => {
 
   // Get exchange rate (default to 1 if not found)
   const rate = currency === "USD" ? 1 : (exchangeRates?.[currency] ?? 1);
-  console.log("rate", rate);
 
   // Convert values to USD
   const currentPriceUSD = isGbxTicker(item.ticker)

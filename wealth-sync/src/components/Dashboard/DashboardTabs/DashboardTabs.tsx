@@ -18,8 +18,6 @@ const DashboardTabs = ({
 }: {
   connectedPlatforms: PlatformConnection[];
 }) => {
-  console.log("connectedPlatforms", connectedPlatforms);
-
   return (
     <Tabs defaultValue="overview" className="space-y-4">
       <TabsList>
