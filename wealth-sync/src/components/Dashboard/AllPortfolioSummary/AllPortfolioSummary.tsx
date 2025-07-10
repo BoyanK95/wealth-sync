@@ -19,39 +19,8 @@ import ContainerCardErrorState from "@/components/Dashboard/ContainerCardErrorSt
 import { loadingCards } from "../ContainerCardLoadingState/constants";
 import { BinanceService } from "@/lib/services/binanceService";
 import { ApiKeyStrings } from "@/lib/constants/apiKeyStrings";
-import type { BinancePosition } from "@/lib/constants/binanceAccounData.interface";
-
-/**
- * Calculate portfolio metrics for Binance positions
- */
-const calculateBinancePortfolioMetrics = (positions: BinancePosition[]) => {
-  return positions.reduce(
-    (acc, position) => ({
-      totalValue: acc.totalValue + position.totalValue,
-      positionCount: acc.positionCount + 1,
-    }),
-    { totalValue: 0, positionCount: 0 },
-  );
-};
-
-/**
- * Find the top performing Binance asset
- * Note: Since Binance positions don't have percentage change data,
- * we'll return the asset with the highest total value as a placeholder
- */
-const findTopPerformingBinanceAsset = (positions: BinancePosition[]) => {
-  if (positions.length === 0) return null;
-
-  // Sort by total value and return the top asset
-  const topAsset = positions.reduce((prev, current) =>
-    current.totalValue > prev.totalValue ? current : prev,
-  );
-
-  return {
-    ticker: topAsset.symbol,
-    percentageChange: 0, // Placeholder since we don't have this data for Binance
-  };
-};
+import { calculateBinancePortfolioMetrics } from "../helper/calculateBinancePortfolioHelperFunction";
+import { findTopPerformingAsset } from "../helper/findTopPerformingAsset";
 
 const AllPortfolioSummary = () => {
   const [loading, setLoading] = useState(true);
@@ -147,14 +116,14 @@ const AllPortfolioSummary = () => {
             calculateBinancePortfolioMetrics(portfolioData);
 
           // Find top performing Binance asset (if any)
-          const topBinanceAsset = findTopPerformingBinanceAsset(portfolioData);
+          const topBinanceAsset = findTopPerformingAsset(portfolioData);
 
           if (topBinanceAsset && !bestPerformer.ticker) {
             bestPerformer = topBinanceAsset;
             setTopPerformingAsset(topBinanceAsset.ticker);
           }
 
-          portfolioTotal += binanceMetrics.totalValue;
+          portfolioTotal += binanceMetrics!.totalValue;
           platformsConnected++;
         }
         // Add other platforms here as they're implemented
