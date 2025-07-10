@@ -30,7 +30,7 @@ const calculateBinancePortfolioMetrics = (positions: BinancePosition[]) => {
       totalValue: acc.totalValue + position.totalValue,
       positionCount: acc.positionCount + 1,
     }),
-    { totalValue: 0, positionCount: 0 }
+    { totalValue: 0, positionCount: 0 },
   );
 };
 
@@ -44,12 +44,8 @@ const findTopPerformingBinanceAsset = (positions: BinancePosition[]) => {
 
   // Sort by total value and return the top asset
   const topAsset = positions.reduce((prev, current) =>
-    current.totalValue > prev.totalValue ? current : prev
+    current.totalValue > prev.totalValue ? current : prev,
   );
-  console.log("Top asset:", topAsset);
-  console.log("Top asset symbol:", topAsset.symbol);
-  
-  
 
   return {
     ticker: topAsset.symbol,
@@ -89,10 +85,11 @@ const AllPortfolioSummary = () => {
 
         if (
           connections.some(
-            (connection) => connection.platformId === "trading212",
+            (connection) =>
+              connection.platformId === (ApiKeyStrings.TRADING_212 as string),
           )
         ) {
-          const trading212ApiKey = getApiKey("trading212");
+          const trading212ApiKey = getApiKey(ApiKeyStrings.TRADING_212);
           const service = new Trading212Service(trading212ApiKey!);
           const portfolioData = await service.getPortfolio();
 
@@ -136,19 +133,25 @@ const AllPortfolioSummary = () => {
           platformsConnected++;
         }
         if (
-          connections.some((connection) => connection.platformId === "binance")
+          connections.some(
+            (connection) =>
+              connection.platformId === (ApiKeyStrings.BINANCE as string),
+          )
         ) {
           const binanceApiKey = getApiKey(ApiKeyStrings.BINANCE);
           const binanceService = new BinanceService(binanceApiKey!);
           const portfolioData = await binanceService.getPortfolio();
 
           // Calculate Binance portfolio metrics
-          const binanceMetrics = calculateBinancePortfolioMetrics(portfolioData);
+          const binanceMetrics =
+            calculateBinancePortfolioMetrics(portfolioData);
 
           // Find top performing Binance asset (if any)
           const topBinanceAsset = findTopPerformingBinanceAsset(portfolioData);
-          if (topBinanceAsset && (!bestPerformer.ticker || topBinanceAsset.percentageChange > bestPerformer.percentageChange)) {
+
+          if (topBinanceAsset && !bestPerformer.ticker) {
             bestPerformer = topBinanceAsset;
+            setTopPerformingAsset(topBinanceAsset.ticker);
           }
 
           portfolioTotal += binanceMetrics.totalValue;
@@ -173,8 +176,6 @@ const AllPortfolioSummary = () => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     fetchPortfolioData();
   }, [connections, getApiKey]);
-
-  
 
   if (loading) {
     return <ContainerCardLoadingState cards={loadingCards} />;
