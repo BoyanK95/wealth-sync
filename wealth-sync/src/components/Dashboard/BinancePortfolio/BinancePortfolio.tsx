@@ -3,7 +3,6 @@
 import { useState, useCallback } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { usePlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
-import { Button } from "@/components/ui/button";
 import { PlatformLoadingCard } from "../PlatformLoadingCard";
 import PortfolioValue from "../PortfolioValue/PortfolioValue";
 import TotalInvested from "../TotalInvested/TotalInvested";
