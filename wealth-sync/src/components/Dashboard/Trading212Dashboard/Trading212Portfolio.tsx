@@ -7,6 +7,7 @@ import { Trading212Service } from "@/lib/services/trading212Service";
 import PositionItem from "./PositionItem";
 import {
   convertGbxToUsd,
+  convertEurToUsdWithLiveRates,
   detectCurrency,
   fetchExchangeRates,
   isGbxTicker,
@@ -22,6 +23,8 @@ import { TitleText } from "@/lib/constants/titleText";
 import { useFetchPortfolioData } from "@/hooks/useFetchPlatformData";
 import { ApiKeyStrings } from "@/lib/constants/apiKeyStrings";
 import ShowAllPositionsButton from "../ShowAllPositionsButton/ShowAllPositionsButton";
+import type { Trading212AccountData } from "@/app/api/platforms/trading212/account/res.interface";
+import type { PortfolioItem } from "@/lib/constants/portfolio212";
 
 export function Trading212Portfolio() {
   const [showAllPositions, setShowAllPositions] = useState<boolean>(false);
@@ -68,11 +71,14 @@ export function Trading212Portfolio() {
     }
 
     const rate = exchangeRates.EUR ?? 1;
-    const totalValue = accountData.total / rate;
-    const totalInvested = accountData.invested / rate;
-    const profitLoss = accountData.result / rate;
+    const totalValue = (accountData as Trading212AccountData).total / rate;
+    const totalInvested =
+      (accountData as Trading212AccountData).invested / rate;
+    const profitLoss = (accountData as Trading212AccountData).result / rate;
     const profitLossPercentage = (profitLoss / totalInvested) * 100;
-    const freeCash = accountData.free ? accountData.free / rate : 0;
+    const freeCash = (accountData as Trading212AccountData).free
+      ? accountData.free / rate
+      : 0;
 
     return {
       totalValue,
@@ -84,11 +90,11 @@ export function Trading212Portfolio() {
   }, [accountData, exchangeRates]);
 
   const calculatePortfolioMetrics = () => {
-    return portfolio.reduce(
+    return (portfolio as PortfolioItem[]).reduce(
       (acc, item) => {
         const currency = detectCurrency(item.ticker);
 
-        const rate = currency === "USD" ? 1 : (exchangeRates[currency] ?? 1);
+        const rate = currency === "EUR" ? 1 : (exchangeRates[currency] ?? 1);
 
         const currentPriceUSD = isGbxTicker(item.ticker)
           ? convertGbxToUsd(item.currentPrice)
@@ -98,7 +104,11 @@ export function Trading212Portfolio() {
           ? convertGbxToUsd(item.averagePrice)
           : item.averagePrice / rate;
 
-        const pplUSD = item.ppl / rate;
+        // Convert profit/loss to USD - if not GBX ticker, ppl is in EUR and needs conversion
+
+        const pplUSD = !isGbxTicker(item.ticker)
+          ? convertEurToUsdWithLiveRates(item.ppl, exchangeRates)
+          : item.ppl / rate;
 
         const positionValue = item.quantity * currentPriceUSD;
         const investedValue = item.quantity * averagePriceUSD;
@@ -196,7 +206,7 @@ export function Trading212Portfolio() {
         <CardContent>
           <div className="space-y-4">
             {!showAllPositions
-              ? portfolio
+              ? (portfolio as PortfolioItem[])
                   .sort(
                     (a, b) =>
                       b.quantity * b.currentPrice - a.quantity * a.currentPrice,
@@ -209,7 +219,7 @@ export function Trading212Portfolio() {
                       exchangeRates={exchangeRates}
                     />
                   ))
-              : portfolio
+              : (portfolio as PortfolioItem[])
                   .sort(
                     (a, b) =>
                       b.quantity * b.currentPrice - a.quantity * a.currentPrice,
