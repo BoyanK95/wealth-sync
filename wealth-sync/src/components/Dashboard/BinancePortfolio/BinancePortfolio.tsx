@@ -3,7 +3,6 @@
 import { useState, useCallback } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { usePlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
-import { Button } from "@/components/ui/button";
 import { PlatformLoadingCard } from "../PlatformLoadingCard";
 import PortfolioValue from "../PortfolioValue/PortfolioValue";
 import TotalInvested from "../TotalInvested/TotalInvested";
@@ -16,6 +15,7 @@ import { ApiKeyStrings } from "@/lib/constants/apiKeyStrings";
 import { useFetchPortfolioData } from "@/hooks/useFetchPlatformData";
 import type { BinancePosition } from "@/lib/constants/binanceAccounData.interface";
 import ShowAllPositionsButton from "../ShowAllPositionsButton/ShowAllPositionsButton";
+import { useBinancePortfolioMetrics } from "@/hooks/useCalculatePortfolioMetrics";
 
 export function BinancePortfolio() {
   const [showAllPositions, setShowAllPositions] = useState<boolean>(false);
@@ -28,24 +28,8 @@ export function BinancePortfolio() {
     15000,
   );
 
-  const calculatePortfolioMetrics = useCallback(() => {
-    return portfolio.reduce(
-      (acc, position) => {
-        return {
-          totalValue: acc.totalValue + position.totalValue,
-          totalInvested: acc.totalInvested + position.totalValue, // We don't have invested amount
-          totalProfitLoss: 0, // We don't have this data
-          portfolio: acc.portfolio + 1,
-        };
-      },
-      {
-        totalValue: 0,
-        totalInvested: 0,
-        totalProfitLoss: 0,
-        portfolio: 0,
-      },
-    );
-  }, [portfolio]);
+  // Use the custom hook for portfolio metrics calculation
+  const { metrics } = useBinancePortfolioMetrics(portfolio as BinancePosition[] | null);
 
   const reloadPage = useCallback(async () => {
     await refreshData();
@@ -55,7 +39,8 @@ export function BinancePortfolio() {
   if (error)
     return <ContainerCardErrorState error={error} onRetry={reloadPage} />;
 
-  const metrics = calculatePortfolioMetrics();
+  // If no metrics available, show loading or empty state
+  if (!metrics) return <PlatformLoadingCard platformName="Binance" />;
 
   const toggleShowAllPositions = () => {
     setShowAllPositions((prev) => !prev);
@@ -93,18 +78,18 @@ export function BinancePortfolio() {
         <CardContent>
           <div className="space-y-4">
             {!showAllPositions
-              ? portfolio
+              ? (portfolio as BinancePosition[])
                   .slice(0, 5)
                   .map((position) => (
                     <BinancePositionItem
                       key={`${position.symbol}-${Math.random().toString()}`}
-                      position={position as BinancePosition}
+                      position={position}
                     />
                   ))
-              : portfolio.map((position) => (
+              : (portfolio as BinancePosition[]).map((position) => (
                   <BinancePositionItem
                     key={`${position.symbol}-${Math.random().toString()}`}
-                    position={position as BinancePosition}
+                    position={position}
                   />
                 ))}
           </div>
