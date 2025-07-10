@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 
-interface PlatformConnection {
+export interface PlatformConnection {
   platformId: string;
   apiKey: string;
   isConnected: boolean;

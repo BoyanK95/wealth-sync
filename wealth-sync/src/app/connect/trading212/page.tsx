@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Routes } from "@/lib/constants/routes";
 import { usePlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
 import Image from "next/image";
+import { AlignJustify } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -17,7 +18,8 @@ export default function Trading212ConnectPage() {
   const { refreshConnections, getApiKey } = usePlatformConnection();
 
   useEffect(() => {
-    const existingApiKey = getApiKey('trading212');
+    //TODO - check if api key exists in local storage and set page is connected to platform
+    const existingApiKey = getApiKey("trading212");
     if (existingApiKey) {
       setApiKey(existingApiKey);
     }
@@ -42,7 +44,8 @@ export default function Trading212ConnectPage() {
     } catch (error) {
       setApiKey("");
       toast.error("Failed to connect", {
-        description: error instanceof Error ? error.message : "Please try again",
+        description:
+          error instanceof Error ? error.message : "Please try again",
       });
     } finally {
       setIsLoading(false);
@@ -104,8 +107,20 @@ export default function Trading212ConnectPage() {
         </CardHeader>
         <CardContent className="space-y-4">
           <ol className="list-decimal space-y-2 pl-4">
-            <li>Log in to your Trading212 account</li>
-            <li>Go to Account Settings</li>
+            <li>
+              <a
+                href="https://app.trading212.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-blue-400 hover:underline"
+              >
+                Log in to your Trading212 account
+              </a>
+            </li>
+            <div className="flex items-center gap-2">
+              <li>Go to Account Settings </li>
+              <AlignJustify className="h-4 w-4" />
+            </div>
             <li>Navigate to the API section</li>
             <li>Click on &quot;Generate new API key&quot;</li>
             <li>Copy the generated key and paste it above</li>

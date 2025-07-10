@@ -1,4 +1,4 @@
-export interface AccountData {
+export interface Trading212AccountData {
   blcoked: number | null;
   free: number | null;
   invested: number;

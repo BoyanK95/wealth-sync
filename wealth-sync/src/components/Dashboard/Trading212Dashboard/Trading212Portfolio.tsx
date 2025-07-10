@@ -4,11 +4,10 @@ import { useEffect, useState, useCallback } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { usePlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
 import { Trading212Service } from "@/lib/services/trading212Service";
-import { Button } from "@/components/ui/button";
-import type { PortfolioItem } from "@/lib/constants/portfolio212";
 import PositionItem from "./PositionItem";
 import {
   convertGbxToUsd,
+  convertEurToUsdWithLiveRates,
   detectCurrency,
   fetchExchangeRates,
   isGbxTicker,
@@ -19,47 +18,26 @@ import TotalInvested from "../TotalInvested/TotalInvested";
 import ProfitAndLoss from "../ProfitAndLoss/ProfitAndLoss";
 import Positions from "../Positions/Positions";
 import ContainerCardErrorState from "../ContainerCardErrorState/ContainerCardErrorState";
-import type { AccountData } from "@/app/api/platforms/trading212/account/res.interface";
 import { TooltipText } from "@/lib/constants/tooltipText";
 import { TitleText } from "@/lib/constants/titleText";
-
-// const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
-// async function fetchWithRetry<T>(
-//   fetchFn: () => Promise<T>,
-//   maxRetries = 3,
-// ): Promise<T> {
-//   let retries = 0;
-//   while (retries < maxRetries) {
-//     try {
-//       return await fetchFn();
-//     } catch (error) {
-//       if (error instanceof Response && error.status === 429) {
-//         const waitTime = Math.min(1000 * Math.pow(2, retries), 10000);
-//         await delay(waitTime);
-//         retries++;
-//         continue;
-//       }
-//       throw error;
-//     }
-//   }
-//   throw new Error("Max retries reached");
-// }
+import { useFetchPortfolioData } from "@/hooks/useFetchPlatformData";
+import { ApiKeyStrings } from "@/lib/constants/apiKeyStrings";
+import ShowAllPositionsButton from "../ShowAllPositionsButton/ShowAllPositionsButton";
+import type { Trading212AccountData } from "@/app/api/platforms/trading212/account/res.interface";
+import type { PortfolioItem } from "@/lib/constants/portfolio212";
 
 export function Trading212Portfolio() {
-  const [openPositionsPortfolio, setOpenPositionsPortfolio] = useState<
-    PortfolioItem[]
-  >([]);
-  const [accountData, setAccountData] = useState<AccountData | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [showAllPositions, setShowAllPositions] = useState<boolean>(false);
   const [exchangeRates, setExchangeRates] = useState<Record<string, number>>(
     {},
   );
   const { getApiKey } = usePlatformConnection();
+  const apiKey = getApiKey(ApiKeyStrings.TRADING_212);
+  const service = new Trading212Service(apiKey!);
 
-  // Fetch exchange rates on component mount
+  const { portfolio, accountData, loading, error, refreshData } =
+    useFetchPortfolioData(service, 15000);
+
   useEffect(() => {
     async function loadExchangeRates() {
       try {
@@ -81,33 +59,6 @@ export function Trading212Portfolio() {
     loadExchangeRates();
   }, []);
 
-  console.log('test');
-
-  useEffect(() => {
-    async function fetchPortfolio() {
-      try {
-        const apiKey = getApiKey("trading212");
-        const service = new Trading212Service(apiKey!);
-        const portfolioData = await service.getPortfolio();
-        console.log("portfolioData", portfolioData);
-        
-        const accountData = await service.getAccountInfo();
-        console.log("accountData", accountData);
-
-        setAccountData(accountData);
-        setOpenPositionsPortfolio(portfolioData);
-      } catch (err) {
-        setError("Failed to fetch openPositionsPortfolio portfolioData");
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    fetchPortfolio();
-  }, [getApiKey, openPositionsPortfolio]);
-
   const calculateAccountMetrics = useCallback(() => {
     if (!accountData) {
       return {
@@ -120,11 +71,14 @@ export function Trading212Portfolio() {
     }
 
     const rate = exchangeRates.EUR ?? 1;
-    const totalValue = accountData.total / rate;
-    const totalInvested = accountData.invested / rate;
-    const profitLoss = accountData.result / rate;
+    const totalValue = (accountData as Trading212AccountData).total / rate;
+    const totalInvested =
+      (accountData as Trading212AccountData).invested / rate;
+    const profitLoss = (accountData as Trading212AccountData).result / rate;
     const profitLossPercentage = (profitLoss / totalInvested) * 100;
-    const freeCash = accountData.free ? accountData.free / rate : 0;
+    const freeCash = (accountData as Trading212AccountData).free
+      ? accountData.free / rate
+      : 0;
 
     return {
       totalValue,
@@ -136,14 +90,12 @@ export function Trading212Portfolio() {
   }, [accountData, exchangeRates]);
 
   const calculatePortfolioMetrics = () => {
-    return openPositionsPortfolio.reduce(
+    return (portfolio as PortfolioItem[]).reduce(
       (acc, item) => {
         const currency = detectCurrency(item.ticker);
 
-        // Get exchange rate (default to 1 if not found)
-        const rate = currency === "USD" ? 1 : (exchangeRates[currency] ?? 1);
+        const rate = currency === "EUR" ? 1 : (exchangeRates[currency] ?? 1);
 
-        // Convert to USD using real-time rates
         const currentPriceUSD = isGbxTicker(item.ticker)
           ? convertGbxToUsd(item.currentPrice)
           : item.currentPrice / rate;
@@ -152,7 +104,11 @@ export function Trading212Portfolio() {
           ? convertGbxToUsd(item.averagePrice)
           : item.averagePrice / rate;
 
-        const pplUSD = item.ppl / rate;
+        // Convert profit/loss to USD - if not GBX ticker, ppl is in EUR and needs conversion
+
+        const pplUSD = !isGbxTicker(item.ticker)
+          ? convertEurToUsdWithLiveRates(item.ppl, exchangeRates)
+          : item.ppl / rate;
 
         const positionValue = item.quantity * currentPriceUSD;
         const investedValue = item.quantity * averagePriceUSD;
@@ -172,17 +128,17 @@ export function Trading212Portfolio() {
       },
     );
   };
-  console.log();
 
-  const reloadPage = useCallback(() => {
-    window.location.reload();
-  }, []);
+  const reloadPage = useCallback(async () => {
+    await refreshData();
+  }, [refreshData]);
 
   if (loading) return <PlatformLoadingCard platformName="Trading212" />;
-  if (error)
+  if (error && !loading)
     return <ContainerCardErrorState error={error} onRetry={reloadPage} />;
-  if (!openPositionsPortfolio.length) return null;
+  if (!portfolio.length) return null;
 
+  //TODO use different props from portfolio and accountData instead of calculating them here
   const metrics = calculatePortfolioMetrics();
   const accountMetrics = calculateAccountMetrics();
 
@@ -250,7 +206,7 @@ export function Trading212Portfolio() {
         <CardContent>
           <div className="space-y-4">
             {!showAllPositions
-              ? openPositionsPortfolio
+              ? (portfolio as PortfolioItem[])
                   .sort(
                     (a, b) =>
                       b.quantity * b.currentPrice - a.quantity * a.currentPrice,
@@ -263,7 +219,7 @@ export function Trading212Portfolio() {
                       exchangeRates={exchangeRates}
                     />
                   ))
-              : openPositionsPortfolio
+              : (portfolio as PortfolioItem[])
                   .sort(
                     (a, b) =>
                       b.quantity * b.currentPrice - a.quantity * a.currentPrice,
@@ -275,14 +231,10 @@ export function Trading212Portfolio() {
                       exchangeRates={exchangeRates}
                     />
                   ))}
-            <div className="mt-4 flex justify-center">
-              <Button
-                onClick={toggleShowAllPositions}
-                className="cursor-pointer"
-              >
-                {showAllPositions ? "Show Less" : "View All Positions"}
-              </Button>
-            </div>
+            <ShowAllPositionsButton
+              showAllPositions={showAllPositions}
+              toggleShowAllPositions={toggleShowAllPositions}
+            />
           </div>
         </CardContent>
       </Card>

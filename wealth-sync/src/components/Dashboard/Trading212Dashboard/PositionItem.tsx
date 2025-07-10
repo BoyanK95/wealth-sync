@@ -5,6 +5,7 @@ import {
   getCleanTickerName,
   isGbxTicker,
   convertGbxToUsd,
+  convertEurToUsdWithLiveRates,
 } from "@/lib/utils/currencyUtils";
 import React from "react";
 
@@ -30,7 +31,9 @@ const PositionItem = ({ item, exchangeRates }: PositionItemProps) => {
     : item.currentPrice / rate;
 
   const positionValueUSD = item.quantity * currentPriceUSD;
-  const profitLossUSD = item.ppl / rate;
+  const profitLossUSD = isGbxTicker(item.ticker)
+    ? item.ppl / rate
+    : convertEurToUsdWithLiveRates(item.ppl, exchangeRates!);
 
   // Original value in the native currency
   const nativeValue = item.quantity * item.currentPrice;

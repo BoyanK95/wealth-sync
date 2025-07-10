@@ -7,11 +7,10 @@ import { Trading212Portfolio } from "@/components/Dashboard/Trading212Dashboard/
 import type { User } from "@/lib/constants/user";
 import { usePlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
 import NoPlatformsConnected from "../NoPlatformsConnected/NoPlatformsConnected";
+import BinancePortfolio from "../BinancePortfolio/BinancePortfolio";
 
 const PlatformsDashboard = ({ user }: { user: User }) => {
   const { connections } = usePlatformConnection();
-
-  console.log("connections", connections);
 
   if (!connections.length) {
     return <NoPlatformsConnected />;
@@ -20,11 +19,14 @@ const PlatformsDashboard = ({ user }: { user: User }) => {
   return (
     <div className="flex flex-col space-y-6">
       <DashboardWelcomeHeader user={user} />
-      <AllPortfolioSummary />
+      {connections.length && <AllPortfolioSummary />}
       {connections.some(
         (connection) => connection.platformId === "trading212",
       ) && <Trading212Portfolio />}
-      <DashboardTabs />
+      {connections.some(
+        (connection) => connection.platformId === "binance",
+      ) && <BinancePortfolio />}
+      <DashboardTabs connectedPlatforms={connections} />
     </div>
   );
 };
