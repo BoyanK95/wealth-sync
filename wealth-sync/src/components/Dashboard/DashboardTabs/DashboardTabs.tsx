@@ -8,25 +8,18 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import {
-  ArrowDown,
-  ArrowUp,
-  BarChart3,
-  CreditCard,
-  ExternalLink,
-  LineChart,
-  PieChart,
-  Plus,
-} from "lucide-react";
-import Link from "next/link";
-import { Routes } from "@/lib/constants/routes";
-import {
-  recentTransactions,
-  assetAllocation,
-  connectedPlatforms,
-} from "@/lib/mockData/mockData";
+import { BarChart3, CreditCard, LineChart, PieChart } from "lucide-react";
+import { assetAllocation } from "@/lib/mockData/mockData";
+import type { PlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
+import ConnectedPlatformsTab from "./ConnectedPlatformsTab";
 
-const DashboardTabs = () => {
+const DashboardTabs = ({
+  connectedPlatforms,
+}: {
+  connectedPlatforms: PlatformConnection[];
+}) => {
+  console.log("connectedPlatforms", connectedPlatforms);
+
   return (
     <Tabs defaultValue="overview" className="space-y-4">
       <TabsList>
@@ -138,115 +131,7 @@ const DashboardTabs = () => {
           </Card>
         </div>
 
-        {/* Connected platforms and recent transactions */}
-        <div className="grid gap-4 md:grid-cols-2">
-          <Card>
-            <CardHeader>
-              <CardTitle>Connected Platforms</CardTitle>
-              <CardDescription>
-                Manage your connected exchanges and brokerages
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {connectedPlatforms.map((platform) => (
-                  <div
-                    key={platform.name}
-                    className="flex items-center justify-between"
-                  >
-                    <div className="flex items-center">
-                      <div className="bg-muted mr-3 flex h-10 w-10 items-center justify-center rounded-full">
-                        {platform.name.charAt(0)}
-                      </div>
-                      <div>
-                        <p className="font-medium">{platform.name}</p>
-                        <p className="text-muted-foreground text-xs">
-                          {platform.connected ? "Connected" : "Not connected"}
-                        </p>
-                      </div>
-                    </div>
-                    {platform.connected ? (
-                      <Button variant="outline" size="sm">
-                        Sync
-                      </Button>
-                    ) : (
-                      <Button
-                        size="sm"
-                        className="bg-green-700 hover:bg-green-800"
-                      >
-                        Connect
-                      </Button>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button variant="outline" className="w-full">
-                <Plus className="mr-2 h-4 w-4" />
-                Add New Platform
-              </Button>
-            </CardFooter>
-          </Card>
-
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between">
-              <div>
-                <CardTitle>Recent Transactions</CardTitle>
-                <CardDescription>
-                  Your latest investment activities
-                </CardDescription>
-              </div>
-              <Button variant="ghost" size="sm" asChild>
-                <Link href={Routes.ALL_TRANSACTIONS}>
-                  View All
-                  <ExternalLink className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {recentTransactions.map((transaction) => (
-                  <div
-                    key={transaction.id}
-                    className="flex items-center justify-between"
-                  >
-                    <div className="flex items-center">
-                      <div
-                        className={`mr-3 flex h-10 w-10 items-center justify-center rounded-full ${
-                          transaction.type === "buy"
-                            ? "bg-green-100"
-                            : "bg-red-100"
-                        }`}
-                      >
-                        {transaction.type === "buy" ? (
-                          <ArrowDown className={`h-5 w-5 text-green-700`} />
-                        ) : (
-                          <ArrowUp className={`h-5 w-5 text-red-700`} />
-                        )}
-                      </div>
-                      <div>
-                        <p className="font-medium">{transaction.asset}</p>
-                        <p className="text-muted-foreground text-xs">
-                          {transaction.date} • {transaction.platform}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <p className="font-medium">
-                        {transaction.type === "buy" ? "+" : "-"}
-                        {transaction.amount}
-                      </p>
-                      <p className="text-muted-foreground text-xs">
-                        ${transaction.value.toLocaleString()}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+        <ConnectedPlatformsTab connectedPlatforms={connectedPlatforms} />
       </TabsContent>
 
       <TabsContent value="assets" className="space-y-4">
