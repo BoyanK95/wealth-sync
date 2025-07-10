@@ -20,7 +20,7 @@ export async function GET() {
     if (!connection?.apiKey) {
       return NextResponse.json(
         { error: "Binance not connected" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -30,8 +30,11 @@ export async function GET() {
     // Create signature for Binance API
     const timestamp = Date.now();
     const queryString = `timestamp=${timestamp}`;
+    if (!apiSecret) {
+      throw new Error("API secret is missing");
+    }
     const signature = crypto
-      .createHmac("sha256", apiSecret!)
+      .createHmac("sha256", apiSecret)
       .update(queryString)
       .digest("hex");
 
@@ -42,7 +45,7 @@ export async function GET() {
         headers: {
           "X-MBX-APIKEY": actualApiKey,
         },
-      }
+      },
     );
 
     if (!response.ok) {
@@ -54,7 +57,7 @@ export async function GET() {
       console.error("Error response:", errorText);
       return NextResponse.json(
         { error: `Binance API error: ${response.statusText}` },
-        { status: response.status }
+        { status: response.status },
       );
     }
 
@@ -64,7 +67,7 @@ export async function GET() {
     console.error("Error fetching Binance account:", error);
     return NextResponse.json(
       { error: "Failed to fetch account data" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
