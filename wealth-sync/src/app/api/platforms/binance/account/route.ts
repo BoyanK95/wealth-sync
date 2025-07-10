@@ -31,7 +31,7 @@ export async function GET() {
     const timestamp = Date.now();
     const queryString = `timestamp=${timestamp}`;
     const signature = crypto
-      .createHmac("sha256", apiSecret)
+      .createHmac("sha256", apiSecret!)
       .update(queryString)
       .digest("hex");
 
