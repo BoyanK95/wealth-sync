@@ -33,6 +33,8 @@
     "@radix-ui/react-switch": "^1.1.3",
     "@radix-ui/react-tabs": "^1.1.3",
     "@radix-ui/react-tooltip": "^1.2.6",
+    "@supabase/ssr": "^0.6.1",
+    "@supabase/supabase-js": "^2.50.5",
     "@t3-oss/env-nextjs": "^0.12.0",
     "bcryptjs": "^3.0.2",
     "class-variance-authority": "^0.7.1",
@@ -46,6 +48,7 @@
     "react-icons": "^5.5.0",
     "resend": "^4.2.0",
     "sonner": "^2.0.3",
+    "supabase": "^2.30.4",
     "tailwind-merge": "^3.1.0",
     "zod": "^3.24.2"
   },
