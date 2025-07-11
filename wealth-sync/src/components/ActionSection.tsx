@@ -9,7 +9,7 @@ const ActionSection = async () => {
   const session = await auth();
 
   return (
-    <section className="w-full bg-green-700 dark:bg-green-900 py-12 text-white md:py-24 lg:py-32">
+    <section className="flex w-full justify-center bg-green-700 dark:bg-green-900 py-12 text-white md:py-24 lg:py-32">
       <div className="container px-4 md:px-6">
         <div className="flex flex-col items-center justify-center space-y-4 text-center">
           <div className="space-y-2">

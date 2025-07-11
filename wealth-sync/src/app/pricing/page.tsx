@@ -1,11 +1,12 @@
-import { NoPricingSection } from '@/components/NoPricingSection'
-// import PricingSection from '@/components/PricingSection'
-import React from 'react'
+import PricingSection from "@/components/PricingSection";
+import React from "react";
 
 const PricingPage = () => {
   return (
-    <NoPricingSection />
-  )
-}
+    <div className="pt-12">
+      <PricingSection />
+    </div>
+  );
+};
 
-export default PricingPage
+export default PricingPage;

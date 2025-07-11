@@ -81,6 +81,7 @@ const GeneralTab = ({ user }: UserFormProps) => {
       setIsLoading(false);
     }
   };
+  
   return (
     <TabsContent value="general" className="mt-6">
       <Card>

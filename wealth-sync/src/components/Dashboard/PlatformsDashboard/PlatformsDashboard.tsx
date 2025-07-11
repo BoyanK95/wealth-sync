@@ -17,7 +17,7 @@ const PlatformsDashboard = ({ user }: { user: User }) => {
   }
 
   return (
-    <div className="flex flex-col space-y-6">
+    <div className="flex flex-col space-y-6 mx-4">
       <DashboardWelcomeHeader userName={user.name} />
       {connections.length && <AllPortfolioSummary />}
       {connections.some(

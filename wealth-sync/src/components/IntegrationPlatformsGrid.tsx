@@ -7,16 +7,16 @@ const IntegrationPlatformsGrid = () => {
   const displayedPlatforms = Platforms.slice(0, 6);
 
   return (
-    <div className="mx-auto grid max-w-5xl grid-cols-2 gap-6 py-12 md:grid-cols-3 lg:grid-cols-6">
+    <div className="flex justify-center w-full gap-6 md:grid-cols-3 lg:grid-cols-6">
       {displayedPlatforms.map((platform) => (
         <Link
           href={platform.connetUrl ?? "/"}
           key={platform.id}
-          className="group relative flex flex-col items-center space-y-2 rounded-lg border p-6 transition-all hover:border-green-700 hover:shadow-md"
+          className="group w-36 relative flex flex-col items-center space-y-2 rounded-lg p-6 transition-all hover:border-green-700 hover:shadow-md"
         >
           <div
             key={platform.id}
-            className="flex flex-col items-center space-y-2 rounded-lg border p-6"
+            className="flex flex-col items-center space-y-2 rounded-lg p-6"
           >
             <div className="bg-muted rounded-full">
               {platform.logo && (
