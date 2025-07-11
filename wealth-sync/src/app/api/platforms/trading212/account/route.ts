@@ -1,7 +1,7 @@
 import { auth } from "@/server/auth";
 import { db } from "@/server/db";
 import { NextResponse } from "next/server";
-import type { AccountData } from "./res.interface";
+import type { Trading212AccountData } from "./res.interface";
 
 // Simple in-memory rate limiting
 const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
@@ -40,7 +40,7 @@ async function fetchWithRetry(
 
 function isRateLimited(userId: string): boolean {
   const now = Date.now();
-  const userRequests = requestLog.get(userId) || [];
+  const userRequests = requestLog.get(userId) ?? [];
   const recentRequests = userRequests.filter(
     (time) => time > now - RATE_LIMIT_WINDOW,
   );
@@ -99,7 +99,7 @@ export async function GET() {
       );
     }
 
-    const data = (await response.json()) as AccountData;
+    const data = (await response.json()) as Trading212AccountData;
     return NextResponse.json(data);
   } catch (error) {
     console.error("Error fetching Trading212 portfolio:", error);

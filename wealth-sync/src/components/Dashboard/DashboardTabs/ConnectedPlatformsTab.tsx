@@ -7,10 +7,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowDown, ArrowUp, ExternalLink, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import Link from "next/link";
 import { Routes } from "@/lib/constants/routes";
-import { recentTransactions } from "@/lib/mockData/mockData";
 import type { PlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
 import RecentTransactionsTab from "./RecentTransactionsTab";
 

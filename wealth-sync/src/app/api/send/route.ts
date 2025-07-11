@@ -12,7 +12,7 @@ export async function POST() {
       from: "Acme <onboarding@resend.dev>",
       to: ["b.koychev95@gmail.com"],
       subject: "Hello world",
-      react: EmailTemplate({ firstName: "John" }),
+      react: (EmailTemplate({ firstName: "John" })) as React.ReactElement,
     });
 
     if (error) {

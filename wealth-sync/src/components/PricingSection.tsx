@@ -1,5 +1,6 @@
 import React from "react";
 import PricingCard from "@/components/PricingCard";
+import { pricingPlans } from "@/lib/mockData/pricingData";
 
 const PricingSection = () => {
   //TODO add Pricing logic with STRIPE

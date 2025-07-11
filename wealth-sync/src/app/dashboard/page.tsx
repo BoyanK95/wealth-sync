@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { auth } from "@/server/auth";
 import PlatformsDashboard from "@/components/Dashboard/PlatformsDashboard/PlatformsDashboard";
+import type { User } from "@/lib/constants/user";
 
 export const metadata: Metadata = {
   title: "Dashboard | WealthSync",
@@ -11,11 +12,12 @@ export const metadata: Metadata = {
 export default async function DashboardPage() {
   const session = await auth();
   const user = session?.user;
+  console.log("sesionUser", user);
 
   return (
     <div className="flex min-h-screen flex-col">
       <main className="flex-1 pt-16 pb-12">
-        <PlatformsDashboard user={user} />
+        <PlatformsDashboard user={user as User} />
       </main>
     </div>
   );
