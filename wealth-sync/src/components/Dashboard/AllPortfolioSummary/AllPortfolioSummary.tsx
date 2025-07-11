@@ -17,6 +17,10 @@ import { getCleanTickerName, isGbxTicker } from "@/lib/utils/currencyUtils";
 import ContainerCardLoadingState from "../ContainerCardLoadingState/ContainerCardLoadingState.tsx";
 import ContainerCardErrorState from "@/components/Dashboard/ContainerCardErrorState/ContainerCardErrorState";
 import { loadingCards } from "../ContainerCardLoadingState/constants";
+import { BinanceService } from "@/lib/services/binanceService";
+import { ApiKeyStrings } from "@/lib/constants/apiKeyStrings";
+import { calculateBinancePortfolioMetrics } from "../helper/calculateBinancePortfolioHelperFunction";
+import { findTopPerformingAsset } from "../helper/findTopPerformingAsset";
 
 const AllPortfolioSummary = () => {
   const [loading, setLoading] = useState(true);
@@ -48,50 +52,80 @@ const AllPortfolioSummary = () => {
         let platformsConnected = 0;
         let bestPerformer = { ticker: "", percentageChange: 0 };
 
-        const trading212ApiKey = getApiKey("trading212");
-        const service = new Trading212Service(trading212ApiKey!);
-        const portfolioData = await service.getPortfolio();
-        // const accountInfo = await service.getAccountInfo();
+        if (
+          connections.some(
+            (connection) =>
+              connection.platformId === (ApiKeyStrings.TRADING_212 as string),
+          )
+        ) {
+          const trading212ApiKey = getApiKey(ApiKeyStrings.TRADING_212);
+          const service = new Trading212Service(trading212ApiKey!);
+          const portfolioData = await service.getPortfolio();
 
-        /**
-         * Calculate the total open postion portfolio value by adding all open positions
-         */
-        const trading212Value = portfolioData.reduce((sum, position) => {
-          if (isGbxTicker(position.ticker)) {
-            return sum + position.currentPrice * 0.01 * position.quantity; // Convert from pence to pounds
+          /**
+           * Calculate the total open postion portfolio value by adding all open positions
+           */
+          const trading212Value = portfolioData.reduce((sum, position) => {
+            if (isGbxTicker(position.ticker)) {
+              return sum + position.currentPrice * 0.01 * position.quantity; // Convert from pence to pounds
+            }
+            return sum + position.currentPrice * position.quantity;
+          }, 0);
+
+          // Find top performing asset
+          portfolioData.forEach((position) => {
+            const percentageChange =
+              position.pnlPercentage ||
+              ((position.currentPrice - position.averagePrice) /
+                position.averagePrice) *
+                100;
+
+            if (!isFinite(percentageChange) || isNaN(percentageChange)) {
+              return;
+            }
+
+            if (percentageChange > bestPerformer.percentageChange) {
+              bestPerformer = {
+                ticker: getCleanTickerName(position.ticker),
+                percentageChange,
+              };
+            }
+          });
+
+          if (bestPerformer.ticker) {
+            setTopPerformingAsset(bestPerformer.ticker);
+            // Use the percentage for the monthly change as a placeholder
+            setBestPerformerChange(bestPerformer.percentageChange);
           }
-          return sum + position.currentPrice * position.quantity;
-        }, 0);
 
-        // Find top performing asset
-        portfolioData.forEach((position) => {
-          const percentageChange =
-            position.pnlPercentage ||
-            ((position.currentPrice - position.averagePrice) /
-              position.averagePrice) *
-              100;
-
-          if (!isFinite(percentageChange) || isNaN(percentageChange)) {
-            return;
-          }
-
-          if (percentageChange > bestPerformer.percentageChange) {
-            bestPerformer = {
-              ticker: getCleanTickerName(position.ticker),
-              percentageChange,
-            };
-          }
-        });
-
-        if (bestPerformer.ticker) {
-          setTopPerformingAsset(bestPerformer.ticker);
-          // Use the percentage for the monthly change as a placeholder
-          setBestPerformerChange(bestPerformer.percentageChange);
+          portfolioTotal += trading212Value;
+          platformsConnected++;
         }
+        if (
+          connections.some(
+            (connection) =>
+              connection.platformId === (ApiKeyStrings.BINANCE as string),
+          )
+        ) {
+          const binanceApiKey = getApiKey(ApiKeyStrings.BINANCE);
+          const binanceService = new BinanceService(binanceApiKey!);
+          const portfolioData = await binanceService.getPortfolio();
 
-        portfolioTotal += trading212Value;
-        platformsConnected++;
+          // Calculate Binance portfolio metrics
+          const binanceMetrics =
+            calculateBinancePortfolioMetrics(portfolioData);
 
+          // Find top performing Binance asset (if any)
+          const topBinanceAsset = findTopPerformingAsset(portfolioData);
+
+          if (topBinanceAsset && !bestPerformer.ticker) {
+            bestPerformer = topBinanceAsset;
+            setTopPerformingAsset(topBinanceAsset.ticker);
+          }
+
+          portfolioTotal += binanceMetrics!.totalValue;
+          platformsConnected++;
+        }
         // Add other platforms here as they're implemented
 
         setTotalValue(portfolioTotal);

@@ -12,8 +12,6 @@ import BinancePortfolio from "../BinancePortfolio/BinancePortfolio";
 const PlatformsDashboard = ({ user }: { user: User }) => {
   const { connections } = usePlatformConnection();
 
-  console.log("connections", connections);
-
   if (!connections.length) {
     return <NoPlatformsConnected />;
   }
@@ -21,14 +19,14 @@ const PlatformsDashboard = ({ user }: { user: User }) => {
   return (
     <div className="flex flex-col space-y-6 mx-4">
       <DashboardWelcomeHeader user={user} />
-      <AllPortfolioSummary />
+      {connections.length && <AllPortfolioSummary />}
       {connections.some(
         (connection) => connection.platformId === "trading212",
       ) && <Trading212Portfolio />}
       {connections.some(
         (connection) => connection.platformId === "binance",
       ) && <BinancePortfolio />}
-      <DashboardTabs />
+      <DashboardTabs connectedPlatforms={connections} />
     </div>
   );
 };
