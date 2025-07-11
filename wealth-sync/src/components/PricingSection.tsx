@@ -13,10 +13,10 @@ const PricingSection = () => {
         { text: "Connect up to 2 exchanges" },
         { text: "Basic performance tracking" },
         { text: "Portfolio allocation view" },
-        { text: "Daily updates" }
+        { text: "Daily updates" },
       ],
       buttonText: "Get Started",
-      buttonVariant: "outline" as const
+      buttonVariant: "outline" as const,
     },
     {
       title: "Pro",
@@ -28,11 +28,11 @@ const PricingSection = () => {
         { text: "Advanced performance metrics" },
         { text: "Portfolio allocation & analysis" },
         { text: "Real-time updates" },
-        { text: "Mobile app access" }
+        { text: "Mobile app access" },
       ],
       isPopular: true,
       buttonText: "Get Started",
-      buttonVariant: "default" as const
+      buttonVariant: "default" as const,
     },
     {
       title: "Enterprise",
@@ -46,15 +46,18 @@ const PricingSection = () => {
         { text: "Real-time updates" },
         { text: "Team collaboration features" },
         { text: "Priority support" },
-        { text: "Customizable dashboards" }
+        { text: "Customizable dashboards" },
       ],
       buttonText: "Contact Sales",
-      buttonVariant: "outline" as const
-    }
+      buttonVariant: "outline" as const,
+    },
   ];
 
   return (
-    <section id="pricing" className="w-full py-12 md:py-24 lg:py-32">
+    <section
+      id="pricing"
+      className="flex w-full justify-center py-8 align-middle"
+    >
       <div className="container px-4 md:px-6">
         <div className="flex flex-col items-center justify-center space-y-4 text-center">
           <div className="space-y-2">
