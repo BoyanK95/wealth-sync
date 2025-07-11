@@ -34,7 +34,7 @@ export async function GET() {
       throw new Error("API secret is missing");
     }
     const signature = crypto
-      .createHmac("sha256", apiSecret as string)
+      .createHmac("sha256", apiSecret)
       .update(queryString)
       .digest("hex");
 

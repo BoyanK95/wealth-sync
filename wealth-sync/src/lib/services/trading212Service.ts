@@ -45,7 +45,7 @@ export class Trading212Service {
         }
       }
 
-      return response.json() as Promise<Position[] | AccountData>;
+      return response.json() as Promise<Position[] | Trading212AccountData>;
     } catch (error) {
       console.error(`Error fetching from Trading212 API (${endpoint}):`, error);
       throw error;
@@ -56,6 +56,6 @@ export class Trading212Service {
   }
 
   async getAccountInfo() {
-    return this.fetchFromApi("/account") as Promise<AccountData>;
+    return this.fetchFromApi("/account") as Promise<Trading212AccountData>;
   }
 }
