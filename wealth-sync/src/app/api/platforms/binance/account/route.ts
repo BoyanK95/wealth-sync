@@ -43,7 +43,7 @@ export async function GET() {
       `https://api.binance.com/api/v3/account?${queryString}&signature=${signature}`,
       {
         headers: {
-          "X-MBX-APIKEY": actualApiKey,
+          "X-MBX-APIKEY": actualApiKey!,
         },
       },
     );

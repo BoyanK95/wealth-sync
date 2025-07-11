@@ -3,9 +3,10 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { RefreshCw, Settings } from "lucide-react";
-import type { User } from "@/lib/constants/user";
 
-const DashboardWelcomeHeader = (user: User) => {
+const DashboardWelcomeHeader = ({ userName }: { userName: string }) => {
+  console.log("userName", userName);
+
   const refreshPage = () => {
     window.location.reload();
   };
@@ -21,7 +22,7 @@ const DashboardWelcomeHeader = (user: User) => {
     <div className="flex flex-col space-y-2 pt-6 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
       <div>
         <h1 className="text-3xl font-bold tracking-tight">
-          Welcome back, {user?.user.name ?? "Investor"}
+          Welcome back, {userName ?? "Investor"}
         </h1>
         <p className="text-muted-foreground">
           Here&apos;s an overview of your portfolio as of {formattedDate}

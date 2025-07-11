@@ -35,7 +35,7 @@ async function fetchWithRetry(url: string, headers: HeadersInit, maxRetries = 3)
 
 function isRateLimited(userId: string): boolean {
   const now = Date.now();
-  const userRequests = requestLog.get(userId) || [];
+  const userRequests = requestLog.get(userId) ?? [];
   const recentRequests = userRequests.filter(time => time > now - RATE_LIMIT_WINDOW);
   
   if (recentRequests.length >= MAX_REQUESTS_PER_WINDOW) {
