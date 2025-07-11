@@ -40,7 +40,7 @@ async function fetchWithRetry(
 
 function isRateLimited(userId: string): boolean {
   const now = Date.now();
-  const userRequests = requestLog.get(userId) || [];
+  const userRequests = requestLog.get(userId) ?? [];
   const recentRequests = userRequests.filter(
     (time) => time > now - RATE_LIMIT_WINDOW,
   );
