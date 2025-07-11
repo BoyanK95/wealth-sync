@@ -1,12 +1,11 @@
 import { db } from "@/server/db";
 import { NextResponse } from "next/server";
 
-
 //STILL NEED TO IMPLEMENT THIS
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const id = searchParams.get('id');
-  const confirmCode = searchParams.get('confirm_code');
+  const id = searchParams.get("id");
+  const confirmCode = searchParams.get("confirm_code");
 
   // Return the confirmation code in the required format
   return NextResponse.json({
@@ -24,11 +23,11 @@ export async function POST(request: Request) {
       where: {
         accounts: {
           some: {
-            provider: 'facebook',
-            providerAccountId: user_id
-          }
-        }
-      }
+            provider: "facebook",
+            providerAccountId: user_id as string,
+          },
+        },
+      },
     });
 
     return NextResponse.json({ success: true });
@@ -36,7 +35,7 @@ export async function POST(request: Request) {
     console.error("Facebook data deletion error:", error);
     return NextResponse.json(
       { success: false, error: "Failed to process deletion request" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
