@@ -24,7 +24,7 @@ export const Platforms: Platform[] = [
   {
     id: "binance",
     name: "Binance",
-    logo: "/platforms/binance-logo.png",
+    logo: "/platforms/binance-logo.jpg",
     connetUrl: "/connect/binance",
     isConnected: false,
   },

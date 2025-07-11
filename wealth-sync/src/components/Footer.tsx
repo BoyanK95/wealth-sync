@@ -5,11 +5,10 @@ import React from "react";
 const Footer = () => {
   return (
     <footer className="w-full border-t py-6 md:py-0">
-      <div className="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
-        <div className="flex items-center gap-2 text-lg font-bold">
-          <span className="text-primary">Wealth</span>
-          <span className="text-green-800">Sync</span>
-          <span className="text-primary">App</span>
+      <div className="mx-4 flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
+        <div className="text-primary ml-2 flex items-center text-2xl font-bold">
+          <span>Wealth</span>
+          <span className="text-green-800 dark:text-green-600">Sync</span>
         </div>
         <p className="text-muted-foreground text-center text-sm leading-loose md:text-left">
           © 2023 WealthSync. All rights reserved.
