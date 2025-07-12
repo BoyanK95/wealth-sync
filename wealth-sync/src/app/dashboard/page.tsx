@@ -12,8 +12,6 @@ export const metadata: Metadata = {
 export default async function DashboardPage() {
   const session = await auth();
   const user = session?.user;
-  console.log('sesionUser', user);
-  
 
   return (
     <div className="flex min-h-screen flex-col">
