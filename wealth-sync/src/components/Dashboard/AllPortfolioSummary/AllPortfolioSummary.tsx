@@ -23,7 +23,13 @@ import { calculateBinancePortfolioMetrics } from "../helper/calculateBinancePort
 import { findTopPerformingAsset } from "../helper/findTopPerformingAsset";
 import { Eye, EyeOff } from "lucide-react";
 
-const AllPortfolioSummary = () => {
+const AllPortfolioSummary = ({
+  showStats,
+  setShowStats,
+}: {
+  showStats: boolean;
+  setShowStats: (showStats: boolean) => void;
+}) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [totalValue, setTotalValue] = useState<number | null>(null);
@@ -38,8 +44,6 @@ const AllPortfolioSummary = () => {
   const [bestPerformerChange, setBestPerformerChange] = useState<number | null>(
     null,
   );
-  const [showStats, setShowStats] = useState<boolean>(false);
-
   const { connections, getApiKey } = usePlatformConnection();
 
   const reloadPage = useCallback(() => {
