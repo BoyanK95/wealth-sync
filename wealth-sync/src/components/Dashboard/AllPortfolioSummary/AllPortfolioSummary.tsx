@@ -22,6 +22,7 @@ import { ApiKeyStrings } from "@/lib/constants/apiKeyStrings";
 import { calculateBinancePortfolioMetrics } from "../helper/calculateBinancePortfolioHelperFunction";
 import { findTopPerformingAsset } from "../helper/findTopPerformingAsset";
 import { Eye, EyeOff } from "lucide-react";
+import { Platforms } from "@/lib/constants/platforms";
 
 const AllPortfolioSummary = ({
   showStats,
@@ -183,27 +184,37 @@ const AllPortfolioSummary = ({
             <DollarSign className="text-muted-foreground h-4 w-4" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
-              {totalValue ? totalValue.toLocaleString() : "0.00"}
-            </div>
-            <div className="flex items-center pt-1">
-              {totalChange && totalChange > 0 ? (
-                <ArrowUp className="mr-1 h-4 w-4 text-green-700" />
-              ) : (
-                <ArrowDown className="mr-1 h-4 w-4 text-red-700" />
-              )}
-              <span
-                className={
-                  totalChange && totalChange > 0
-                    ? "text-green-700"
-                    : "text-red-700"
-                }
-              >
-                {totalChange && totalChange > 0 ? "+" : "-"}$
-                {totalChange ? Math.abs(totalChange).toLocaleString() : "0.00"}{" "}
-                ({totalChangePercent ?? 0}%)
-              </span>
-            </div>
+            {showStats ? (
+              <>
+                <div className="text-2xl font-bold">
+                  {totalValue ? totalValue.toLocaleString() : "0.00"}
+                </div>
+                <div className="flex items-center pt-1">
+                  {totalChange && totalChange > 0 ? (
+                    <ArrowUp className="mr-1 h-4 w-4 text-green-700" />
+                  ) : (
+                    <ArrowDown className="mr-1 h-4 w-4 text-red-700" />
+                  )}
+                  <span
+                    className={
+                      totalChange && totalChange > 0
+                        ? "text-green-700"
+                        : "text-red-700"
+                    }
+                  >
+                    {totalChange && totalChange > 0 ? "+" : "-"}$
+                    {totalChange
+                      ? Math.abs(totalChange).toLocaleString()
+                      : "0.00"}{" "}
+                    ({totalChangePercent ?? 0}%)
+                  </span>
+                </div>
+              </>
+            ) : (
+              <div className="text-2xl font-bold">
+                <h3>******</h3>
+              </div>
+            )}
           </CardContent>
         </Card>
         <Card>
@@ -216,7 +227,7 @@ const AllPortfolioSummary = ({
           <CardContent>
             <div className="text-2xl font-bold">{connectedCount}</div>
             <p className="text-muted-foreground text-xs">
-              of {connections.length} available integrations
+              of {Platforms.length} available integrations
             </p>
           </CardContent>
         </Card>
@@ -228,26 +239,37 @@ const AllPortfolioSummary = ({
             <LineChart className="text-muted-foreground h-4 w-4" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
-              {topPerformingAsset ?? "N/A"}
-            </div>
-            <div className="flex items-center pt-1">
-              {bestPerformerChange && bestPerformerChange > 0 ? (
-                <ArrowUp className="mr-1 h-4 w-4 text-green-700" />
-              ) : (
-                <ArrowDown className="mr-1 h-4 w-4 text-red-700" />
-              )}
-              <span
-                className={
-                  bestPerformerChange && bestPerformerChange > 0
-                    ? "text-green-700"
-                    : "text-red-700"
-                }
-              >
-                {bestPerformerChange && bestPerformerChange > 0 ? "+" : ""}
-                {bestPerformerChange ? bestPerformerChange.toFixed(2) : "0.00"}%
-              </span>
-            </div>
+            {showStats ? (
+              <>
+                <div className="text-2xl font-bold">
+                  {topPerformingAsset ?? "N/A"}
+                </div>
+                <div className="flex items-center pt-1">
+                  {bestPerformerChange && bestPerformerChange > 0 ? (
+                    <ArrowUp className="mr-1 h-4 w-4 text-green-700" />
+                  ) : (
+                    <ArrowDown className="mr-1 h-4 w-4 text-red-700" />
+                  )}
+                  <span
+                    className={
+                      bestPerformerChange && bestPerformerChange > 0
+                        ? "text-green-700"
+                        : "text-red-700"
+                    }
+                  >
+                    {bestPerformerChange && bestPerformerChange > 0 ? "+" : ""}
+                    {bestPerformerChange
+                      ? bestPerformerChange.toFixed(2)
+                      : "0.00"}
+                    %
+                  </span>
+                </div>
+              </>
+            ) : (
+              <div className="text-2xl font-bold">
+                <h3>******</h3>
+              </div>
+            )}
           </CardContent>
         </Card>
         <Card>
@@ -258,11 +280,19 @@ const AllPortfolioSummary = ({
             <BarChart3 className="text-muted-foreground h-4 w-4" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">+4.3%</div>
-            <div className="flex items-center pt-1">
-              <ArrowUp className="mr-1 h-4 w-4 text-green-700" />
-              <span className="text-green-700">+$5,120.45</span>
-            </div>
+            {showStats ? (
+              <>
+                <div className="text-2xl font-bold">+4.3%</div>
+                <div className="flex items-center pt-1">
+                  <ArrowUp className="mr-1 h-4 w-4 text-green-700" />
+                  <span className="text-green-700">+$5,120.45</span>
+                </div>
+              </>
+            ) : (
+              <div className="text-2xl font-bold">
+                <h3>******</h3>
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>
