@@ -12,7 +12,7 @@ import { Badge } from "@/components/ui/badge";
 
 export function NoPricingSection() {
   return (
-    <div className="mx-auto flex max-w-4xl flex-col items-center space-y-8 text-center mt-7">
+    <div className="mx-auto mt-7 flex max-w-4xl flex-col items-center space-y-8 text-center">
       {/* Main Message */}
       <div className="space-y-4">
         <Badge
@@ -100,8 +100,8 @@ export function NoPricingSection() {
           </CardHeader>
           <CardContent>
             <CardDescription>
-              We&apos;re focused on building the best possible product. Pricing will
-              come when we deliver exceptional value.
+              We&apos;re focused on building the best possible product. Pricing
+              will come when we deliver exceptional value.
             </CardDescription>
           </CardContent>
         </Card>
@@ -179,12 +179,20 @@ export function NoPricingSection() {
           <div className="flex flex-col gap-3 sm:flex-row">
             <Button
               variant="outline"
-              className="flex-1 border-green-700 bg-transparent text-green-700 hover:bg-green-50"
+              className="flex-1 border-green-700 bg-transparent text-green-700 hover:bg-green-50 dark:hover:border-green-800"
               asChild
             >
-              <Link href="/about">Share Feedback</Link>
+              <Link
+                className="dark:hover:bg-green-300 dark:hover:text-green-800"
+                href="/contact"
+              >
+                Share Feedback
+              </Link>
             </Button>
-            <Button className="flex-1 bg-green-700 hover:bg-green-800" asChild>
+            <Button
+              className="flex-1 bg-green-700 hover:bg-green-800 hover:text-white"
+              asChild
+            >
               <Link href="/auth/register">Start Using Free</Link>
             </Button>
           </div>
