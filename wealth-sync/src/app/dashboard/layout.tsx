@@ -24,7 +24,7 @@ export default async function DashboardLayout({
 
   return (
     <PlatformConnectionProvider>
-      <div className="flex min-h-screen flex-col">{children}</div>;
+      <div className="flex min-h-screen flex-col">{children}</div>
     </PlatformConnectionProvider>
   );
 }
