@@ -1,4 +1,4 @@
-import { NoPricingSection } from '@/components/NoPricingSection'
+import { NoPricingSection } from '@/components/NoPiricngSection/NoPricingSection'
 // import PricingSection from '@/components/PricingSection'
 import React from 'react'
 
