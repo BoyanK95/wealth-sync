@@ -9,6 +9,13 @@ export interface Platform {
 export const Platforms: Platform[] = [
   //TODO add more platforms
   {
+    id: "add-your-own-asset",
+    name: "Add your own asset",
+    logo: "/platforms/add-your-own-asset-icon.png",
+    connetUrl: "/connect/add-your-own-asset",
+    isConnected: false,
+  },
+  {
     id: "trading212",
     name: "Trading212",
     logo: "/platforms/trading-212-icon.png",
