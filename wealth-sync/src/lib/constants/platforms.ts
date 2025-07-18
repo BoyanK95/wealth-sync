@@ -29,6 +29,27 @@ export const Platforms: Platform[] = [
     isConnected: false,
   },
   {
+    id: "crypto.com",
+    name: "Crypto.com",
+    logo: "/platforms/crypto-com-logo.png",
+    connetUrl: "/connect/crypto-com",
+    isConnected: false,
+  },
+  {
+    id: "coinbase",
+    name: "Coinbase",
+    logo: "/platforms/coinbase-logo.jpg",
+    connetUrl: "/connect/coinbase",
+    isConnected: false,
+  },
+  {
+    id: "metaMask",
+    name: "Meta Mask",
+    logo: "/platforms/meta-mask-logo.png",
+    connetUrl: "/connect/meta-mask",
+    isConnected: false,
+  },
+  {
     id: "interactive_brokers",
     name: "Interactive Brokers",
     logo: "/platforms/ib-logo-icon.png",
@@ -42,6 +63,11 @@ export const Platforms: Platform[] = [
     connetUrl: "/connect/takion",
     isConnected: false,
   },
-  //   { id: "robinhood", name: "Robinhood" },
-  //   { id: "coinbase", name: "Coinbase" },
+  {
+    id: "robinhood",
+    name: "robinhood",
+    logo: "/platforms/robinhood-logo.png",
+    connetUrl: "/connect/robinhood",
+    isConnected: false,
+  },
 ];

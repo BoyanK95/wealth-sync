@@ -27,7 +27,7 @@ const IntegrationSection = () => {
       <IntegrationPlatformsGrid />
       <div className="flex justify-center">
         <Link
-          href={Routes.PLATFORMS}
+          href={Routes.INTEGRATIONS}
           className="group inline-flex items-center text-sm font-medium text-green-700 hover:text-green-800"
         >
           View all supported platforms
