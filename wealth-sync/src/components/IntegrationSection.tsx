@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { Routes } from "@/lib/constants/routes";
-import IntegrationPlatformsGrid from "./IntegrationPlatformsGrid";
+import IntegrationPlatformsGrid from "./IntegrationPlatformsGrid/IntegrationPlatformsGrid";
 
 const IntegrationSection = () => {
   return (
