@@ -10,7 +10,7 @@ export const IntegrationPlatformCard = ({
   return (
     <Link
       href={platform.connetUrl ?? "/"}
-      className="group relative flex flex-col items-center justify-center rounded-xl border border-gray-200 bg-white p-4 transition-all duration-200 hover:scale-105 hover:border-green-500 hover:shadow-lg"
+      className="group relative flex flex-col items-center justify-center rounded-xl border border-gray-200 bg-white p-4 transition-all duration-200 hover:scale-105 hover:border-green-500 hover:shadow-lg dark:bg-slate-800"
     >
       {/* Connection Status Indicator */}
       {platform.isConnected && (
@@ -35,12 +35,12 @@ export const IntegrationPlatformCard = ({
           </div>
         )}
       </div>
-      <span className="text-center text-sm leading-tight font-medium text-gray-900">
+      <span className="text-center text-sm leading-tight font-medium text-gray-900 dark:text-white">
         {platform.name}
       </span>
       <span
         className={`mt-1 text-xs ${
-          platform.isConnected ? "font-medium text-green-600" : "text-gray-500"
+          platform.isConnected ? "font-medium text-green-600" : "text-gray-500 dark:text-gray-300"
         }`}
       >
         {platform.isConnected ? "Connected" : "Connect"}
