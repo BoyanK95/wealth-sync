@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import IntegrationPlatformsGrid from "@/components/IntegrationPlatformsGrid/IntegrationPlatformsGrid";
+import IntegrationPlatformsGrid from "@/components/IntegrationPlatformsSection/IntegrationPlatformsGrid";
 import Image from "next/image";
 
 const NoPlatformsConnected = () => {

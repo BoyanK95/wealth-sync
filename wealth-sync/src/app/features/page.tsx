@@ -1,6 +1,6 @@
 import React from "react";
 import FeaturesSection from "@/components/FeaturesSection";
-import IntegrationSection from "@/components/IntegrationSection";
+import IntegrationSection from "@/components/IntegrationPlatformsSection/IntegrationSection";
 
 const FeaturesectionPage = () => {
   return (

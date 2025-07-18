@@ -1,8 +1,5 @@
 import React from "react";
-import Link from "next/link";
-import { ChevronRight } from "lucide-react";
-import { Routes } from "@/lib/constants/routes";
-import IntegrationPlatformsGrid from "./IntegrationPlatformsGrid/IntegrationPlatformsGrid";
+import IntegrationPlatformsGrid from "./IntegrationPlatformsGrid";
 
 const IntegrationSection = () => {
   return (
@@ -10,7 +7,7 @@ const IntegrationSection = () => {
       id="integrations"
       className="flex w-full flex-col justify-center align-middle py-8"
     >
-      <div className="flex flex-col items-center justify-center space-y-4 text-center">
+      <div className="flex flex-col items-center justify-center space-y-4 text-center p-2">
         <div className="space-y-2">
           <div className="bg-muted inline-block rounded-lg px-3 py-1 text-sm">
             Integrations
@@ -25,15 +22,6 @@ const IntegrationSection = () => {
         </div>
       </div>
       <IntegrationPlatformsGrid />
-      <div className="flex justify-center">
-        <Link
-          href={Routes.INTEGRATIONS}
-          className="group inline-flex items-center text-sm font-medium text-green-700 hover:text-green-800"
-        >
-          View all supported platforms
-          <ChevronRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-        </Link>
-      </div>
     </section>
   );
 };
