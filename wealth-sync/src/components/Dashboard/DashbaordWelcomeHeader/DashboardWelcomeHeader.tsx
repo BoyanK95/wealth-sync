@@ -5,8 +5,6 @@ import { Button } from "@/components/ui/button";
 import { RefreshCw, Settings } from "lucide-react";
 
 const DashboardWelcomeHeader = ({ userName }: { userName: string }) => {
-  console.log("userName", userName);
-
   const refreshPage = () => {
     window.location.reload();
   };
