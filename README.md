@@ -26,7 +26,7 @@ Built using the powerful **T3 Stack** (Next.js, tRPC, TailwindCSS, Prisma), Weal
 
 ## 🚀 Quick Start
 
-1. Visit [wealth-sync.vercel.app](https://wealth-sync.vercel.app)
+1. Visit [Wealth Sync App](https://wealth-sync-lime.vercel.app/)
 2. Sign up using your preferred authentication method
 3. Connect your exchange accounts
 4. Start tracking your portfolio in real-time
