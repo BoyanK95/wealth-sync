@@ -42,7 +42,7 @@ export const Platforms: Platform[] = [
     id: "crypto.com",
     name: "Crypto.com",
     logo: "/platforms/crypto-com-logo.png",
-    connetUrl: Routes.COMING_SOON,
+    connetUrl: Routes.CONNECT_CRYPTO_COM,
     isConnected: false,
   },
   {
