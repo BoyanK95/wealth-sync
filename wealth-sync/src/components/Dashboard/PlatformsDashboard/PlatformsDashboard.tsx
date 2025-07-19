@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import DashboardWelcomeHeader from "@/components/Dashboard/DashbaordWelcomeHeader/DashboardWelcomeHeader";
 import AllPortfolioSummary from "@/components/Dashboard/AllPortfolioSummary/AllPortfolioSummary";
 import DashboardTabs from "@/components/Dashboard/DashboardTabs/DashboardTabs";
@@ -10,9 +11,8 @@ import NoPlatformsConnected from "../NoPlatformsConnected/NoPlatformsConnected";
 import BinancePortfolio from "../BinancePortfolio/BinancePortfolio";
 
 const PlatformsDashboard = ({ user }: { user: User }) => {
+  const [showStats, setShowStats] = useState<boolean>(false);
   const { connections } = usePlatformConnection();
-
-  console.log("connections", connections);
 
   if (!connections.length) {
     return <NoPlatformsConnected />;
@@ -20,15 +20,22 @@ const PlatformsDashboard = ({ user }: { user: User }) => {
 
   return (
     <div className="flex flex-col space-y-6">
-      <DashboardWelcomeHeader user={user} />
-      <AllPortfolioSummary />
-      {connections.some(
-        (connection) => connection.platformId === "trading212",
-      ) && <Trading212Portfolio />}
-      {connections.some(
-        (connection) => connection.platformId === "binance",
-      ) && <BinancePortfolio />}
-      <DashboardTabs />
+      <DashboardWelcomeHeader userName={user.name} />
+      {connections.length && (
+        <AllPortfolioSummary
+          showStats={showStats}
+          setShowStats={setShowStats}
+        />
+      )}
+      {showStats &&
+        connections.some(
+          (connection) => connection.platformId === "trading212",
+        ) && <Trading212Portfolio />}
+      {showStats &&
+        connections.some(
+          (connection) => connection.platformId === "binance",
+        ) && <BinancePortfolio />}
+      <DashboardTabs connectedPlatforms={connections} />
     </div>
   );
 };

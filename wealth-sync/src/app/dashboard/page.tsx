@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { auth } from "@/server/auth";
+import type { User } from "@/lib/constants/user";
 import PlatformsDashboard from "@/components/Dashboard/PlatformsDashboard/PlatformsDashboard";
 
 export const metadata: Metadata = {
@@ -15,9 +16,7 @@ export default async function DashboardPage() {
   return (
     <div className="flex min-h-screen flex-col">
       <main className="flex-1 pt-16 pb-12">
-        <div className="container">
-          <PlatformsDashboard user={user} />
-        </div>
+        <PlatformsDashboard user={user as User} />
       </main>
     </div>
   );

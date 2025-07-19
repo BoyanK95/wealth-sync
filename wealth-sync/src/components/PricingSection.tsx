@@ -1,60 +1,15 @@
 import React from "react";
 import PricingCard from "@/components/PricingCard";
+import { pricingPlans } from "@/lib/mockData/pricingData";
 
 const PricingSection = () => {
-  //TODO add Pricing logic with STRIPE
-  const pricingPlans = [
-    {
-      title: "Basic",
-      description: "For individual investors getting started",
-      price: "$0",
-      period: "/month",
-      features: [
-        { text: "Connect up to 2 exchanges" },
-        { text: "Basic performance tracking" },
-        { text: "Portfolio allocation view" },
-        { text: "Daily updates" }
-      ],
-      buttonText: "Get Started",
-      buttonVariant: "outline" as const
-    },
-    {
-      title: "Pro",
-      description: "For active investors with multiple accounts",
-      price: "$5.99",
-      period: "/month",
-      features: [
-        { text: "Connect up to 10 exchanges" },
-        { text: "Advanced performance metrics" },
-        { text: "Portfolio allocation & analysis" },
-        { text: "Real-time updates" },
-        { text: "Mobile app access" }
-      ],
-      isPopular: true,
-      buttonText: "Get Started",
-      buttonVariant: "default" as const
-    },
-    {
-      title: "Enterprise",
-      description: "For professional investors and teams",
-      price: "$17.99",
-      period: "/month",
-      features: [
-        { text: "Unlimited exchange connections" },
-        { text: "Professional analytics with custom AI agent" },
-        { text: "Advanced risk assessment" },
-        { text: "Real-time updates" },
-        { text: "Team collaboration features" },
-        { text: "Priority support" },
-        { text: "Customizable dashboards" }
-      ],
-      buttonText: "Contact Sales",
-      buttonVariant: "outline" as const
-    }
-  ];
+  //TODO add Pricing logic with STRIP
 
   return (
-    <section id="pricing" className="w-full py-12 md:py-24 lg:py-32">
+    <section
+      id="pricing"
+      className="flex w-full justify-center py-8 align-middle"
+    >
       <div className="container px-4 md:px-6">
         <div className="flex flex-col items-center justify-center space-y-4 text-center">
           <div className="space-y-2">

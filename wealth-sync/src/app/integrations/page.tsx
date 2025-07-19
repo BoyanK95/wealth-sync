@@ -1,4 +1,4 @@
-import IntegrationSection from "@/components/IntegrationSection";
+import IntegrationSection from "@/components/IntegrationPlatformsSection/IntegrationSection";
 import { Routes } from "@/lib/constants/routes";
 import { ArrowRight, Shield, RefreshCw, LineChart } from "lucide-react";
 import Link from "next/link";
@@ -8,13 +8,13 @@ const IntegrationPage = async () => {
   const session = await auth();
 
   return (
-    <div className="container mt-10 space-y-12 py-12">
+    <div className="flex w-full flex-col justify-center pt-24">
       {/* Hero Section */}
       <div className="mx-auto max-w-3xl space-y-4 text-center">
         <h1 className="text-4xl font-bold tracking-tight">
           Connect Your Investment Platforms
         </h1>
-        <p className="text-muted-foreground text-lg">
+        <p className="text-muted-foreground pb-2 text-lg">
           WealthSync seamlessly integrates with major trading platforms, giving
           you a unified view of all your investments in one secure dashboard.
         </p>
@@ -56,18 +56,7 @@ const IntegrationPage = async () => {
         </div>
       </div>
 
-      {/* Integration List */}
-      <div className="pt-8">
-        <div className="mb-12 text-center">
-          <h2 className="mb-2 text-2xl font-semibold">
-            Available Integrations
-          </h2>
-          <p className="text-muted-foreground">
-            Connect with your preferred trading platforms
-          </p>
-        </div>
-        <IntegrationSection />
-      </div>
+      <IntegrationSection />
 
       {/* CTA Section */}
       <div className="bg-muted/30 mx-auto max-w-3xl rounded-lg p-8 text-center">

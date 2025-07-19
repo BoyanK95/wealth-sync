@@ -14,16 +14,16 @@ export const credentialsConfig: CredentialsConfig = {
     }
 
     const user = await db.user.findUnique({
-      where: { email: credentials.email },
+      where: { email: credentials.email as string },
     });
 
-    if (!user || !user.password) {
+    if (!user?.password) {
       return null;
     }
 
     const isPasswordValid = await bcrypt.compare(
-      credentials.password,
-      user.password
+      credentials.password as string,
+      user.password,
     );
 
     if (!isPasswordValid) {
@@ -38,5 +38,5 @@ export const credentialsConfig: CredentialsConfig = {
     };
   },
   type: "credentials",
-  id: ""
+  id: "",
 };
