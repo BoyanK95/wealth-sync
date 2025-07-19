@@ -2,8 +2,6 @@ import type { BinancePosition } from "@/lib/constants/binanceAccounData.interfac
 import React from "react";
 
 const BinancePositionItem = ({ position }: { position: BinancePosition }) => {
-    console.log(position);
-    
   return (
     <div className="flex items-center justify-between rounded-lg border p-4">
       <div className="flex items-center space-x-4">
