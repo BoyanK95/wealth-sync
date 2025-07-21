@@ -86,6 +86,7 @@ export const useTrading212Summary = () => {
       (connection) =>
         connection.platformId === (ApiKeyStrings.TRADING_212 as string),
     ) && fetchTrading212Summary();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [connections.length]);
 
   return state;

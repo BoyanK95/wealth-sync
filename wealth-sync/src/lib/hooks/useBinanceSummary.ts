@@ -56,7 +56,8 @@ export const useBinanceSummary = () => {
     connections.some(
       (connection) =>
         connection.platformId === (ApiKeyStrings.BINANCE as string),
-    ) && void fetchBinanceSummary();
+    ) && fetchBinanceSummary();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [connections.length]);
 
   return state;
