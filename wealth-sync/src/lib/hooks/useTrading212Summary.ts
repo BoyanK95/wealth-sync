@@ -4,8 +4,8 @@ import { Trading212Service } from "@/lib/services/trading212Service";
 import { getCleanTickerName, isGbxTicker } from "@/lib/utils/currencyUtils";
 import { useEffect, useState } from "react";
 import type {
-  ISummaryState,
   IBestPerformingAsset,
+  ISummaryState,
 } from "../contexts/PortfolioSummaryContext";
 
 export const useTrading212Summary = () => {
@@ -82,10 +82,13 @@ export const useTrading212Summary = () => {
       }
     };
 
-    connections.some(
-      (connection) =>
-        connection.platformId === (ApiKeyStrings.TRADING_212 as string),
-    ) && fetchTrading212Summary();
+    if (
+      connections.some(
+        (connection) =>
+          connection.platformId === (ApiKeyStrings.TRADING_212 as string),
+      )
+    )
+      void fetchTrading212Summary();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [connections.length]);
 

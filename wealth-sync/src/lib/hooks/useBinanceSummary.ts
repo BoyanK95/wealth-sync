@@ -53,10 +53,13 @@ export const useBinanceSummary = () => {
       }
     };
 
-    connections.some(
-      (connection) =>
-        connection.platformId === (ApiKeyStrings.BINANCE as string),
-    ) && fetchBinanceSummary();
+    if (
+      connections.some(
+        (connection) =>
+          connection.platformId === (ApiKeyStrings.BINANCE as string),
+      )
+    )
+      void fetchBinanceSummary();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [connections.length]);
 

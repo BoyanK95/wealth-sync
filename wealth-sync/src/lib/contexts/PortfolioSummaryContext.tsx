@@ -103,7 +103,7 @@ export function PortfolioSummaryProvider({
       bestPerformingAsset,
       connectedPlatforms: sources.length,
     };
-  }, [binance.data, trading212.data]);
+  }, [binance.data, binance.error, trading212.data, trading212.error]);
 
   useEffect(() => {
     if (isLoading) {
