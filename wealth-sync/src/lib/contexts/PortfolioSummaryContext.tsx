@@ -16,13 +16,11 @@ export interface ISummaryData {
 
 export interface ISummaryState {
   loading: boolean;
-  error: any;
+  error: unknown;
   data: ISummaryData | null;
 }
 
 export interface IPortfolioData {
-  loading: boolean;
-  error: string | null;
   totalValue: number;
   totalChange: number;
   totalChangePercent: number;
@@ -30,21 +28,31 @@ export interface IPortfolioData {
   connectedPlatforms: number;
 }
 
-const PortfolioSummaryContext = createContext<IPortfolioData | null>(null);
+export interface IPortfolioState {
+  loading: boolean;
+  error: string | null;
+  data: IPortfolioData;
+}
+
+const initialPortfolioData = {
+  totalValue: 0,
+  totalChange: 0,
+  totalChangePercent: 0,
+  bestPerformingAsset: null,
+  connectedPlatforms: 0,
+};
+
+const PortfolioSummaryContext = createContext<IPortfolioState | null>(null);
 
 export function PortfolioSummaryProvider({
   children,
 }: {
   children: React.ReactElement;
 }) {
-  const [portfolioData, setPortfolioData] = useState<IPortfolioData>({
+  const [portfolioData, setPortfolioData] = useState<IPortfolioState>({
     loading: true,
     error: null,
-    totalValue: 0,
-    totalChange: 0,
-    totalChangePercent: 0,
-    bestPerformingAsset: null,
-    connectedPlatforms: 0,
+    data: initialPortfolioData,
   });
 
   const binance = useBinanceSummary();
@@ -107,11 +115,7 @@ export function PortfolioSummaryProvider({
       setPortfolioData({
         loading: false,
         error: "All platforms failed to load",
-        totalValue: 0,
-        totalChange: 0,
-        totalChangePercent: 0,
-        bestPerformingAsset: null,
-        connectedPlatforms: 0,
+        data: initialPortfolioData,
       });
       return;
     }
@@ -119,7 +123,7 @@ export function PortfolioSummaryProvider({
     setPortfolioData({
       loading: false,
       error: null,
-      ...computedPortfolio,
+      data: computedPortfolio,
     });
   }, [isLoading, computedPortfolio]);
 
