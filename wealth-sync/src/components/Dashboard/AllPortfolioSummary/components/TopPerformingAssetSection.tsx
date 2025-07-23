@@ -4,10 +4,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { IBestPerformingAsset } from "@/lib/contexts/PortfolioSummaryContext";
 import { ArrowDown, ArrowUp, LineChart } from "lucide-react";
 
-export const TopPerformingAssetSection: React.FC<{
+export const TopPerformingAssetSection = ({
+  showStats,
+  bestPerformingAsset,
+}: {
   showStats: boolean;
   bestPerformingAsset: IBestPerformingAsset | null;
-}> = ({ showStats, bestPerformingAsset }) => {
+}) => {
   const { ticker, percentageChange: bestPerformerChange } =
     bestPerformingAsset ?? {};
 

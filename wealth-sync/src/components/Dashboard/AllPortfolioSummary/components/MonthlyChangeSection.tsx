@@ -3,9 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowUp, BarChart3 } from "lucide-react";
 
-export const MonthlyChangeSection: React.FC<{ showStats: boolean }> = ({
-  showStats,
-}) => (
+export const MonthlyChangeSection = ({ showStats }: { showStats: boolean }) => (
   <Card>
     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
       <CardTitle className="text-sm font-medium">Monthly Change</CardTitle>

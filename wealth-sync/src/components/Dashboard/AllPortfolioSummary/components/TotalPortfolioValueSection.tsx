@@ -4,10 +4,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { IPortfolioData } from "@/lib/contexts/PortfolioSummaryContext";
 import { ArrowDown, ArrowUp, DollarSign } from "lucide-react";
 
-export const TotalPortfolioValueSection: React.FC<{
+export const TotalPortfolioValueSection = ({
+  showStats,
+  portfolioData,
+}: {
   showStats: boolean;
   portfolioData: IPortfolioData;
-}> = ({ showStats, portfolioData }) => {
+}) => {
   const { totalValue, totalChange, totalChangePercent } = portfolioData;
 
   return (
