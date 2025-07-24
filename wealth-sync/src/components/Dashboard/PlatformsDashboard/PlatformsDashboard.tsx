@@ -19,7 +19,7 @@ const PlatformsDashboard = ({ user }: { user: User }) => {
   }
 
   return (
-    <div className="flex flex-col space-y-6">
+    <div className="ml-2 flex flex-col space-y-6">
       <DashboardWelcomeHeader userName={user.name} />
       <AllPortfolioSummary showStats={showStats} setShowStats={setShowStats} />
       {showStats &&

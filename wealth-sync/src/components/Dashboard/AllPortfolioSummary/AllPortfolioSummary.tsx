@@ -2,7 +2,6 @@
 
 import ContainerCardErrorState from "@/components/Dashboard/ContainerCardErrorState/ContainerCardErrorState";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { usePortfolioSummary } from "@/lib/contexts/PortfolioSummaryContext";
 import { Eye, EyeOff } from "lucide-react";
 import { useCallback } from "react";
@@ -36,7 +35,7 @@ const AllPortfolioSummary = ({
   }
 
   return (
-    <Card>
+    <>
       <div className="ml-5 flex items-center space-x-2">
         <h2 className="text-xl font-semibold">Portfolio Summary</h2>
         <Button
@@ -65,7 +64,7 @@ const AllPortfolioSummary = ({
         />
         <MonthlyChangeSection showStats={showStats} />
       </div>
-    </Card>
+    </>
   );
 };
 
