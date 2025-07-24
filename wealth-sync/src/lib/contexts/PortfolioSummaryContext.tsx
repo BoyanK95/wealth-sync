@@ -1,8 +1,9 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, useMemo } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { useBinanceSummary } from "../hooks/useBinanceSummary";
 import { useTrading212Summary } from "../hooks/useTrading212Summary";
+import { usePlatformConnection } from "./PlatformConnectionContext";
 
 export interface IBestPerformingAsset {
   ticker: string;
@@ -18,6 +19,7 @@ export interface ISummaryState {
   loading: boolean;
   error: unknown;
   data: ISummaryData | null;
+  hasFetched: boolean;
 }
 
 export interface IPortfolioData {
@@ -59,6 +61,7 @@ export function PortfolioSummaryProvider({
   const trading212 = useTrading212Summary();
 
   const isLoading = binance.loading || trading212.loading;
+  const hasFetched = binance.hasFetched || trading212.hasFetched;
 
   const computedPortfolio = useMemo(() => {
     const sources: ISummaryData[] = [];
@@ -106,24 +109,17 @@ export function PortfolioSummaryProvider({
   }, [binance.data, binance.error, trading212.data, trading212.error]);
 
   useEffect(() => {
-    if (isLoading) {
+    if (isLoading || !hasFetched) {
       setPortfolioData((prev) => ({ ...prev, loading: true }));
-      return;
-    }
-
-    if (!computedPortfolio) {
-      setPortfolioData({
-        loading: false,
-        error: "All platforms failed to load",
-        data: initialPortfolioData,
-      });
       return;
     }
 
     setPortfolioData({
       loading: false,
       error: null,
-      data: computedPortfolio,
+      data: hasFetched
+        ? (computedPortfolio ?? initialPortfolioData)
+        : initialPortfolioData,
     });
   }, [isLoading, computedPortfolio]);
 

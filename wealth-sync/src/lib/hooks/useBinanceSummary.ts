@@ -12,6 +12,7 @@ export const useBinanceSummary = () => {
     data: null,
     loading: false,
     error: null,
+    hasFetched: false,
   });
 
   useEffect(() => {
@@ -21,6 +22,7 @@ export const useBinanceSummary = () => {
           data: null,
           error: null,
           loading: true,
+          hasFetched: false,
         });
 
         const binanceApiKey = getApiKey(ApiKeyStrings.BINANCE);
@@ -33,8 +35,6 @@ export const useBinanceSummary = () => {
         // Find top performing Binance asset (if any)
         const topBinanceAsset = findTopPerformingAsset(portfolio);
 
-        console.log("fetched Binance");
-
         setState({
           data: {
             value: binanceMetrics!.totalValue,
@@ -42,12 +42,14 @@ export const useBinanceSummary = () => {
           },
           error: null,
           loading: false,
+          hasFetched: true,
         });
       } catch (error) {
         setState({
           data: null,
           error: error,
           loading: false,
+          hasFetched: false,
         });
         console.error("Error fetching portfolio data for Binance:", error);
       }

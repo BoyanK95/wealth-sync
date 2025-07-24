@@ -14,6 +14,7 @@ export const useTrading212Summary = () => {
     data: null,
     loading: false,
     error: null,
+    hasFetched: false,
   });
 
   useEffect(() => {
@@ -23,6 +24,7 @@ export const useTrading212Summary = () => {
           data: null,
           error: null,
           loading: true,
+          hasFetched: false,
         });
 
         const trading212ApiKey = getApiKey(ApiKeyStrings.TRADING_212);
@@ -71,6 +73,7 @@ export const useTrading212Summary = () => {
           },
           error: null,
           loading: false,
+          hasFetched: true,
         });
       } catch (error) {
         console.error("Error fetching portfolio data for Trading212:", error);
@@ -78,6 +81,7 @@ export const useTrading212Summary = () => {
           data: null,
           error: error,
           loading: false,
+          hasFetched: true,
         });
       }
     };
