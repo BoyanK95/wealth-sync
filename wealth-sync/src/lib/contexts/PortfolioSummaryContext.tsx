@@ -3,7 +3,6 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { useBinanceSummary } from "../hooks/useBinanceSummary";
 import { useTrading212Summary } from "../hooks/useTrading212Summary";
-import { usePlatformConnection } from "./PlatformConnectionContext";
 
 export interface IBestPerformingAsset {
   ticker: string;
@@ -121,7 +120,7 @@ export function PortfolioSummaryProvider({
         ? (computedPortfolio ?? initialPortfolioData)
         : initialPortfolioData,
     });
-  }, [isLoading, computedPortfolio]);
+  }, [isLoading, computedPortfolio, hasFetched]);
 
   return (
     <PortfolioSummaryContext.Provider value={portfolioData}>
