@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { auth } from "@/server/auth";
 import { Routes } from "@/lib/constants/routes";
 import { PlatformConnectionProvider } from "@/lib/contexts/PlatformConnectionContext";
+import { PortfolioSummaryProvider } from "@/lib/contexts/PortfolioSummaryContext";
 
 export const metadata: Metadata = {
   title: "Dashboard | WealthSync",
@@ -24,7 +25,9 @@ export default async function DashboardLayout({
 
   return (
     <PlatformConnectionProvider>
-      <div className="flex min-h-screen flex-col">{children}</div>
+      <PortfolioSummaryProvider>
+        <div className="flex min-h-screen flex-col">{children}</div>
+      </PortfolioSummaryProvider>
     </PlatformConnectionProvider>
   );
 }
