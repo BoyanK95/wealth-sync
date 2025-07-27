@@ -4,7 +4,7 @@ import { BinanceService } from "@/lib/services/binanceService";
 import { useEffect, useState } from "react";
 import { calculateBinancePortfolioMetrics } from "../../components/Dashboard/helper/calculateBinancePortfolioHelperFunction";
 import { findTopPerformingAsset } from "../../components/Dashboard/helper/findTopPerformingAsset";
-import type { ISummaryState } from "../contexts/PortfolioSummaryContext";
+import type { ISummaryState } from "./usePortfolioSummary";
 
 export const useBinanceSummary = () => {
   const { connections, getApiKey } = usePlatformConnection();

@@ -1,7 +1,7 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import type { IBestPerformingAsset } from "@/lib/contexts/PortfolioSummaryContext";
+import type { IBestPerformingAsset } from "@/lib/hooks/usePortfolioSummary";
 import { ArrowDown, ArrowUp, LineChart } from "lucide-react";
 
 export const TopPerformingAssetSection = ({

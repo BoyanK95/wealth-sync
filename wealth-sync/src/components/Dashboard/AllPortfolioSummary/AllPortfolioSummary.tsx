@@ -2,7 +2,6 @@
 
 import ContainerCardErrorState from "@/components/Dashboard/ContainerCardErrorState/ContainerCardErrorState";
 import { Button } from "@/components/ui/button";
-import { usePortfolioSummary } from "@/lib/contexts/PortfolioSummaryContext";
 import { Eye, EyeOff } from "lucide-react";
 import { useCallback } from "react";
 import { loadingCards } from "../ContainerCardLoadingState/constants";
@@ -13,6 +12,7 @@ import {
   TopPerformingAssetSection,
   TotalPortfolioValueSection,
 } from "./components";
+import { usePortfolioSummary } from "@/lib/hooks/usePortfolioSummary";
 
 const AllPortfolioSummary = ({
   showStats,

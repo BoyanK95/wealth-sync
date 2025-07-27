@@ -1,7 +1,7 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import type { IPortfolioData } from "@/lib/contexts/PortfolioSummaryContext";
+import type { IPortfolioData } from "@/lib/hooks/usePortfolioSummary";
 import { ArrowDown, ArrowUp, DollarSign } from "lucide-react";
 
 export const TotalPortfolioValueSection = ({

@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useBinanceSummary } from "../hooks/useBinanceSummary";
 import { useTrading212Summary } from "../hooks/useTrading212Summary";
 
@@ -43,13 +43,7 @@ const initialPortfolioData = {
   connectedPlatforms: 0,
 };
 
-const PortfolioSummaryContext = createContext<IPortfolioState | null>(null);
-
-export function PortfolioSummaryProvider({
-  children,
-}: {
-  children: React.ReactElement;
-}) {
+export function usePortfolioSummary() {
   const [portfolioData, setPortfolioData] = useState<IPortfolioState>({
     loading: true,
     error: null,
@@ -122,19 +116,5 @@ export function PortfolioSummaryProvider({
     });
   }, [isLoading, computedPortfolio, hasFetched]);
 
-  return (
-    <PortfolioSummaryContext.Provider value={portfolioData}>
-      {children}
-    </PortfolioSummaryContext.Provider>
-  );
-}
-
-export function usePortfolioSummary() {
-  const context = useContext(PortfolioSummaryContext);
-  if (!context) {
-    throw new Error(
-      "usePortfolioSummary must be used within a PortfolioSummaryProvider",
-    );
-  }
-  return context;
+  return portfolioData;
 }

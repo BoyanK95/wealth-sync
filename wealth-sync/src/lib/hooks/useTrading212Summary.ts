@@ -4,9 +4,9 @@ import { Trading212Service } from "@/lib/services/trading212Service";
 import { getCleanTickerName, isGbxTicker } from "@/lib/utils/currencyUtils";
 import { useEffect, useState } from "react";
 import type {
-  IBestPerformingAsset,
   ISummaryState,
-} from "../contexts/PortfolioSummaryContext";
+  IBestPerformingAsset,
+} from "./usePortfolioSummary";
 
 export const useTrading212Summary = () => {
   const { connections, getApiKey } = usePlatformConnection();
