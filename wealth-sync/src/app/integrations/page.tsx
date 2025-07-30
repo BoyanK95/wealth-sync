@@ -1,4 +1,4 @@
-import IntegrationSection from "@/components/IntegrationSection";
+import IntegrationSection from "@/components/IntegrationPlatformsSection/IntegrationSection";
 import { Routes } from "@/lib/constants/routes";
 import { ArrowRight, Shield, RefreshCw, LineChart } from "lucide-react";
 import Link from "next/link";

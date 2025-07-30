@@ -18,7 +18,6 @@ export default function Trading212ConnectPage() {
   const { refreshConnections, getApiKey } = usePlatformConnection();
 
   useEffect(() => {
-    //TODO - check if api key exists in local storage and set page is connected to platform
     const existingApiKey = getApiKey("trading212");
     if (existingApiKey) {
       setApiKey(existingApiKey);
