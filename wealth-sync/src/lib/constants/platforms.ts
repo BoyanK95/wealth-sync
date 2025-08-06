@@ -49,7 +49,7 @@ export const Platforms: Platform[] = [
     id: "coinbase",
     name: "Coinbase",
     logo: "/platforms/coinbase-logo.jpg",
-    connetUrl: Routes.COMING_SOON,
+    connetUrl: Routes.CONNECT_COINBASE,
     isConnected: false,
   },
   {
