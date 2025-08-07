@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { ApiKeyStrings } from "@/lib/constants/apiKeyStrings";
 import { Routes } from "@/lib/constants/routes";
 import { usePlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
 import Image from "next/image";
@@ -10,7 +11,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
-export default function BinanceConnectPage() {
+export default function MetaMaskConnectPage() {
   const [apiKey, setApiKey] = useState<string>("");
   const [apiSecret, setApiSecret] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -18,8 +19,7 @@ export default function BinanceConnectPage() {
   const { refreshConnections, getApiKey } = usePlatformConnection();
 
   useEffect(() => {
-    //TODO replace with 
-    const existingApiKey = getApiKey('binance');
+    const existingApiKey = getApiKey(ApiKeyStrings.META_MASK);
     if (existingApiKey) {
       setApiKey(existingApiKey);
     }
@@ -30,7 +30,7 @@ export default function BinanceConnectPage() {
     setIsLoading(true);
 
     try {
-      await fetch("/api/platforms/binance/connect", {
+      await fetch("/api/platforms/meta-mask/connect", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -39,13 +39,14 @@ export default function BinanceConnectPage() {
       });
 
       await refreshConnections();
-      toast.success("Successfully connected to Binance");
+      toast.success("Successfully connected to MetaMask");
       router.push(Routes.DASHBOARD);
     } catch (error) {
       setApiKey("");
       setApiSecret("");
       toast.error("Failed to connect", {
-        description: error instanceof Error ? error.message : "Please try again",
+        description:
+          error instanceof Error ? error.message : "Please try again",
       });
     } finally {
       setIsLoading(false);
@@ -55,9 +56,9 @@ export default function BinanceConnectPage() {
   return (
     <>
       <div className="text-center">
-        <h1 className="text-3xl font-bold">Connect Binance Wallet</h1>
+        <h1 className="text-3xl font-bold">Connect Meta Mask Wallet</h1>
         <p className="text-muted-foreground mt-2">
-          Connect your Binance account to track your crypto portfolio
+          Connect your MetaMask account to track your crypto portfolio
         </p>
       </div>
 
@@ -66,23 +67,23 @@ export default function BinanceConnectPage() {
           <div className="flex items-center gap-4">
             <div className="relative">
               <Image
-                src="/platforms/binance-logo.png"
-                alt="Binance"
+                src="/platforms/meta-mask-logo.png"
+                alt="MetaMask"
                 width={50}
                 height={50}
                 className="rounded-full"
               />
             </div>
-            <CardTitle>Binance API Connection </CardTitle>
+            <CardTitle>MetaMask API Connection </CardTitle>
           </div>
         </CardHeader>
         <CardContent>
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div className="space-y-2">
               <label className="text-sm font-medium">API Key</label>
-              <Input 
-                type="password" 
-                placeholder="Enter your Binance API key" 
+              <Input
+                type="password"
+                placeholder="Enter your MetaMask API key"
                 value={apiKey}
                 onChange={(e) => setApiKey(e.target.value)}
                 required
@@ -92,7 +93,7 @@ export default function BinanceConnectPage() {
               <label className="text-sm font-medium">API Secret</label>
               <Input
                 type="password"
-                placeholder="Enter your Binance API secret"
+                placeholder="Enter your MetaMask API secret"
                 value={apiSecret}
                 onChange={(e) => setApiSecret(e.target.value)}
                 required
@@ -101,12 +102,12 @@ export default function BinanceConnectPage() {
                 Make sure to use read-only API keys for security
               </p>
             </div>
-            <Button 
+            <Button
               type="submit"
               className="w-full cursor-pointer hover:bg-green-500"
               disabled={isLoading}
             >
-              {isLoading ? "Connecting..." : "Connect Binance"}
+              {isLoading ? "Connecting..." : "Connect MetaMask"}
             </Button>
           </form>
         </CardContent>
@@ -118,7 +119,7 @@ export default function BinanceConnectPage() {
         </CardHeader>
         <CardContent className="space-y-4">
           <ol className="list-decimal space-y-2 pl-4">
-            <li>Log in to your Binance account</li>
+            <li>Log in to your MetaMask account</li>
             <li>Go to API Management</li>
             <li>Click &quot;Create API&quot;</li>
             <li>Set permissions to &quot;Read Only&quot;</li>

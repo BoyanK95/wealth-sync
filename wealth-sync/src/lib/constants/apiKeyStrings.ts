@@ -2,8 +2,10 @@ export enum ApiKeyStrings {
   TRADING_212 = "trading212",
   BINANCE = "binance",
   E_TORO = "eToro",
-  TAKIONE = "takion",
-  INTERACTIVE_BROKERS = "Interactive Brokers",
+  TAKION = "takion",
+  META_MASK = "metaMask",
+  CRYPTO_COM = "cryptoCom",
+  INTERACTIVE_BROKERS = "InteractiveBrokers",
   COINBASE = "coinbase",
   ROBINHOOD = "robinhood",
 }
