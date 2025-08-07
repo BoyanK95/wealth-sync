@@ -9,6 +9,7 @@ export interface PlatformConnection {
 }
 
 interface PlatformConnectionContextType {
+  hasFetched: boolean;
   connections: PlatformConnection[];
   getApiKey: (platformId: string) => string | null;
   refreshConnections: () => Promise<void>;
@@ -22,6 +23,7 @@ export function PlatformConnectionProvider({
 }: {
   children: React.ReactNode;
 }) {
+  const [hasFetched, setHasFetched] = useState<boolean>(false);
   const [connections, setConnections] = useState<PlatformConnection[]>([]);
 
   const refreshConnections = async () => {
@@ -32,6 +34,8 @@ export function PlatformConnectionProvider({
       setConnections(data);
     } catch (error) {
       console.error("Error fetching platform connections:", error);
+    } finally {
+      setHasFetched(true);
     }
   };
 
@@ -49,7 +53,12 @@ export function PlatformConnectionProvider({
 
   return (
     <PlatformConnectionContext.Provider
-      value={{ connections, getApiKey, refreshConnections }}
+      value={{
+        hasFetched,
+        connections,
+        getApiKey,
+        refreshConnections,
+      }}
     >
       {children}
     </PlatformConnectionContext.Provider>

@@ -12,21 +12,16 @@ import BinancePortfolio from "../BinancePortfolio/BinancePortfolio";
 
 const PlatformsDashboard = ({ user }: { user: User }) => {
   const [showStats, setShowStats] = useState<boolean>(false);
-  const { connections } = usePlatformConnection();
+  const { connections, hasFetched } = usePlatformConnection();
 
-  if (!connections.length) {
+  if (!connections.length && hasFetched) {
     return <NoPlatformsConnected />;
   }
 
   return (
-    <div className="flex flex-col space-y-6">
+    <div className="ml-2 flex flex-col space-y-6">
       <DashboardWelcomeHeader userName={user.name} />
-      {connections.length && (
-        <AllPortfolioSummary
-          showStats={showStats}
-          setShowStats={setShowStats}
-        />
-      )}
+      <AllPortfolioSummary showStats={showStats} setShowStats={setShowStats} />
       {showStats &&
         connections.some(
           (connection) => connection.platformId === "trading212",
