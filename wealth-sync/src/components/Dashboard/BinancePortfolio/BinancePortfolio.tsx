@@ -20,7 +20,7 @@ import BinancePositionItem from "./BinancePositionItem";
 export function BinancePortfolio() {
   const [showAllPositions, setShowAllPositions] = useState<boolean>(false);
 
-  const binanceService = new BinanceService(PlatformKey.BINANCE!);
+  const binanceService = new BinanceService(PlatformKey.BINANCE);
   const { portfolio, loading, error, refreshData } = useFetchPortfolioData(
     binanceService,
     15000,

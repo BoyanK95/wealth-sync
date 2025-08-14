@@ -11,6 +11,7 @@ export interface IPlatformConnection {
 
 interface IPlatformConnectionContextType {
   loading: boolean;
+  hasFetched: boolean;
   connections: Record<PlatformKey, IPlatformConnection>;
   connectionsCount: number;
   refreshConnections: () => Promise<void>;
@@ -25,6 +26,7 @@ export function PlatformConnectionProvider({
   children: React.ReactNode;
 }) {
   const [loading, setLoading] = useState<boolean>(true);
+  const [hasFetched, setHasFetched] = useState<boolean>(false);
   const [connections, setConnections] = useState(
     {} as Record<PlatformKey, IPlatformConnection>,
   );
@@ -43,6 +45,7 @@ export function PlatformConnectionProvider({
       console.error("Error fetching platform connections:", error);
     } finally {
       setLoading(false);
+      setHasFetched(true);
     }
   };
   useEffect(() => {
@@ -54,7 +57,8 @@ export function PlatformConnectionProvider({
     <PlatformConnectionContext.Provider
       value={{
         loading,
-        connections: connections as Record<PlatformKey, IPlatformConnection>,
+        hasFetched,
+        connections: connections,
         connectionsCount: Object.values(connections).length,
         refreshConnections,
       }}

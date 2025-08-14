@@ -30,7 +30,7 @@ export function Trading212Portfolio() {
   const [exchangeRates, setExchangeRates] = useState<Record<string, number>>(
     {},
   );
-  const service = new Trading212Service(PlatformKey.TRADING_212!);
+  const service = new Trading212Service(PlatformKey.TRADING_212);
 
   const { portfolio, accountData, loading, error, refreshData } =
     useFetchPortfolioData(service, 15000);

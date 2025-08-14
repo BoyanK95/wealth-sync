@@ -56,7 +56,6 @@ export const useBinanceSummary = (showStats: boolean) => {
       connections[PlatformKey.BINANCE]?.isConnected
     )
       void fetchBinanceSummary();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [connections, showStats, connectionsLoading]);
 
   return state;

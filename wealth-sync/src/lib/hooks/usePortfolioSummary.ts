@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { usePlatformConnection } from "../contexts/PlatformConnectionContext";
 import { useBinanceSummary } from "../hooks/useBinanceSummary";
 import { useTrading212Summary } from "../hooks/useTrading212Summary";
 

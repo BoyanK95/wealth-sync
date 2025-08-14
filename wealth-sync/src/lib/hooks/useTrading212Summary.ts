@@ -26,7 +26,7 @@ export const useTrading212Summary = (showStats: boolean) => {
         });
 
         const trading212ApiKey = connections[PlatformKey.TRADING_212]?.apiKey;
-        const service = new Trading212Service(trading212ApiKey!);
+        const service = new Trading212Service(trading212ApiKey);
         const portfolioData = await service.getPortfolio();
 
         /**
@@ -88,7 +88,6 @@ export const useTrading212Summary = (showStats: boolean) => {
       connections[PlatformKey.TRADING_212]?.isConnected
     )
       void fetchTrading212Summary();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [connections, showStats, connectionsLoading]);
 
   return state;
