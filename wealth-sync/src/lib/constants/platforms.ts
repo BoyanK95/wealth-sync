@@ -1,10 +1,12 @@
+import { PlatformKey } from "./apiKeyStrings";
 import { Routes } from "./routes";
 
 export interface Platform {
   id: string;
   name: string;
   logo?: string;
-  connetUrl?: string;
+  connectUrl?: string;
+  platformKey: PlatformKey;
   isConnected?: boolean;
 }
 
@@ -14,70 +16,80 @@ export const Platforms: Platform[] = [
     id: "add-your-own-asset",
     name: "Add your own asset",
     logo: "/platforms/add-your-own-asset-icon.png",
-    connetUrl: Routes.ADD_YOUR_OWN_ASSET,
+    connectUrl: Routes.ADD_YOUR_OWN_ASSET,
+    platformKey: PlatformKey.NONE,
     isConnected: false,
   },
   {
     id: "trading212",
     name: "Trading212",
     logo: "/platforms/trading-212-icon.png",
-    connetUrl: Routes.CONNECT_TRADING212,
+    connectUrl: Routes.CONNECT_TRADING212,
+    platformKey: PlatformKey.TRADING_212,
     isConnected: false,
   },
   {
     id: "etoro",
     name: "eToro",
     logo: "/platforms/etoro-logo-icon.png",
-    connetUrl: Routes.CONNECT_ETORO,
+    connectUrl: Routes.CONNECT_ETORO,
+    platformKey: PlatformKey.E_TORO,
     isConnected: false,
   },
   {
     id: "binance",
     name: "Binance",
     logo: "/platforms/binance-logo.jpg",
-    connetUrl: Routes.CONNECT_BINANCE,
+    connectUrl: Routes.CONNECT_BINANCE,
+    platformKey: PlatformKey.BINANCE,
     isConnected: false,
   },
   {
     id: "crypto.com",
     name: "Crypto.com",
     logo: "/platforms/crypto-com-logo.png",
-    connetUrl: Routes.CONNECT_CRYPTO_COM,
+    connectUrl: Routes.CONNECT_CRYPTO_COM,
+    platformKey: PlatformKey.CRYPTO_COM,
     isConnected: false,
   },
   {
     id: "coinbase",
     name: "Coinbase",
     logo: "/platforms/coinbase-logo.jpg",
-    connetUrl: Routes.COMING_SOON,
+    connectUrl: Routes.COMING_SOON,
+    platformKey: PlatformKey.COINBASE,
     isConnected: false,
   },
   {
     id: "meta-mask",
     name: "Meta Mask",
     logo: "/platforms/meta-mask-logo.png",
-    connetUrl: Routes.COMING_SOON,
+    connectUrl: Routes.COMING_SOON,
+    platformKey: PlatformKey.META_MASK,
     isConnected: false,
   },
   {
     id: "interactive_brokers",
     name: "Interactive Brokers",
     logo: "/platforms/ib-logo-icon.png",
-    connetUrl: Routes.COMING_SOON,
+    connectUrl: Routes.COMING_SOON,
+    platformKey: PlatformKey.INTERACTIVE_BROKERS,
     isConnected: false,
   },
   {
     id: "takion",
     name: "Takion",
     logo: "/platforms/takion-logo-icon.png",
-    connetUrl: Routes.COMING_SOON,
+    connectUrl: Routes.COMING_SOON,
+    platformKey: PlatformKey.TAKIONE,
     isConnected: false,
   },
   {
     id: "robinhood",
     name: "robinhood",
     logo: "/platforms/robinhood-logo.png",
-    connetUrl: Routes.COMING_SOON,
+    connectUrl: Routes.COMING_SOON,
+    platformKey: PlatformKey.ROBINHOOD,
     isConnected: false,
   },
 ];

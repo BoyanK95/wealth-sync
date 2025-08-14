@@ -2,6 +2,7 @@
 
 import ContainerCardErrorState from "@/components/Dashboard/ContainerCardErrorState/ContainerCardErrorState";
 import { Button } from "@/components/ui/button";
+import { usePortfolioSummary } from "@/lib/hooks/usePortfolioSummary";
 import { Eye, EyeOff } from "lucide-react";
 import { useCallback } from "react";
 import { loadingCards } from "../ContainerCardLoadingState/constants";
@@ -12,7 +13,7 @@ import {
   TopPerformingAssetSection,
   TotalPortfolioValueSection,
 } from "./components";
-import { usePortfolioSummary } from "@/lib/hooks/usePortfolioSummary";
+import { usePlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
 
 const AllPortfolioSummary = ({
   showStats,
@@ -21,12 +22,20 @@ const AllPortfolioSummary = ({
   showStats: boolean;
   setShowStats: (showStats: boolean) => void;
 }) => {
-  const { loading, error, data: portfolioData } = usePortfolioSummary();
+  const {
+    loading,
+    error,
+    data: portfolioData,
+  } = usePortfolioSummary(showStats);
+
+  const { connectionsCount, loading: connectionsLoading } =
+    usePlatformConnection();
+
   const reloadPage = useCallback(() => {
     window.location.reload();
   }, []);
 
-  if (loading) {
+  if (loading || connectionsLoading) {
     return <ContainerCardLoadingState cards={loadingCards} />;
   }
 
@@ -55,9 +64,7 @@ const AllPortfolioSummary = ({
           showStats={showStats}
           portfolioData={portfolioData}
         />
-        <ConnectedPlatformsSection
-          connectedPlatforms={portfolioData.connectedPlatforms}
-        />
+        <ConnectedPlatformsSection connectedPlatforms={connectionsCount} />
         <TopPerformingAssetSection
           showStats={showStats}
           bestPerformingAsset={portfolioData.bestPerformingAsset}

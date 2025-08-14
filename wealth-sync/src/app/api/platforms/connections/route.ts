@@ -1,3 +1,5 @@
+import type { PlatformKey } from "@/lib/constants/apiKeyStrings";
+import type { IPlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
 import { auth } from "@/server/auth";
 import { db } from "@/server/db";
 import { NextResponse } from "next/server";
@@ -20,7 +22,16 @@ export async function GET() {
       },
     });
 
-    return NextResponse.json(connections);
+    const responseDto = connections?.reduce(
+      (acc, curr) => {
+        acc[curr.platformId as PlatformKey] = curr;
+
+        return acc;
+      },
+      {} as Record<PlatformKey, IPlatformConnection>,
+    );
+
+    return NextResponse.json(responseDto);
   } catch (error) {
     console.error("Error fetching platform connections:", error);
     return NextResponse.json(

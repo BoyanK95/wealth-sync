@@ -1,4 +1,4 @@
-import { ApiKeyStrings } from "@/lib/constants/apiKeyStrings";
+import { PlatformKey } from "@/lib/constants/apiKeyStrings";
 import { usePlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
 import { Trading212Service } from "@/lib/services/trading212Service";
 import { getCleanTickerName, isGbxTicker } from "@/lib/utils/currencyUtils";
@@ -8,13 +8,12 @@ import type {
   IBestPerformingAsset,
 } from "./usePortfolioSummary";
 
-export const useTrading212Summary = () => {
-  const { connections, getApiKey } = usePlatformConnection();
+export const useTrading212Summary = (showStats: boolean) => {
+  const { connections, loading: connectionsLoading } = usePlatformConnection();
   const [state, setState] = useState<ISummaryState>({
     data: null,
     loading: false,
     error: null,
-    hasFetched: false,
   });
 
   useEffect(() => {
@@ -24,10 +23,9 @@ export const useTrading212Summary = () => {
           data: null,
           error: null,
           loading: true,
-          hasFetched: false,
         });
 
-        const trading212ApiKey = getApiKey(ApiKeyStrings.TRADING_212);
+        const trading212ApiKey = connections[PlatformKey.TRADING_212]?.apiKey;
         const service = new Trading212Service(trading212ApiKey!);
         const portfolioData = await service.getPortfolio();
 
@@ -73,7 +71,6 @@ export const useTrading212Summary = () => {
           },
           error: null,
           loading: false,
-          hasFetched: true,
         });
       } catch (error) {
         console.error("Error fetching portfolio data for Trading212:", error);
@@ -81,20 +78,18 @@ export const useTrading212Summary = () => {
           data: null,
           error: error,
           loading: false,
-          hasFetched: true,
         });
       }
     };
 
     if (
-      connections.some(
-        (connection) =>
-          connection.platformId === (ApiKeyStrings.TRADING_212 as string),
-      )
+      showStats &&
+      !connectionsLoading &&
+      connections[PlatformKey.TRADING_212]?.isConnected
     )
       void fetchTrading212Summary();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [connections.length]);
+  }, [connections, showStats, connectionsLoading]);
 
   return state;
 };
