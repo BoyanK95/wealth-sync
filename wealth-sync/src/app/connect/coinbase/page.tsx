@@ -12,21 +12,21 @@ import { toast } from "sonner";
 import { ExternalLink, Shield, AlertTriangle } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import Link from "next/link";
+import {
+  withApiConnection,
+  type ApiConnectionInjectedProps,
+} from "@/app/hocs/withApiConnection";
+import { PlatformKey } from "@/lib/constants/apiKeyStrings";
 
-export default function CoinbaseConnectPage() {
-  const [apiKey, setApiKey] = useState<string>("");
+function CoinbaseConnectPage({
+  apiKey,
+  setApiKey,
+}: ApiConnectionInjectedProps) {
   const [apiSecret, setApiSecret] = useState<string>("");
   const [passphrase, setPassphrase] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
-  const { refreshConnections, getApiKey } = usePlatformConnection();
-
-  useEffect(() => {
-    const existingApiKey = getApiKey("coinbase");
-    if (existingApiKey) {
-      setApiKey(existingApiKey);
-    }
-  }, [getApiKey]);
+  const { refreshConnections } = usePlatformConnection();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -180,8 +180,8 @@ export default function CoinbaseConnectPage() {
                 <li>
                   <strong>Create a new API key</strong>
                   <p className="text-muted-foreground mt-1 text-sm">
-                    Click &quot;New API Key&quot; and give it a descriptive name like
-                    &quot;WealthSync&quot;
+                    Click &quot;New API Key&quot; and give it a descriptive name
+                    like &quot;WealthSync&quot;
                   </p>
                 </li>
                 <li>
@@ -207,8 +207,8 @@ export default function CoinbaseConnectPage() {
                 <li>
                   <strong>Copy your credentials</strong>
                   <p className="text-muted-foreground mt-1 text-sm">
-                    Save the API Key, Secret, and Passphrase - you&apos;ll need all
-                    three
+                    Save the API Key, Secret, and Passphrase - you&apos;ll need
+                    all three
                   </p>
                 </li>
               </ol>
@@ -237,15 +237,16 @@ export default function CoinbaseConnectPage() {
                 <h4 className="text-sm font-medium">Connection failed</h4>
                 <p className="text-muted-foreground text-xs">
                   Double-check that all three credentials (API Key, Secret, and
-                  Passphrase) are correct and that the API key has &quot;View&quot;
-                  permissions enabled.
+                  Passphrase) are correct and that the API key has
+                  &quot;View&quot; permissions enabled.
                 </p>
               </div>
               <div>
                 <h4 className="text-sm font-medium">Invalid API key error</h4>
                 <p className="text-muted-foreground text-xs">
-                  Make sure you&apos;re using Coinbase Pro (not regular Coinbase) API
-                  credentials and that the key hasn&apos;t expired.
+                  Make sure you&apos;re using Coinbase Pro (not regular
+                  Coinbase) API credentials and that the key hasn&apos;t
+                  expired.
                 </p>
               </div>
               <div>
@@ -269,3 +270,5 @@ export default function CoinbaseConnectPage() {
     </div>
   );
 }
+
+export default withApiConnection(CoinbaseConnectPage, PlatformKey.COINBASE);
