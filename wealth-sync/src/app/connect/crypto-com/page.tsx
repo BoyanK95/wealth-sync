@@ -158,4 +158,4 @@ function CryptoComConnectPage({
   );
 }
 
-withApiConnection(CryptoComConnectPage, PlatformKey.CRYPTO_COM);
+export default withApiConnection(CryptoComConnectPage, PlatformKey.CRYPTO_COM);

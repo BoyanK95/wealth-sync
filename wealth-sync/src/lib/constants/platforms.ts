@@ -81,7 +81,7 @@ export const Platforms: Platform[] = [
     name: "Takion",
     logo: "/platforms/takion-logo-icon.png",
     connectUrl: Routes.CONNECT_TAKION,
-    platformKey: PlatformKey.TAKIONE,
+    platformKey: PlatformKey.TAKION,
     isConnected: false,
   },
   {
