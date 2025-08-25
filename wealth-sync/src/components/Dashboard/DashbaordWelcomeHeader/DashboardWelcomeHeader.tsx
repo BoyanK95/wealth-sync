@@ -3,6 +3,8 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { RefreshCw, Settings } from "lucide-react";
+import Link from "next/link";
+import { Routes } from "@/lib/constants/routes";
 
 const DashboardWelcomeHeader = ({ userName }: { userName: string }) => {
   const refreshPage = () => {
@@ -36,10 +38,12 @@ const DashboardWelcomeHeader = ({ userName }: { userName: string }) => {
           <RefreshCw className="mr-2 h-4 w-4" />
           Refresh
         </Button>
-        <Button variant="outline" size="sm" className="cursor-pointer">
-          <Settings className="mr-2 h-4 w-4" />
-          Settings
-        </Button>
+        <Link href={Routes.SETTINGS}>
+          <Button variant="outline" size="sm" className="cursor-pointer">
+            <Settings className="mr-2 h-4 w-4" />
+            Settings
+          </Button>
+        </Link>
       </div>
     </div>
   );
