@@ -44,6 +44,8 @@ const AccountSettingsTab = ({ session }: { session: Session }) => {
         description:
           error instanceof Error ? error.message : "Please try again",
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
