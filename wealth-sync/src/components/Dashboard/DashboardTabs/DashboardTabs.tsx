@@ -1,4 +1,4 @@
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -7,17 +7,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { BarChart3, CreditCard, LineChart, PieChart } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { assetAllocation } from "@/lib/mockData/mockData";
-import type { PlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
+import { BarChart3, CreditCard, LineChart, PieChart } from "lucide-react";
 import ConnectedPlatformsTab from "./ConnectedPlatformsTab";
 
-const DashboardTabs = ({
-  connectedPlatforms,
-}: {
-  connectedPlatforms: PlatformConnection[];
-}) => {
+const DashboardTabs = () => {
   return (
     <Tabs defaultValue="overview" className="space-y-4">
       <TabsList>
@@ -129,7 +124,7 @@ const DashboardTabs = ({
           </Card>
         </div>
 
-        <ConnectedPlatformsTab connectedPlatforms={connectedPlatforms} />
+        <ConnectedPlatformsTab />
       </TabsContent>
 
       <TabsContent value="assets" className="space-y-4">

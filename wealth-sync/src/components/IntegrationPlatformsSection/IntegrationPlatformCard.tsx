@@ -4,16 +4,18 @@ import { type Platform } from "@/lib/constants/platforms";
 
 export const IntegrationPlatformCard = ({
   platform,
+  isConnected,
 }: {
   platform: Platform;
+  isConnected: boolean;
 }) => {
   return (
     <Link
-      href={platform.connetUrl ?? "/"}
+      href={platform.connectUrl ?? "/"}
       className="group relative flex flex-col items-center justify-center rounded-xl border border-gray-200 bg-white p-4 transition-all duration-200 hover:scale-105 hover:border-green-500 hover:shadow-lg dark:bg-slate-800"
     >
       {/* Connection Status Indicator */}
-      {platform.isConnected && (
+      {isConnected && (
         <div className="absolute -top-2 -right-2 h-4 w-4 rounded-full border-2 border-white bg-green-500 shadow-sm" />
       )}
 
@@ -40,10 +42,12 @@ export const IntegrationPlatformCard = ({
       </span>
       <span
         className={`mt-1 text-xs ${
-          platform.isConnected ? "font-medium text-green-600" : "text-gray-500 dark:text-gray-300"
+          isConnected
+            ? "font-medium text-green-600"
+            : "text-gray-500 dark:text-gray-300"
         }`}
       >
-        {platform.isConnected ? "Connected" : "Connect"}
+        {isConnected ? "Connected" : "Connect"}
       </span>
     </Link>
   );

@@ -1,51 +1,53 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
+import type { PlatformKey } from "../constants/apiKeyStrings";
 
-export interface PlatformConnection {
+export interface IPlatformConnection {
   platformId: string;
   apiKey: string;
   isConnected: boolean;
 }
 
-interface PlatformConnectionContextType {
+interface IPlatformConnectionContextType {
+  loading: boolean;
   hasFetched: boolean;
-  connections: PlatformConnection[];
-  getApiKey: (platformId: string) => string | null;
+  connections: Record<PlatformKey, IPlatformConnection>;
+  connectionsCount: number;
   refreshConnections: () => Promise<void>;
 }
 
 const PlatformConnectionContext =
-  createContext<PlatformConnectionContextType | null>(null);
+  createContext<IPlatformConnectionContextType | null>(null);
 
 export function PlatformConnectionProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const [loading, setLoading] = useState<boolean>(true);
   const [hasFetched, setHasFetched] = useState<boolean>(false);
-  const [connections, setConnections] = useState<PlatformConnection[]>([]);
+  const [connections, setConnections] = useState(
+    {} as Record<PlatformKey, IPlatformConnection>,
+  );
 
   const refreshConnections = async () => {
     try {
       const response = await fetch("/api/platforms/connections");
       if (!response.ok) throw new Error("Failed to fetch connections");
-      const data = (await response.json()) as PlatformConnection[];
+      const data = (await response.json()) as Record<
+        PlatformKey,
+        IPlatformConnection
+      >;
+
       setConnections(data);
     } catch (error) {
       console.error("Error fetching platform connections:", error);
     } finally {
+      setLoading(false);
       setHasFetched(true);
     }
   };
-
-  const getApiKey = (platformId: string): string | null => {
-    const connection = connections.find(
-      (conn) => conn.platformId === platformId,
-    );
-    return connection?.apiKey ?? null;
-  };
-
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     refreshConnections();
@@ -54,9 +56,10 @@ export function PlatformConnectionProvider({
   return (
     <PlatformConnectionContext.Provider
       value={{
+        loading,
         hasFetched,
-        connections,
-        getApiKey,
+        connections: connections,
+        connectionsCount: Object.values(connections).length,
         refreshConnections,
       }}
     >

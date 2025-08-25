@@ -1,7 +1,6 @@
+import { Routes } from "@/lib/constants/routes";
 import { auth } from "@/server/auth";
 import { redirect } from "next/navigation";
-import { Routes } from "@/lib/constants/routes";
-import { PlatformConnectionProvider } from "@/lib/contexts/PlatformConnectionContext";
 
 export default async function ConnectLayout({
   children,
@@ -15,10 +14,8 @@ export default async function ConnectLayout({
   }
 
   return (
-    <PlatformConnectionProvider>
-      <div className="container flex min-h-[calc(100vh-4rem)] items-center justify-center">
-        <div className="w-full max-w-2xl space-y-8 py-12">{children}</div>
-      </div>
-    </PlatformConnectionProvider>
+    <div className="container flex min-h-[calc(100vh-4rem)] items-center justify-center">
+      <div className="w-full max-w-2xl space-y-8 py-12">{children}</div>
+    </div>
   );
 }

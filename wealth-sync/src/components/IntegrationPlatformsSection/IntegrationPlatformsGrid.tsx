@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Platforms, type Platform } from "@/lib/constants/platforms";
 import IntegrationPlatformCard from "./IntegrationPlatformCard";
 import ShowMoreButton from "../ShowMoreButton";
+import { usePlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
 
 interface IntegrationPlatformsGridProps {
   initialDisplayCount?: number;
@@ -15,7 +16,7 @@ const IntegrationPlatformsGrid = ({
   className = "",
 }: IntegrationPlatformsGridProps) => {
   const [showMore, setShowMore] = useState<boolean>(false);
-
+  const { connections } = usePlatformConnection();
   const displayedPlatforms = showMore
     ? Platforms
     : Platforms.slice(0, initialDisplayCount);
@@ -31,7 +32,11 @@ const IntegrationPlatformsGrid = ({
     <div className={`w-full ${className}`}>
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-6">
         {displayedPlatforms.map((platform: Platform) => (
-          <IntegrationPlatformCard key={platform.id} platform={platform} />
+          <IntegrationPlatformCard
+            key={platform.id}
+            platform={platform}
+            isConnected={connections[platform.platformKey]?.isConnected}
+          />
         ))}
 
         {hasMorePlatforms && (
