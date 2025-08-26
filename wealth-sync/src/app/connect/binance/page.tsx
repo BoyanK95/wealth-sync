@@ -1,29 +1,25 @@
 "use client";
 
+import {
+  withApiConnection,
+  type ApiConnectionInjectedProps,
+} from "@/app/hocs/withApiConnection";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { PlatformKey } from "@/lib/constants/apiKeyStrings";
 import { Routes } from "@/lib/constants/routes";
 import { usePlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { toast } from "sonner";
 
-export default function BinanceConnectPage() {
-  const [apiKey, setApiKey] = useState<string>("");
+function BinanceConnectPage({ apiKey, setApiKey }: ApiConnectionInjectedProps) {
   const [apiSecret, setApiSecret] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
-  const { refreshConnections, getApiKey } = usePlatformConnection();
-
-  useEffect(() => {
-    //TODO replace with 
-    const existingApiKey = getApiKey('binance');
-    if (existingApiKey) {
-      setApiKey(existingApiKey);
-    }
-  }, [getApiKey]);
+  const { refreshConnections } = usePlatformConnection();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,9 +28,7 @@ export default function BinanceConnectPage() {
     try {
       await fetch("/api/platforms/binance/connect", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ apiKey, apiSecret }),
       });
 
@@ -45,7 +39,8 @@ export default function BinanceConnectPage() {
       setApiKey("");
       setApiSecret("");
       toast.error("Failed to connect", {
-        description: error instanceof Error ? error.message : "Please try again",
+        description:
+          error instanceof Error ? error.message : "Please try again",
       });
     } finally {
       setIsLoading(false);
@@ -73,21 +68,22 @@ export default function BinanceConnectPage() {
                 className="rounded-full"
               />
             </div>
-            <CardTitle>Binance API Connection </CardTitle>
+            <CardTitle>Binance API Connection</CardTitle>
           </div>
         </CardHeader>
         <CardContent>
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div className="space-y-2">
               <label className="text-sm font-medium">API Key</label>
-              <Input 
-                type="password" 
-                placeholder="Enter your Binance API key" 
+              <Input
+                type="password"
+                placeholder="Enter your Binance API key"
                 value={apiKey}
                 onChange={(e) => setApiKey(e.target.value)}
                 required
               />
             </div>
+
             <div className="space-y-2">
               <label className="text-sm font-medium">API Secret</label>
               <Input
@@ -101,7 +97,8 @@ export default function BinanceConnectPage() {
                 Make sure to use read-only API keys for security
               </p>
             </div>
-            <Button 
+
+            <Button
               type="submit"
               className="w-full cursor-pointer hover:bg-green-500"
               disabled={isLoading}
@@ -129,3 +126,5 @@ export default function BinanceConnectPage() {
     </>
   );
 }
+
+export default withApiConnection(BinanceConnectPage, PlatformKey.BINANCE);

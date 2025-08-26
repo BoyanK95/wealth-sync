@@ -1,5 +1,6 @@
 import { Navbar } from "@/components/Navbar";
 import { Providers } from "@/components/Providers";
+import { PlatformConnectionProvider } from "@/lib/contexts/PlatformConnectionContext";
 import "@/styles/globals.css";
 
 import { type Metadata } from "next";
@@ -24,7 +25,7 @@ export default function RootLayout({
       <body>
         <Providers>
           <Navbar />
-          {children}
+          <PlatformConnectionProvider>{children}</PlatformConnectionProvider>
         </Providers>
       </body>
     </html>

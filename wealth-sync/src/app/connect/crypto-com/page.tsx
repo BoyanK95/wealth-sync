@@ -1,35 +1,35 @@
 "use client";
 
+import {
+  withApiConnection,
+  type ApiConnectionInjectedProps,
+} from "@/app/hocs/withApiConnection";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { PlatformKey } from "@/lib/constants/apiKeyStrings";
 import { Routes } from "@/lib/constants/routes";
 import { usePlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 
-export default function CryptoComConnectPage() {
-  const [apiKey, setApiKey] = useState<string>("");
+function CryptoComConnectPage({
+  apiKey,
+  setApiKey,
+}: ApiConnectionInjectedProps) {
   const [apiSecret, setApiSecret] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
-  const { refreshConnections, getApiKey } = usePlatformConnection();
-
-  useEffect(() => {
-    const existingApiKey = getApiKey("crypto-com");
-    if (existingApiKey) {
-      setApiKey(existingApiKey);
-    }
-  }, [getApiKey]);
+  const { refreshConnections } = usePlatformConnection();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-        //TODO : Add crypto.com connect request
+      //TODO : Add crypto.com connect request
       await fetch("/api/platforms/crypto-com/connect", {
         method: "POST",
         headers: {
@@ -55,7 +55,7 @@ export default function CryptoComConnectPage() {
 
   return (
     <>
-      <div className="text-center mt-7">
+      <div className="mt-7 text-center">
         <h1 className="text-3xl font-bold">Connect Crypto.com</h1>
         <p className="text-muted-foreground mt-2">
           Connect your Crypto.com account to track your crypto portfolio
@@ -157,3 +157,5 @@ export default function CryptoComConnectPage() {
     </>
   );
 }
+
+export default withApiConnection(CryptoComConnectPage, PlatformKey.CRYPTO_COM);

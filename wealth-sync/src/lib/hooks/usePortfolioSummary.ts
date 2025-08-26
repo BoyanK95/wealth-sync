@@ -18,7 +18,6 @@ export interface ISummaryState {
   loading: boolean;
   error: unknown;
   data: ISummaryData | null;
-  hasFetched: boolean;
 }
 
 export interface IPortfolioData {
@@ -26,7 +25,6 @@ export interface IPortfolioData {
   totalChange: number;
   totalChangePercent: number;
   bestPerformingAsset: IBestPerformingAsset | null;
-  connectedPlatforms: number;
 }
 
 export interface IPortfolioState {
@@ -40,21 +38,19 @@ const initialPortfolioData = {
   totalChange: 0,
   totalChangePercent: 0,
   bestPerformingAsset: null,
-  connectedPlatforms: 0,
 };
 
-export function usePortfolioSummary() {
+export function usePortfolioSummary(showStats: boolean) {
   const [portfolioData, setPortfolioData] = useState<IPortfolioState>({
     loading: true,
     error: null,
     data: initialPortfolioData,
   });
 
-  const binance = useBinanceSummary();
-  const trading212 = useTrading212Summary();
+  const binance = useBinanceSummary(showStats);
+  const trading212 = useTrading212Summary(showStats);
 
   const isLoading = binance.loading || trading212.loading;
-  const hasFetched = binance.hasFetched || trading212.hasFetched;
 
   const computedPortfolio = useMemo(() => {
     const sources: ISummaryData[] = [];
@@ -97,24 +93,24 @@ export function usePortfolioSummary() {
       totalChange,
       totalChangePercent,
       bestPerformingAsset,
-      connectedPlatforms: sources.length,
     };
   }, [binance.data, binance.error, trading212.data, trading212.error]);
 
   useEffect(() => {
-    if (isLoading || !hasFetched) {
-      setPortfolioData((prev) => ({ ...prev, loading: true }));
+    if (isLoading) {
+      setPortfolioData((prev) => ({
+        ...prev,
+        loading: true,
+      }));
       return;
     }
 
     setPortfolioData({
       loading: false,
       error: null,
-      data: hasFetched
-        ? (computedPortfolio ?? initialPortfolioData)
-        : initialPortfolioData,
+      data: computedPortfolio ?? initialPortfolioData,
     });
-  }, [isLoading, computedPortfolio, hasFetched]);
+  }, [isLoading, computedPortfolio]);
 
   return portfolioData;
 }

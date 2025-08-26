@@ -1,4 +1,4 @@
-import { ApiKeyStrings } from "@/lib/constants/apiKeyStrings";
+import { PlatformKey } from "@/lib/constants/apiKeyStrings";
 import { usePlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
 import { BinanceService } from "@/lib/services/binanceService";
 import { useEffect, useState } from "react";
@@ -6,13 +6,12 @@ import { calculateBinancePortfolioMetrics } from "../../components/Dashboard/hel
 import { findTopPerformingAsset } from "../../components/Dashboard/helper/findTopPerformingAsset";
 import type { ISummaryState } from "./usePortfolioSummary";
 
-export const useBinanceSummary = () => {
-  const { connections, getApiKey } = usePlatformConnection();
+export const useBinanceSummary = (showStats: boolean) => {
+  const { connections, loading: connectionsLoading } = usePlatformConnection();
   const [state, setState] = useState<ISummaryState>({
     data: null,
     loading: false,
     error: null,
-    hasFetched: false,
   });
 
   useEffect(() => {
@@ -22,11 +21,9 @@ export const useBinanceSummary = () => {
           data: null,
           error: null,
           loading: true,
-          hasFetched: false,
         });
 
-        const binanceApiKey = getApiKey(ApiKeyStrings.BINANCE);
-        const binanceService = new BinanceService(binanceApiKey!);
+        const binanceService = new BinanceService(PlatformKey.BINANCE);
         const portfolio = await binanceService.getPortfolio();
 
         // Calculate Binance portfolio metrics
@@ -42,28 +39,24 @@ export const useBinanceSummary = () => {
           },
           error: null,
           loading: false,
-          hasFetched: true,
         });
       } catch (error) {
         setState({
           data: null,
           error: error,
           loading: false,
-          hasFetched: false,
         });
         console.error("Error fetching portfolio data for Binance:", error);
       }
     };
 
     if (
-      connections.some(
-        (connection) =>
-          connection.platformId === (ApiKeyStrings.BINANCE as string),
-      )
+      showStats &&
+      !connectionsLoading &&
+      connections[PlatformKey.BINANCE]?.isConnected
     )
       void fetchBinanceSummary();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [connections.length]);
+  }, [connections, showStats, connectionsLoading]);
 
   return state;
 };
