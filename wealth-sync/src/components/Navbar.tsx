@@ -2,6 +2,7 @@ import LogoHomeButton from "./LogoHomeButton";
 import { ThemeModeToggle } from "./ThemeModeToggle";
 import NavbarLinks from "./NavbarLinks";
 import { NavbarAuth } from "./NavbarAuth";
+import { NotificationBellComponent } from "./Notification/NotificationBellComponent";
 
 export function Navbar() {
   return (
@@ -13,6 +14,7 @@ export function Navbar() {
         </div>
 
         <div className="flex items-center gap-4 pr-2">
+          <NotificationBellComponent />
           <ThemeModeToggle />
           <NavbarAuth />
         </div>
