@@ -1,3 +1,4 @@
+import { CookieConsentDialog } from "@/components/CookiesConsent/CookiesConsent";
 import { Navbar } from "@/components/Navbar";
 import { Providers } from "@/components/Providers";
 import { PlatformConnectionProvider } from "@/lib/contexts/PlatformConnectionContext";
@@ -25,7 +26,10 @@ export default function RootLayout({
       <body>
         <Providers>
           <Navbar />
-          <PlatformConnectionProvider>{children}</PlatformConnectionProvider>
+          <PlatformConnectionProvider>
+            {children}
+            <CookieConsentDialog />
+          </PlatformConnectionProvider>
         </Providers>
       </body>
     </html>
