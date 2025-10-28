@@ -41,7 +41,7 @@ export function CookieConsentDialog() {
 
   return (
     <Dialog open={showDialog} onOpenChange={setShowDialog}>
-      <DialogContent className="max-w-md">
+      <DialogContent className="max-w-md mt-55">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Cookie className="h-5 w-5 text-amber-600" />
