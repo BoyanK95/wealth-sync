@@ -38,7 +38,7 @@ const DashboardTabs = () => {
           className="cursor-pointer hover:text-green-700 hover:dark:text-white"
           value="insights"
         >
-          Insights
+          AI Insights
         </TabsTrigger>
       </TabsList>
 
