@@ -72,7 +72,7 @@ export function CookieConsentDialog() {
         <DialogFooter className="flex-col gap-2 sm:flex-col">
           <Button
             onClick={handleAcceptAll}
-            className="w-full bg-green-700 hover:bg-green-800"
+            className="w-full bg-green-700 hover:bg-green-800 cursor-pointer dark:hover:text-white"
           >
             Accept All Cookies
           </Button>
@@ -80,11 +80,11 @@ export function CookieConsentDialog() {
             <Button
               variant="outline"
               onClick={handleAcceptNecessary}
-              className="flex-1"
+              className="flex-1 cursor-pointer"
             >
               Necessary Only
             </Button>
-            <Button variant="outline" size="sm" asChild>
+            <Button variant="outline" size="sm" asChild className="cursor-pointer">
               <Link href="/privacy">
                 <Settings className="h-4 w-4" />
               </Link>
