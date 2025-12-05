@@ -12,6 +12,7 @@ import { Plus } from "lucide-react";
 import Link from "next/link";
 import RecentTransactionsTab from "./RecentTransactionsTab";
 import { usePlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
+import { CiCircleCheck } from "react-icons/ci";
 
 const ConnectedPlatformsTab = () => {
   const { connections } = usePlatformConnection();
@@ -45,7 +46,8 @@ const ConnectedPlatformsTab = () => {
                 </div>
                 {platform.isConnected ? (
                   <Button variant="outline" size="sm">
-                    Sync
+                    <CiCircleCheck className="mr-2 h-4 w-4" color="green"/>
+                    Synced
                   </Button>
                 ) : (
                   <Button size="sm" className="bg-green-700 hover:bg-green-800">
