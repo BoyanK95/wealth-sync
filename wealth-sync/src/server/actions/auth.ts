@@ -2,7 +2,7 @@
 
 import { db } from "@/server/db";
 import { hash } from "bcryptjs";
-import { z } from "zod";
+import { type z } from "zod";
 import { registerSchema } from "./schema";
 import { generateSessionToken } from "../auth/session";
 

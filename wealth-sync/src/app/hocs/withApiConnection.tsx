@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { PlatformKey } from "@/lib/constants/apiKeyStrings";
+import { type PlatformKey } from "@/lib/constants/apiKeyStrings";
 import { usePlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
 
 export type ApiConnectionInjectedProps = {
