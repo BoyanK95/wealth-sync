@@ -13,39 +13,12 @@ import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Loader2, Settings2, Shield, User } from "lucide-react";
-import { toast } from "sonner";
-import { signOut } from "next-auth/react";
-import { Routes } from "@/lib/constants/routes";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
-import { deleteAccount } from "@/server/actions/user";
 import type { Session } from "next-auth";
+import DeleteAccountDialog from "../DeleteAccount/DeleteAccountDialog";
 
 const AccountSettingsTab = ({ session }: { session: Session }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
-
-  const handleDeleteAccount = async () => {
-    setIsLoading(true);
-    try {
-      await deleteAccount();
-      await signOut({ callbackUrl: Routes.HOME });
-    } catch (error) {
-      setIsLoading(false);
-      toast.error("Failed to delete account", {
-        description:
-          error instanceof Error ? error.message : "Please try again",
-      });
-    }
-  };
 
   return (
     <TabsContent value="account" className="space-y-6">
@@ -119,28 +92,11 @@ const AccountSettingsTab = ({ session }: { session: Session }) => {
         </CardContent>
       </Card>
 
-      <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete your
-              account and remove all your data from our servers.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel className="cursor-pointer">
-              Cancel
-            </AlertDialogCancel>
-            <AlertDialogAction
-              onClick={handleDeleteAccount}
-              className="bg-destructive text-destructive-foreground hover:bg-destructive/90 hover:cursor-pointer hover:text-white dark:hover:bg-red-800"
-            >
-              Delete Account
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <DeleteAccountDialog
+        showDeleteDialog={showDeleteDialog}
+        setShowDeleteDialog={setShowDeleteDialog}
+        setIsLoading={setIsLoading}
+      />
     </TabsContent>
   );
 };

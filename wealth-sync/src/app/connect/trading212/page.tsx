@@ -1,41 +1,47 @@
 "use client";
 
+import {
+  withApiConnection,
+  type ApiConnectionInjectedProps,
+} from "@/app/hocs/withApiConnection";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { PlatformKey } from "@/lib/constants/apiKeyStrings";
 import { Routes } from "@/lib/constants/routes";
 import { usePlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
-import Image from "next/image";
 import { AlignJustify } from "lucide-react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 
-export default function Trading212ConnectPage() {
-  const [apiKey, setApiKey] = useState<string>("");
+function Trading212ConnectPage({
+  apiKey,
+  setApiKey,
+}: ApiConnectionInjectedProps) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
-  const { refreshConnections, getApiKey } = usePlatformConnection();
-
-  useEffect(() => {
-    const existingApiKey = getApiKey("trading212");
-    if (existingApiKey) {
-      setApiKey(existingApiKey);
-    }
-  }, [getApiKey]);
+  const { refreshConnections } = usePlatformConnection();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      await fetch("/api/platforms/trading212/connect", {
+      const response = await fetch("/api/platforms/trading212/connect", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ apiKey }),
       });
+
+      const responseData = (await response.json()) as Record<string, string>;
+
+      if (responseData.error) {
+        throw Error(responseData.error);
+      }
 
       await refreshConnections();
       toast.success("Successfully connected to Trading212");
@@ -129,3 +135,8 @@ export default function Trading212ConnectPage() {
     </>
   );
 }
+
+export default withApiConnection(
+  Trading212ConnectPage,
+  PlatformKey.TRADING_212,
+);

@@ -1,39 +1,36 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import type { Trading212AccountData } from "@/app/api/platforms/trading212/account/res.interface";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { usePlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
+import { useFetchPortfolioData } from "@/hooks/useFetchPlatformData";
+import { PlatformKey } from "@/lib/constants/apiKeyStrings";
+import type { PortfolioItem } from "@/lib/constants/portfolio212";
+import { TitleText } from "@/lib/constants/titleText";
+import { TooltipText } from "@/lib/constants/tooltipText";
 import { Trading212Service } from "@/lib/services/trading212Service";
-import PositionItem from "./PositionItem";
 import {
-  convertGbxToUsd,
   convertEurToUsdWithLiveRates,
+  convertGbxToUsd,
   detectCurrency,
   fetchExchangeRates,
   isGbxTicker,
 } from "@/lib/utils/currencyUtils";
+import { useCallback, useEffect, useState } from "react";
+import ContainerCardErrorState from "../ContainerCardErrorState/ContainerCardErrorState";
 import { PlatformLoadingCard } from "../PlatformLoadingCard";
 import PortfolioValue from "../PortfolioValue/PortfolioValue";
-import TotalInvested from "../TotalInvested/TotalInvested";
-import ProfitAndLoss from "../ProfitAndLoss/ProfitAndLoss";
 import Positions from "../Positions/Positions";
-import ContainerCardErrorState from "../ContainerCardErrorState/ContainerCardErrorState";
-import { TooltipText } from "@/lib/constants/tooltipText";
-import { TitleText } from "@/lib/constants/titleText";
-import { useFetchPortfolioData } from "@/hooks/useFetchPlatformData";
-import { ApiKeyStrings } from "@/lib/constants/apiKeyStrings";
+import ProfitAndLoss from "../ProfitAndLoss/ProfitAndLoss";
 import ShowAllPositionsButton from "../ShowAllPositionsButton/ShowAllPositionsButton";
-import type { Trading212AccountData } from "@/app/api/platforms/trading212/account/res.interface";
-import type { PortfolioItem } from "@/lib/constants/portfolio212";
+import TotalInvested from "../TotalInvested/TotalInvested";
+import PositionItem from "./PositionItem";
 
 export function Trading212Portfolio() {
   const [showAllPositions, setShowAllPositions] = useState<boolean>(false);
   const [exchangeRates, setExchangeRates] = useState<Record<string, number>>(
     {},
   );
-  const { getApiKey } = usePlatformConnection();
-  const apiKey = getApiKey(ApiKeyStrings.TRADING_212);
-  const service = new Trading212Service(apiKey!);
+  const service = new Trading212Service(PlatformKey.TRADING_212);
 
   const { portfolio, accountData, loading, error, refreshData } =
     useFetchPortfolioData(service, 15000);

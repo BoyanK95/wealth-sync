@@ -81,7 +81,7 @@ const GeneralTab = ({ user }: UserFormProps) => {
       setIsLoading(false);
     }
   };
-  
+
   return (
     <TabsContent value="general" className="mt-6">
       <Card>
@@ -171,7 +171,7 @@ const GeneralTab = ({ user }: UserFormProps) => {
               </Button>
               <Button
                 type="submit"
-                className="bg-green-700 hover:bg-green-800"
+                className="cursor-pointer bg-green-700 hover:bg-green-800 dark:hover:text-white"
                 disabled={isLoading}
               >
                 {isLoading ? (

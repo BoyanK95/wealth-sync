@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -6,18 +7,16 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Routes } from "@/lib/constants/routes";
 import { Plus } from "lucide-react";
 import Link from "next/link";
-import { Routes } from "@/lib/constants/routes";
-import type { PlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
 import RecentTransactionsTab from "./RecentTransactionsTab";
+import { usePlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
+import { CiCircleCheck } from "react-icons/ci";
 
-const ConnectedPlatformsTab = ({
-  connectedPlatforms,
-}: {
-  connectedPlatforms: PlatformConnection[];
-}) => {
+const ConnectedPlatformsTab = () => {
+  const { connections } = usePlatformConnection();
+
   return (
     <div className="grid gap-4 md:grid-cols-2">
       <Card>
@@ -29,7 +28,7 @@ const ConnectedPlatformsTab = ({
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {connectedPlatforms.map((platform) => (
+            {Object.values(connections).map((platform) => (
               <div
                 key={platform.platformId}
                 className="flex items-center justify-between"
@@ -47,7 +46,8 @@ const ConnectedPlatformsTab = ({
                 </div>
                 {platform.isConnected ? (
                   <Button variant="outline" size="sm">
-                    Sync
+                    <CiCircleCheck className="mr-2 h-4 w-4" color="green"/>
+                    Synced
                   </Button>
                 ) : (
                   <Button size="sm" className="bg-green-700 hover:bg-green-800">

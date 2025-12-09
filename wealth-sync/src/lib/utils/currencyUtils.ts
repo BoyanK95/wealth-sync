@@ -21,8 +21,7 @@ export async function fetchExchangeRates(
   // Check if we have a valid cache
   const now = Date.now();
   if (
-    currencyCache &&
-    currencyCache.baseCurrency === baseCurrency &&
+    currencyCache?.baseCurrency === baseCurrency &&
     now - currencyCache.timestamp < CACHE_DURATION
   ) {
     return currencyCache.rates;
@@ -38,7 +37,7 @@ export async function fetchExchangeRates(
       throw new Error("Failed to fetch exchange rates");
     }
 
-    const data: { rates: Record<string, number> } = await response.json();
+    const data: { rates: Record<string, number> } = await response.json() as { rates: Record<string, number> };
 
     // Update cache
     currencyCache = {
@@ -68,8 +67,7 @@ export async function fetchRealTimeExchangeRates(
   // Check if we have a valid cache for real-time (shorter duration)
   const now = Date.now();
   if (
-    currencyCache &&
-    currencyCache.baseCurrency === baseCurrency &&
+    currencyCache?.baseCurrency === baseCurrency &&
     now - currencyCache.timestamp < REALTIME_CACHE_DURATION
   ) {
     return currencyCache.rates;
@@ -108,7 +106,7 @@ export async function fetchFreshExchangeRates(
   } catch (error) {
     console.error("Error fetching fresh exchange rates:", error);
     // Fall back to cached rates if available, otherwise use defaults
-    if (currencyCache && currencyCache.baseCurrency === baseCurrency) {
+    if (currencyCache?.baseCurrency === baseCurrency) {
       return currencyCache.rates;
     }
     return {

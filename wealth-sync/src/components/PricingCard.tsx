@@ -53,7 +53,7 @@ const PricingCard = ({
         ))}
       </ul>
       <Button 
-        className={`mt-8 cursor-pointer ${isPopular ? 'bg-green-700 hover:bg-green-800' : ''}`} 
+        className={`mt-8 cursor-pointer ${isPopular ? 'bg-green-700 hover:bg-green-800 dark:hover:text-white' : ''}`} 
         variant={buttonVariant}
       >
         {buttonText}
