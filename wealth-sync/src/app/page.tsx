@@ -1,4 +1,4 @@
-import Footer from "@/components/Footer";
+import Footer from "@/components/Footer/Footer";
 import IntroductionSection from "@/components/IntroductionSection";
 import FeaturesSection from "@/components/FeaturesSection";
 import IntegrationSection from "@/components/IntegrationPlatformsSection/IntegrationSection";
