@@ -15,7 +15,7 @@ const CreatorInfo = () => {
 
       {/* Profile section */}
       <div className="flex flex-col items-center gap-8 md:flex-row">
-        <div className="relative h-48 w-48 flex-shrink-0 overflow-hidden rounded-full border-4 border-green-700">
+        <div className="relative h-48 w-48 shrink-0 overflow-hidden rounded-full border-4 border-green-700">
           <Image
             src="https://avatars.githubusercontent.com/u/92653208?v=4"
             alt="Creator profile"
