@@ -2,12 +2,13 @@
 
 import { useSession, signOut } from "next-auth/react";
 import { Button } from "./ui/button";
+import LoadingText from "./LoadingText";
 
 export function UserNav() {
   const { data: session, status } = useSession();
 
   if (status === "loading") {
-    return <div>Loading...</div>;
+    return <LoadingText text="Loading user..." />;
   }
 
   if (!session) {

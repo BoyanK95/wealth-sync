@@ -1,8 +1,8 @@
 'use client';
 
 import { useSession } from "next-auth/react";
-import UserProfileButton from "./UserProfileButton";
-import SignUpButton from "./SignUpButton";
+import UserProfileButton from "./Navbar/UserProfileButton";
+import SignUpButton from "./Navbar/SignUpButton";
 
 export function NavbarAuth() {
   const { data: session, status } = useSession();

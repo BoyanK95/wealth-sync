@@ -8,7 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { signOut } from "next-auth/react";
 import type { User } from "next-auth";
 import Link from "next/link";
