@@ -4,7 +4,7 @@ import BuildingCommunityCard from "./BuildingCommunityCard";
 import PerfectingFeaturesCard from "./PerfectingFeaturesCard";
 import FairPricingCard from "./FairPricingCard";
 import TimeLine from "./TimeLine";
-import ShareFeedbackCard from "@/components/ShareFeedbackCard";
+import ShareFeedbackCard from "@/components/PricingPageComponents/NoPricingSection/ShareFeedbackCard";
 
 export function NoPricingSection() {
   return (
