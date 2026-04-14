@@ -1,6 +1,6 @@
 import React from "react";
-import PricingCard from "@/components/PricingCard";
 import { pricingPlans } from "@/lib/mockData/pricingData";
+import PricingCard from "./PricingCard";
 
 const PricingSection = () => {
   //TODO add Pricing logic with STRIP
