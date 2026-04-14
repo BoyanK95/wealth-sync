@@ -1,5 +1,5 @@
-// import PricingSection from '@/components/Pricing/PricingSection'
-import { NoPricingSection } from "@/components/Pricing/NoPricingSection/NoPricingSection";
+// import PricingSection from '@/components/PricingPageComponents/PricingSection'
+import { NoPricingSection } from "@/components/PricingPageComponents/NoPricingSection/NoPricingSection";
 import React from "react";
 
 const PricingPage = () => {

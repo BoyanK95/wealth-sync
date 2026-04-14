@@ -2,10 +2,10 @@ import Footer from "@/components/Footer";
 import IntroductionSection from "@/components/IntroductionSection";
 import FeaturesSection from "@/components/FeaturesSection";
 import IntegrationSection from "@/components/IntegrationPlatformsSection/IntegrationSection";
-// import PricingSection from "@/components/Pricing/PricingSection";
+// import PricingSection from "@/components/PricingPageComponents/PricingSection";
 import ChartPrievewSection from "@/components/ChartPrievewSection";
 import ActionSection from "@/components/ActionSection";
-import { NoPricingSection } from "@/components/Pricing/NoPricingSection/NoPricingSection";
+import { NoPricingSection } from "@/components/PricingPageComponents/NoPricingSection/NoPricingSection";
 
 export default function HomePage() {
   return (
