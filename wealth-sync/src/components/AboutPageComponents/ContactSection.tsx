@@ -1,6 +1,6 @@
 import React from "react";
-import SendEmailComponent from "../SendEmailComponent";
-import SocialMediaLinksCard from "../SocialMediaLinksCard";
+import SendEmailComponent from "./SendEmailComponent";
+import SocialMediaLinksCard from "./SocialMediaLinksCard";
 
 const ContactSection = () => {
   return (

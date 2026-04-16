@@ -1,6 +1,6 @@
 import React from "react";
 import { ChevronUp, ChevronDown } from "lucide-react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 
 
 const ShowMoreButton = ({

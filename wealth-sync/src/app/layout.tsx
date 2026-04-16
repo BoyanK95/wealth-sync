@@ -1,5 +1,5 @@
 import { CookieConsentDialog } from "@/components/CookiesConsent/CookiesConsent";
-import { Navbar } from "@/components/Navbar";
+import { Navbar } from "@/components/Navbar/Navbar";
 import { Providers } from "@/components/Providers";
 import { PlatformConnectionProvider } from "@/lib/contexts/PlatformConnectionContext";
 import "@/styles/globals.css";

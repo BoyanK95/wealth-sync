@@ -6,7 +6,7 @@ const TimeLine = () => {
       <h3 className="text-xl font-semibold">Our Approach</h3>
       <div className="space-y-4">
         <div className="flex items-start space-x-4">
-          <div className="mt-1 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-green-700">
+          <div className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-green-700">
             <span className="text-xs font-bold text-white">1</span>
           </div>
           <div>
@@ -18,7 +18,7 @@ const TimeLine = () => {
           </div>
         </div>
         <div className="flex items-start space-x-4">
-          <div className="bg-muted mt-1 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full">
+          <div className="bg-muted -shrink- -shrink- mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
             <span className="text-muted-foreground text-xs font-bold">2</span>
           </div>
           <div>
@@ -29,7 +29,7 @@ const TimeLine = () => {
           </div>
         </div>
         <div className="flex items-start space-x-4">
-          <div className="bg-muted mt-1 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full">
+          <div className="bg-muted -shrink- -shrink- mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
             <span className="text-muted-foreground text-xs font-bold">3</span>
           </div>
           <div>

@@ -13,6 +13,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { MessageSquare } from "lucide-react";
 
 const SendEmailComponent = () => {
+  //TODO Implement email form submission logic
   return (
     <Card>
       <CardHeader>

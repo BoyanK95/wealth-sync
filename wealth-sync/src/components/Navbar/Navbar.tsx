@@ -1,7 +1,7 @@
 import LogoHomeButton from "./LogoHomeButton";
 import { ThemeModeToggle } from "./ThemeModeToggle";
 import NavbarLinks from "./NavbarLinks";
-import { NavbarAuth } from "./NavbarAuth";
+import { NavbarAuth } from "../NavbarAuth";
 
 export function Navbar() {
   return (

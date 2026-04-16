@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import LoadingText from "@/components/LoadingText";
+import LoadingText from "@/components/Common/LoadingText";
 import { signIn } from "next-auth/react";
 import { Routes } from "@/lib/constants/routes";
 import { toast } from "sonner";

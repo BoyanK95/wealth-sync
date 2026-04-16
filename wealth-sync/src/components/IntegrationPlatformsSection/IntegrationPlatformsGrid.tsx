@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Platforms, type Platform } from "@/lib/constants/platforms";
 import IntegrationPlatformCard from "./IntegrationPlatformCard";
-import ShowMoreButton from "../ShowMoreButton";
+import ShowMoreButton from "./ShowMoreButton";
 import { usePlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
 
 interface IntegrationPlatformsGridProps {

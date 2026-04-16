@@ -1,6 +1,7 @@
 import { Routes } from "@/lib/constants/routes";
 import Link from "next/link";
 import React from "react";
+import SocialMediaFooter from "./SocialMediaFooter";
 
 const Footer = () => {
   return (
@@ -10,9 +11,7 @@ const Footer = () => {
           <span>Wealth</span>
           <span className="text-green-800 dark:text-green-600">Sync</span>
         </div>
-        <p className="text-muted-foreground text-center text-sm leading-loose md:text-left">
-          © 2023 WealthSync. All rights reserved.
-        </p>
+        <SocialMediaFooter />
         <div className="flex gap-4">
           <Link
             href={Routes.TERMS}
