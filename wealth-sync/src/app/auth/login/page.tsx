@@ -10,8 +10,8 @@ import { Routes } from "@/lib/constants/routes";
 import Link from "next/link";
 import { Facebook, Github } from "lucide-react";
 import { FaGoogle } from "react-icons/fa";
-import LoginProviderButton from "@/components/LoginProviderButton";
-import LoginForm from "@/components/LoginForm";
+import LoginProviderButton from "@/components/LoginPage/LoginProviderButton";
+import LoginForm from "@/components/LoginPage/LoginForm";
 
 export default function LoginPage() {
   return (
