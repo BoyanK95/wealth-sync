@@ -1,6 +1,6 @@
 import React from "react";
 import { ArrowRight, Shield, Smartphone, Zap } from "lucide-react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { auth } from "@/server/auth";
 import Image from "next/image";
 import Link from "next/link";
