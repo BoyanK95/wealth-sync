@@ -5,8 +5,10 @@ import { auth } from "@/server/auth";
 import Image from "next/image";
 import Link from "next/link";
 import { Routes } from "@/lib/constants/routes";
+import { getTranslations } from "next-intl/server";
 
 const IntroductionSection = async () => {
+  const t = await getTranslations("IntroductionSection");
   const session = await auth();
 
   return (
@@ -14,7 +16,7 @@ const IntroductionSection = async () => {
       <div className="container px-4 md:px-6">
         {session?.user && (
           <h3>
-            Welcome back{" "}
+            {t("welcomeBack")}{" "}
             <span className="font-bold text-green-800">
               {session?.user?.name}
             </span>
@@ -24,7 +26,7 @@ const IntroductionSection = async () => {
           <div className="flex flex-col justify-center space-y-4">
             <div className="space-y-2">
               <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
-                Your complete financial portfolio in one place
+                {t("title")}
               </h1>
               <p className="text-muted-foreground max-w-[600px] md:text-xl">
                 Connect to multiple exchanges, track your investments, and

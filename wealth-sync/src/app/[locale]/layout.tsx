@@ -6,6 +6,7 @@ import "@/styles/globals.css";
 import { NextIntlClientProvider } from "next-intl";
 import { type Metadata } from "next";
 import { Geist } from "next/font/google";
+import { getMessages } from "next-intl/server";
 
 export const metadata: Metadata = {
   title: "Wealth Sync",
@@ -18,14 +19,16 @@ const geist = Geist({
   variable: "--font-geist-sans",
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const messages = await getMessages();
+
   return (
     <html lang="en" className={`${geist.variable}`} suppressHydrationWarning>
       <body>
         <Providers>
-          <NextIntlClientProvider>
+          <NextIntlClientProvider messages={messages}>
             <Navbar />
             <PlatformConnectionProvider>
               {children}
