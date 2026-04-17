@@ -29,8 +29,7 @@ const IntroductionSection = async () => {
                 {t("title")}
               </h1>
               <p className="text-muted-foreground max-w-[600px] md:text-xl">
-                Connect to multiple exchanges, track your investments, and
-                analyze your performance with powerful charts and insights.
+                {t("description")}
               </p>
             </div>
             <div className="flex flex-col gap-2 min-[400px]:flex-row">
@@ -39,7 +38,7 @@ const IntroductionSection = async () => {
                   size="lg"
                   className="cursor-pointer bg-green-700 hover:bg-green-800 dark:hover:text-white"
                 >
-                  <Link href={Routes.DASHBOARD}>Go to Dashboard</Link>
+                  <Link href={Routes.DASHBOARD}>{t("goToDashboard")}</Link>
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               ) : (
@@ -47,7 +46,7 @@ const IntroductionSection = async () => {
                   size="lg"
                   className="cursor-pointer bg-green-700 hover:bg-green-800 dark:hover:text-white"
                 >
-                  <Link href={Routes.LOGIN}>Get Started</Link>
+                  <Link href={Routes.LOGIN}>{t("getStarted")}</Link>
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               )}
@@ -55,15 +54,21 @@ const IntroductionSection = async () => {
             <div className="flex items-center space-x-4 text-sm">
               <div className="flex items-center space-x-1">
                 <Shield className="h-4 w-4 text-green-700" />
-                <span className="text-xs sm:text-sm">Secure Connections</span>
+                <span className="text-xs sm:text-sm">
+                  {t("features.secure")}
+                </span>
               </div>
               <div className="flex items-center space-x-1">
                 <Zap className="h-4 w-4 text-green-700" />
-                <span className="text-xs sm:text-sm">Real-time Updates</span>
+                <span className="text-xs sm:text-sm">
+                  {t("features.realtime")}
+                </span>
               </div>
               <div className="flex items-center space-x-1">
                 <Smartphone className="h-4 w-4 text-green-700" />
-                <span className="text-xs sm:text-sm">Mobile App</span>
+                <span className="text-xs sm:text-sm">
+                  {t("features.mobile")}
+                </span>
               </div>
             </div>
           </div>
