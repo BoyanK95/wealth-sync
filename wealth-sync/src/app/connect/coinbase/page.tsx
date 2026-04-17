@@ -15,7 +15,7 @@ import Link from "next/link";
 import {
   withApiConnection,
   type ApiConnectionInjectedProps,
-} from "@/app/[locale]/hocs/withApiConnection";
+} from "@/app/hocs/withApiConnection";
 import { PlatformKey } from "@/lib/constants/apiKeyStrings";
 
 function CoinbaseConnectPage({

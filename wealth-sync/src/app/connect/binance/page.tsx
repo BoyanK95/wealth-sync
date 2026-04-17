@@ -3,7 +3,7 @@
 import {
   withApiConnection,
   type ApiConnectionInjectedProps,
-} from "@/app/[locale]/hocs/withApiConnection";
+} from "@/app/hocs/withApiConnection";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
