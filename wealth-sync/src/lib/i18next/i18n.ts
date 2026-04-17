@@ -4,16 +4,18 @@ import { initReactI18next } from "react-i18next";
 import en from "../messages/en.json";
 import bg from "../messages/bg.json";
 
-void i18n.use(initReactI18next).init({
-  resources: {
-    en: { translation: en },
-    bg: { translation: bg },
-  },
-  lng: "en",
-  fallbackLng: "en",
-  interpolation: {
-    escapeValue: false,
-  },
-});
+if (!i18n.isInitialized) {
+  void i18n.use(initReactI18next).init({
+    resources: {
+      en: { translation: en },
+      bg: { translation: bg },
+    },
+    lng: "en",
+    fallbackLng: "en",
+    interpolation: {
+      escapeValue: false,
+    },
+  });
+}
 
 export default i18n;
