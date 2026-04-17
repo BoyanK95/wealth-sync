@@ -1,10 +1,14 @@
+import createNextIntlPlugin from "next-intl/plugin";
+
 /**
  * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially useful
  * for Docker builds.
  */
 import "./src/env.js";
 
-/** @type {import("next").NextConfig} */
+const withNextIntl = createNextIntlPlugin();
+
+/** @type {import('next').NextConfig} */
 const config = {
   images: {
     remotePatterns: [
@@ -22,4 +26,4 @@ const config = {
   },
 };
 
-export default config;
+export default withNextIntl(config);

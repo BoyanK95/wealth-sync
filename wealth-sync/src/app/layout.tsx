@@ -3,7 +3,7 @@ import { Navbar } from "@/components/Navbar/Navbar";
 import { Providers } from "@/components/Providers";
 import { PlatformConnectionProvider } from "@/lib/contexts/PlatformConnectionContext";
 import "@/styles/globals.css";
-
+import { NextIntlClientProvider } from "next-intl";
 import { type Metadata } from "next";
 import { Geist } from "next/font/google";
 
@@ -25,11 +25,13 @@ export default function RootLayout({
     <html lang="en" className={`${geist.variable}`} suppressHydrationWarning>
       <body>
         <Providers>
-          <Navbar />
-          <PlatformConnectionProvider>
-            {children}
-            <CookieConsentDialog />
-          </PlatformConnectionProvider>
+          <NextIntlClientProvider>
+            <Navbar />
+            <PlatformConnectionProvider>
+              {children}
+              <CookieConsentDialog />
+            </PlatformConnectionProvider>
+          </NextIntlClientProvider>
         </Providers>
       </body>
     </html>
