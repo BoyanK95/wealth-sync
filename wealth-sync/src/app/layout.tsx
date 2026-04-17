@@ -7,9 +7,6 @@ import { NextIntlClientProvider } from "next-intl";
 import { type Metadata } from "next";
 import { Geist } from "next/font/google";
 import { getMessages } from "next-intl/server";
-import { hasLocale } from "next-intl";
-import { notFound } from "next/navigation";
-import { routing } from "../../i18n/routing";
 
 export const metadata: Metadata = {
   title: "Wealth Sync",
@@ -24,17 +21,8 @@ const geist = Geist({
 
 export default async function RootLayout({
   children,
-  params,
-}: Readonly<{
-  children: React.ReactNode;
-  params: Promise<{ locale: string }>;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   const messages = await getMessages();
-  const { locale } = await params;
-
-  if (!hasLocale(routing.locales, locale)) {
-    notFound();
-  }
 
   return (
     <html lang="en" className={`${geist.variable}`} suppressHydrationWarning>
