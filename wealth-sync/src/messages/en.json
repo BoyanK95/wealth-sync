@@ -1,0 +1,14 @@
+{
+  "IntroductionSection": {
+    "welcomeBack": "Welcome back",
+    "title": "Your complete financial portfolio in one place",
+    "description": "Connect to multiple exchanges, track your investments, and analyze your performance with powerful charts and insights.",
+    "goToDashboard": "Go to Dashboard",
+    "getStarted": "Get Started",
+    "features": {
+      "secure": "Secure Connections",
+      "realtime": "Real-time Updates",
+      "mobile": "Mobile App"
+    }
+  }
+}
