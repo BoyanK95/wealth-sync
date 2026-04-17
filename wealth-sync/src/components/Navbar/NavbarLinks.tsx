@@ -1,28 +1,28 @@
 import { Routes } from "@/lib/constants/routes";
-import Link from "next/link";
 import React from "react";
+import { LocalizedLink } from "../Link/LocalizedLink";
 
 const NavbarLinks = () => {
   return (
     <div className="hidden items-center space-x-6 md:flex">
-      <Link
+      <LocalizedLink
         href={Routes.FEATURES}
         className="text-muted-foreground hover:text-foreground text-sm font-medium transition-colors"
       >
         Features
-      </Link>
-      <Link
+      </LocalizedLink>
+      <LocalizedLink
         href={Routes.INTEGRATIONS}
         className="text-muted-foreground hover:text-foreground text-sm font-medium transition-colors"
       >
         Integrations
-      </Link>
-      <Link
+      </LocalizedLink>
+      <LocalizedLink
         href={Routes.PRICING}
         className="text-muted-foreground hover:text-foreground text-sm font-medium transition-colors"
       >
         Pricing
-      </Link>
+      </LocalizedLink>
     </div>
   );
 };
