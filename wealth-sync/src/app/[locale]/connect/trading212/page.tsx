@@ -3,23 +3,23 @@
 import {
   withApiConnection,
   type ApiConnectionInjectedProps,
-} from "@/app/hocs/withApiConnection";
+} from "@/app/[locale]/hocs/withApiConnection";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { PlatformKey } from "@/lib/constants/apiKeyStrings";
 import { Routes } from "@/lib/constants/routes";
 import { usePlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
+import { AlignJustify } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
-function MetaMaskConnectPage({
+function Trading212ConnectPage({
   apiKey,
   setApiKey,
 }: ApiConnectionInjectedProps) {
-  const [apiSecret, setApiSecret] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
   const { refreshConnections } = usePlatformConnection();
@@ -29,26 +29,30 @@ function MetaMaskConnectPage({
     setIsLoading(true);
 
     try {
-      await fetch("/api/platforms/meta-mask/connect", {
+      const response = await fetch("/api/platforms/trading212/connect", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ apiKey, apiSecret }),
+        body: JSON.stringify({ apiKey }),
       });
 
+      const responseData = (await response.json()) as Record<string, string>;
+
+      if (responseData.error) {
+        throw Error(responseData.error);
+      }
+
       await refreshConnections();
-      toast.success("Successfully connected to MetaMask");
+      toast.success("Successfully connected to Trading212");
       router.push(Routes.DASHBOARD);
     } catch (error) {
       setApiKey("");
-      setApiSecret("");
       toast.error("Failed to connect", {
         description:
           error instanceof Error ? error.message : "Please try again",
       });
     } finally {
-      setApiKey("");
       setIsLoading(false);
     }
   };
@@ -56,25 +60,23 @@ function MetaMaskConnectPage({
   return (
     <>
       <div className="text-center">
-        <h1 className="text-3xl font-bold">Connect Meta Mask Wallet</h1>
+        <h1 className="text-3xl font-bold">Connect Trading212</h1>
         <p className="text-muted-foreground mt-2">
-          Connect your MetaMask account to track your crypto portfolio
+          Connect your Trading212 account to start tracking your investments
         </p>
       </div>
 
       <Card>
         <CardHeader>
           <div className="flex items-center gap-4">
-            <div className="relative">
-              <Image
-                src="/platforms/meta-mask-logo.png"
-                alt="MetaMask"
-                width={50}
-                height={50}
-                className="rounded-full"
-              />
-            </div>
-            <CardTitle>MetaMask API Connection </CardTitle>
+            <Image
+              src="/platforms/trading-212-icon.png"
+              alt="Trading212"
+              width={48}
+              height={48}
+              className="rounded-full"
+            />
+            <CardTitle>Trading212 API Connection</CardTitle>
           </div>
         </CardHeader>
         <CardContent>
@@ -83,23 +85,14 @@ function MetaMaskConnectPage({
               <label className="text-sm font-medium">API Key</label>
               <Input
                 type="password"
-                placeholder="Enter your MetaMask API key"
+                placeholder="Enter your Trading212 API key"
                 value={apiKey}
                 onChange={(e) => setApiKey(e.target.value)}
                 required
               />
-            </div>
-            <div className="space-y-2">
-              <label className="text-sm font-medium">API Secret</label>
-              <Input
-                type="password"
-                placeholder="Enter your MetaMask API secret"
-                value={apiSecret}
-                onChange={(e) => setApiSecret(e.target.value)}
-                required
-              />
               <p className="text-muted-foreground text-xs">
-                Make sure to use read-only API keys for security
+                You can find your API key in Trading212 settings under the API
+                section
               </p>
             </div>
             <Button
@@ -107,7 +100,7 @@ function MetaMaskConnectPage({
               className="w-full cursor-pointer hover:bg-green-500"
               disabled={isLoading}
             >
-              {isLoading ? "Connecting..." : "Connect MetaMask"}
+              {isLoading ? "Connecting..." : "Connect Trading212"}
             </Button>
           </form>
         </CardContent>
@@ -115,15 +108,27 @@ function MetaMaskConnectPage({
 
       <Card>
         <CardHeader>
-          <CardTitle>How to get your API credentials</CardTitle>
+          <CardTitle>How to get your API key</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <ol className="list-decimal space-y-2 pl-4">
-            <li>Log in to your MetaMask account</li>
-            <li>Go to API Management</li>
-            <li>Click &quot;Create API&quot;</li>
-            <li>Set permissions to &quot;Read Only&quot;</li>
-            <li>Copy both the API key and secret</li>
+            <li>
+              <a
+                href="https://app.trading212.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-blue-400 hover:underline"
+              >
+                Log in to your Trading212 account
+              </a>
+            </li>
+            <div className="flex items-center gap-2">
+              <li>Go to Account Settings </li>
+              <AlignJustify className="h-4 w-4" />
+            </div>
+            <li>Navigate to the API section</li>
+            <li>Click on &quot;Generate new API key&quot;</li>
+            <li>Copy the generated key and paste it above</li>
           </ol>
         </CardContent>
       </Card>
@@ -131,4 +136,7 @@ function MetaMaskConnectPage({
   );
 }
 
-export default withApiConnection(MetaMaskConnectPage, PlatformKey.META_MASK);
+export default withApiConnection(
+  Trading212ConnectPage,
+  PlatformKey.TRADING_212,
+);
