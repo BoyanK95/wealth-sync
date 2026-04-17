@@ -11,13 +11,16 @@ if (!i18n.isInitialized) {
       bg: { translation: bg },
     },
     fallbackLng: "en",
-    interpolation: {
-      escapeValue: false,
-    },
     detection: {
       order: ["localStorage", "navigator"],
       caches: ["localStorage"],
+      lookupLocalStorage: "i18nextLng",
     },
+    interpolation: {
+      escapeValue: false,
+    },
+    load: "languageOnly",
+    debug: false,
   });
 }
 

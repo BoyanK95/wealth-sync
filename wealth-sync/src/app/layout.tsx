@@ -3,7 +3,6 @@ import { Navbar } from "@/components/Navbar/Navbar";
 import { Providers } from "@/components/Providers";
 import { PlatformConnectionProvider } from "@/lib/contexts/PlatformConnectionContext";
 import "@/styles/globals.css";
-import "@/lib/i18next/i18n";
 import { type Metadata } from "next";
 import { Geist } from "next/font/google";
 
