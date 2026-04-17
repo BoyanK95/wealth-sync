@@ -1,6 +1,7 @@
 "use client";
 
 import i18n from "@/lib/i18next/i18n";
+import { useState, useEffect } from "react";
 import { Button } from "../ui/button";
 import {
   DropdownMenu,
@@ -10,6 +11,12 @@ import {
 import { DropdownMenuContent } from "../ui/dropdown-menu";
 
 export function LangSwitch() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted) return null;
+
   return (
     <div className="flex gap-2">
       <DropdownMenu>
