@@ -676,6 +676,9 @@
     "refresh": "Refres",
     "setting": "Settings"
   },
+  "AllPortfolioSummary": {
+    "title": "Portfolio Summary"
+  },
   "LangSwitchButton": {
     "language": "Language",
     "english": "English",

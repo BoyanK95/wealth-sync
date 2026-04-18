@@ -676,6 +676,9 @@
     "refresh": "Опресняване",
     "setting": "Настройки"
   },
+  "AllPortfolioSummary": {
+    "title": "Общ преглед на портфолиото"
+  },
   "LangSwitchButton": {
     "language": "Език",
     "english": "Английски",
