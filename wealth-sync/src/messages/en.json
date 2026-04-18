@@ -10,5 +10,36 @@
       "realtime": "Real-time Updates",
       "mobile": "Mobile App"
     }
+  },
+  "FeaturesSection": {
+    "badge": "Features",
+    "title": "Everything you need to track your investments",
+    "description": "WealthSync provides powerful tools to help you understand your portfolio performance across multiple platforms.",
+    "items": {
+      "performance": {
+        "title": "Performance Tracking",
+        "description": "Track your investment performance over time with detailed charts and metrics."
+      },
+      "allocation": {
+        "title": "Portfolio Allocation",
+        "description": "Visualize your asset allocation across different exchanges and investment types."
+      },
+      "analytics": {
+        "title": "Advanced Analytics",
+        "description": "Gain insights with advanced analytics including profit/loss, ROI, and risk assessment."
+      },
+      "security": {
+        "title": "Secure Connections",
+        "description": "Connect securely to your exchanges with read-only API access and bank-level encryption."
+      },
+      "realtime": {
+        "title": "Real-time Updates",
+        "description": "Get real-time updates on your portfolio value and individual asset performance."
+      },
+      "mobile": {
+        "title": "Mobile Access",
+        "description": "Access your portfolio data on the go with our mobile app for iOS and Android."
+      }
+    }
   }
 }
