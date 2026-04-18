@@ -46,5 +46,89 @@
     "badge": "Integrations",
     "title": "Connect with your favorite platforms",
     "description": "{siteName} integrates with major stock exchanges, crypto platforms, and brokerages."
+  },
+  "ChartPreviewSection": {
+    "title": "Powerful analytics at your fingertips",
+    "description": "Visualize the investment performance of all your aggregated stock exchange accounts with interactive charts and detailed metrics. Identify trends, track growth, and make informed decisions."
+  },
+  "ActionSection": {
+    "title": "Ready to take control of your investments?",
+    "description": "Join thousands of investors who use {siteName} to track and analyze their portfolios.",
+    "goToDashboard": "Go to Dashboard",
+    "getStarted": "Get Started for Free"
+  },
+  "Footer": {
+    "followUs": "Follow us on social media",
+    "copyright": "© {year} {siteName}. All rights reserved.",
+    "links": {
+      "terms": "Terms",
+      "privacy": "Privacy",
+      "contact": "Contact",
+      "docs": "Docs"
+    }
+  },
+  "PricingSection": {
+    "badge": "Pricing",
+    "title": "Simple, transparent pricing",
+    "description": "Choose the plan that's right for you and start tracking your investments today."
+  },
+  "NoPricingSection": {
+    "badge": "No Pricing Yet",
+    "title": "We're Still Figuring It Out",
+    "description": "{siteName} is completely free while we build the perfect product and determine fair pricing that works for everyone.",
+    "promise": {
+      "title": "Our Promise",
+      "description": "When we do introduce pricing, early users will receive advance notice, grandfathered rates, and special benefits. We believe in rewarding the people who help us build {siteName}."
+    },
+    "currentStatus": {
+      "title": "100% Free Right Now",
+      "description": "All features, no limits, no credit card required",
+      "items": {
+        "portfolioTracking": "Unlimited portfolio tracking",
+        "integrations": "All exchange integrations",
+        "analytics": "Advanced analytics",
+        "support": "Full customer support"
+      },
+      "goToDashboard": "Go to Dashboard",
+      "getStarted": "Get Started Free"
+    },
+    "cards": {
+      "community": {
+        "title": "Building Community",
+        "description": "We want to build a strong user base and understand what features matter most before introducing pricing."
+      },
+      "features": {
+        "title": "Perfecting Features",
+        "description": "We're focused on building the best possible product. Pricing will come when we deliver exceptional value."
+      },
+      "pricing": {
+        "title": "Fair Pricing",
+        "description": "When we do introduce pricing, it will be fair, transparent, and provide clear value for what you pay."
+      }
+    },
+    "timeline": {
+      "title": "Our Approach",
+      "steps": {
+        "one": {
+          "title": "Build & Learn",
+          "description": "Keep everything free while we develop features and learn from user feedback"
+        },
+        "two": {
+          "title": "Research & Plan",
+          "description": "Study user needs and market conditions to design fair pricing"
+        },
+        "three": {
+          "title": "Transparent Launch",
+          "description": "Announce pricing well in advance with grandfathered benefits for early users"
+        }
+      }
+    },
+    "feedback": {
+      "title": "Help Us Shape Our Pricing",
+      "description": "Your input matters! Let us know what you think about pricing for investment tracking tools.",
+      "shareFeedback": "Share Feedback",
+      "goToDashboard": "Go to Dashboard",
+      "startUsing": "Start Using for Free"
+    }
   }
 }

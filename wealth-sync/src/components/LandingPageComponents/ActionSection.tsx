@@ -4,8 +4,11 @@ import { ArrowRight } from "lucide-react";
 import { auth } from "@/server/auth";
 import Link from "next/link";
 import { Routes } from "@/lib/constants/routes";
+import { getTranslations } from "next-intl/server";
+import { SITE_NAME } from "@/lib/constants/site";
 
 const ActionSection = async () => {
+  const t = await getTranslations("ActionSection");
   const session = await auth();
 
   return (
@@ -14,11 +17,10 @@ const ActionSection = async () => {
         <div className="flex flex-col items-center justify-center space-y-4 text-center">
           <div className="space-y-2">
             <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
-              Ready to take control of your investments?
+              {t("title")}
             </h2>
             <p className="max-w-[600px] text-green-100 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-              Join thousands of investors who use WealthSync to track and
-              analyze their portfolios.
+              {t("description", { siteName: SITE_NAME })}
             </p>
           </div>
           <div className="flex flex-col gap-2 min-[400px]:flex-row">
@@ -27,9 +29,9 @@ const ActionSection = async () => {
               className="bg-white text-green-700 hover:bg-green-50 cursor-pointer"
             >
               {session?.user ? (
-                <Link href={Routes.DASHBOARD}>Go to Dashboard</Link>
+                <Link href={Routes.DASHBOARD}>{t("goToDashboard")}</Link>
               ) : (
-                <Link href={Routes.LOGIN}>Get Started for Free</Link>
+                <Link href={Routes.LOGIN}>{t("getStarted")}</Link>
               )}
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>

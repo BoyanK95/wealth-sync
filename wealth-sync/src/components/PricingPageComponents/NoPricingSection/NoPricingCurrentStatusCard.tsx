@@ -10,8 +10,10 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { auth } from "@/server/auth";
 import { Routes } from "@/lib/constants/routes";
+import { getTranslations } from "next-intl/server";
 
 const NoPricingCurrentStatusCard = async () => {
+  const t = await getTranslations("NoPricingSection.currentStatus");
   const session = await auth();
 
   return (
@@ -20,28 +22,28 @@ const NoPricingCurrentStatusCard = async () => {
         <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
           <Heart className="h-8 w-8 text-green-700" />
         </div>
-        <CardTitle className="text-2xl">100% Free Right Now</CardTitle>
+        <CardTitle className="text-2xl">{t("title")}</CardTitle>
         <CardDescription className="text-lg">
-          All features, no limits, no credit card required
+          {t("description")}
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="grid gap-4 md:grid-cols-2">
           <div className="flex items-center space-x-3">
             <div className="h-2 w-2 rounded-full bg-green-700"></div>
-            <span className="text-sm">Unlimited portfolio tracking</span>
+            <span className="text-sm">{t("items.portfolioTracking")}</span>
           </div>
           <div className="flex items-center space-x-3">
             <div className="h-2 w-2 rounded-full bg-green-700"></div>
-            <span className="text-sm">All exchange integrations</span>
+            <span className="text-sm">{t("items.integrations")}</span>
           </div>
           <div className="flex items-center space-x-3">
             <div className="h-2 w-2 rounded-full bg-green-700"></div>
-            <span className="text-sm">Advanced analytics</span>
+            <span className="text-sm">{t("items.analytics")}</span>
           </div>
           <div className="flex items-center space-x-3">
             <div className="h-2 w-2 rounded-full bg-green-700"></div>
-            <span className="text-sm">Full customer support</span>
+            <span className="text-sm">{t("items.support")}</span>
           </div>
         </div>
 
@@ -52,9 +54,9 @@ const NoPricingCurrentStatusCard = async () => {
             asChild
           >
             {session?.user ? (
-              <Link href={Routes.DASHBOARD}>Go to Dashboard</Link>
+              <Link href={Routes.DASHBOARD}>{t("goToDashboard")}</Link>
             ) : (
-              <Link href={Routes.REGISTER}>Get Started Free</Link>
+              <Link href={Routes.REGISTER}>{t("getStarted")}</Link>
             )}
           </Button>
         </div>

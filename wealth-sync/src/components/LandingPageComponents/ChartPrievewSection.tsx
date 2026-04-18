@@ -5,8 +5,11 @@ import {
   ChartPie,
   ChartScatter,
 } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 
-const ChartPrievewSection = () => {
+const ChartPrievewSection = async () => {
+  const t = await getTranslations("ChartPreviewSection");
+
   return (
     <section className="bg-muted/50 w-full py-12 md:py-24 lg:py-32">
       <div className="px-4 md:px-6">
@@ -14,13 +17,10 @@ const ChartPrievewSection = () => {
           <div className="flex flex-col justify-center space-y-4">
             <div className="space-y-2">
               <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
-                Powerful analytics at your fingertips
+                {t("title")}
               </h2>
               <p className="text-muted-foreground max-w-[600px] md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                Visualize your investment performance of all your aggragated
-                stock exchange accounts, with interactive charts and detailed
-                metrics. Identify trends, track growth, and make informed
-                decisions!
+                {t("description")}
               </p>
             </div>
             <div className="flex flex-col gap-2 min-[400px]:flex-row"></div>
