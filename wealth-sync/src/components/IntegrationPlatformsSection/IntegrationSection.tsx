@@ -1,7 +1,10 @@
 import React from "react";
+import { getTranslations } from "next-intl/server";
 import IntegrationPlatformsGrid from "./IntegrationPlatformsGrid";
 
-const IntegrationSection = () => {
+const IntegrationSection = async () => {
+  const t = await getTranslations("IntegrationSection");
+
   return (
     <section
       id="integrations"
@@ -10,14 +13,13 @@ const IntegrationSection = () => {
       <div className="flex flex-col items-center justify-center space-y-4 text-center p-2">
         <div className="space-y-2">
           <div className="bg-muted inline-block rounded-lg px-3 py-1 text-sm">
-            Integrations
+            {t("badge")}
           </div>
           <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
-            Connect with your favorite platforms
+            {t("title")}
           </h2>
           <p className="text-muted-foreground max-w-[900px] md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-            WealthSync integrates with major stock exchanges, crypto platforms,
-            and brokerages.
+            {t("description")}
           </p>
         </div>
       </div>

@@ -41,5 +41,10 @@
         "description": "Access your portfolio data on the go with our mobile app for iOS and Android."
       }
     }
+  },
+  "IntegrationSection": {
+    "badge": "Integrations",
+    "title": "Connect with your favorite platforms",
+    "description": "WealthSync integrates with major stock exchanges, crypto platforms, and brokerages."
   }
 }
