@@ -670,6 +670,12 @@
       }
     }
   },
+  "DashboardWelcomeHeader": {
+    "welcome": "Welcome back, {name}!",
+    "description": "Here's a quick overview of your portfolio performance across all your connected platforms as of",
+    "refresh": "Refres",
+    "setting": "Settings"
+  },
   "LangSwitchButton": {
     "language": "Language",
     "english": "English",
