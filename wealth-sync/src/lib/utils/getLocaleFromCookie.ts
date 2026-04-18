@@ -3,6 +3,6 @@
 export function getLocaleFromCookie() {
   if (typeof document === "undefined") return "en";
 
-  const match = document.cookie.match(/locale=(en|bg)/);
+  const match = /locale=(en|bg)/.exec(document.cookie);
   return match ? match[1] : "en";
 }
