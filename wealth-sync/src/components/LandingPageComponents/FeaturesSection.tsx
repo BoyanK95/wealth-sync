@@ -8,6 +8,7 @@ import {
   Zap,
 } from "lucide-react";
 import { getTranslations } from "next-intl/server";
+import { SITE_NAME } from "@/lib/constants/site";
 
 const FeaturesSection = async () => {
   const t = await getTranslations("FeaturesSection");
@@ -27,7 +28,7 @@ const FeaturesSection = async () => {
               {t("title")}
             </h2>
             <p className="text-muted-foreground max-w-[900px] md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-              {t("description")}
+              {t("description", { siteName: SITE_NAME })}
             </p>
           </div>
         </div>

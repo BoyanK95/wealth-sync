@@ -14,7 +14,7 @@
   "FeaturesSection": {
     "badge": "Features",
     "title": "Everything you need to track your investments",
-    "description": "WealthSync provides powerful tools to help you understand your portfolio performance across multiple platforms.",
+    "description": "{siteName} provides powerful tools to help you understand your portfolio performance across multiple platforms.",
     "items": {
       "performance": {
         "title": "Performance Tracking",
@@ -45,6 +45,6 @@
   "IntegrationSection": {
     "badge": "Integrations",
     "title": "Connect with your favorite platforms",
-    "description": "WealthSync integrates with major stock exchanges, crypto platforms, and brokerages."
+    "description": "{siteName} integrates with major stock exchanges, crypto platforms, and brokerages."
   }
 }
