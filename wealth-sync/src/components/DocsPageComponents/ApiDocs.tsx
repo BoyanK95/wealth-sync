@@ -1,37 +1,36 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { getTranslations } from "next-intl/server";
 
-export default function ApiDocs() {
+export default async function ApiDocs() {
+  const t = await getTranslations("DocsPage.api");
+
   return (
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>API Reference</CardTitle>
+          <CardTitle>{t("title")}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <h3 className="font-semibold">Authentication</h3>
-            <p className="text-muted-foreground">
-              All API requests require a valid API key in the Authorization header.
-            </p>
+            <h3 className="font-semibold">{t("authentication.title")}</h3>
+            <p className="text-muted-foreground">{t("authentication.description")}</p>
             <pre className="bg-muted mt-2 rounded-md p-4">
               <code>Authorization: Bearer YOUR_API_KEY</code>
             </pre>
           </div>
 
           <div className="space-y-2">
-            <h3 className="font-semibold">Rate Limits</h3>
+            <h3 className="font-semibold">{t("rateLimits.title")}</h3>
             <p className="text-muted-foreground">
-              Free tier: 100 requests/hour
+              {t("rateLimits.free")}
               <br />
-              Pro tier: 1000 requests/hour
+              {t("rateLimits.pro")}
             </p>
           </div>
 
           <div className="space-y-2">
-            <h3 className="font-semibold">Endpoints</h3>
-            <p className="text-muted-foreground">
-              Base URL: https://api.wealth-sync.com/v1
-            </p>
+            <h3 className="font-semibold">{t("endpoints.title")}</h3>
+            <p className="text-muted-foreground">{t("endpoints.baseUrl")}</p>
             <pre className="bg-muted mt-2 rounded-md p-4">
               <code>
                 GET /portfolio

@@ -6,6 +6,7 @@ import LoadingText from "@/components/Common/LoadingText";
 import { signIn } from "next-auth/react";
 import { Routes } from "@/lib/constants/routes";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 
 const LoginProviderButton = ({
   providerLogo,
@@ -14,6 +15,7 @@ const LoginProviderButton = ({
   providerLogo: React.ReactNode;
   providerName: string;
 }) => {
+  const t = useTranslations("LoginPage.providerButton");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = async (signInProvider: string) => {
@@ -25,10 +27,10 @@ const LoginProviderButton = ({
       });
 
       if (result?.error) {
-        toast.error("Login failed");
+        toast.error(t("failed"));
       }
     } catch (error) {
-      toast.error("Login failed", {
+      toast.error(t("failed"), {
         description: (error as Error).message,
       });
     } finally {
@@ -44,7 +46,7 @@ const LoginProviderButton = ({
       disabled={isLoading}
     >
       {providerLogo}
-      {isLoading ? <LoadingText text="Signing in..." /> : <p>{providerName}</p>}
+      {isLoading ? <LoadingText text={t("signingIn")} /> : <p>{providerName}</p>}
     </Button>
   );
 };

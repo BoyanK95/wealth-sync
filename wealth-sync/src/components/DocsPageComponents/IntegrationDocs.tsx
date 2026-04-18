@@ -1,49 +1,53 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { getTranslations } from "next-intl/server";
+import { SITE_NAME } from "@/lib/constants/site";
 
-export default function IntegrationDocs() {
+export default async function IntegrationDocs() {
+  const t = await getTranslations("DocsPage.integrations");
+
   return (
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>Platform Integration Guide</CardTitle>
+          <CardTitle>{t("title")}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
             <h3 className="font-semibold">Trading212</h3>
             <p className="text-muted-foreground">
-              1. Log in to your Trading212 account
+              {t("trading212.one")}
               <br />
-              2. Navigate to Settings → API
+              {t("trading212.two")}
               <br />
-              3. Generate a new read-only API key
+              {t("trading212.three")}
               <br />
-              4. Copy the API key to WealthSync
+              {t("trading212.four", { siteName: SITE_NAME })}
             </p>
           </div>
 
           <div className="space-y-2">
             <h3 className="font-semibold">Binance</h3>
             <p className="text-muted-foreground">
-              1. Log in to your Binance account
+              {t("binance.one")}
               <br />
-              2. Go to API Management
+              {t("binance.two")}
               <br />
-              3. Create a new API key with read-only permissions
+              {t("binance.three")}
               <br />
-              4. Enter the API key and secret in WealthSync
+              {t("binance.four", { siteName: SITE_NAME })}
             </p>
           </div>
 
           <div className="space-y-2">
-            <h3 className="font-semibold">Supported Features</h3>
+            <h3 className="font-semibold">{t("supportedFeatures.title")}</h3>
             <p className="text-muted-foreground">
-              • Real-time balance updates
+              {t("supportedFeatures.one")}
               <br />
-              • Transaction history
+              {t("supportedFeatures.two")}
               <br />
-              • Portfolio analytics
+              {t("supportedFeatures.three")}
               <br />
-              • Asset allocation tracking
+              {t("supportedFeatures.four")}
             </p>
           </div>
         </CardContent>

@@ -130,5 +130,198 @@
       "goToDashboard": "Go to Dashboard",
       "startUsing": "Start Using for Free"
     }
+  },
+  "FeaturesPage": {
+    "title": "Connect Your Investment Accounts",
+    "description": "{siteName} allows you to seamlessly connect and monitor your investment accounts from various stock exchanges and brokers in one place.",
+    "supportedPlatforms": {
+      "title": "Supported Platforms",
+      "items": {
+        "one": "• Trading212",
+        "two": "• Binance",
+        "three": "• Interactive Brokers",
+        "four": "• More coming soon..."
+      }
+    },
+    "benefits": {
+      "title": "Key Benefits",
+      "items": {
+        "one": "• View all your investments in one dashboard",
+        "two": "• Track performance across platforms",
+        "three": "• Secure read-only API connections",
+        "four": "• Real-time portfolio updates"
+      }
+    }
+  },
+  "IntegrationsPage": {
+    "title": "Connect Your Investment Platforms",
+    "description": "{siteName} seamlessly integrates with major trading platforms, giving you a unified view of all your investments in one secure dashboard.",
+    "cards": {
+      "security": {
+        "title": "Secure Connections",
+        "description": "Read-only API access ensures your accounts remain secure while syncing data."
+      },
+      "realtime": {
+        "title": "Real-Time Updates",
+        "description": "Get live updates of your portfolio performance across all connected platforms."
+      },
+      "analytics": {
+        "title": "Unified Analytics",
+        "description": "View comprehensive analytics of your entire investment portfolio in one place."
+      }
+    },
+    "cta": {
+      "title": "Ready to consolidate your investments?",
+      "description": "Start tracking all your investments in one place. More integrations are added regularly.",
+      "goToDashboard": "Go to Dashboard",
+      "getStarted": "Get Started"
+    }
+  },
+  "DocsPage": {
+    "title": "Documentation",
+    "description": "Everything you need to know about using and integrating with {siteName}",
+    "tabs": {
+      "gettingStarted": "Getting Started",
+      "api": "API",
+      "integrations": "Integrations",
+      "troubleshooting": "Troubleshooting"
+    },
+    "gettingStarted": {
+      "quickStart": {
+        "title": "Quick Start Guide",
+        "steps": {
+          "one": {
+            "title": "1. Create an Account",
+            "description": "Sign up using your email or social accounts. Verify your email address to activate your account."
+          },
+          "two": {
+            "title": "2. Connect Your Platforms",
+            "description": "Navigate to the Integrations page and connect your preferred trading platforms using secure API keys."
+          },
+          "three": {
+            "title": "3. Configure Your Dashboard",
+            "description": "Customize your dashboard layout and widgets to match your investment tracking needs."
+          }
+        }
+      },
+      "security": {
+        "title": "Security Best Practices",
+        "items": {
+          "apiKey": {
+            "title": "API Key Security",
+            "description": "Always use read-only API keys. Never share your API keys or store them in unsecured locations."
+          },
+          "twoFactor": {
+            "title": "Two-Factor Authentication",
+            "descriptionOne": "Enable 2FA on your account for an additional layer of security.",
+            "descriptionTwo": "This adds an extra layer of protection to your account."
+          }
+        }
+      }
+    },
+    "api": {
+      "title": "API Reference",
+      "authentication": {
+        "title": "Authentication",
+        "description": "All API requests require a valid API key in the Authorization header."
+      },
+      "rateLimits": {
+        "title": "Rate Limits",
+        "free": "Free tier: 100 requests/hour",
+        "pro": "Pro tier: 1000 requests/hour"
+      },
+      "endpoints": {
+        "title": "Endpoints",
+        "baseUrl": "Base URL: https://api.wealth-sync.com/v1"
+      }
+    },
+    "integrations": {
+      "title": "Platform Integration Guide",
+      "trading212": {
+        "one": "1. Log in to your Trading212 account",
+        "two": "2. Navigate to Settings → API",
+        "three": "3. Generate a new read-only API key",
+        "four": "4. Copy the API key to {siteName}"
+      },
+      "binance": {
+        "one": "1. Log in to your Binance account",
+        "two": "2. Go to API Management",
+        "three": "3. Create a new API key with read-only permissions",
+        "four": "4. Enter the API key and secret in {siteName}"
+      },
+      "supportedFeatures": {
+        "title": "Supported Features",
+        "one": "• Real-time balance updates",
+        "two": "• Transaction history",
+        "three": "• Portfolio analytics",
+        "four": "• Asset allocation tracking"
+      }
+    },
+    "troubleshooting": {
+      "title": "Common Issues",
+      "connectionIssues": {
+        "title": "Connection Issues",
+        "lead": "If you're experiencing connection problems:",
+        "one": "1. Verify your API keys are valid",
+        "two": "2. Check if the platform is operational",
+        "three": "3. Ensure you have the correct permissions"
+      },
+      "syncDelays": {
+        "title": "Data Sync Delays",
+        "lead": "Data updates may be delayed due to:",
+        "one": "• API rate limits",
+        "two": "• Platform maintenance",
+        "three": "• Network connectivity issues"
+      },
+      "contactSupport": {
+        "title": "Contact Support",
+        "lead": "If you need additional help:",
+        "one": "• Email: support@wealth-sync.com",
+        "two": "• Discord: Join our community",
+        "three": "• GitHub: Report technical issues"
+      }
+    }
+  },
+  "LoginPage": {
+    "title": "Sign in",
+    "description": "Enter your email below to sign in to your account",
+    "orContinueWith": "Or continue with",
+    "registerLink": "Don't have an account? Register here",
+    "providerButton": {
+      "failed": "Login failed",
+      "signingIn": "Signing in..."
+    },
+    "form": {
+      "email": "Email",
+      "emailPlaceholder": "name@example.com",
+      "password": "Password",
+      "submit": "Sign In",
+      "signingIn": "Signing in...",
+      "success": "Logged in successfully",
+      "errors": {
+        "invalidCredentials": "Invalid credentials",
+        "failed": "Failed to sign in"
+      }
+    }
+  },
+  "RegisterPage": {
+    "title": "Create an account",
+    "description": "Enter your details below to create your account",
+    "loginLink": "Already have an account? Sign In",
+    "form": {
+      "name": "Name",
+      "namePlaceholder": "John Doe",
+      "email": "Email",
+      "password": "Password",
+      "repeatPassword": "Repeat Password",
+      "submit": "Create Account",
+      "creatingAccount": "Creating account...",
+      "errors": {
+        "allFieldsRequired": "All fields are required",
+        "passwordsDoNotMatch": "Passwords do not match",
+        "failedToSignInAfterRegistration": "Failed to sign in after registration",
+        "generic": "An error occurred during registration"
+      }
+    }
   }
 }

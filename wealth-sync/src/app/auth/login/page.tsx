@@ -12,14 +12,17 @@ import { Facebook, Github } from "lucide-react";
 import { FaGoogle } from "react-icons/fa";
 import LoginProviderButton from "@/components/LoginPage/LoginProviderButton";
 import LoginForm from "@/components/LoginPage/LoginForm";
+import { getTranslations } from "next-intl/server";
 
-export default function LoginPage() {
+export default async function LoginPage() {
+  const t = await getTranslations("LoginPage");
+
   return (
     <Card className="border-0 shadow-none">
       <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl">Sign in</CardTitle>
+        <CardTitle className="text-2xl">{t("title")}</CardTitle>
         <CardDescription>
-          Enter your email below to sign in to your account
+          {t("description")}
         </CardDescription>
       </CardHeader>
       <LoginForm />
@@ -30,7 +33,7 @@ export default function LoginPage() {
           </div>
           <div className="relative flex justify-center text-xs uppercase">
             <span className="bg-background text-muted-foreground px-2">
-              Or continue with
+              {t("orContinueWith")}
             </span>
           </div>
         </div>
@@ -50,7 +53,7 @@ export default function LoginPage() {
             href={Routes.REGISTER}
             className="hover:text-primary underline underline-offset-4"
           >
-            Don&apos;t have an account? Register here
+            {t("registerLink")}
           </Link>
         </p>
       </CardFooter>

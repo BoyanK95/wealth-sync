@@ -8,14 +8,17 @@ import {
 import { Routes } from "@/lib/constants/routes";
 import Link from "next/link";
 import RegisterForm from "@/components/RegisterPageComponents/RegisterForm";
+import { getTranslations } from "next-intl/server";
 
-export default function RegisterPage() {
+export default async function RegisterPage() {
+  const t = await getTranslations("RegisterPage");
+
   return (
     <Card className="border-0 shadow-none">
       <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl">Create an account</CardTitle>
+        <CardTitle className="text-2xl">{t("title")}</CardTitle>
         <CardDescription>
-          Enter your details below to create your account
+          {t("description")}
         </CardDescription>
       </CardHeader>
       <RegisterForm />
@@ -25,7 +28,7 @@ export default function RegisterPage() {
             href={Routes.LOGIN}
             className="hover:text-primary underline underline-offset-4"
           >
-            Already have an account? Sign In
+            {t("loginLink")}
           </Link>
         </p>
       </CardFooter>
