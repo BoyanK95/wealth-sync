@@ -679,6 +679,10 @@
   "AllPortfolioSummary": {
     "title": "Portfolio Summary"
   },
+  "ContainerCardErrorState": {
+    "title": "Failed to load data",
+    "RetryBtn": "Retry"
+  },
   "LangSwitchButton": {
     "language": "Language",
     "english": "English",

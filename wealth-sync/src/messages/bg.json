@@ -679,6 +679,10 @@
   "AllPortfolioSummary": {
     "title": "Общ преглед на портфолиото"
   },
+  "ContainerCardErrorState": {
+    "title": "Грешка при зареждане на данните",
+    "RetryBtn": "Опитай отново"
+  },
   "LangSwitchButton": {
     "language": "Език",
     "english": "Английски",
