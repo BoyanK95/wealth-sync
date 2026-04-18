@@ -2,14 +2,18 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Facebook, Instagram, Linkedin, Github } from "lucide-react";
+import { getTranslations } from "next-intl/server";
+import { SITE_NAME } from "@/lib/constants/site";
 
-const CreatorInfo = () => {
+const CreatorInfo = async () => {
+  const t = await getTranslations("ContactPage.creator");
+
   return (
     <>
       <div className="space-y-4 text-center">
-        <h1 className="text-4xl font-bold tracking-tight">About the Creator</h1>
+        <h1 className="text-4xl font-bold tracking-tight">{t("title")}</h1>
         <p className="text-muted-foreground mx-auto max-w-2xl">
-          The story behind WealthSync and how it came to be
+          {t("description", { siteName: SITE_NAME })}
         </p>
       </div>
 
@@ -36,7 +40,7 @@ const CreatorInfo = () => {
               className="rounded-full bg-[#0077B5] p-2 text-white transition-colors hover:bg-[#0077B5]/90"
             >
               <Linkedin className="h-5 w-5" />
-              <span className="sr-only">LinkedIn</span>
+              <span className="sr-only">{t("social.linkedin")}</span>
             </Link>
             <Link
               href="https://www.facebook.com/boyan.nikolaev.3"
@@ -45,7 +49,7 @@ const CreatorInfo = () => {
               className="rounded-full bg-[#1877F2] p-2 text-white transition-colors hover:bg-[#1877F2]/90"
             >
               <Facebook className="h-5 w-5" />
-              <span className="sr-only">Facebook</span>
+              <span className="sr-only">{t("social.facebook")}</span>
             </Link>
             <Link
               href="https://www.instagram.com/boyan_koychev_95/"
@@ -54,7 +58,7 @@ const CreatorInfo = () => {
               className="rounded-full bg-gradient-to-r from-[#833AB4] via-[#FD1D1D] to-[#FCAF45] p-2 text-white transition-opacity hover:opacity-90"
             >
               <Instagram className="h-5 w-5" />
-              <span className="sr-only">Instagram</span>
+              <span className="sr-only">{t("social.instagram")}</span>
             </Link>
             <Link
               href="https://github.com/BoyanK95"
@@ -63,7 +67,7 @@ const CreatorInfo = () => {
               className="rounded-full bg-gradient-to-r from-[#ac7ecb] via-[#5b2076] to-[#1d0338] p-2 text-white transition-opacity hover:opacity-90"
             >
               <Github className="h-5 w-5" />
-              <span className="sr-only">Github</span>
+              <span className="sr-only">{t("social.github")}</span>
             </Link>
           </div>
         </div>

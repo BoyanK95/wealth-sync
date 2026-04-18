@@ -8,15 +8,16 @@ import {
 } from "@/components/ui/card";
 import { Linkedin, Instagram, Facebook, Github, Mail } from "lucide-react";
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 
-const SocialMediaLinksCard = () => {
+const SocialMediaLinksCard = async () => {
+  const t = await getTranslations("ContactPage.socialCard");
+
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Connect with Me</CardTitle>
-        <CardDescription>
-          Follow me on social media or reach out directly via email.
-        </CardDescription>
+        <CardTitle>{t("title")}</CardTitle>
+        <CardDescription>{t("description")}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="flex items-center space-x-4">
@@ -24,7 +25,7 @@ const SocialMediaLinksCard = () => {
             <Linkedin className="h-5 w-5" />
           </div>
           <div>
-            <p className="font-medium">LinkedIn</p>
+            <p className="font-medium">{t("labels.linkedin")}</p>
             <Link
               href="https://www.linkedin.com/in/boyan-koychev-1369bb1b8/"
               target="_blank"
@@ -40,7 +41,7 @@ const SocialMediaLinksCard = () => {
             <Facebook className="h-5 w-5" />
           </div>
           <div>
-            <p className="font-medium">Facebook</p>
+            <p className="font-medium">{t("labels.facebook")}</p>
             <Link
               href="https://www.facebook.com/boyan.nikolaev.3"
               target="_blank"
@@ -56,7 +57,7 @@ const SocialMediaLinksCard = () => {
             <Instagram className="h-5 w-5" />
           </div>
           <div>
-            <p className="font-medium">Instagram</p>
+            <p className="font-medium">{t("labels.instagram")}</p>
             <Link
               href="https://www.instagram.com/boyan_koychev_95/"
               target="_blank"
@@ -72,7 +73,7 @@ const SocialMediaLinksCard = () => {
             <Github className="h-5 w-5" />
           </div>
           <div>
-            <p className="font-medium">Github</p>
+            <p className="font-medium">{t("labels.github")}</p>
             <Link
               href="https://github.com/BoyanK95"
               target="_blank"
@@ -88,12 +89,12 @@ const SocialMediaLinksCard = () => {
             <Mail className="h-5 w-5" />
           </div>
           <div>
-            <p className="font-medium">Email</p>
+            <p className="font-medium">{t("labels.email")}</p>
             <Link
               href="mailto:b.koychev95@gmail.com"
               className="text-muted-foreground text-sm hover:text-green-700"
             >
-              Send an email
+              {t("labels.sendEmail")}
             </Link>
           </div>
         </div>

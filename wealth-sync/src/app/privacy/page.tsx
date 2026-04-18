@@ -1,15 +1,18 @@
 import { Shield, Lock, Key, Database } from "lucide-react";
+import { getTranslations } from "next-intl/server";
+import { SITE_NAME } from "@/lib/constants/site";
 
-export default function PrivacyPage() {
+export default async function PrivacyPage() {
+  const t = await getTranslations("PrivacyPage");
   return (
     <div className="container py-12 space-y-12 mt-10">
       {/* Hero Section */}
       <div className="text-center space-y-4 max-w-3xl mx-auto">
         <h1 className="text-4xl font-bold tracking-tight">
-          Your Security is Our Priority
+          {t("title")}
         </h1>
         <p className="text-muted-foreground text-lg">
-          WealthSync is built with security and privacy at its core. We ensure your financial data remains protected and private.
+          {t("description", { siteName: SITE_NAME })}
         </p>
       </div>
 
@@ -19,64 +22,49 @@ export default function PrivacyPage() {
           <div className="bg-primary/10 w-fit p-3 rounded-lg">
             <Shield className="w-6 h-6 text-primary" />
           </div>
-          <h3 className="text-xl font-semibold">Secure Authentication</h3>
-          <p className="text-muted-foreground">
-            We use trusted third-party authentication providers like Facebook and Google. 
-            We never store or have access to your passwords.
-          </p>
+          <h3 className="text-xl font-semibold">{t("cards.authentication.title")}</h3>
+          <p className="text-muted-foreground">{t("cards.authentication.description")}</p>
         </div>
 
         <div className="space-y-4 p-6 rounded-lg border">
           <div className="bg-primary/10 w-fit p-3 rounded-lg">
             <Key className="w-6 h-6 text-primary" />
           </div>
-          <h3 className="text-xl font-semibold">Exchange Connections</h3>
-          <p className="text-muted-foreground">
-            When connecting to trading platforms, we only use official API keys with read-only access. 
-            We cannot make trades or withdraw funds on your behalf.
-          </p>
+          <h3 className="text-xl font-semibold">{t("cards.connections.title")}</h3>
+          <p className="text-muted-foreground">{t("cards.connections.description")}</p>
         </div>
 
         <div className="space-y-4 p-6 rounded-lg border">
           <div className="bg-primary/10 w-fit p-3 rounded-lg">
             <Database className="w-6 h-6 text-primary" />
           </div>
-          <h3 className="text-xl font-semibold">Data Storage</h3>
-          <p className="text-muted-foreground">
-            Your data is encrypted and stored securely. We only collect the necessary information 
-            to provide you with portfolio tracking and analytics.
-          </p>
+          <h3 className="text-xl font-semibold">{t("cards.storage.title")}</h3>
+          <p className="text-muted-foreground">{t("cards.storage.description")}</p>
         </div>
 
         <div className="space-y-4 p-6 rounded-lg border">
           <div className="bg-primary/10 w-fit p-3 rounded-lg">
             <Lock className="w-6 h-6 text-primary" />
           </div>
-          <h3 className="text-xl font-semibold">Limited Access</h3>
-          <p className="text-muted-foreground">
-            Our platform operates on a read-only basis. We can only view the data necessary 
-            to display your portfolio information and cannot perform any actions on your accounts.
-          </p>
+          <h3 className="text-xl font-semibold">{t("cards.access.title")}</h3>
+          <p className="text-muted-foreground">{t("cards.access.description")}</p>
         </div>
       </div>
 
       {/* Additional Information */}
       <div className="bg-muted/30 rounded-lg p-8 max-w-3xl mx-auto">
         <h2 className="text-2xl font-semibold mb-4 text-center">
-          How We Handle Your Data
+          {t("dataHandling.title")}
         </h2>
         <div className="space-y-4 text-muted-foreground">
-          <p>
-            WealthSync is designed to be a secure bridge between your various investment platforms. 
-            Here&apos;s how we handle your data:
-          </p>
+          <p>{t("dataHandling.description", { siteName: SITE_NAME })}</p>
           <ul className="list-disc pl-6 space-y-2">
-            <li>Authentication is handled through trusted providers (Facebook, Google)</li>
-            <li>Exchange connections use read-only API keys</li>
-            <li>We never store or have access to your exchange passwords</li>
-            <li>Data is encrypted both in transit and at rest</li>
-            <li>We only collect data necessary for portfolio tracking</li>
-            <li>You can delete your account and data at any time</li>
+            <li>{t("dataHandling.items.one")}</li>
+            <li>{t("dataHandling.items.two")}</li>
+            <li>{t("dataHandling.items.three")}</li>
+            <li>{t("dataHandling.items.four")}</li>
+            <li>{t("dataHandling.items.five")}</li>
+            <li>{t("dataHandling.items.six")}</li>
           </ul>
         </div>
       </div>
