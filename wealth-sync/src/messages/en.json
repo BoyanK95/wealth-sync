@@ -675,5 +675,13 @@
     "english": "English",
     "spanish": "Spanish",
     "french": "French"
-  }
+  },
+  "NavbarLinks": {
+    "home": "Home",
+    "features": "Features",
+    "integrations": "Integrations",
+    "pricing": "Pricing",
+    "docs": "Docs",
+    "contact": "Contact"
+   }
 }

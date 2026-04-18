@@ -675,5 +675,13 @@
     "english": "Английски",
     "spanish": "Испански",
     "french": "Френски"
+  },
+  "NavbarLinks": {
+    "home": "Home",
+    "features": "Функции",
+    "integrations": "Интеграции",
+    "pricing": "Цени",
+    "docs": "Документация",
+    "contact": "Contact"
   }
 }
