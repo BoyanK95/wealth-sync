@@ -669,5 +669,11 @@
         "checkPassword": "Провери текущата си парола и опитай отново."
       }
     }
+  },
+  "LangSwitchButton": {
+    "language": "Език",
+    "english": "Английски",
+    "spanish": "Испански",
+    "french": "Френски"
   }
 }
