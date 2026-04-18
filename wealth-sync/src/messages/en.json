@@ -669,8 +669,8 @@
         "checkPassword": "Please check your current password and try again."
       }
     }
-  },  
-  "LangSwitchButton" : {
+  },
+  "LangSwitchButton": {
     "language": "Language",
     "english": "English",
     "spanish": "Spanish",
@@ -683,5 +683,8 @@
     "pricing": "Pricing",
     "docs": "Docs",
     "contact": "Contact"
-   }
+  },
+  "SignUpButton": {
+    "signUp": "Sign Up"
+  }
 }
