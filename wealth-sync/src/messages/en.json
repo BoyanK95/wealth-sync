@@ -679,6 +679,12 @@
   "AllPortfolioSummary": {
     "title": "Portfolio Summary"
   },
+  "NoPlatformsConnected": {
+    "title": "No Platforms Connected",
+    "description": "You haven't connected any trading platforms yet. Connect your platforms to start tracking your portfolio performance in one place.",
+    "availablePlatforms": "Available Platforms",
+    "preferedPlatforms": "Please choose your preferred platform and click it to connect."
+  },
   "ContainerCardErrorState": {
     "title": "Failed to load data",
     "RetryBtn": "Retry"
