@@ -10,5 +10,700 @@
       "realtime": "Real-time Updates",
       "mobile": "Mobile App"
     }
+  },
+  "FeaturesSection": {
+    "badge": "Features",
+    "title": "Everything you need to track your investments",
+    "description": "{siteName} provides powerful tools to help you understand your portfolio performance across multiple platforms.",
+    "items": {
+      "performance": {
+        "title": "Performance Tracking",
+        "description": "Track your investment performance over time with detailed charts and metrics."
+      },
+      "allocation": {
+        "title": "Portfolio Allocation",
+        "description": "Visualize your asset allocation across different exchanges and investment types."
+      },
+      "analytics": {
+        "title": "Advanced Analytics",
+        "description": "Gain insights with advanced analytics including profit/loss, ROI, and risk assessment."
+      },
+      "security": {
+        "title": "Secure Connections",
+        "description": "Connect securely to your exchanges with read-only API access and bank-level encryption."
+      },
+      "realtime": {
+        "title": "Real-time Updates",
+        "description": "Get real-time updates on your portfolio value and individual asset performance."
+      },
+      "mobile": {
+        "title": "Mobile Access",
+        "description": "Access your portfolio data on the go with our mobile app for iOS and Android."
+      }
+    }
+  },
+  "IntegrationSection": {
+    "badge": "Integrations",
+    "title": "Connect with your favorite platforms",
+    "description": "{siteName} integrates with major stock exchanges, crypto platforms, and brokerages."
+  },
+  "ChartPreviewSection": {
+    "title": "Powerful analytics at your fingertips",
+    "description": "Visualize the investment performance of all your aggregated stock exchange accounts with interactive charts and detailed metrics. Identify trends, track growth, and make informed decisions."
+  },
+  "ActionSection": {
+    "title": "Ready to take control of your investments?",
+    "description": "Join thousands of investors who use {siteName} to track and analyze their portfolios.",
+    "goToDashboard": "Go to Dashboard",
+    "getStarted": "Get Started for Free"
+  },
+  "Footer": {
+    "followUs": "Follow us on social media",
+    "copyright": "© {year} {siteName}. All rights reserved.",
+    "links": {
+      "terms": "Terms",
+      "privacy": "Privacy",
+      "contact": "Contact",
+      "docs": "Docs"
+    }
+  },
+  "PricingSection": {
+    "badge": "Pricing",
+    "title": "Simple, transparent pricing",
+    "description": "Choose the plan that's right for you and start tracking your investments today."
+  },
+  "NoPricingSection": {
+    "badge": "No Pricing Yet",
+    "title": "We're Still Figuring It Out",
+    "description": "{siteName} is completely free while we build the perfect product and determine fair pricing that works for everyone.",
+    "promise": {
+      "title": "Our Promise",
+      "description": "When we do introduce pricing, early users will receive advance notice, grandfathered rates, and special benefits. We believe in rewarding the people who help us build {siteName}."
+    },
+    "currentStatus": {
+      "title": "100% Free Right Now",
+      "description": "All features, no limits, no credit card required",
+      "items": {
+        "portfolioTracking": "Unlimited portfolio tracking",
+        "integrations": "All exchange integrations",
+        "analytics": "Advanced analytics",
+        "support": "Full customer support"
+      },
+      "goToDashboard": "Go to Dashboard",
+      "getStarted": "Get Started Free"
+    },
+    "cards": {
+      "community": {
+        "title": "Building Community",
+        "description": "We want to build a strong user base and understand what features matter most before introducing pricing."
+      },
+      "features": {
+        "title": "Perfecting Features",
+        "description": "We're focused on building the best possible product. Pricing will come when we deliver exceptional value."
+      },
+      "pricing": {
+        "title": "Fair Pricing",
+        "description": "When we do introduce pricing, it will be fair, transparent, and provide clear value for what you pay."
+      }
+    },
+    "timeline": {
+      "title": "Our Approach",
+      "steps": {
+        "one": {
+          "title": "Build & Learn",
+          "description": "Keep everything free while we develop features and learn from user feedback"
+        },
+        "two": {
+          "title": "Research & Plan",
+          "description": "Study user needs and market conditions to design fair pricing"
+        },
+        "three": {
+          "title": "Transparent Launch",
+          "description": "Announce pricing well in advance with grandfathered benefits for early users"
+        }
+      }
+    },
+    "feedback": {
+      "title": "Help Us Shape Our Pricing",
+      "description": "Your input matters! Let us know what you think about pricing for investment tracking tools.",
+      "shareFeedback": "Share Feedback",
+      "goToDashboard": "Go to Dashboard",
+      "startUsing": "Start Using for Free"
+    }
+  },
+  "FeaturesPage": {
+    "title": "Connect Your Investment Accounts",
+    "description": "{siteName} allows you to seamlessly connect and monitor your investment accounts from various stock exchanges and brokers in one place.",
+    "supportedPlatforms": {
+      "title": "Supported Platforms",
+      "items": {
+        "one": "• Trading212",
+        "two": "• Binance",
+        "three": "• Interactive Brokers",
+        "four": "• More coming soon..."
+      }
+    },
+    "benefits": {
+      "title": "Key Benefits",
+      "items": {
+        "one": "• View all your investments in one dashboard",
+        "two": "• Track performance across platforms",
+        "three": "• Secure read-only API connections",
+        "four": "• Real-time portfolio updates"
+      }
+    }
+  },
+  "IntegrationsPage": {
+    "title": "Connect Your Investment Platforms",
+    "description": "{siteName} seamlessly integrates with major trading platforms, giving you a unified view of all your investments in one secure dashboard.",
+    "cards": {
+      "security": {
+        "title": "Secure Connections",
+        "description": "Read-only API access ensures your accounts remain secure while syncing data."
+      },
+      "realtime": {
+        "title": "Real-Time Updates",
+        "description": "Get live updates of your portfolio performance across all connected platforms."
+      },
+      "analytics": {
+        "title": "Unified Analytics",
+        "description": "View comprehensive analytics of your entire investment portfolio in one place."
+      }
+    },
+    "cta": {
+      "title": "Ready to consolidate your investments?",
+      "description": "Start tracking all your investments in one place. More integrations are added regularly.",
+      "goToDashboard": "Go to Dashboard",
+      "getStarted": "Get Started"
+    }
+  },
+  "DocsPage": {
+    "title": "Documentation",
+    "description": "Everything you need to know about using and integrating with {siteName}",
+    "tabs": {
+      "gettingStarted": "Getting Started",
+      "api": "API",
+      "integrations": "Integrations",
+      "troubleshooting": "Troubleshooting"
+    },
+    "gettingStarted": {
+      "quickStart": {
+        "title": "Quick Start Guide",
+        "steps": {
+          "one": {
+            "title": "1. Create an Account",
+            "description": "Sign up using your email or social accounts. Verify your email address to activate your account."
+          },
+          "two": {
+            "title": "2. Connect Your Platforms",
+            "description": "Navigate to the Integrations page and connect your preferred trading platforms using secure API keys."
+          },
+          "three": {
+            "title": "3. Configure Your Dashboard",
+            "description": "Customize your dashboard layout and widgets to match your investment tracking needs."
+          }
+        }
+      },
+      "security": {
+        "title": "Security Best Practices",
+        "items": {
+          "apiKey": {
+            "title": "API Key Security",
+            "description": "Always use read-only API keys. Never share your API keys or store them in unsecured locations."
+          },
+          "twoFactor": {
+            "title": "Two-Factor Authentication",
+            "descriptionOne": "Enable 2FA on your account for an additional layer of security.",
+            "descriptionTwo": "This adds an extra layer of protection to your account."
+          }
+        }
+      }
+    },
+    "api": {
+      "title": "API Reference",
+      "authentication": {
+        "title": "Authentication",
+        "description": "All API requests require a valid API key in the Authorization header."
+      },
+      "rateLimits": {
+        "title": "Rate Limits",
+        "free": "Free tier: 100 requests/hour",
+        "pro": "Pro tier: 1000 requests/hour"
+      },
+      "endpoints": {
+        "title": "Endpoints",
+        "baseUrl": "Base URL: https://api.wealth-sync.com/v1"
+      }
+    },
+    "integrations": {
+      "title": "Platform Integration Guide",
+      "trading212": {
+        "one": "1. Log in to your Trading212 account",
+        "two": "2. Navigate to Settings → API",
+        "three": "3. Generate a new read-only API key",
+        "four": "4. Copy the API key to {siteName}"
+      },
+      "binance": {
+        "one": "1. Log in to your Binance account",
+        "two": "2. Go to API Management",
+        "three": "3. Create a new API key with read-only permissions",
+        "four": "4. Enter the API key and secret in {siteName}"
+      },
+      "supportedFeatures": {
+        "title": "Supported Features",
+        "one": "• Real-time balance updates",
+        "two": "• Transaction history",
+        "three": "• Portfolio analytics",
+        "four": "• Asset allocation tracking"
+      }
+    },
+    "troubleshooting": {
+      "title": "Common Issues",
+      "connectionIssues": {
+        "title": "Connection Issues",
+        "lead": "If you're experiencing connection problems:",
+        "one": "1. Verify your API keys are valid",
+        "two": "2. Check if the platform is operational",
+        "three": "3. Ensure you have the correct permissions"
+      },
+      "syncDelays": {
+        "title": "Data Sync Delays",
+        "lead": "Data updates may be delayed due to:",
+        "one": "• API rate limits",
+        "two": "• Platform maintenance",
+        "three": "• Network connectivity issues"
+      },
+      "contactSupport": {
+        "title": "Contact Support",
+        "lead": "If you need additional help:",
+        "one": "• Email: support@wealth-sync.com",
+        "two": "• Discord: Join our community",
+        "three": "• GitHub: Report technical issues"
+      }
+    }
+  },
+  "LoginPage": {
+    "title": "Sign in",
+    "description": "Enter your email below to sign in to your account",
+    "orContinueWith": "Or continue with",
+    "registerLink": "Don't have an account? Register here",
+    "providerButton": {
+      "failed": "Login failed",
+      "signingIn": "Signing in..."
+    },
+    "form": {
+      "email": "Email",
+      "emailPlaceholder": "name@example.com",
+      "password": "Password",
+      "submit": "Sign In",
+      "signingIn": "Signing in...",
+      "success": "Logged in successfully",
+      "errors": {
+        "invalidCredentials": "Invalid credentials",
+        "failed": "Failed to sign in"
+      }
+    }
+  },
+  "RegisterPage": {
+    "title": "Create an account",
+    "description": "Enter your details below to create your account",
+    "loginLink": "Already have an account? Sign In",
+    "form": {
+      "name": "Name",
+      "namePlaceholder": "John Doe",
+      "email": "Email",
+      "password": "Password",
+      "repeatPassword": "Repeat Password",
+      "submit": "Create Account",
+      "creatingAccount": "Creating account...",
+      "errors": {
+        "allFieldsRequired": "All fields are required",
+        "passwordsDoNotMatch": "Passwords do not match",
+        "failedToSignInAfterRegistration": "Failed to sign in after registration",
+        "generic": "An error occurred during registration"
+      }
+    }
+  },
+  "ContactPage": {
+    "creator": {
+      "title": "About the Creator",
+      "description": "The story behind {siteName} and how it came to be",
+      "social": {
+        "linkedin": "LinkedIn",
+        "facebook": "Facebook",
+        "instagram": "Instagram",
+        "github": "Github"
+      }
+    },
+    "story": {
+      "title": "My Story",
+      "paragraphs": {
+        "one": "My journey into the world of finance began as a fixed-income trader, where I spent years analyzing markets, managing portfolios, and executing trades across various financial instruments. During this time, I developed a deep understanding of financial markets and investment strategies.",
+        "two": "While I enjoyed the fast-paced environment of trading, I found myself increasingly drawn to technology and software development. The intersection of finance and technology fascinated me, and I decided to pivot my career toward software engineering.",
+        "three": "Despite changing careers, I remained an active investor, maintaining portfolios across multiple platforms including traditional brokerages and cryptocurrency exchanges. As my investments diversified, I faced a common challenge: keeping track of everything in one place.",
+        "four": "I found myself juggling between different apps and platforms, manually tracking my overall portfolio performance in spreadsheets. This fragmented approach was time-consuming and prone to errors. I needed a solution that could aggregate all my investment data in one place, providing a comprehensive view of my financial position.",
+        "five": "That's when the idea for {siteName} was born. I combined my financial expertise with my software engineering skills to create a platform that solves this exact problem. {siteName} connects to multiple investment platforms, aggregates your data, and provides powerful analytics to help you make informed decisions.",
+        "six": "Today, {siteName} is the tool I wish I had when I started my investment journey. I'm excited to share it with fellow investors who face similar challenges in managing their diversified portfolios."
+      }
+    },
+    "contactSection": {
+      "title": "Get in Touch",
+      "description": "Have questions about {siteName} or want to share your feedback? I'd love to hear from you!"
+    },
+    "footer": {
+      "title": "Ready to simplify your investment tracking?",
+      "description": "{siteName} brings all your investments together in one place, giving you the complete picture of your financial portfolio.",
+      "goToDashboard": "Go to Dashboard",
+      "getStarted": "Get Started with {siteName}"
+    },
+    "socialCard": {
+      "title": "Connect with Me",
+      "description": "Follow me on social media or reach out directly via email.",
+      "labels": {
+        "linkedin": "LinkedIn",
+        "facebook": "Facebook",
+        "instagram": "Instagram",
+        "github": "Github",
+        "email": "Email",
+        "sendEmail": "Send an email"
+      }
+    },
+    "emailForm": {
+      "title": "Send a Message",
+      "description": "Fill out the form below and I'll get back to you as soon as possible.",
+      "fields": {
+        "name": "Name",
+        "email": "Email",
+        "message": "Message"
+      },
+      "placeholders": {
+        "name": "Your name",
+        "email": "Your email address",
+        "message": "Your message"
+      },
+      "send": "Send Message"
+    }
+  },
+  "PrivacyPage": {
+    "title": "Your Security is Our Priority",
+    "description": "{siteName} is built with security and privacy at its core. We ensure your financial data remains protected and private.",
+    "cards": {
+      "authentication": {
+        "title": "Secure Authentication",
+        "description": "We use trusted third-party authentication providers like Facebook and Google. We never store or have access to your passwords."
+      },
+      "connections": {
+        "title": "Exchange Connections",
+        "description": "When connecting to trading platforms, we only use official API keys with read-only access. We cannot make trades or withdraw funds on your behalf."
+      },
+      "storage": {
+        "title": "Data Storage",
+        "description": "Your data is encrypted and stored securely. We only collect the necessary information to provide you with portfolio tracking and analytics."
+      },
+      "access": {
+        "title": "Limited Access",
+        "description": "Our platform operates on a read-only basis. We can only view the data necessary to display your portfolio information and cannot perform any actions on your accounts."
+      }
+    },
+    "dataHandling": {
+      "title": "How We Handle Your Data",
+      "description": "{siteName} is designed to be a secure bridge between your various investment platforms. Here's how we handle your data:",
+      "items": {
+        "one": "Authentication is handled through trusted providers (Facebook, Google)",
+        "two": "Exchange connections use read-only API keys",
+        "three": "We never store or have access to your exchange passwords",
+        "four": "Data is encrypted both in transit and at rest",
+        "five": "We only collect data necessary for portfolio tracking",
+        "six": "You can delete your account and data at any time"
+      }
+    }
+  },
+  "TermsPage": {
+    "title": "Terms of Service",
+    "description": "Please read these terms carefully before using {siteName}",
+    "lastUpdated": "Last updated: Aprill 2025",
+    "sections": {
+      "agreement": {
+        "title": "1. Agreement to Terms",
+        "description": "By accessing or using {siteName}, you agree to be bound by these Terms of Service. If you disagree with any part of the terms, you may not access the service."
+      },
+      "service": {
+        "title": "2. Description of Service",
+        "description": "{siteName} is a portfolio tracking platform that allows users to connect multiple investment accounts and view their consolidated performance. We provide this service through:",
+        "items": {
+          "one": "Integration with various trading platforms via API connections",
+          "two": "Authentication through third-party providers",
+          "three": "Portfolio analytics and tracking tools",
+          "four": "Data visualization and reporting features"
+        }
+      },
+      "account": {
+        "title": "3. Account Terms",
+        "description": "To use {siteName}, you must:",
+        "items": {
+          "one": "Be at least 18 years old",
+          "two": "Register using valid authentication credentials",
+          "three": "Provide accurate and complete information",
+          "four": "Be responsible for maintaining account security",
+          "five": "Promptly notify us of any security breaches"
+        }
+      },
+      "apiUsage": {
+        "title": "4. API Usage and Data Access",
+        "description": "When connecting trading platforms to {siteName}:",
+        "items": {
+          "one": "We only use official API endpoints provided by the platforms",
+          "two": "API access is limited to read-only operations",
+          "three": "We cannot execute trades or withdraw funds",
+          "four": "You maintain full control over API access and can revoke it at any time"
+        }
+      },
+      "limitations": {
+        "title": "5. Limitations of Service",
+        "description": "{siteName} is for informational purposes only. We do not:",
+        "items": {
+          "one": "Provide financial advice or recommendations",
+          "two": "Guarantee the accuracy of third-party data",
+          "three": "Execute trades or manage investments",
+          "four": "Store or have access to your trading platform credentials"
+        }
+      },
+      "dataUsage": {
+        "title": "6. Data Usage and Privacy",
+        "description": "We handle your data in accordance with our Privacy Policy. Key points include:",
+        "items": {
+          "one": "Data is encrypted and stored securely",
+          "two": "We only collect necessary information for service operation",
+          "three": "You can request data deletion at any time",
+          "four": "We do not sell or share your personal information"
+        }
+      },
+      "termination": {
+        "title": "7. Account Termination",
+        "description": "You may terminate your account at any time. Upon termination:",
+        "items": {
+          "one": "All API connections will be removed",
+          "two": "Your data will be deleted from our systems",
+          "three": "You can request a copy of your data before deletion"
+        }
+      },
+      "changes": {
+        "title": "8. Changes to Terms",
+        "description": "We reserve the right to modify these terms at any time. We will notify users of any material changes via email or through the platform."
+      }
+    },
+    "contact": {
+      "title": "Questions About Our Terms?",
+      "description": "If you have any questions about these Terms of Service, please contact us at"
+    }
+  },
+  "TodoPage": {
+    "title": "Coming Soon",
+    "description": "This feature is currently under development and will be available soon.",
+    "status": "Feature in development",
+    "card": {
+      "title": "We're working on it!",
+      "description": "Our team is actively developing this feature to enhance your {siteName} experience. Check back soon for updates."
+    },
+    "returnToDashboard": "Return to Dashboard",
+    "goHome": "Go to Home"
+  },
+  "ComingSoonPage": {
+    "badge": "Under Construction",
+    "description": "We're working hard to bring you this feature. Our team is building something amazing that will enhance your {siteName} experience.",
+    "cards": {
+      "analytics": {
+        "title": "Enhanced Analytics",
+        "description": "Advanced portfolio insights and performance metrics coming your way."
+      },
+      "integrations": {
+        "title": "More Integrations",
+        "description": "Connect with even more exchanges and investment platforms."
+      },
+      "mobile": {
+        "title": "Mobile App",
+        "description": "Native mobile apps for iOS and Android are in development."
+      }
+    },
+    "notify": {
+      "title": "Get Notified",
+      "description": "Be the first to know when this feature launches",
+      "placeholder": "Enter your email",
+      "button": "Notify Me"
+    },
+    "backHome": "Back to Home",
+    "goToDashboard": "Go to Dashboard",
+    "timeline": {
+      "title": "Development Timeline",
+      "phaseOne": {
+        "title": "Phase 1: Core Features",
+        "description": "Basic portfolio tracking and analytics - Completed",
+        "status": "✓ Done"
+      },
+      "phaseTwo": {
+        "title": "Phase 2: Enhanced Integrations",
+        "description": "More exchange connections and data sources - In Progress",
+        "status": "🔄 In Progress"
+      },
+      "phaseThree": {
+        "title": "Phase 3: Advanced Features",
+        "description": "AI insights, mobile app, and premium analytics - Coming Soon",
+        "status": "⏳ Planned"
+      }
+    }
+  },
+  "SettingsPage": {
+    "title": "Settings",
+    "description": "Manage your account settings and preferences",
+    "tabs": {
+      "account": "Account",
+      "preferences": "Preferences",
+      "notifications": "Notifications"
+    },
+    "account": {
+      "information": {
+        "title": "Account Information",
+        "description": "Update your account settings and connected services",
+        "emailAddress": "Email Address",
+        "updateEmail": "Update Email"
+      },
+      "security": {
+        "title": "Security",
+        "description": "Manage your security preferences and authentication methods",
+        "twoFactor": "Two-factor authentication",
+        "changePassword": "Change Password"
+      },
+      "danger": {
+        "title": "Danger Zone",
+        "description": "Irreversible and destructive actions",
+        "deleteAccount": "Delete Account"
+      }
+    },
+    "preferences": {
+      "appearance": {
+        "title": "Appearance",
+        "description": "Customize how WealthSync looks and feels",
+        "theme": "Theme",
+        "selectTheme": "Select theme",
+        "themeOptions": {
+          "light": "Light",
+          "dark": "Dark",
+          "system": "System"
+        }
+      },
+      "display": {
+        "title": "Display",
+        "description": "Configure your display preferences",
+        "defaultDashboardView": "Default Dashboard View",
+        "selectDefaultView": "Select default view",
+        "viewOptions": {
+          "overview": "Overview",
+          "assets": "Assets",
+          "transactions": "Transactions"
+        }
+      }
+    },
+    "notifications": {
+      "push": {
+        "title": "Push Notifications",
+        "description": "Configure your notification preferences",
+        "items": {
+          "priceAlerts": "Price Alerts",
+          "portfolioUpdates": "Portfolio Updates",
+          "securityAlerts": "Security Alerts"
+        }
+      },
+      "email": {
+        "title": "Email Notifications",
+        "description": "Manage your email notification preferences",
+        "items": {
+          "weeklySummary": "Weekly Summary",
+          "marketNews": "Market News",
+          "accountActivity": "Account Activity"
+        }
+      }
+    },
+    "deleteAccountDialog": {
+      "title": "Are you absolutely sure?",
+      "description": "This action cannot be undone. This will permanently delete your account and remove all your data from our servers.",
+      "cancel": "Cancel",
+      "confirm": "Delete Account",
+      "failed": "Failed to delete account",
+      "tryAgain": "Please try again"
+    }
+  },
+  "ProfilePage": {
+    "title": "Your Profile",
+    "description": "Manage your account settings and profile information",
+    "tabs": {
+      "general": "General",
+      "security": "Security"
+    },
+    "general": {
+      "success": "Profile updated successfully",
+      "uploadProfilePicture": "Upload profile picture",
+      "userFallback": "User",
+      "fullName": "Full Name",
+      "fullNamePlaceholder": "Your full name",
+      "emailAddress": "Email Address",
+      "emailPlaceholder": "Your email address",
+      "logOut": "Log Out",
+      "goToDashboard": "Go to Dashboard",
+      "saveChanges": "Save Changes",
+      "errors": {
+        "updateFailed": "Failed to update profile",
+        "logoutFailed": "Failed to logout",
+        "unknown": "Unknown error"
+      }
+    },
+    "security": {
+      "newPassword": "New Password",
+      "newPasswordPlaceholder": "Your new password",
+      "confirmPassword": "Confirm New Password",
+      "confirmPasswordPlaceholder": "Confirm your new password",
+      "updatePassword": "Update Password",
+      "success": "Password updated successfully",
+      "errors": {
+        "passwordMismatch": "New password and confirm password do not match",
+        "updateFailed": "Failed to update password",
+        "checkPassword": "Please check your current password and try again."
+      }
+    }
+  },
+  "DashboardWelcomeHeader": {
+    "welcome": "Welcome back, {name}!",
+    "description": "Here's a quick overview of your portfolio performance across all your connected platforms as of",
+    "refresh": "Refres",
+    "setting": "Settings"
+  },
+  "AllPortfolioSummary": {
+    "title": "Portfolio Summary"
+  },
+  "NoPlatformsConnected": {
+    "title": "No Platforms Connected",
+    "description": "You haven't connected any trading platforms yet. Connect your platforms to start tracking your portfolio performance in one place.",
+    "availablePlatforms": "Available Platforms",
+    "preferedPlatforms": "Please choose your preferred platform and click it to connect."
+  },
+  "ContainerCardErrorState": {
+    "title": "Failed to load data",
+    "RetryBtn": "Retry"
+  },
+  "LangSwitchButton": {
+    "language": "Language",
+    "english": "English",
+    "spanish": "Spanish",
+    "french": "French"
+  },
+  "NavbarLinks": {
+    "home": "Home",
+    "features": "Features",
+    "integrations": "Integrations",
+    "pricing": "Pricing",
+    "docs": "Docs",
+    "contact": "Contact"
+  },
+  "SignUpButton": {
+    "signUp": "Sign Up"
   }
 }

@@ -17,8 +17,10 @@ import { Routes } from "@/lib/constants/routes";
 import { signOut } from "next-auth/react";
 import type { UserFormProps } from "./interfaces";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 const GeneralTab = ({ user }: UserFormProps) => {
+  const t = useTranslations("ProfilePage.general");
   const router = useRouter();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -55,12 +57,12 @@ const GeneralTab = ({ user }: UserFormProps) => {
       // This is a mock implementation
       await new Promise((resolve) => setTimeout(resolve, 1500)); // Simulate API call
 
-      toast.success("Profile updated successfully");
+      toast.success(t("success"));
 
       // Refresh the page to show updated data
       router.refresh();
     } catch (error) {
-      toast.error("Failed to update profile");
+      toast.error(t("errors.updateFailed"));
     } finally {
       setIsLoading(false);
     }
@@ -73,8 +75,8 @@ const GeneralTab = ({ user }: UserFormProps) => {
         callbackUrl: Routes.HOME,
       });
     } catch (error) {
-      toast.error("Failed to logout", {
-        description: error instanceof Error ? error.message : "Unknown error",
+      toast.error(t("errors.logoutFailed"), {
+        description: error instanceof Error ? error.message : t("errors.unknown"),
       });
       setIsLoading(false);
     } finally {
@@ -106,7 +108,7 @@ const GeneralTab = ({ user }: UserFormProps) => {
                   className="absolute right-0 bottom-0 cursor-pointer rounded-full bg-green-700 p-2 text-white transition-colors hover:bg-green-800"
                 >
                   <Camera className="h-4 w-4" />
-                  <span className="sr-only">Upload profile picture</span>
+                  <span className="sr-only">{t("uploadProfilePicture")}</span>
                 </label>
                 <input
                   id="profile-image"
@@ -117,7 +119,7 @@ const GeneralTab = ({ user }: UserFormProps) => {
                 />
               </div>
               <div className="text-center">
-                <h3 className="text-lg font-medium">{user.name ?? "User"}</h3>
+                <h3 className="text-lg font-medium">{user.name ?? t("userFallback")}</h3>
                 <p className="text-muted-foreground text-sm">{user.email}</p>
               </div>
             </div>
@@ -126,23 +128,23 @@ const GeneralTab = ({ user }: UserFormProps) => {
 
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="name">Full Name</Label>
+                <Label htmlFor="name">{t("fullName")}</Label>
                 <Input
                   id="name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="Your full name"
+                  placeholder={t("fullNamePlaceholder")}
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="email">Email Address</Label>
+                <Label htmlFor="email">{t("emailAddress")}</Label>
                 <Input
                   id="email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Your email address"
+                  placeholder={t("emailPlaceholder")}
                 />
               </div>
             </div>
@@ -160,14 +162,14 @@ const GeneralTab = ({ user }: UserFormProps) => {
                 ) : (
                   <LogOut className="mr-2 h-4 w-4" />
                 )}
-                Log Out
+                {t("logOut")}
               </Button>
 
               <Button
                 variant="default"
                 className="cursor-pointer hover:bg-green-800 dark:hover:text-white"
               >
-                <Link href={Routes.DASHBOARD}>Go to Dashboard</Link>
+                <Link href={Routes.DASHBOARD}>{t("goToDashboard")}</Link>
               </Button>
               <Button
                 type="submit"
@@ -179,7 +181,7 @@ const GeneralTab = ({ user }: UserFormProps) => {
                 ) : (
                   <Save className="mr-2 h-4 w-4" />
                 )}
-                Save Changes
+                {t("saveChanges")}
               </Button>
             </div>
           </form>

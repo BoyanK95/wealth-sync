@@ -1,9 +1,11 @@
 import React from "react";
 import { pricingPlans } from "@/lib/mockData/pricingData";
 import PricingCard from "./PricingCard";
+import { getTranslations } from "next-intl/server";
 
-const PricingSection = () => {
+const PricingSection = async () => {
   //TODO add Pricing logic with STRIP
+  const t = await getTranslations("PricingSection");
 
   return (
     <section
@@ -14,14 +16,13 @@ const PricingSection = () => {
         <div className="flex flex-col items-center justify-center space-y-4 text-center">
           <div className="space-y-2">
             <div className="bg-muted inline-block rounded-lg px-3 py-1 text-sm">
-              Pricing
+              {t("badge")}
             </div>
             <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
-              Simple, transparent pricing
+              {t("title")}
             </h2>
             <p className="text-muted-foreground max-w-[900px] md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-              Choose the plan that&apos;s right for you and start tracking your
-              investments today.
+              {t("description")}
             </p>
           </div>
         </div>

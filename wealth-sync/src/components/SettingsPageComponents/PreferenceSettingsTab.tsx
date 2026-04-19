@@ -19,8 +19,10 @@ import {
 } from "@/components/ui/select";
 import { Palette, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 const PreferenceSettingsTab = () => {
+  const t = useTranslations("SettingsPage.preferences");
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -43,23 +45,23 @@ const PreferenceSettingsTab = () => {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Palette className="h-5 w-5" />
-            Appearance
+            {t("appearance.title")}
           </CardTitle>
           <CardDescription>
-            Customize how WealthSync looks and feels
+            {t("appearance.description")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label>Theme</Label>
+            <Label>{t("appearance.theme")}</Label>
             <Select value={theme} onValueChange={handleThemeChange}>
               <SelectTrigger className="cursor-pointer">
-                <SelectValue placeholder="Select theme" />
+                <SelectValue placeholder={t("appearance.selectTheme")} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem className="cursor-pointer" value="light">Light</SelectItem>
-                <SelectItem className="cursor-pointer" value="dark">Dark</SelectItem>
-                <SelectItem className="cursor-pointer" value="system">System</SelectItem>
+                <SelectItem className="cursor-pointer" value="light">{t("appearance.themeOptions.light")}</SelectItem>
+                <SelectItem className="cursor-pointer" value="dark">{t("appearance.themeOptions.dark")}</SelectItem>
+                <SelectItem className="cursor-pointer" value="system">{t("appearance.themeOptions.system")}</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -70,21 +72,21 @@ const PreferenceSettingsTab = () => {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Sun className="h-5 w-5" />
-            Display
+            {t("display.title")}
           </CardTitle>
-          <CardDescription>Configure your display preferences</CardDescription>
+          <CardDescription>{t("display.description")}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label>Default Dashboard View</Label>
+            <Label>{t("display.defaultDashboardView")}</Label>
             <Select defaultValue="overview">
               <SelectTrigger>
-                <SelectValue placeholder="Select default view" />
+                <SelectValue placeholder={t("display.selectDefaultView")} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="overview">Overview</SelectItem>
-                <SelectItem value="assets">Assets</SelectItem>
-                <SelectItem value="transactions">Transactions</SelectItem>
+                <SelectItem value="overview">{t("display.viewOptions.overview")}</SelectItem>
+                <SelectItem value="assets">{t("display.viewOptions.assets")}</SelectItem>
+                <SelectItem value="transactions">{t("display.viewOptions.transactions")}</SelectItem>
               </SelectContent>
             </Select>
           </div>

@@ -9,8 +9,10 @@ import { Label } from "@/components/ui/label";
 import { CardContent } from "@/components/ui/card";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 export default function LoginForm() {
+  const t = useTranslations("LoginPage.form");
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
@@ -30,13 +32,13 @@ export default function LoginForm() {
       if (result?.error) {
         setEmail("");
         setPassword("");
-        toast.error("Invalid credentials");
+        toast.error(t("errors.invalidCredentials"));
       } else if (result?.ok) {
         router.push(Routes.DASHBOARD);
-        toast.success("Logged in successfully");
+        toast.success(t("success"));
       }
     } catch (error) {
-      toast.error("Failed to sign in", {
+      toast.error(t("errors.failed"), {
         description: (error as Error).message,
       });
     } finally {
@@ -48,11 +50,11 @@ export default function LoginForm() {
     <CardContent className="grid gap-4">
       <form onSubmit={handleSubmit} className="grid gap-4">
         <div className="grid gap-2">
-          <Label htmlFor="email">Email</Label>
+          <Label htmlFor="email">{t("email")}</Label>
           <Input
             id="email"
             type="email"
-            placeholder="name@example.com"
+            placeholder={t("emailPlaceholder")}
             autoComplete="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -61,7 +63,7 @@ export default function LoginForm() {
           />
         </div>
         <div className="grid gap-2">
-          <Label htmlFor="password">Password</Label>
+          <Label htmlFor="password">{t("password")}</Label>
           <Input
             id="password"
             type="password"
@@ -77,7 +79,7 @@ export default function LoginForm() {
           className="w-full cursor-pointer"
           disabled={isLoading}
         >
-          {isLoading ? "Signing in..." : "Sign In"}
+          {isLoading ? t("signingIn") : t("submit")}
         </Button>
       </form>
     </CardContent>

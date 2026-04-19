@@ -3,30 +3,32 @@ import AccountSettingsTab from "@/components/SettingsPageComponents/AccountSetti
 import PreferenceSettingsTab from "@/components/SettingsPageComponents/PreferenceSettingsTab";
 import NotificationsSettingsTab from "@/components/SettingsPageComponents/NotificationsSettingsTab";
 import { auth } from "@/server/auth";
+import { getTranslations } from "next-intl/server";
 
 export default async function SettingsPage() {
+  const t = await getTranslations("SettingsPage");
   const session = await auth();
 
   return (
     <div className="container mt-10 py-12">
       <div className="mx-auto max-w-4xl space-y-8">
         <div className="space-y-2">
-          <h1 className="text-3xl font-bold tracking-tight">Settings</h1>
+          <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
           <p className="text-muted-foreground">
-            Manage your account settings and preferences
+            {t("description")}
           </p>
         </div>
 
         <Tabs defaultValue="account" className="space-y-6">
           <TabsList className="grid w-full grid-cols-3 lg:w-[400px]">
             <TabsTrigger className="cursor-pointer" value="account">
-              Account
+              {t("tabs.account")}
             </TabsTrigger>
             <TabsTrigger className="cursor-pointer" value="preferences">
-              Preferences
+              {t("tabs.preferences")}
             </TabsTrigger>
             <TabsTrigger className="cursor-pointer" value="notifications">
-              Notifications
+              {t("tabs.notifications")}
             </TabsTrigger>
           </TabsList>
 

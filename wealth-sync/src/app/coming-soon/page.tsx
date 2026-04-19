@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/card";
 import { ThemeAwareImage } from "@/components/ThemeImage/ThemeAwareImage";
 import { Routes } from "@/lib/constants/routes";
+import { getTranslations } from "next-intl/server";
+import { SITE_NAME } from "@/lib/constants/site";
 
 export const metadata = {
   title: "Coming Soon | WealthSync",
@@ -18,7 +20,8 @@ export const metadata = {
     "This feature is currently under development. Stay tuned for updates!",
 };
 
-export default function ComingSoonPage() {
+export default async function ComingSoonPage() {
+  const t = await getTranslations("ComingSoonPage");
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
       <main className="flex-1 pt-16 pb-12">
@@ -39,14 +42,12 @@ export default function ComingSoonPage() {
               <div className="flex items-center justify-center space-x-2 text-green-700 dark:text-green-500">
                 <Hammer className="h-6 w-6" />
                 <span className="text-sm font-medium tracking-wide uppercase">
-                  Under Construction
+                  {t("badge")}
                 </span>
               </div>
 
               <p className="text-muted-foreground mx-auto max-w-lg text-xl">
-                We&apos;re working hard to bring you this feature. Our team is
-                building something amazing that will enhance your WealthSync
-                experience.
+                {t("description", { siteName: SITE_NAME })}
               </p>
             </div>
 
@@ -56,12 +57,11 @@ export default function ComingSoonPage() {
                   <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
                     <span className="text-2xl">🚀</span>
                   </div>
-                  <CardTitle className="text-lg">Enhanced Analytics</CardTitle>
+                  <CardTitle className="text-lg">{t("cards.analytics.title")}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <CardDescription>
-                    Advanced portfolio insights and performance metrics coming
-                    your way.
+                    {t("cards.analytics.description")}
                   </CardDescription>
                 </CardContent>
               </Card>
@@ -71,11 +71,11 @@ export default function ComingSoonPage() {
                   <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
                     <span className="text-2xl">🔗</span>
                   </div>
-                  <CardTitle className="text-lg">More Integrations</CardTitle>
+                  <CardTitle className="text-lg">{t("cards.integrations.title")}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <CardDescription>
-                    Connect with even more exchanges and investment platforms.
+                    {t("cards.integrations.description")}
                   </CardDescription>
                 </CardContent>
               </Card>
@@ -85,11 +85,11 @@ export default function ComingSoonPage() {
                   <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
                     <span className="text-2xl">📱</span>
                   </div>
-                  <CardTitle className="text-lg">Mobile App</CardTitle>
+                  <CardTitle className="text-lg">{t("cards.mobile.title")}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <CardDescription>
-                    Native mobile apps for iOS and Android are in development.
+                    {t("cards.mobile.description")}
                   </CardDescription>
                 </CardContent>
               </Card>
@@ -99,24 +99,24 @@ export default function ComingSoonPage() {
               <CardHeader>
                 <CardTitle className="flex items-center justify-center space-x-2">
                   <Bell className="h-5 w-5 text-green-700" />
-                  <span>Get Notified</span>
+                  <span>{t("notify.title")}</span>
                 </CardTitle>
                 <CardDescription>
-                  Be the first to know when this feature launches
+                  {t("notify.description")}
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <form className="flex space-x-2">
                   <Input
                     type="email"
-                    placeholder="Enter your email"
+                    placeholder={t("notify.placeholder")}
                     className="flex-1"
                   />
                   <Button
                     type="submit"
                     className="cursor-pointer bg-green-700 hover:bg-green-800 dark:bg-green-500 dark:hover:bg-green-600"
                   >
-                    Notify Me
+                    {t("notify.button")}
                   </Button>
                 </form>
               </CardContent>
@@ -126,20 +126,20 @@ export default function ComingSoonPage() {
               <Button variant="outline" asChild>
                 <Link href={Routes.HOME}>
                   <ArrowLeft className="mr-2 h-4 w-4" />
-                  Back to Home
+                  {t("backHome")}
                 </Link>
               </Button>
               <Button
                 className="bg-green-700 hover:bg-green-800 dark:bg-green-500 dark:hover:bg-green-600"
                 asChild
               >
-                <Link href={Routes.DASHBOARD}>Go to Dashboard</Link>
+                <Link href={Routes.DASHBOARD}>{t("goToDashboard")}</Link>
               </Button>
             </div>
             <Card className="w-full max-w-2xl p-12">
               <CardHeader>
                 <CardTitle className="mb-6 text-xl font-semibold">
-                  Development Timeline
+                  {t("timeline.title")}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -147,40 +147,37 @@ export default function ComingSoonPage() {
                   <div className="flex items-center space-x-4">
                     <div className="h-4 w-4 flex-shrink-0 rounded-full bg-green-700"></div>
                     <div className="flex-1">
-                      <p className="font-medium">Phase 1: Core Features</p>
+                      <p className="font-medium">{t("timeline.phaseOne.title")}</p>
                       <p className="text-muted-foreground text-sm">
-                        Basic portfolio tracking and analytics - Completed
+                        {t("timeline.phaseOne.description")}
                       </p>
                     </div>
                     <span className="text-sm font-medium text-green-700">
-                      ✓ Done
+                      {t("timeline.phaseOne.status")}
                     </span>
                   </div>
                   <div className="flex items-center space-x-4">
                     <div className="h-4 w-4 flex-shrink-0 rounded-full bg-green-700"></div>
                     <div className="flex-1">
-                      <p className="font-medium">
-                        Phase 2: Enhanced Integrations
-                      </p>
+                      <p className="font-medium">{t("timeline.phaseTwo.title")}</p>
                       <p className="text-muted-foreground text-sm">
-                        More exchange connections and data sources - In Progress
+                        {t("timeline.phaseTwo.description")}
                       </p>
                     </div>
                     <span className="text-sm font-medium text-yellow-600">
-                      🔄 In Progress
+                      {t("timeline.phaseTwo.status")}
                     </span>
                   </div>
                   <div className="flex items-center space-x-4">
                     <div className="bg-muted h-4 w-4 flex-shrink-0 rounded-full"></div>
                     <div className="flex-1">
-                      <p className="font-medium">Phase 3: Advanced Features</p>
+                      <p className="font-medium">{t("timeline.phaseThree.title")}</p>
                       <p className="text-muted-foreground text-sm">
-                        AI insights, mobile app, and premium analytics - Coming
-                        Soon
+                        {t("timeline.phaseThree.description")}
                       </p>
                     </div>
                     <span className="text-muted-foreground text-sm font-medium">
-                      ⏳ Planned
+                      {t("timeline.phaseThree.status")}
                     </span>
                   </div>
                 </div>

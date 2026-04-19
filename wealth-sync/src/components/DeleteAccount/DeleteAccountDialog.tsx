@@ -15,6 +15,7 @@ import { toast } from "sonner";
 import { signOut } from "next-auth/react";
 import { Routes } from "@/lib/constants/routes";
 import { deleteAccount } from "@/server/actions/user";
+import { useTranslations } from "next-intl";
 
 interface IDeleteAccountProps {
   showDeleteDialog: boolean;
@@ -28,6 +29,7 @@ const DeleteAccountDialog = ({
   setShowDeleteDialog,
   setIsLoading,
 }: IDeleteAccountProps) => {
+  const t = useTranslations("SettingsPage.deleteAccountDialog");
   const handleDeleteAccount = async () => {
     setIsLoading(true);
     try {
@@ -35,9 +37,9 @@ const DeleteAccountDialog = ({
       await signOut({ callbackUrl: Routes.HOME });
     } catch (error) {
       setIsLoading(false);
-      toast.error("Failed to delete account", {
+      toast.error(t("failed"), {
         description:
-          error instanceof Error ? error.message : "Please try again",
+          error instanceof Error ? error.message : t("tryAgain"),
       });
     } finally {
       setIsLoading(false);
@@ -47,21 +49,20 @@ const DeleteAccountDialog = ({
     <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogTitle>{t("title")}</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove all your data from our servers.
+            {t("description")}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel className="cursor-pointer">
-            Cancel
+            {t("cancel")}
           </AlertDialogCancel>
           <AlertDialogAction
             onClick={handleDeleteAccount}
             className="bg-destructive text-destructive-foreground hover:bg-destructive/90 hover:cursor-pointer hover:text-white dark:hover:bg-red-800"
           >
-            Delete Account
+            {t("confirm")}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

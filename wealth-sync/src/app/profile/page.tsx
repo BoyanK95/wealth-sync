@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { auth } from "@/server/auth";
 import ProfileForm from "@/components/ProfilePageComponents/ProfileForm";
+import { getTranslations } from "next-intl/server";
 
 export const metadata: Metadata = {
   title: "Your Profile | WealthSync",
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default async function ProfilePage() {
+  const t = await getTranslations("ProfilePage");
   const session = await auth();
 
   // Redirect to login if not authenticated
@@ -24,10 +26,10 @@ export default async function ProfilePage() {
           <div className="flex flex-col space-y-8">
             <div>
               <h1 className="text-3xl font-bold text-center tracking-tight">
-                Your Profile
+                {t("title")}
               </h1>
               <p className="text-muted-foreground text-center mt-2">
-                Manage your account settings and profile information
+                {t("description")}
               </p>
             </div>
 

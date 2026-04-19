@@ -8,8 +8,10 @@ import { Label } from "@/components/ui/label";
 import { Routes } from "@/lib/constants/routes";
 import { register } from "@/server/actions/auth";
 import { signIn } from "next-auth/react";
+import { useTranslations } from "next-intl";
 
 const RegisterForm = () => {
+  const t = useTranslations("RegisterPage.form");
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -27,13 +29,13 @@ const RegisterForm = () => {
       .trim();
 
     if (!email || !name || !password || !confirmPassword) {
-      setError("All fields are required");
+      setError(t("errors.allFieldsRequired"));
       setIsLoading(false);
       return;
     }
 
     if (password !== confirmPassword) {
-      setError("Passwords do not match");
+      setError(t("errors.passwordsDoNotMatch"));
       setIsLoading(false);
       return;
     }
@@ -63,14 +65,14 @@ const RegisterForm = () => {
         });
 
         if (signInResult?.error) {
-          setError("Failed to sign in after registration");
+          setError(t("errors.failedToSignInAfterRegistration"));
           setIsLoading(false);
           return;
         }
       }
     } catch (err) {
       console.error("Registration error:", err);
-      setError("An error occurred during registration");
+      setError(t("errors.generic"));
     } finally {
       setIsLoading(false);
     }
@@ -83,19 +85,19 @@ const RegisterForm = () => {
           <div className="text-destructive text-sm font-medium">{error}</div>
         )}
         <div className="grid gap-2">
-          <Label htmlFor="name">Name</Label>
+          <Label htmlFor="name">{t("name")}</Label>
           <Input
             id="name"
             name="name"
             type="text"
-            placeholder="John Doe"
+            placeholder={t("namePlaceholder")}
             autoComplete="name"
             required
             disabled={isLoading}
           />
         </div>
         <div className="grid gap-2">
-          <Label htmlFor="email">Email</Label>
+          <Label htmlFor="email">{t("email")}</Label>
           <Input
             id="email"
             name="email"
@@ -107,7 +109,7 @@ const RegisterForm = () => {
           />
         </div>
         <div className="grid gap-2">
-          <Label htmlFor="password">Password</Label>
+          <Label htmlFor="password">{t("password")}</Label>
           <Input
             id="password"
             name="password"
@@ -118,7 +120,7 @@ const RegisterForm = () => {
           />
         </div>
         <div className="grid gap-2">
-          <Label htmlFor="repeat-password">Repeat Password</Label>
+          <Label htmlFor="repeat-password">{t("repeatPassword")}</Label>
           <Input
             id="repeat-password"
             name="repeat-password"
@@ -129,7 +131,7 @@ const RegisterForm = () => {
           />
         </div>
         <Button className="w-full" type="submit" disabled={isLoading}>
-          {isLoading ? "Creating account..." : "Create Account"}
+          {isLoading ? t("creatingAccount") : t("submit")}
         </Button>
         <div className="relative">
           <div className="absolute inset-0 flex items-center">

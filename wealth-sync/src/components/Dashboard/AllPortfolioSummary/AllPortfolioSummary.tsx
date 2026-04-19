@@ -14,6 +14,7 @@ import {
   TotalPortfolioValueSection,
 } from "./components";
 import { usePlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
+import { useTranslations } from "next-intl";
 
 const AllPortfolioSummary = ({
   showStats,
@@ -22,6 +23,8 @@ const AllPortfolioSummary = ({
   showStats: boolean;
   setShowStats: (showStats: boolean) => void;
 }) => {
+  const t = useTranslations("AllPortfolioSummary");
+
   const {
     loading,
     error,
@@ -46,7 +49,7 @@ const AllPortfolioSummary = ({
   return (
     <>
       <div className="ml-5 flex items-center space-x-2">
-        <h2 className="text-xl font-semibold">Portfolio Summary</h2>
+        <h2 className="text-xl font-semibold">{t("title")}</h2>
         <Button
           variant="ghost"
           onClick={() => setShowStats(!showStats)}

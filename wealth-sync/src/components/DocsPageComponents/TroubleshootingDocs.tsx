@@ -1,49 +1,52 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { getTranslations } from "next-intl/server";
 
-export default function TroubleshootingDocs() {
+export default async function TroubleshootingDocs() {
+  const t = await getTranslations("DocsPage.troubleshooting");
+
   return (
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>Common Issues</CardTitle>
+          <CardTitle>{t("title")}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <h3 className="font-semibold">Connection Issues</h3>
+            <h3 className="font-semibold">{t("connectionIssues.title")}</h3>
             <p className="text-muted-foreground">
-              If you&apos;re experiencing connection problems:
+              {t("connectionIssues.lead")}
               <br />
-              1. Verify your API keys are valid
+              {t("connectionIssues.one")}
               <br />
-              2. Check if the platform is operational
+              {t("connectionIssues.two")}
               <br />
-              3. Ensure you have the correct permissions
+              {t("connectionIssues.three")}
             </p>
           </div>
 
           <div className="space-y-2">
-            <h3 className="font-semibold">Data Sync Delays</h3>
+            <h3 className="font-semibold">{t("syncDelays.title")}</h3>
             <p className="text-muted-foreground">
-              Data updates may be delayed due to:
+              {t("syncDelays.lead")}
               <br />
-              • API rate limits
+              {t("syncDelays.one")}
               <br />
-              • Platform maintenance
+              {t("syncDelays.two")}
               <br />
-              • Network connectivity issues
+              {t("syncDelays.three")}
             </p>
           </div>
 
           <div className="space-y-2">
-            <h3 className="font-semibold">Contact Support</h3>
+            <h3 className="font-semibold">{t("contactSupport.title")}</h3>
             <p className="text-muted-foreground">
-              If you need additional help:
+              {t("contactSupport.lead")}
               <br />
-              • Email: support@wealth-sync.com
+              {t("contactSupport.one")}
               <br />
-              • Discord: Join our community
+              {t("contactSupport.two")}
               <br />
-              • GitHub: Report technical issues
+              {t("contactSupport.three")}
             </p>
           </div>
         </CardContent>

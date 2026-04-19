@@ -7,8 +7,12 @@ import {
   Smartphone,
   Zap,
 } from "lucide-react";
+import { getTranslations } from "next-intl/server";
+import { SITE_NAME } from "@/lib/constants/site";
 
-const FeaturesSection = () => {
+const FeaturesSection = async () => {
+  const t = await getTranslations("FeaturesSection");
+
   return (
     <section
       id="features"
@@ -18,14 +22,13 @@ const FeaturesSection = () => {
         <div className="flex flex-col items-center justify-center space-y-4 text-center">
           <div className="space-y-2">
             <div className="bg-muted inline-block rounded-lg px-3 py-1 text-sm">
-              Features
+              {t("badge")}
             </div>
             <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
-              Everything you need to track your investments
+              {t("title")}
             </h2>
             <p className="text-muted-foreground max-w-[900px] md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-              WealthSync provides powerful tools to help you understand your
-              portfolio performance across multiple platforms.
+              {t("description", { siteName: SITE_NAME })}
             </p>
           </div>
         </div>
@@ -34,60 +37,54 @@ const FeaturesSection = () => {
             <div className="rounded-full bg-green-100 p-3">
               <LineChart className="h-6 w-6 text-green-700" />
             </div>
-            <h3 className="text-xl font-bold">Performance Tracking</h3>
+            <h3 className="text-xl font-bold">{t("items.performance.title")}</h3>
             <p className="text-muted-foreground text-center">
-              Track your investment performance over time with detailed charts
-              and metrics.
+              {t("items.performance.description")}
             </p>
           </div>
           <div className="flex flex-col items-center space-y-2 rounded-lg border p-6 shadow-sm">
             <div className="rounded-full bg-green-100 p-3">
               <PieChart className="h-6 w-6 text-green-700" />
             </div>
-            <h3 className="text-xl font-bold">Portfolio Allocation</h3>
+            <h3 className="text-xl font-bold">{t("items.allocation.title")}</h3>
             <p className="text-muted-foreground text-center">
-              Visualize your asset allocation across different exchanges and
-              investment types.
+              {t("items.allocation.description")}
             </p>
           </div>
           <div className="flex flex-col items-center space-y-2 rounded-lg border p-6 shadow-sm">
             <div className="rounded-full bg-green-100 p-3">
               <BarChart3 className="h-6 w-6 text-green-700" />
             </div>
-            <h3 className="text-xl font-bold">Advanced Analytics</h3>
+            <h3 className="text-xl font-bold">{t("items.analytics.title")}</h3>
             <p className="text-muted-foreground text-center">
-              Gain insights with advanced analytics including profit/loss, ROI,
-              and risk assessment.
+              {t("items.analytics.description")}
             </p>
           </div>
           <div className="flex flex-col items-center space-y-2 rounded-lg border p-6 shadow-sm">
             <div className="rounded-full bg-green-100 p-3">
               <Shield className="h-6 w-6 text-green-700" />
             </div>
-            <h3 className="text-xl font-bold">Secure Connections</h3>
+            <h3 className="text-xl font-bold">{t("items.security.title")}</h3>
             <p className="text-muted-foreground text-center">
-              Connect securely to your exchanges with read-only API access and
-              bank-level encryption.
+              {t("items.security.description")}
             </p>
           </div>
           <div className="flex flex-col items-center space-y-2 rounded-lg border p-6 shadow-sm">
             <div className="rounded-full bg-green-100 p-3">
               <Zap className="h-6 w-6 text-green-700" />
             </div>
-            <h3 className="text-xl font-bold">Real-time Updates</h3>
+            <h3 className="text-xl font-bold">{t("items.realtime.title")}</h3>
             <p className="text-muted-foreground text-center">
-              Get real-time updates on your portfolio value and individual asset
-              performance.
+              {t("items.realtime.description")}
             </p>
           </div>
           <div className="flex flex-col items-center space-y-2 rounded-lg border p-6 shadow-sm">
             <div className="rounded-full bg-green-100 p-3">
               <Smartphone className="h-6 w-6 text-green-700" />
             </div>
-            <h3 className="text-xl font-bold">Mobile Access</h3>
+            <h3 className="text-xl font-bold">{t("items.mobile.title")}</h3>
             <p className="text-muted-foreground text-center">
-              Access your portfolio data on the go with our mobile app for iOS
-              and Android.
+              {t("items.mobile.description")}
             </p>
           </div>
         </div>

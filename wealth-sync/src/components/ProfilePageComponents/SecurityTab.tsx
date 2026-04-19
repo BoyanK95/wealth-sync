@@ -9,8 +9,10 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import { TabsContent } from "@/components/ui/tabs";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 
 const SecurityTab = () => {
+  const t = useTranslations("ProfilePage.security");
   const [isLoading, setIsLoading] = useState(false);
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -19,7 +21,7 @@ const SecurityTab = () => {
     e.preventDefault();
 
     if (newPassword !== confirmPassword) {
-      toast.error("New password and confirm password do not match");
+      toast.error(t("errors.passwordMismatch"));
       return;
     }
     setIsLoading(true);
@@ -29,13 +31,13 @@ const SecurityTab = () => {
       // This is a mock implementation
       await new Promise((resolve) => setTimeout(resolve, 1500)); // Simulate API call
 
-      toast.success("Password updated successfully");
+      toast.success(t("success"));
 
       setNewPassword("");
       setConfirmPassword("");
     } catch (error) {
-      toast.error("Failed to update password", {
-        description: "Please check your current password and try again.",
+      toast.error(t("errors.updateFailed"), {
+        description: t("errors.checkPassword"),
       });
     } finally {
       setIsLoading(false);
@@ -49,24 +51,24 @@ const SecurityTab = () => {
           <form onSubmit={handlePasswordUpdate} className="space-y-8">
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="new-password">New Password</Label>
+                <Label htmlFor="new-password">{t("newPassword")}</Label>
                 <Input
                   id="new-password"
                   type="password"
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
-                  placeholder="Your new password"
+                  placeholder={t("newPasswordPlaceholder")}
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="confirm-password">Confirm New Password</Label>
+                <Label htmlFor="confirm-password">{t("confirmPassword")}</Label>
                 <Input
                   id="confirm-password"
                   type="password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  placeholder="Confirm your new password"
+                  placeholder={t("confirmPasswordPlaceholder")}
                 />
               </div>
             </div>
@@ -86,7 +88,7 @@ const SecurityTab = () => {
                 ) : (
                   <Save className="mr-2 h-4 w-4" />
                 )}
-                Update Password
+                {t("updatePassword")}
               </Button>
             </div>
           </form>
