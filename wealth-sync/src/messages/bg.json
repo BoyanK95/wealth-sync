@@ -726,7 +726,8 @@
     "title": "Свързани платформи",
     "description": "Управляване на свързаните ви борси и брокерства",
     "syncedButton": "Свързан",
-    "connectButton": "Свържи"
+    "connectButton": "Свържи",
+    "newPlatformButton": "Свържи нова платформа"
   },
   "RecentTransactionsTab": {
     "title": "Последни транзакции",

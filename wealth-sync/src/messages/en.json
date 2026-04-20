@@ -725,7 +725,8 @@
     "title": "Connected Platforms",
     "description": "Manage your connected exchanges and brokerages",
     "syncedButton": "Synced",
-    "connectButton": "Connect"
+    "connectButton": "Connect",
+    "newPlatformButton": "Add New Platform"
   },
   "RecentTransactionsTab": {
     "title": "Recent Transactions",

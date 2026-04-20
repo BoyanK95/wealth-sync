@@ -64,7 +64,7 @@ const ConnectedPlatformsTab = () => {
           <Link href={Routes.INTEGRATIONS} className="w-full">
             <Button variant="outline" className="w-full cursor-pointer">
               <Plus className="mr-2 h-4 w-4" />
-              Add New Platform
+              {t("newPlatformButton")}
             </Button>
           </Link>
         </CardFooter>
