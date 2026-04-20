@@ -1,3 +1,5 @@
+'use client";';
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -13,18 +15,18 @@ import Link from "next/link";
 import RecentTransactionsTab from "./RecentTransactionsTab";
 import { usePlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
 import { CiCircleCheck } from "react-icons/ci";
+import { useTranslations } from "next-intl";
 
 const ConnectedPlatformsTab = () => {
+  const t = useTranslations("ConnectedPlatformsTab");
   const { connections } = usePlatformConnection();
 
   return (
     <div className="grid gap-4 md:grid-cols-2">
       <Card>
         <CardHeader>
-          <CardTitle>Connected Platforms</CardTitle>
-          <CardDescription>
-            Manage your connected exchanges and brokerages
-          </CardDescription>
+          <CardTitle>{t("title")}</CardTitle>
+          <CardDescription>{t("description")}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
@@ -46,12 +48,12 @@ const ConnectedPlatformsTab = () => {
                 </div>
                 {platform.isConnected ? (
                   <Button variant="outline" size="sm">
-                    <CiCircleCheck className="mr-2 h-4 w-4" color="green"/>
-                    Synced
+                    <CiCircleCheck className="mr-2 h-4 w-4" color="green" />
+                    {t("syncedButton")}
                   </Button>
                 ) : (
                   <Button size="sm" className="bg-green-700 hover:bg-green-800">
-                    Connect
+                    {t("connectButton")}
                   </Button>
                 )}
               </div>
@@ -62,7 +64,7 @@ const ConnectedPlatformsTab = () => {
           <Link href={Routes.INTEGRATIONS} className="w-full">
             <Button variant="outline" className="w-full cursor-pointer">
               <Plus className="mr-2 h-4 w-4" />
-              Add New Platform
+              {t("newPlatformButton")}
             </Button>
           </Link>
         </CardFooter>

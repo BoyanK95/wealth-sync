@@ -1,7 +1,9 @@
+"use client";
+
 import React from "react";
 import { ChevronUp, ChevronDown } from "lucide-react";
 import { Button } from "../ui/button";
-
+import { useTranslations } from "next-intl";
 
 const ShowMoreButton = ({
   showMore,
@@ -12,6 +14,8 @@ const ShowMoreButton = ({
   toggleShowMore: () => void;
   remainingCount: number;
 }) => {
+  const t = useTranslations("ShowMoreButton");
+
   return (
     <Button
       onClick={toggleShowMore}
@@ -21,14 +25,13 @@ const ShowMoreButton = ({
       {showMore ? (
         <>
           <ChevronUp className="h-4 w-4" />
-          <span className="text-sm font-medium">Show Less</span>
+          <span className="text-sm font-medium">{t("showLess")}</span>
         </>
       ) : (
         <>
           <ChevronDown className="h-4 w-4" />
           <span className="text-sm font-medium">
-            Show {remainingCount} More Platform
-            {remainingCount !== 1 ? "s" : ""}
+            {t("showMore", { remainingCount })}
           </span>
         </>
       )}

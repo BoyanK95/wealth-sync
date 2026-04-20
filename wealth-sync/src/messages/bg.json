@@ -679,11 +679,60 @@
   "AllPortfolioSummary": {
     "title": "Общ преглед на портфолиото"
   },
+  "ConnectedPlatformsSection": {
+    "title": "Свързани платформи",
+    "description": "на {platformCount} налични интеграции"
+  },
+  "TopPerformingAssetSection": {
+    "title": "Най-добър актив"
+  },
+
+  "MonthlyChangeSection": {
+    "title": "Промяна за месеца"
+  },
   "NoPlatformsConnected": {
     "title": "Няма свързани платформи",
     "description": "Свържи поне една платформа, за да видиш обобщението на портфолиото си.",
     "availablePlatforms": "Достъпни платформи",
     "preferedPlatforms": "Моля, изберете вашата предпочитана платформа и кликнете върху нея, за да я свържете."
+  },
+  "DashboardTabs": {
+    "overview": "Преглед",
+    "assets": "Активи",
+    "transactions": "Транзакции",
+    "AIInsights": "AI анализ"
+  },
+  "PortfolioChart": {
+    "title": "Представяне на портфолиото",
+    "description": "Стойността на портфолиото във времето",
+    "span": "Графикът на портфолиото ще се появи тук"
+  },
+  "PortfolioAssetsBreakdown": {
+    "title": "Вашите Активи",
+    "description": "Разпределение на активите",
+    "span": "Таблица с всички активи ще се появи тук"
+  },
+  "PortfolioTransactionHistory": {
+    "title": "История на транзакциите",
+    "description": "История на вашите транзакции на едно място",
+    "span": "Таблица с всички транзакции ще се появи тук"
+  },
+  "PortfolioAiAnalytics": {
+    "title": "AI анализи и препоръки",
+    "description": "Препоръки за оптимизиране на портфолиото от AI",
+    "span": "Анализите ще се появи тук"
+  },
+  "ConnectedPlatformsTab": {
+    "title": "Свързани платформи",
+    "description": "Управляване на свързаните ви борси и брокерства",
+    "syncedButton": "Свързан",
+    "connectButton": "Свържи",
+    "newPlatformButton": "Свържи нова платформа"
+  },
+  "RecentTransactionsTab": {
+    "title": "Последни транзакции",
+    "description": "Вашите последни инвестиционни дейности",
+    "viewAll": "Вижте Всички Транзакции"
   },
   "ContainerCardErrorState": {
     "title": "Грешка при зареждане на данните",
@@ -702,6 +751,13 @@
     "pricing": "Цени",
     "docs": "Документация",
     "contact": "Contact"
+  },
+  "TotalPortfolioValueSection": {
+    "cardTitle": "Обща стойност на отворените позиции"
+  },
+  "ShowMoreButton": {
+    "showMore": "Покажи останалите {remainingCount} платформи",
+    "showLess": "Покажи по-малко"
   },
   "SignUpButton": {
     "signUp": "Влизане"

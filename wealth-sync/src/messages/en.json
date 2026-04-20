@@ -679,11 +679,59 @@
   "AllPortfolioSummary": {
     "title": "Portfolio Summary"
   },
+  "ConnectedPlatformsSection": {
+    "title": "Connected Platforms",
+    "description": "of {platformCount} available integrations"
+  },
+  "TopPerformingAssetSection": {
+    "title": "Top Performing Asset"
+  },
+  "MonthlyChangeSection": {
+    "title": "Monthly Change"
+  },
   "NoPlatformsConnected": {
     "title": "No Platforms Connected",
     "description": "You haven't connected any trading platforms yet. Connect your platforms to start tracking your portfolio performance in one place.",
     "availablePlatforms": "Available Platforms",
     "preferedPlatforms": "Please choose your preferred platform and click it to connect."
+  },
+  "DashboardTabs": {
+    "overview": "Overview",
+    "assets": "Assets",
+    "transactions": "Transactions",
+    "AIInsights": "AI Insights"
+  },
+  "PortfolioChart": {
+    "title": "Portfolio Performance",
+    "description": "Your portfolio value over time",
+    "span": "Portfolio chart will appear here"
+  },
+  "PortfolioAssetsBreakdown": {
+    "title": "Your Assets",
+    "description": "Complete breakdown of all your investments",
+    "span": "Assets table will appear here"
+  },
+  "PortfolioTransactionHistory": {
+    "title": "Transaction History",
+    "description": "Complete history of your investment activities",
+    "span": "Transactions table will appear here"
+  },
+  "PortfolioAiAnalytics": {
+    "title": "AI Insights",
+    "description": "Advanced AI analytics and recommendations",
+    "span": "Insights will appear here"
+  },
+  "ConnectedPlatformsTab": {
+    "title": "Connected Platforms",
+    "description": "Manage your connected exchanges and brokerages",
+    "syncedButton": "Synced",
+    "connectButton": "Connect",
+    "newPlatformButton": "Add New Platform"
+  },
+  "RecentTransactionsTab": {
+    "title": "Recent Transactions",
+    "description": "Your latest investment activities",
+    "viewAll": "View All Transactions"
   },
   "ContainerCardErrorState": {
     "title": "Failed to load data",
@@ -702,6 +750,13 @@
     "pricing": "Pricing",
     "docs": "Docs",
     "contact": "Contact"
+  },
+  "TotalPortfolioValueSection": {
+    "cardTitle": "Total Open Positions Portfolio Value"
+  },
+  "ShowMoreButton": {
+    "showMore": "Show {remainingCount} more",
+    "showLess": "Show less"
   },
   "SignUpButton": {
     "signUp": "Sign Up"

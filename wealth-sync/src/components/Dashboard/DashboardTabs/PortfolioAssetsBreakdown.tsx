@@ -1,3 +1,5 @@
+'use client";';
+
 import {
   Card,
   CardHeader,
@@ -6,21 +8,23 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import { CreditCard } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 const PortfolioAssetsBreakdown = () => {
   //TODO create assets breakdown component with real data
+  const t = useTranslations("PortfolioAssetsBreakdown");
+
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Your Assets</CardTitle>
-        <CardDescription>
-          Complete breakdown of all your investments
-        </CardDescription>
+        <CardTitle>{t("title")}</CardTitle>
+        <CardDescription>{t("description")}</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="bg-muted/20 flex h-[400px] w-full items-center justify-center">
           <CreditCard className="text-muted h-8 w-8" />
-          <span className="text-muted ml-2">Assets table will appear here</span>
+          {/* TODO create assets breakdown component with real data */}
+          <span className="text-muted ml-2">{t("span")}</span>
         </div>
       </CardContent>
     </Card>
