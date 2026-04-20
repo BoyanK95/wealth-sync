@@ -752,6 +752,12 @@
     "docs": "Документация",
     "contact": "Contact"
   },
+  "UserProfileButton": {
+    "profile": "Профил",
+    "settings": "Настройки",
+    "goToDashboard": "Отиди на Таблото",
+    "logout": "Изход"
+  },
   "TotalPortfolioValueSection": {
     "cardTitle": "Обща стойност на отворените позиции"
   },

@@ -13,6 +13,7 @@ import { signOut } from "next-auth/react";
 import type { User } from "next-auth";
 import Link from "next/link";
 import { Routes } from "@/lib/constants/routes";
+import { useTranslations } from "next-intl";
 
 const UserProfileButton = ({
   session,
@@ -24,6 +25,7 @@ const UserProfileButton = ({
     };
   };
 }) => {
+  const t = useTranslations("UserProfileButton");
   const [IsOpen, setIsOpen] = useState(false);
 
   const handleSignOut = async () => {
@@ -34,7 +36,10 @@ const UserProfileButton = ({
   return (
     <DropdownMenu open={IsOpen} onOpenChange={setIsOpen}>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="relative h-8 w-8 rounded-full cursor-pointer">
+        <Button
+          variant="ghost"
+          className="relative h-8 w-8 cursor-pointer rounded-full"
+        >
           <Avatar className="h-8 w-8">
             <AvatarImage
               src={
@@ -51,20 +56,29 @@ const UserProfileButton = ({
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem onClick={() => setIsOpen(false)}>
-          <Link className="w-full" href={Routes.PROFILE}>Profile</Link>
+          <Link className="w-full" href={Routes.PROFILE}>
+            {t("profile")}
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setIsOpen(false)}>
-          <Link className="w-full" href={Routes.SETTINGS}>Settings</Link>
+          <Link className="w-full" href={Routes.SETTINGS}>
+            {t("settings")}
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setIsOpen(false)}>
-          <Link className="w-full hover:text-green-700 dark:hover:text-green-600" href={Routes.DASHBOARD}>Go to Dashboard</Link>
+          <Link
+            className="w-full hover:text-green-700 dark:hover:text-green-600"
+            href={Routes.DASHBOARD}
+          >
+            {t("goToDashboard")}
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuItem
           className="cursor-pointer"
           variant="destructive"
           onSelect={handleSignOut}
         >
-          Log out
+          {t("logout")}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

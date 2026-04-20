@@ -751,6 +751,12 @@
     "docs": "Docs",
     "contact": "Contact"
   },
+  "UserProfileButton" : {
+    "profile": "Profile",
+    "settings": "Settings",
+    "goToDashboard": "Go to Dashboard",
+    "logout": "Log Out"
+  },
   "TotalPortfolioValueSection": {
     "cardTitle": "Total Open Positions Portfolio Value"
   },
