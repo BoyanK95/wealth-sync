@@ -1,12 +1,17 @@
+"use client";
+
 import { Routes } from "@/lib/constants/routes";
-import { auth } from "@/server/auth";
-import { getTranslations } from "next-intl/server";
+import { useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
 
-const NavbarLinks = async () => {
-  const t = await getTranslations("NavbarLinks");
-  const session = await auth();
+const NavbarLinks = () => {
+  const t = useTranslations("NavbarLinks");
+  const { data: session } = useSession();
+  const pathname = usePathname();
+  const isDashboard = pathname.startsWith("/dashboard");
 
   return (
     <div className="hidden items-center space-x-6 md:flex">
@@ -28,9 +33,9 @@ const NavbarLinks = async () => {
       >
         {t("pricing")}
       </Link>
-      {session?.user && (
+      {session?.user && !isDashboard && (
         <Link
-          className="text-muted-foreground text-xl hover:shadow w-full hover:text-green-700 dark:hover:text-green-600"
+          className="text-muted-foreground w-full text-xl hover:text-green-700 hover:shadow dark:hover:text-green-600"
           href={Routes.DASHBOARD}
         >
           {t("goToDashboard")}
