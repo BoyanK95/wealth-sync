@@ -750,7 +750,8 @@
     "integrations": "Интеграции",
     "pricing": "Цени",
     "docs": "Документация",
-    "contact": "Contact"
+    "contact": "Contact",
+    "goToDashboard": "Към таблото"
   },
   "UserProfileButton": {
     "profile": "Профил",
