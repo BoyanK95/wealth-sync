@@ -749,9 +749,10 @@
     "integrations": "Integrations",
     "pricing": "Pricing",
     "docs": "Docs",
-    "contact": "Contact"
+    "contact": "Contact",
+    "goToDashboard": "Dashboard"
   },
-  "UserProfileButton" : {
+  "UserProfileButton": {
     "profile": "Profile",
     "settings": "Settings",
     "goToDashboard": "Go to Dashboard",
