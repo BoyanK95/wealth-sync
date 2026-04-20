@@ -1,3 +1,5 @@
+'use client";';
+
 import {
   Card,
   CardContent,
@@ -10,18 +12,21 @@ import { ArrowDown, ArrowUp, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { Routes } from "@/lib/constants/routes";
 import { recentTransactions } from "@/lib/mockData/mockData";
+import { useTranslations } from "next-intl";
 
 const RecentTransactionsTab = () => {
+  const t = useTranslations("RecentTransactionsTab");
+
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between">
         <div>
-          <CardTitle>Recent Transactions</CardTitle>
-          <CardDescription>Your latest investment activities</CardDescription>
+          <CardTitle>{t("title")}</CardTitle>
+          <CardDescription>{t("description")}</CardDescription>
         </div>
         <Button variant="ghost" size="sm" asChild>
           <Link href={Routes.ALL_TRANSACTIONS}>
-            View All
+            {t("viewAll")}
             <ExternalLink className="ml-2 h-4 w-4" />
           </Link>
         </Button>

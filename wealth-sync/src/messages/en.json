@@ -721,6 +721,11 @@
     "description": "Advanced AI analytics and recommendations",
     "span": "Insights will appear here"
   },
+  "RecentTransactionsTab": {
+    "title": "Recent Transactions",
+    "description": "Your latest investment activities",
+    "viewAll": "View All Transactions"
+  },
   "ContainerCardErrorState": {
     "title": "Failed to load data",
     "RetryBtn": "Retry"
