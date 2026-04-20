@@ -696,6 +696,32 @@
     "availablePlatforms": "Достъпни платформи",
     "preferedPlatforms": "Моля, изберете вашата предпочитана платформа и кликнете върху нея, за да я свържете."
   },
+  "DashboardTabs": {
+    "overview": "Преглед",
+    "assets": "Активи",
+    "transactions": "Транзакции",
+    "AIInsights": "AI анализ"
+  },
+  "PortfolioChart": {
+    "title": "Представяне на портфолиото",
+    "description": "Стойността на портфолиото във времето",
+    "span": "Графикът на портфолиото ще се появи тук"
+  },
+  "PortfolioAssetsBreakdown": {
+    "title": "Вашите Активи",
+    "description": "Разпределение на активите",
+    "span": "Таблица с всички активи ще се появи тук"
+  },
+  "PortfolioTransactionHistory": {
+    "title": "История на транзакциите",
+    "description": "История на вашите транзакции на едно място",
+    "span": "Таблица с всички транзакции ще се появи тук"
+  },
+  "PortfolioAiAnalytics": {
+    "title": "AI анализи и препоръки",
+    "description": "Препоръки за оптимизиране на портфолиото от AI",
+    "span": "Анализите ще се появи тук"
+  },
   "ContainerCardErrorState": {
     "title": "Грешка при зареждане на данните",
     "RetryBtn": "Опитай отново"

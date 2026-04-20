@@ -1,3 +1,5 @@
+'use client"';
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -8,19 +10,21 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { LineChart } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 const PortfolioChart = () => {
+  const t = useTranslations("PortfolioChart");
+
   return (
     <Card className="lg:col-span-4">
       <CardHeader>
-        <CardTitle>Portfolio Performance</CardTitle>
-        <CardDescription>Your portfolio value over time</CardDescription>
+        <CardTitle>{t("title")}</CardTitle>
+        <CardDescription>{t("description")}</CardDescription>
       </CardHeader>
       <CardContent className="bg-muted/20 flex h-[300px] w-full items-center justify-center">
         <LineChart className="text-muted h-8 w-8" />
-        <span className="text-muted ml-2">
-          Portfolio chart will appear here
-        </span>
+        {/* TODO create portfolio chart component with real data */}
+        <span className="text-muted ml-2">{t("span")}</span>
       </CardContent>
       <CardFooter className="flex justify-between">
         <Button variant="outline" size="sm">

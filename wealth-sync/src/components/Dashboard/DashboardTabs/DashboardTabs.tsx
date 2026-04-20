@@ -1,3 +1,5 @@
+'use client";'
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ConnectedPlatformsTab from "./ConnectedPlatformsTab";
 import PortfolioChart from "./PortfolioChart";
@@ -5,8 +7,11 @@ import PortfolioAssetAllocation from "./PortfolioAssetAllocation";
 import PortfolioAssetsBreakdown from "./PortfolioAssetsBreakdown";
 import PortfolioTransactionHistory from "./PortfolioTransactionHistory";
 import PortfolioAiAnalytics from "./PortfolioAiAnalytics";
+import { useTranslations } from "next-intl";
 
 const DashboardTabs = () => {
+  const t = useTranslations("DashboardTabs");
+
   return (
     <Tabs defaultValue="overview" className="space-y-4">
       <TabsList>
@@ -14,25 +19,25 @@ const DashboardTabs = () => {
           className="cursor-pointer hover:text-green-700 hover:dark:text-white"
           value="overview"
         >
-          Overview
+          {t("overview")}
         </TabsTrigger>
         <TabsTrigger
           className="cursor-pointer hover:text-green-700 hover:dark:text-white"
           value="assets"
         >
-          Assets
+          {t("assets")}
         </TabsTrigger>
         <TabsTrigger
           className="cursor-pointer hover:text-green-700 hover:dark:text-white"
           value="transactions"
         >
-          Transactions
+          {t("transactions")}
         </TabsTrigger>
         <TabsTrigger
           className="cursor-pointer hover:text-green-700 hover:dark:text-white"
           value="insights"
         >
-          AI Insights
+          {t("AIInsights")}
         </TabsTrigger>
       </TabsList>
 

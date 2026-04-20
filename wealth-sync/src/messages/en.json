@@ -695,6 +695,32 @@
     "availablePlatforms": "Available Platforms",
     "preferedPlatforms": "Please choose your preferred platform and click it to connect."
   },
+  "DashboardTabs": {
+    "overview": "Overview",
+    "assets": "Assets",
+    "transactions": "Transactions",
+    "AIInsights": "AI Insights"
+  },
+  "PortfolioChart": {
+    "title": "Portfolio Performance",
+    "description": "Your portfolio value over time",
+    "span": "Portfolio chart will appear here"
+  },
+  "PortfolioAssetsBreakdown": {
+    "title": "Your Assets",
+    "description": "Complete breakdown of all your investments",
+    "span": "Assets table will appear here"
+  },
+  "PortfolioTransactionHistory": {
+    "title": "Transaction History",
+    "description": "Complete history of your investment activities",
+    "span": "Transactions table will appear here"
+  },
+  "PortfolioAiAnalytics": {
+    "title": "AI Insights",
+    "description": "Advanced AI analytics and recommendations",
+    "span": "Insights will appear here"
+  },
   "ContainerCardErrorState": {
     "title": "Failed to load data",
     "RetryBtn": "Retry"
