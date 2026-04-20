@@ -679,6 +679,16 @@
   "AllPortfolioSummary": {
     "title": "Portfolio Summary"
   },
+  "ConnectedPlatformsSection": {
+    "title": "Connected Platforms",
+    "description": "of {platformCount} available integrations"
+  },
+  "TopPerformingAssetSection": {
+    "title": "Top Performing Asset"
+  },
+  "MonthlyChangeSection": {
+    "title": "Monthly Change"
+  },
   "NoPlatformsConnected": {
     "title": "No Platforms Connected",
     "description": "You haven't connected any trading platforms yet. Connect your platforms to start tracking your portfolio performance in one place.",
@@ -702,6 +712,9 @@
     "pricing": "Pricing",
     "docs": "Docs",
     "contact": "Contact"
+  },
+  "TotalPortfolioValueSection": {
+    "cardTitle": "Total Open Positions Portfolio Value"
   },
   "ShowMoreButton": {
     "showMore": "Show {remainingCount} more",

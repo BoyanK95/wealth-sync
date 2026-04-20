@@ -3,6 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { IPortfolioData } from "@/lib/hooks/usePortfolioSummary";
 import { ArrowDown, ArrowUp, DollarSign } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export const TotalPortfolioValueSection = ({
   showStats,
@@ -11,13 +12,14 @@ export const TotalPortfolioValueSection = ({
   showStats: boolean;
   portfolioData: IPortfolioData;
 }) => {
+  const t = useTranslations("TotalPortfolioValueSection");
   const { totalValue, totalChange, totalChangePercent } = portfolioData;
 
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-sm font-medium">
-          Total Open Positions Portfolio Value
+          {t("cardTitle")}
         </CardTitle>
         <DollarSign className="text-muted-foreground h-4 w-4" />
       </CardHeader>
@@ -28,7 +30,7 @@ export const TotalPortfolioValueSection = ({
               {totalValue ? totalValue.toLocaleString() : "0.00"}
             </div>
             <div className="flex items-center pt-1">
-              {totalChange && totalChange > 0 ? (
+              {totalChange > 0 ? (
                 <ArrowUp className="mr-1 h-4 w-4 text-green-700" />
               ) : (
                 <ArrowDown className="mr-1 h-4 w-4 text-red-700" />

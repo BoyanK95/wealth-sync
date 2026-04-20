@@ -3,6 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { IBestPerformingAsset } from "@/lib/hooks/usePortfolioSummary";
 import { ArrowDown, ArrowUp, LineChart } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export const TopPerformingAssetSection = ({
   showStats,
@@ -11,15 +12,14 @@ export const TopPerformingAssetSection = ({
   showStats: boolean;
   bestPerformingAsset: IBestPerformingAsset | null;
 }) => {
+  const t = useTranslations("TopPerformingAssetSection");
   const { ticker, percentageChange: bestPerformerChange } =
     bestPerformingAsset ?? {};
 
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium">
-          Top Performing Asset
-        </CardTitle>
+        <CardTitle className="text-sm font-medium">{t("title")}</CardTitle>
         <LineChart className="text-muted-foreground h-4 w-4" />
       </CardHeader>
       <CardContent>

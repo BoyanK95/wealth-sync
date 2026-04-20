@@ -679,6 +679,17 @@
   "AllPortfolioSummary": {
     "title": "Общ преглед на портфолиото"
   },
+  "ConnectedPlatformsSection": {
+    "title": "Свързани платформи",
+    "description": "на {platformCount} налични интеграции"
+  },
+  "TopPerformingAssetSection": {
+    "title": "Най-добър актив"
+  },
+
+  "MonthlyChangeSection": {
+    "title": "Промяна за месеца"
+  },
   "NoPlatformsConnected": {
     "title": "Няма свързани платформи",
     "description": "Свържи поне една платформа, за да видиш обобщението на портфолиото си.",
@@ -702,6 +713,9 @@
     "pricing": "Цени",
     "docs": "Документация",
     "contact": "Contact"
+  },
+  "TotalPortfolioValueSection": {
+    "cardTitle": "Обща стойност на отворените позиции"
   },
   "ShowMoreButton": {
     "showMore": "Покажи останалите {remainingCount} платформи",
