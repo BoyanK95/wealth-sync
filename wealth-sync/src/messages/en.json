@@ -703,6 +703,10 @@
     "docs": "Docs",
     "contact": "Contact"
   },
+  "ShowMoreButton": {
+    "showMore": "Show {remainingCount} more",
+    "showLess": "Show less"
+  },
   "SignUpButton": {
     "signUp": "Sign Up"
   }

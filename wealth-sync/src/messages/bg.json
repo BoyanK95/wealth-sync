@@ -703,6 +703,10 @@
     "docs": "Документация",
     "contact": "Contact"
   },
+  "ShowMoreButton": {
+    "showMore": "Покажи останалите {remainingCount} платформи",
+    "showLess": "Покажи по-малко"
+  },
   "SignUpButton": {
     "signUp": "Влизане"
   }
