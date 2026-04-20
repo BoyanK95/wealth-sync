@@ -722,6 +722,12 @@
     "description": "Препоръки за оптимизиране на портфолиото от AI",
     "span": "Анализите ще се появи тук"
   },
+  "ConnectedPlatformsTab": {
+    "title": "Свързани платформи",
+    "description": "Управляване на свързаните ви борси и брокерства",
+    "syncedButton": "Свързан",
+    "connectButton": "Свържи"
+  },
   "RecentTransactionsTab": {
     "title": "Последни транзакции",
     "description": "Вашите последни инвестиционни дейности",

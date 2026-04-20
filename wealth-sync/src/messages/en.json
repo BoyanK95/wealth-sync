@@ -721,6 +721,12 @@
     "description": "Advanced AI analytics and recommendations",
     "span": "Insights will appear here"
   },
+  "ConnectedPlatformsTab": {
+    "title": "Connected Platforms",
+    "description": "Manage your connected exchanges and brokerages",
+    "syncedButton": "Synced",
+    "connectButton": "Connect"
+  },
   "RecentTransactionsTab": {
     "title": "Recent Transactions",
     "description": "Your latest investment activities",
