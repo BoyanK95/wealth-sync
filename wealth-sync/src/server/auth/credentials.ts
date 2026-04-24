@@ -1,6 +1,5 @@
-import bcrypt from "bcryptjs"; // Import the entire bcryptjs package
 import type { CredentialsConfig } from "next-auth/providers/credentials";
-import { db } from "../db";
+import { validateUser } from "./validateUser";
 
 export const credentialsConfig: CredentialsConfig = {
   name: "credentials",
@@ -13,22 +12,12 @@ export const credentialsConfig: CredentialsConfig = {
       return null;
     }
 
-    const user = await db.user.findUnique({
-      where: { email: credentials.email as string },
-    });
-
-    if (!user?.password) {
-      return null;
-    }
-
-    const isPasswordValid = await bcrypt.compare(
+    const user = await validateUser(
+      credentials.email as string,
       credentials.password as string,
-      user.password,
     );
 
-    if (!isPasswordValid) {
-      return null;
-    }
+    if (!user) return null;
 
     return {
       id: user.id,
