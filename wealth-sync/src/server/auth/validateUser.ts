@@ -6,11 +6,14 @@ export async function validateUser(email: string, password: string) {
     where: { email },
   });
 
-  if (!user?.password) return null;
+  if (!user?.password) throw new Error('User does not have a password!');
 
-  const isPasswordValid = await bcrypt.compare(password, user.password);
-
-  if (!isPasswordValid) return null;
+  try {
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) throw new Error('Password is invalid!');
+  } catch (error) {
+    throw new Error(error as string);
+  }
 
   return user;
 }
