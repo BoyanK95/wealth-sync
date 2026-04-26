@@ -1,7 +1,7 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { type DefaultSession, type NextAuthConfig } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import DiscordProvider from "next-auth/providers/discord";
+// import DiscordProvider from "next-auth/providers/discord";
 import Facebook from "next-auth/providers/facebook";
 import Google from "next-auth/providers/google";
 import GitHub from "next-auth/providers/github";
@@ -80,7 +80,7 @@ export const authConfig = {
         };
       },
     }),
-    DiscordProvider,
+    // DiscordProvider,
     Facebook({
       clientId: process.env.FACEBOOK_CLIENT_ID,
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
