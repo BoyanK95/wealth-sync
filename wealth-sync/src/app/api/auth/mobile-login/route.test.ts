@@ -26,6 +26,7 @@ import { NextResponse } from "next/server";
 
 const mockValidateUser = vi.mocked(validateUser);
 const mockSign = vi.mocked(sign);
+// eslint-disable-next-line @typescript-eslint/unbound-method
 const mockNextResponseJson = vi.mocked(NextResponse.json);
 
 function makeRequest(body: unknown): Request {

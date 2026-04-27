@@ -37,10 +37,14 @@ import bcrypt from "bcryptjs";
 import { sign } from "jsonwebtoken";
 import { NextResponse } from "next/server";
 
+// eslint-disable-next-line @typescript-eslint/unbound-method
 const mockFindUnique = vi.mocked(db.user.findUnique);
+// eslint-disable-next-line @typescript-eslint/unbound-method
 const mockCreate = vi.mocked(db.user.create);
 const mockBcryptHash = vi.mocked(bcrypt.hash);
+// eslint-disable-next-line @typescript-eslint/unbound-method
 const mockSign = vi.mocked(sign);
+// eslint-disable-next-line @typescript-eslint/unbound-method
 const mockNextResponseJson = vi.mocked(NextResponse.json);
 
 function makeRequest(body: unknown): Request {
