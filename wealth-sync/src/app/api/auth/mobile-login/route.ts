@@ -1,30 +1,38 @@
 import { validateUser } from "@/server/auth/validateUser";
 import { sign } from "jsonwebtoken";
+import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   const { email, password } = await req.json();
 
   if (!email || !password) {
-    return new Response("Missing credentials", { status: 400 });
+    return NextResponse.json({ error: "Missing credentials" }, { status: 400 });
   }
 
   const user = await validateUser(email, password);
 
   if (!user) {
-    return new Response("Invalid credentials", { status: 401 });
+    return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
   }
 
-  const accessToken = sign({ userId: user.id }, process.env.JWT_SECRET!, {
+  if (!process.env.JWT_SECRET || !process.env.JWT_REFRESH_SECRET) {
+    return NextResponse.json(
+      { error: "Server misconfiguration" },
+      { status: 500 },
+    );
+  }
+
+  const accessToken = sign({ userId: user.id }, process.env.JWT_SECRET, {
     expiresIn: "15m",
   });
 
   const refreshToken = sign(
     { userId: user.id },
-    process.env.JWT_REFRESH_SECRET!,
+    process.env.JWT_REFRESH_SECRET,
     { expiresIn: "7d" },
   );
 
-  return Response.json({
+  return NextResponse.json({
     accessToken,
     refreshToken,
     user: {
