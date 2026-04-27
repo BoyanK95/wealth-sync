@@ -5,11 +5,22 @@ import { db } from "@/server/db";
 
 export async function POST(req: Request) {
   try {
-    const {
-      email,
-      password,
-      name,
-    }: { email: string; password: string; name?: string } = await req.json();
+    let payload: unknown;
+    try {
+      payload = await req.json();
+    } catch (error) {
+      return NextResponse.json(
+        {
+          error: `Invalid JSON payload: ${error instanceof Error ? error.message : "Unknown error"}`,
+        },
+        { status: 400 },
+      );
+    }
+    const { email, password, name } = payload as {
+      email: string;
+      password: string;
+      name?: string;
+    };
 
     if (!email || !password) {
       return NextResponse.json(
@@ -59,7 +70,6 @@ export async function POST(req: Request) {
       },
     });
 
-    // Check for required environment variables
     if (!process.env.JWT_SECRET || !process.env.JWT_REFRESH_SECRET) {
       return NextResponse.json(
         { error: "Server misconfiguration" },
@@ -67,7 +77,6 @@ export async function POST(req: Request) {
       );
     }
 
-    // Generate tokens
     const accessToken = sign({ userId: user.id }, process.env.JWT_SECRET, {
       expiresIn: "15m",
     });
