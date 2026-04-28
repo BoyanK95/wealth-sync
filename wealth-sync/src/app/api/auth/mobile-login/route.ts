@@ -3,7 +3,10 @@ import { sign } from "jsonwebtoken";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
-  const { email, password } = await req.json();
+  const { email, password } = (await req.json()) as {
+    email: string;
+    password: string;
+  };
 
   if (!email || !password) {
     return NextResponse.json({ error: "Missing credentials" }, { status: 400 });
