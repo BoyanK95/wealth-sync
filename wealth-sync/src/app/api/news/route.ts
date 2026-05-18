@@ -8,6 +8,10 @@ export async function GET(request: Request) {
   const url = new URL(request.url);
   const query = url.searchParams.get("query")?.trim();
 
+   if (!API_KEY) {
+    return NextResponse.json({ error: "Missing API key" }, { status: 500 });
+  }
+
   if (!query) {
     return NextResponse.json({ error: "Query is required" }, { status: 400 });
   }
@@ -30,8 +34,7 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: "Asset not found" }, { status: 404 });
     }
 
-    const symbol = searchData.result[0].symbol;
-    console.log("SearchData", searchData);
+    const symbol = searchData.result[0]!.symbol;
 
     // Fetch profile, quote, and news in parallel
     const [profileRes, quoteRes, newsRes] = await Promise.all([
