@@ -681,6 +681,9 @@
       "title": "Информация за актива",
       "currentPrice": "Текуща цена",
       "ipoDate": "Дата на IPO"
+    },
+    "NewsResults": {
+      "latestNews": "Последни новини"
     }
   },
   "DashboardWelcomeHeader": {

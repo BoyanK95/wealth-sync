@@ -1,6 +1,8 @@
-import React from "react";
+'use client"';
+
 import { Card, CardDescription, CardHeader, CardTitle } from "../ui/card";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 export default function NewsResults({
   result,
@@ -14,9 +16,11 @@ export default function NewsResults({
     }>;
   };
 }) {
+  const t = useTranslations("NewsPage.NewsResults");
+
   return (
     <div className="rounded-3xl border border-gray-200 bg-white/80 p-6 shadow-sm dark:border-gray-700 dark:bg-slate-900/80">
-      <h3 className="text-lg font-semibold">Latest news</h3>
+      <h3 className="text-lg font-semibold">{t("latestNews")}</h3>
       <ul className="mt-4 space-y-4">
         {result.news.map((item, index) => (
           <Link href={item.url} target="_blank" rel="noreferrer" key={index}>

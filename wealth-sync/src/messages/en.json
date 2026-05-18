@@ -680,6 +680,9 @@
       "title": "Asset Information",
       "currentPrice": "Current Price",
       "ipoDate": "IPO Date"
+    },
+    "NewsResults": {
+      "latestNews": "Latest News"
     }
   },
   "DashboardWelcomeHeader": {
