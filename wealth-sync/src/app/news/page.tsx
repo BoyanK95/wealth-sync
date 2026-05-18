@@ -1,3 +1,4 @@
+import NewsPageComponent from "@/components/NewsPageComponents/NewsPageComponent";
 import { type Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -6,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function NewsPage() {
-  return <div>page</div>;
+  return <NewsPageComponent />;
 }
