@@ -8,7 +8,7 @@ export async function GET(request: Request) {
   const url = new URL(request.url);
   const query = url.searchParams.get("query")?.trim();
 
-   if (!API_KEY) {
+  if (!API_KEY) {
     return NextResponse.json({ error: "Missing API key" }, { status: 500 });
   }
 
@@ -76,12 +76,16 @@ export async function GET(request: Request) {
         t?: number;
       }>,
       newsRes.json() as Promise<
-        Array<{ headline: string; source: string; url: string }>
+        Array<{
+          headline: string;
+          datetime: number;
+          source: string;
+          url: string;
+        }>
       >,
     ]);
 
-    console.log('QuoteData', quoteData);
-    // console.log('NewsData', newsData);
+    console.log("NewsData", newsData);
 
     return NextResponse.json({
       symbol,
@@ -97,7 +101,9 @@ export async function GET(request: Request) {
       news: Array.isArray(newsData)
         ? newsData.slice(0, 5).map((item) => ({
             headline: item.headline,
+            datetime: item.datetime,
             source: item.source,
+            datetimer: new Date(item.datetime * 1000).toISOString(),
             url: item.url,
           }))
         : [],

@@ -6,7 +6,7 @@ export type TickerInfoType = {
   logo: string;
   marketCapitalization: string;
   description?: string;
-  news: Array<{ headline: string; source: string; url: string }>;
+  news: Array<{ headline: string; source: string; url: string; datetime: number }>;
   quote?: {
     c?: number; // Current price
     d?: number; // Change
