@@ -8,6 +8,8 @@ import NoNewsResult from "./NoNewsResult";
 import type { TickerInfoType } from "./types";
 import TickerInfoComponent from "./TickerInfoComponent";
 import { useTranslations } from "next-intl";
+import LoadingCard from "../Common/LoadingCard";
+// import LoadingNewsCard from "./LoadingCard";
 
 export default function NewsPage() {
   const t = useTranslations("NewsPage");
@@ -69,7 +71,7 @@ export default function NewsPage() {
 
         {error && <p className="text-destructive mt-4 text-sm">{error}</p>}
       </div>
-
+      {loading && <LoadingCard />}
       {result && (
         <div className="space-y-6">
           <TickerInfoComponent result={result} />

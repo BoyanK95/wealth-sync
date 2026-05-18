@@ -1,7 +1,6 @@
 import React from "react";
 import { Card, CardDescription, CardHeader, CardTitle } from "../ui/card";
 import Link from "next/link";
-import Image from "next/image";
 
 export default function NewsResults({
   result,
