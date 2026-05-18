@@ -675,7 +675,12 @@
     "description": "Enter a ticker symbol or company name to get a quick summary and the latest news for that asset.",
     "searchPlaceholder": "Search for a ticker or company name",
     "search": "Search",
-    "searching": "Searching..."
+    "searching": "Searching...",
+    "TickerInfo": {
+      "title": "Asset Information",
+      "currentPrice": "Current Price",
+      "ipoDate": "IPO Date"
+    }
   },
   "DashboardWelcomeHeader": {
     "welcome": "Welcome back, {name}!",

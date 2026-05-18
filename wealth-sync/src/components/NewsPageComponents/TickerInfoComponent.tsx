@@ -1,25 +1,26 @@
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+'use client";';
+
 import {
   Card,
-  CardAction,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import type { TickerInfoType } from "./types";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 export default function TickerInfoComponent({
   result,
 }: {
   result: TickerInfoType;
 }) {
+  const t = useTranslations("NewsPage.TickerInfo");
+
   return (
     <Card className="rounded-3xl border border-gray-200 bg-white/80 p-6 shadow-sm dark:border-gray-700 dark:bg-slate-900/80">
       <CardHeader className="text-xl font-semibold">
-        {result.name ?? result.symbol ?? "Asset info"}
+        <CardTitle>{result.name ?? result.symbol ?? "Asset info"}</CardTitle>
         {result.logo && (
           <Image
             src={result.logo ?? "/default-image.png"}
@@ -34,12 +35,12 @@ export default function TickerInfoComponent({
         {result.description ?? "No description available."}
         {result.price && (
           <p className="mt-4 text-lg font-medium">
-            Current price: {result.price}
+            {t("currentPrice")}: {result.price}
           </p>
         )}
         {result.ipo && (
           <p className="mt-2 text-sm text-slate-500">
-            IPO Date: {new Date(result.ipo).toLocaleDateString()}
+            {t("ipoDate")}: {new Date(result.ipo).toLocaleDateString()}
           </p>
         )}
       </CardDescription>

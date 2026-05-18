@@ -11,6 +11,7 @@ import { useTranslations } from "next-intl";
 
 export default function NewsPage() {
   const t = useTranslations("NewsPage");
+
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
