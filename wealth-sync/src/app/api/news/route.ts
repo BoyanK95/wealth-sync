@@ -85,7 +85,6 @@ export async function GET(request: Request) {
       >,
     ]);
 
-    console.log("NewsData", newsData);
 
     return NextResponse.json({
       symbol,
@@ -99,7 +98,7 @@ export async function GET(request: Request) {
         : undefined,
       quote: quoteData,
       news: Array.isArray(newsData)
-        ? newsData.slice(0, 5).map((item) => ({
+        ? newsData.slice(0, 10).map((item) => ({
             headline: item.headline,
             datetime: item.datetime,
             source: item.source,
