@@ -5,26 +5,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import NewsResults from "./NewsResults";
 import NoNewsResult from "./NoNewsResult";
-
-interface NewsType {
-  symbol?: string;
-  name?: string;
-  price?: string;
-  description?: string;
-  news: Array<{ headline: string; source: string; url: string }>;
-}
+import type { TickerInfoType } from "./types";
+import TickerInfoComponent from "./TickerInfoComponent";
 
 export default function NewsPage() {
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [result, setResult] = useState<{
-    symbol?: string;
-    name?: string;
-    price?: string;
-    description?: string;
-    news?: Array<{ headline: string; source: string; url: string }>;
-  } | null>(null);
+  const [result, setResult] = useState<TickerInfoType | null>(null);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -84,22 +72,10 @@ export default function NewsPage() {
 
       {result && (
         <div className="space-y-6">
-          <div className="rounded-3xl border border-gray-200 bg-white/80 p-6 shadow-sm dark:border-gray-700 dark:bg-slate-900/80">
-            <h2 className="text-xl font-semibold">
-              {result.name ?? result.symbol ?? "Asset info"}
-            </h2>
-            <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
-              {result.description ?? "No description available."}
-            </p>
-            {result.price && (
-              <p className="mt-4 text-lg font-medium">
-                Current price: {result.price}
-              </p>
-            )}
-          </div>
+          <TickerInfoComponent result={result} />
 
           {result.news?.length ? (
-            <NewsResults result={result as NewsType} />
+            <NewsResults result={result} />
           ) : (
             <NoNewsResult />
           )}
