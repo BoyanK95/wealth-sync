@@ -52,6 +52,8 @@ export default function NewsPage() {
     }
   }
 
+  console.log("Result", result);
+
   return (
     <div className="mx-auto max-w-4xl px-4 py-10">
       <div className="mb-8 rounded-3xl border border-gray-200 bg-white/80 p-8 shadow-sm dark:border-gray-700 dark:bg-slate-900/80">

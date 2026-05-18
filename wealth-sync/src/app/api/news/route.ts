@@ -61,6 +61,9 @@ export async function GET(request: Request) {
         name?: string;
         finnhubIndustry?: string;
         exchange?: string;
+        logo?: string;
+        ipo?: string;
+        marketCapitalization?: number;
       }>,
       quoteRes.json() as Promise<{ c?: number }>,
       newsRes.json() as Promise<
@@ -68,11 +71,20 @@ export async function GET(request: Request) {
       >,
     ]);
 
+    console.log('ProfileData', profileData);
+    // console.log('QuoteData', quoteData);
+    // console.log('NewsData', newsData);
+
     return NextResponse.json({
       symbol,
       name: profileData.name,
       description: profileData.finnhubIndustry ?? profileData.exchange,
       price: quoteData.c ? `$${quoteData.c}` : undefined,
+      logo: profileData.logo,
+      ipo: profileData.ipo,
+      marketCapitalization: profileData.marketCapitalization
+        ? `$${(profileData.marketCapitalization / 1e9).toFixed(2)}B`
+        : undefined,
       news: Array.isArray(newsData)
         ? newsData.slice(0, 5).map((item) => ({
             headline: item.headline,
