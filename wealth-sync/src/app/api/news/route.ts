@@ -65,14 +65,22 @@ export async function GET(request: Request) {
         ipo?: string;
         marketCapitalization?: number;
       }>,
-      quoteRes.json() as Promise<{ c?: number }>,
+      quoteRes.json() as Promise<{
+        c?: number;
+        d?: number;
+        dp?: number;
+        h?: number;
+        l?: number;
+        o?: number;
+        pc?: number;
+        t?: number;
+      }>,
       newsRes.json() as Promise<
         Array<{ headline: string; source: string; url: string }>
       >,
     ]);
 
-    console.log('ProfileData', profileData);
-    // console.log('QuoteData', quoteData);
+    console.log('QuoteData', quoteData);
     // console.log('NewsData', newsData);
 
     return NextResponse.json({
@@ -85,6 +93,7 @@ export async function GET(request: Request) {
       marketCapitalization: profileData.marketCapitalization
         ? `$${(profileData.marketCapitalization / 1e9).toFixed(2)}B`
         : undefined,
+      quote: quoteData,
       news: Array.isArray(newsData)
         ? newsData.slice(0, 5).map((item) => ({
             headline: item.headline,
