@@ -670,6 +670,13 @@
       }
     }
   },
+  "NewsPage": {
+    "title": "Search market news and asset information",
+    "description": "Enter a ticker symbol or company name to get a quick summary and the latest news for that asset.",
+    "searchPlaceholder": "Search for a ticker or company name",
+    "search": "Search",
+    "searching": "Searching..."
+  },
   "DashboardWelcomeHeader": {
     "welcome": "Welcome back, {name}!",
     "description": "Here's a quick overview of your portfolio performance across all your connected platforms as of",

@@ -7,8 +7,10 @@ import NewsResults from "./NewsResults";
 import NoNewsResult from "./NoNewsResult";
 import type { TickerInfoType } from "./types";
 import TickerInfoComponent from "./TickerInfoComponent";
+import { useTranslations } from "next-intl";
 
 export default function NewsPage() {
+  const t = useTranslations("NewsPage");
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -45,12 +47,9 @@ export default function NewsPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-10">
       <div className="mb-8 rounded-3xl border border-gray-200 bg-white/80 p-8 shadow-sm dark:border-gray-700 dark:bg-slate-900/80">
-        <h1 className="text-3xl font-semibold">
-          Search market news and asset information
-        </h1>
+        <h1 className="text-3xl font-semibold">{t("title")}</h1>
         <p className="mt-3 text-sm text-slate-600 dark:text-slate-400">
-          Enter a ticker symbol or company name to get a quick summary and the
-          latest news for that asset.
+          {t("description")}
         </p>
 
         <form
@@ -58,12 +57,12 @@ export default function NewsPage() {
           className="mt-6 flex flex-col gap-4 sm:flex-row"
         >
           <Input
-            placeholder="e.g. AAPL or Apple"
+            placeholder={t("searchPlaceholder")}
             value={query}
             onChange={(event) => setQuery(event.target.value)}
           />
           <Button type="submit" disabled={loading}>
-            {loading ? "Searching…" : "Search"}
+            {loading ? t("searching") : t("search")}
           </Button>
         </form>
 
