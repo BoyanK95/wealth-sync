@@ -234,6 +234,11 @@
     "@babel/helper-skip-transparent-expression-wrappers" "^7.27.1"
     "@babel/plugin-syntax-typescript" "^7.27.1"
 
+"@babel/runtime@^7.27.6":
+  version "7.29.2"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.29.2.tgz#9a6e2d05f4b6692e1801cd4fb176ad823930ed5e"
+  integrity sha512-JiDShH45zKHWyGe4ZNVRrCjBz8Nh9TMmZG1kh4QTK8hCBTWBi8Da+i7s1fJw7/lYpM4ccepSNfqzZ/QvABBi5g==
+
 "@babel/template@^7.27.2":
   version "7.27.2"
   resolved "https://registry.npmjs.org/@babel/template/-/template-7.27.2.tgz"
@@ -3504,6 +3509,15 @@ find-up@^5.0.0:
   dependencies:
     locate-path "^6.0.0"
     path-exists "^4.0.0"
+
+finnhub@^2.0.13, finnhub@^2.0.14:
+  version "2.0.14"
+  resolved "https://registry.yarnpkg.com/finnhub/-/finnhub-2.0.14.tgz#5ac9873a745e78f03da0236407c18637162f6956"
+  integrity sha512-0PYQGfeWHkGUTu5vxQv5310tQh1O3DMwS/v6uscQZPkTtICnvR1K9ZWenfWNs82Ty7z2pWHJRR9aEzFw1Vtunw==
+  dependencies:
+    "@babel/runtime" "^7.27.6"
+    finnhub "^2.0.13"
+    node-fetch "^3.3.2"
 
 flat-cache@^4.0.0:
   version "4.0.1"
