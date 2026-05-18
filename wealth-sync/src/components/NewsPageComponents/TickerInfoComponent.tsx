@@ -1,5 +1,15 @@
-import React from "react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardAction,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import type { TickerInfoType } from "./types";
+import Image from "next/image";
 
 export default function TickerInfoComponent({
   result,
@@ -7,18 +17,40 @@ export default function TickerInfoComponent({
   result: TickerInfoType;
 }) {
   return (
-    <div className="rounded-3xl border border-gray-200 bg-white/80 p-6 shadow-sm dark:border-gray-700 dark:bg-slate-900/80">
-      <h2 className="text-xl font-semibold">
+    <Card className="rounded-3xl border border-gray-200 bg-white/80 p-6 shadow-sm dark:border-gray-700 dark:bg-slate-900/80">
+      <CardHeader className="text-xl font-semibold">
         {result.name ?? result.symbol ?? "Asset info"}
-      </h2>
-      <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+        {result.logo && (
+          <Image
+            src={result.logo ?? "/default-image.png"}
+            alt={result.name ?? result.symbol ?? "Asset image"}
+            width={64}
+            height={64}
+            className="ml-4 rounded-full"
+          />
+        )}
+      </CardHeader>
+      <CardAction>
+        <Badge variant="secondary">Featured</Badge>
+      </CardAction>
+      <CardDescription className="mt-2 text-sm text-slate-600 dark:text-slate-400">
         {result.description ?? "No description available."}
-      </p>
-      {result.price && (
-        <p className="mt-4 text-lg font-medium">
-          Current price: {result.price}
-        </p>
-      )}
-    </div>
+        {result.price && (
+          <p className="mt-4 text-lg font-medium">
+            Current price: {result.price}
+          </p>
+        )}
+        {result.marketCapitalization && (
+          <p className="mt-2 text-lg text-slate-500">
+            Market Cap: {result.marketCapitalization}
+          </p>
+        )}
+        {result.ipo && (
+          <p className="mt-2 text-sm text-slate-500">
+            IPO Date: {new Date(result.ipo).toLocaleDateString()}
+          </p>
+        )}
+      </CardDescription>
+    </Card>
   );
 }

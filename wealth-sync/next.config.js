@@ -22,6 +22,11 @@ const config = {
         hostname: "platform-lookaside.fbsbx.com",
         pathname: "**",
       },
+      {
+        protocol: "https",
+        hostname: "static2.finnhub.io",
+        pathname: "**",
+      },
     ],
   },
 };
