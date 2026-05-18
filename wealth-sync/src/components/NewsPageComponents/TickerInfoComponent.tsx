@@ -30,19 +30,11 @@ export default function TickerInfoComponent({
           />
         )}
       </CardHeader>
-      <CardAction>
-        <Badge variant="secondary">Featured</Badge>
-      </CardAction>
       <CardDescription className="mt-2 text-sm text-slate-600 dark:text-slate-400">
         {result.description ?? "No description available."}
         {result.price && (
           <p className="mt-4 text-lg font-medium">
             Current price: {result.price}
-          </p>
-        )}
-        {result.marketCapitalization && (
-          <p className="mt-2 text-lg text-slate-500">
-            Market Cap: {result.marketCapitalization}
           </p>
         )}
         {result.ipo && (
