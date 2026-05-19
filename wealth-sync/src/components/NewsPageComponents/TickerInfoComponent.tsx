@@ -19,7 +19,7 @@ export default function TickerInfoComponent({
 
   return (
     <Card className="rounded-3xl border border-gray-200 bg-white/80 p-6 text-center shadow-sm dark:border-gray-700 dark:bg-slate-900/80">
-      <CardHeader className="items-center justify-center text-xl font-semibold">
+      <CardHeader className="flex flex-col-reverse items-center justify-center text-xl font-semibold">
         <CardTitle>{result.name ?? result.symbol ?? t("title")}</CardTitle>
         {result.logo && (
           <Image
