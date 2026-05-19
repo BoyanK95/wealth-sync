@@ -18,8 +18,8 @@ export default function TickerInfoComponent({
   const t = useTranslations("NewsPage.TickerInfo");
 
   return (
-    <Card className="rounded-3xl border border-gray-200 bg-white/80 p-6 shadow-sm dark:border-gray-700 dark:bg-slate-900/80">
-      <CardHeader className="text-xl font-semibold">
+    <Card className="rounded-3xl border border-gray-200 bg-white/80 p-6 text-center shadow-sm dark:border-gray-700 dark:bg-slate-900/80">
+      <CardHeader className="items-center justify-center text-xl font-semibold">
         <CardTitle>{result.name ?? result.symbol ?? t("title")}</CardTitle>
         {result.logo && (
           <Image
@@ -27,12 +27,12 @@ export default function TickerInfoComponent({
             alt={result.name ?? result.symbol ?? t("assetLogo")}
             width={64}
             height={64}
-            className="ml-4 rounded-full"
+            className="m-4 rounded-full bg-gray-100 object-contain dark:bg-gray-700"
           />
         )}
       </CardHeader>
-      <CardDescription className="mt-2 text-sm text-slate-600 dark:text-slate-400">
-        {result.description ?? "No description available."}
+      <CardDescription className="mt-2 text-center text-sm text-slate-600 dark:text-slate-400">
+        <p>{result.description ?? "No description available."}</p>
         {result.price && (
           <p className="mt-4 text-lg font-medium">
             {t("currentPrice")}: {result.price}

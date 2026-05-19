@@ -66,7 +66,9 @@ export default function NewsPage() {
           </Button>
         </form>
 
-        {error && <p className="text-destructive mt-4 text-sm">{error}</p>}
+        {error && (
+          <p className="text-destructive text-md mt-4 pt-3 text-center">{error}</p>
+        )}
       </div>
       {loading && <LoadingCard />}
       {result && (
