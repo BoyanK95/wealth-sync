@@ -70,19 +70,30 @@ export async function GET(request: Request) {
         d?: number;
         dp?: number;
         h?: number;
-        l?: number;
-        o?: number;
-        pc?: number;
-        t?: number;
-      }>,
-      newsRes.json() as Promise<
-        Array<{
+    const [profileData, quoteData, newsData] = await Promise.all([
+      (async () => {
+        if (!profileRes.ok) throw new Error(`Profile failed: ${profileRes.status}`);
+        return (await profileRes.json()) as {
+          name?: string;
+          finnhubIndustry?: string;
+          exchange?: string;
+          logo?: string;
+          ipo?: string;
+          marketCapitalization?: number;
+        };
+      })(),
+      (async () => {
+        if (!quoteRes.ok) throw new Error(`Quote failed: ${quoteRes.status}`);
+        return (await quoteRes.json()) as { c?: number };
+      })(),
+      (async () => {
+        if (!newsRes.ok) throw new Error(`News failed: ${newsRes.status}`);
+        return (await newsRes.json()) as Array<{
           headline: string;
-          datetime: number;
           source: string;
           url: string;
-        }>
-      >,
+        }>;
+      })(),
     ]);
 
 
