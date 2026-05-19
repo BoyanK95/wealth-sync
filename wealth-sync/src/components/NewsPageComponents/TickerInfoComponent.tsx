@@ -1,4 +1,4 @@
-'use client";';
+'use client';
 
 import {
   Card,
@@ -56,12 +56,12 @@ export default function TickerInfoComponent({
                 {result.quote.l.toFixed(2)}
               </p>
             )}
-            {result.quote.o && (
+            {result.quote.o && result.quote.o !== null && (
               <p className="text-sm text-slate-500">
                 Open: ${result.quote.o.toFixed(2)}
               </p>
             )}
-            {result.quote.pc && (
+            {result.quote.pc && result.quote.pc !== null && (
               <p className="text-sm text-slate-500">
                 Previous Close: ${result.quote.pc.toFixed(2)}
               </p>
