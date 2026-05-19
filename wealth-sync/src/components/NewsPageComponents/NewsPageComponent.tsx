@@ -9,6 +9,7 @@ import type { TickerInfoType } from "./types";
 import TickerInfoComponent from "./TickerInfoComponent";
 import { useTranslations } from "next-intl";
 import LoadingCard from "../Common/LoadingCard";
+import ErrorComponent from "./ErrorComponent";
 
 export default function NewsPage() {
   const t = useTranslations("NewsPage");
@@ -30,7 +31,9 @@ export default function NewsPage() {
       const response = await fetch(
         `/api/news?query=${encodeURIComponent(query)}`,
       );
-      const data = await response.json();
+      const data = (await response.json()) as TickerInfoType & {
+        error?: string;
+      };
 
       if (!response.ok) {
         throw new Error(data.error ?? "Failed to load asset data");
@@ -66,10 +69,9 @@ export default function NewsPage() {
           </Button>
         </form>
 
-        {error && (
-          <p className="text-destructive text-md mt-4 pt-3 text-center">{error}</p>
-        )}
+        {error && <ErrorComponent error={error} />}
       </div>
+
       {loading && <LoadingCard />}
       {result && (
         <div className="space-y-6">
