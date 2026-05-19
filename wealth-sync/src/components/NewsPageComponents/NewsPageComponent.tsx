@@ -9,7 +9,6 @@ import type { TickerInfoType } from "./types";
 import TickerInfoComponent from "./TickerInfoComponent";
 import { useTranslations } from "next-intl";
 import LoadingCard from "../Common/LoadingCard";
-// import LoadingNewsCard from "./LoadingCard";
 
 export default function NewsPage() {
   const t = useTranslations("NewsPage");
