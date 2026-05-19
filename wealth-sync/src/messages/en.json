@@ -677,8 +677,14 @@
     "search": "Search",
     "searching": "Searching...",
     "TickerInfo": {
-      "title": "Asset Information",
+      "title": "Asset Info",
+      "assetLogo": "Asset Image",
       "currentPrice": "Current Price",
+      "dailyChange": "Daily % Change",
+      "high": "High",
+      "low": "Low",
+      "open": "Open",
+      "previousClose": "Previous Close",
       "ipoDate": "IPO Date"
     },
     "NewsResults": {

@@ -679,7 +679,13 @@
     "searching": "Търсене...",
     "TickerInfo": {
       "title": "Информация за актива",
+      "assetLogo": "Картинка на актива",
       "currentPrice": "Текуща цена",
+      "dailyChange": "Промяна в % за деня",
+      "high": "Висока",
+      "low": "Ниска",
+      "open": "Отваряне",
+      "previousClose": "Цена при предишното затваряне",
       "ipoDate": "Дата на IPO"
     },
     "NewsResults": {
