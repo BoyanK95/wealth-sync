@@ -33,9 +33,15 @@ const NavbarLinks = () => {
       >
         {t("pricing")}
       </Link>
+      <Link
+        href={Routes.NEWS}
+        className="text-muted-foreground hover:text-foreground text-sm font-medium transition-colors"
+      >
+        {t("news")}
+      </Link>
       {session?.user && !isDashboard && (
         <Link
-          className="text-muted-foreground w-full text-xl hover:text-green-700 hover:shadow dark:hover:text-green-600"
+          className="text-muted-foreground w-full text-sm hover:text-lg hover:font-bold hover:text-green-700 hover:shadow dark:hover:text-green-600"
           href={Routes.DASHBOARD}
         >
           {t("goToDashboard")}

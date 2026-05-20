@@ -670,6 +670,27 @@
       }
     }
   },
+  "NewsPage": {
+    "title": "Search market news and asset information",
+    "description": "Enter a ticker symbol or company name to get a quick summary and the latest news for that asset.",
+    "searchPlaceholder": "Search for a ticker or company name",
+    "search": "Search",
+    "searching": "Searching...",
+    "TickerInfo": {
+      "title": "Asset Info",
+      "assetLogo": "Asset Image",
+      "currentPrice": "Current Price",
+      "dailyChange": "Daily % Change",
+      "high": "High",
+      "low": "Low",
+      "open": "Open",
+      "previousClose": "Previous Close",
+      "ipoDate": "IPO Date"
+    },
+    "NewsResults": {
+      "latestNews": "Latest News"
+    }
+  },
   "DashboardWelcomeHeader": {
     "welcome": "Welcome back, {name}!",
     "description": "Here's a quick overview of your portfolio performance across all your connected platforms as of",
@@ -748,6 +769,7 @@
     "features": "Features",
     "integrations": "Integrations",
     "pricing": "Pricing",
+    "news": "News",
     "docs": "Docs",
     "contact": "Contact",
     "goToDashboard": "Dashboard"

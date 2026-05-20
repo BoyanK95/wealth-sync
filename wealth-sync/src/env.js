@@ -18,6 +18,7 @@ export const env = createEnv({
     FACEBOOK_CLIENT_ID: z.string(),
     FACEBOOK_CLIENT_SECRET: z.string(),
     DATABASE_URL: z.string().url(),
+    FINNHUB_KEY: z.string(),
     NODE_ENV: z
       .enum(["development", "test", "production"])
       .default("development"),
@@ -45,6 +46,7 @@ export const env = createEnv({
     FACEBOOK_CLIENT_ID: process.env.FACEBOOK_CLIENT_ID,
     FACEBOOK_CLIENT_SECRET: process.env.FACEBOOK_CLIENT_SECRET,
     DATABASE_URL: process.env.DATABASE_URL,
+    FINNHUB_KEY: process.env.FINNHUB_KEY,
     NODE_ENV: process.env.NODE_ENV,
   },
   /**
