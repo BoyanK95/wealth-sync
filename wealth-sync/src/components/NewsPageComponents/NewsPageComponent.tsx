@@ -21,7 +21,9 @@ export default function NewsPage() {
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!query.trim()) return;
+
+    const trimmedQuery = query.trim();
+    if (!trimmedQuery) return;
 
     setLoading(true);
     setError(null);
@@ -29,7 +31,7 @@ export default function NewsPage() {
 
     try {
       const response = await fetch(
-        `/api/news?query=${encodeURIComponent(query)}`,
+        `/api/news?query=${encodeURIComponent(trimmedQuery)}`,
       );
       const data = (await response.json()) as TickerInfoType & {
         error?: string;
