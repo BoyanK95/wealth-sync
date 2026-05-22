@@ -5,13 +5,10 @@ import NewsResults from "./NewsResults";
 import NoNewsResult from "./NoNewsResult";
 import type { TickerInfoType } from "./types";
 import TickerInfoComponent from "./TickerInfoComponent";
-import { useTranslations } from "next-intl";
 import LoadingCard from "../Common/LoadingCard";
 import TickerSearchForm from "./TickerSearchForm";
 
 export default function NewsPage() {
-  const t = useTranslations("NewsPage");
-
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
