@@ -19,7 +19,7 @@ export default function NewsPage() {
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<TickerInfoType | null>(null);
 
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleTickerSearch(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const trimmedQuery = query.trim();
@@ -46,11 +46,12 @@ export default function NewsPage() {
       setError(err instanceof Error ? err.message : "Unknown error");
     } finally {
       setLoading(false);
+      setQuery("");
     }
   }
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-10 mt-13">
+    <div className="mx-auto mt-13 max-w-4xl px-4 py-10">
       <div className="mb-8 rounded-3xl border border-gray-200 bg-white/80 p-8 shadow-sm dark:border-gray-700 dark:bg-slate-900/80">
         <h1 className="text-3xl font-semibold">{t("title")}</h1>
         <p className="mt-3 text-sm text-slate-600 dark:text-slate-400">
@@ -58,7 +59,7 @@ export default function NewsPage() {
         </p>
 
         <form
-          onSubmit={handleSubmit}
+          onSubmit={handleTickerSearch}
           className="mt-6 flex flex-col gap-4 sm:flex-row"
         >
           <Input
