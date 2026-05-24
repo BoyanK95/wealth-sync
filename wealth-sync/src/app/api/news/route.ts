@@ -13,11 +13,35 @@ export async function GET(request: Request) {
   }
 
   if (!query) {
-    return NextResponse.json({ error: "Query is required" }, { status: 400 });
+    const newsRes = await fetch(
+      `${FINNHUB_BASE_URL}/news?category=general&token=${API_KEY}`,
+    );
+    if (!newsRes.ok)
+      throw new Error(`News fetch failed: ${newsRes.statusText}`);
+    const newsData = (await newsRes.json()) as Array<{
+      headline: string;
+      datetime: number;
+      source: string;
+      url: string;
+      image?: string;
+    }>;
+    return NextResponse.json({
+      symbol: null,
+      name: "Market News",
+      description: "Latest market & financial headlines",
+      news: Array.isArray(newsData)
+        ? newsData.slice(0, 30).map((item) => ({
+            headline: item.headline,
+            datetime: item.datetime,
+            source: item.source,
+            datetimer: new Date(item.datetime * 1000).toISOString(),
+            url: item.url,
+            image: item.image,
+          }))
+        : [],
+    });
   }
-
   try {
-    // Search for the symbol
     const searchResponse = await fetch(
       `${FINNHUB_BASE_URL}/search?q=${encodeURIComponent(query)}&token=${API_KEY}`,
     );
@@ -84,7 +108,6 @@ export async function GET(request: Request) {
         }>
       >,
     ]);
-
 
     return NextResponse.json({
       symbol,

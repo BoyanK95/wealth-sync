@@ -690,6 +690,9 @@
     },
     "NewsResults": {
       "latestNews": "Последни новини"
+    },
+    "ErrorComponent": {
+      "seeRecentNewsButton": "Обратно към новините"
     }
   },
   "DashboardWelcomeHeader": {
