@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NewsResults from "./NewsResults";
 import NoNewsResult from "./NoNewsResult";
 import type { TickerInfoType } from "./types";
@@ -14,6 +14,24 @@ export default function NewsPage() {
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<TickerInfoType | null>(null);
 
+  useEffect(() => {
+    void fetchRecentNews();
+  }, []);
+
+  async function fetchRecentNews() {
+    try {
+      const response = await fetch("/api/news");
+      const data = await response.json();
+      setResult(data);
+    } catch (err) {
+      console.error("Failed to fetch recent news:", err);
+      setError(
+        "Failed to load recent news" +
+          (err instanceof Error ? `: ${err.message}` : ""),
+      );
+    }
+  }
+
   async function handleTickerSearch(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
@@ -23,7 +41,6 @@ export default function NewsPage() {
     setLoading(true);
     setError(null);
     setResult(null);
-
     try {
       const response = await fetch(
         `/api/news?query=${encodeURIComponent(trimmedQuery)}`,
@@ -31,11 +48,9 @@ export default function NewsPage() {
       const data = (await response.json()) as TickerInfoType & {
         error?: string;
       };
-
       if (!response.ok) {
         throw new Error(data.error ?? "Failed to load asset data");
       }
-
       setResult(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Unknown error");
