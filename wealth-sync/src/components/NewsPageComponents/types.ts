@@ -1,12 +1,17 @@
 export type TickerInfoType = {
-  symbol: string;
+  symbol?: string | null;
   name: string;
-  price: string;
-  ipo?: string;
-  logo: string;
-  marketCapitalization: string;
+  price?: string | null;
+  ipo?: string | null;
+  logo?: string | null;
+  marketCapitalization?: string | null;
   description?: string;
-  news: Array<{ headline: string; source: string; url: string; datetime: number }>;
+  news: Array<{
+    headline: string;
+    source: string;
+    url: string;
+    datetime: number;
+  }>;
   quote?: {
     c?: number; // Current price
     d?: number; // Change

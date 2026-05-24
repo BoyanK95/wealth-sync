@@ -11,6 +11,7 @@ type TickerSearchFormProps = {
   loading: boolean;
   handleTickerSearch: (event: React.FormEvent<HTMLFormElement>) => void;
   error: string | null;
+  fetchRecentNews: (event: React.SyntheticEvent<EventTarget>) => void;
 };
 
 export default function TickerSearchForm({
@@ -19,6 +20,7 @@ export default function TickerSearchForm({
   loading,
   handleTickerSearch,
   error,
+  fetchRecentNews,
 }: TickerSearchFormProps) {
   const t = useTranslations("NewsPage");
 
@@ -43,7 +45,9 @@ export default function TickerSearchForm({
         </Button>
       </form>
 
-      {error && <ErrorComponent error={error} />}
+      {error && (
+        <ErrorComponent error={error} fetchRecentNews={fetchRecentNews} />
+      )}
     </div>
   );
 }

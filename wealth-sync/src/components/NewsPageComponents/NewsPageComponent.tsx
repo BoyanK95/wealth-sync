@@ -7,6 +7,7 @@ import type { TickerInfoType } from "./types";
 import TickerInfoComponent from "./TickerInfoComponent";
 import LoadingCard from "../Common/LoadingCard";
 import TickerSearchForm from "./TickerSearchForm";
+import { toast } from "sonner";
 
 export default function NewsPage() {
   const [query, setQuery] = useState("");
@@ -19,16 +20,22 @@ export default function NewsPage() {
   }, []);
 
   async function fetchRecentNews() {
+    setQuery("");
+    setError(null);
+    setLoading(true);
     try {
       const response = await fetch("/api/news");
-      const data = await response.json();
+      const data = (await response.json()) as TickerInfoType;
       setResult(data);
     } catch (err) {
       console.error("Failed to fetch recent news:", err);
+      toast.error("Failed to load news!");
       setError(
         "Failed to load recent news" +
           (err instanceof Error ? `: ${err.message}` : ""),
       );
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -68,6 +75,7 @@ export default function NewsPage() {
         loading={loading}
         handleTickerSearch={handleTickerSearch}
         error={error}
+        fetchRecentNews={fetchRecentNews}
       />
       {loading && <LoadingCard />}
       {result && (
