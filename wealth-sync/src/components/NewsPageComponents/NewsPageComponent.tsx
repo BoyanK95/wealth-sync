@@ -25,7 +25,12 @@ export default function NewsPage() {
     setLoading(true);
     try {
       const response = await fetch("/api/news");
-      const data = (await response.json()) as TickerInfoType;
+      const data = (await response.json()) as TickerInfoType & {
+        error?: string;
+      };
+      if (!response.ok) {
+        throw new Error(data.error ?? "Failed to load asset data");
+      }
       setResult(data);
     } catch (err) {
       console.error("Failed to fetch recent news:", err);
