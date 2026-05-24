@@ -689,6 +689,9 @@
     },
     "NewsResults": {
       "latestNews": "Latest News"
+    },
+    "ErrorComponent": {
+      "seeRecentNewsButton": "See recent news"
     }
   },
   "DashboardWelcomeHeader": {
