@@ -30,29 +30,27 @@ const DeleteAccountDialog = ({
   setIsLoading,
 }: IDeleteAccountProps) => {
   const t = useTranslations("SettingsPage.deleteAccountDialog");
+
   const handleDeleteAccount = async () => {
     setIsLoading(true);
     try {
       await deleteAccount();
       await signOut({ callbackUrl: Routes.HOME });
     } catch (error) {
-      setIsLoading(false);
       toast.error(t("failed"), {
-        description:
-          error instanceof Error ? error.message : t("tryAgain"),
+        description: error instanceof Error ? error.message : t("tryAgain"),
       });
     } finally {
       setIsLoading(false);
     }
   };
+
   return (
     <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>{t("title")}</AlertDialogTitle>
-          <AlertDialogDescription>
-            {t("description")}
-          </AlertDialogDescription>
+          <AlertDialogDescription>{t("description")}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel className="cursor-pointer">

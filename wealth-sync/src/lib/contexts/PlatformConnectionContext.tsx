@@ -67,7 +67,10 @@ export function PlatformConnectionProvider({
     </PlatformConnectionContext.Provider>
   );
 }
-
+/**
+ * React hook that gives info about connected platforms and state using context
+ * @returns loading state and connections
+ */
 export function usePlatformConnection() {
   const context = useContext(PlatformConnectionContext);
   if (!context) {
