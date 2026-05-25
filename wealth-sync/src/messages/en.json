@@ -692,6 +692,46 @@
     },
     "ErrorComponent": {
       "seeRecentNewsButton": "See recent news"
+    },
+    "RealtimeTrendingNews": {
+      "title": "Real-time Trending News",
+      "error": "Unable to fetch trending news",
+      "waiting": "No trending news available",
+      "connecting": "Loading trending news...",
+      "showing": "Showing latest",
+      "news": "news",
+      "updateInfo": "Updates every 30 seconds"
+    },
+    "BullsBearsAnalysis": {
+      "title": "Bulls & Bears Analysis",
+      "bullish": "Bullish",
+      "bearish": "Bearish",
+      "neutral": "Neutral",
+      "targetPrice": "Target Price",
+      "error": "No analysis data available for this ticker",
+      "fetchError": "Failed to fetch analysis data"
+    },
+    "EarningsAnalysis": {
+      "title": "Earnings Analysis",
+      "eps": "Earnings Per Share",
+      "revenue": "Revenue",
+      "estimate": "Estimate",
+      "actual": "Actual",
+      "surprise": "Earnings Surprise",
+      "beatsEps": "Company beat EPS expectations",
+      "missesEps": "Company missed EPS expectations",
+      "noComparison": "EPS comparison not available",
+      "noData": "No earnings data available",
+      "error": "Failed to fetch earnings data",
+      "upcoming": "Upcoming",
+      "last": "Last earnings"
+    },
+    "BenzingaTickerNews": {
+      "title": "Ticker News",
+      "loading": "Loading...",
+      "showing": "Showing",
+      "newsItems": "news items",
+      "error": "Failed to fetch news for this ticker"
     }
   },
   "DashboardWelcomeHeader": {

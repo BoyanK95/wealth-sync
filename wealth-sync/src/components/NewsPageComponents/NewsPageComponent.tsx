@@ -8,8 +8,16 @@ import TickerInfoComponent from "./TickerInfoComponent";
 import LoadingCard from "../Common/LoadingCard";
 import TickerSearchForm from "./TickerSearchForm";
 import { toast } from "sonner";
+import { RealtimeTrendingNews } from "./RealtimeTrendingNews";
+import { BullsBearsAnalysisComponent } from "./BullsBearsAnalysis";
+import { EarningsAnalysisComponent } from "./EarningsAnalysis";
+import { BenzingaTickerNews } from "./BenzingaTickerNews";
 
-export default function NewsPage() {
+export default function NewsPage({
+  benzingaApiKey,
+}: {
+  benzingaApiKey?: string;
+}) {
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -73,7 +81,7 @@ export default function NewsPage() {
   }
 
   return (
-    <div className="mx-auto mt-13 max-w-4xl px-4 py-10">
+    <div className="mx-auto mt-13 max-w-5xl px-4 py-10">
       <TickerSearchForm
         query={query}
         setQuery={setQuery}
@@ -82,10 +90,36 @@ export default function NewsPage() {
         error={error}
         fetchRecentNews={fetchRecentNews}
       />
+
+      {benzingaApiKey && (
+        <div className="mb-6">
+          <RealtimeTrendingNews apiKey={benzingaApiKey} maxItems={15} />
+        </div>
+      )}
+
       {loading && <LoadingCard />}
+
       {result && (
         <div className="space-y-6">
           <TickerInfoComponent result={result} />
+
+          {benzingaApiKey && result.symbol && (
+            <div className="space-y-6">
+              <BullsBearsAnalysisComponent
+                ticker={result.symbol}
+                apiKey={benzingaApiKey}
+              />
+              <EarningsAnalysisComponent
+                ticker={result.symbol}
+                apiKey={benzingaApiKey}
+              />
+              <BenzingaTickerNews
+                ticker={result.symbol}
+                apiKey={benzingaApiKey}
+                maxItems={10}
+              />
+            </div>
+          )}
 
           {result.news?.length ? (
             <NewsResults result={result} />
