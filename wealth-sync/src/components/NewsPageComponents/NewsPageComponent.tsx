@@ -7,20 +7,19 @@ import type { TickerInfoType } from "./types";
 import TickerInfoComponent from "./TickerInfoComponent";
 import LoadingCard from "../Common/LoadingCard";
 import TickerSearchForm from "./TickerSearchForm";
-import { toast } from "sonner";
 
 export default function NewsPage() {
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<TickerInfoType | null>(null);
+  const [hasSearched, setHasSearched] = useState(false);
 
   useEffect(() => {
     void fetchRecentNews();
   }, []);
 
   async function fetchRecentNews() {
-    setQuery("");
     setError(null);
     setLoading(true);
     try {
@@ -34,22 +33,23 @@ export default function NewsPage() {
       setResult(data);
     } catch (err) {
       console.error("Failed to fetch recent news:", err);
-      toast.error("Failed to load news!");
       setError(
         "Failed to load recent news" +
           (err instanceof Error ? `: ${err.message}` : ""),
       );
     } finally {
       setLoading(false);
+      setQuery("");
+      setHasSearched(false);
     }
   }
 
   async function handleTickerSearch(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-
     const trimmedQuery = query.trim();
     if (!trimmedQuery) return;
 
+    setHasSearched(true);
     setLoading(true);
     setError(null);
     setResult(null);
@@ -88,7 +88,11 @@ export default function NewsPage() {
           <TickerInfoComponent result={result} />
 
           {result.news?.length ? (
-            <NewsResults result={result} />
+            <NewsResults
+              result={result}
+              fetchRecentNews={fetchRecentNews}
+              hasSearched={hasSearched}
+            />
           ) : (
             <NoNewsResult />
           )}

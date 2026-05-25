@@ -676,6 +676,7 @@
     "searchPlaceholder": "Search for a ticker or company name",
     "search": "Search",
     "searching": "Searching...",
+    "seeRecentNewsButton": "See recent news",
     "TickerInfo": {
       "title": "Asset Info",
       "assetLogo": "Asset Image",
@@ -688,9 +689,7 @@
       "ipoDate": "IPO Date"
     },
     "NewsResults": {
-      "latestNews": "Latest News"
-    },
-    "ErrorComponent": {
+      "latestNews": "Latest News",
       "seeRecentNewsButton": "See recent news"
     }
   },

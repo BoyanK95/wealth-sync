@@ -677,6 +677,7 @@
     "searchPlaceholder": "Търсене на тикер или име на компания",
     "search": "Търсене",
     "searching": "Търсене...",
+    "seeRecentNewsButton": "Обратно към новините",
     "TickerInfo": {
       "title": "Информация за актива",
       "assetLogo": "Картинка на актива",
@@ -689,10 +690,8 @@
       "ipoDate": "Дата на IPO"
     },
     "NewsResults": {
-      "latestNews": "Последни новини"
-    },
-    "ErrorComponent": {
-      "seeRecentNewsButton": "Обратно към новините"
+      "latestNews": "Последни новини",
+      "seeRecentNewsButton": "Вижте последните новини"
     }
   },
   "DashboardWelcomeHeader": {
