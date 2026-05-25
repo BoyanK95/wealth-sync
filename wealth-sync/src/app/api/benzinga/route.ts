@@ -20,8 +20,14 @@ export async function GET(request: Request) {
     switch (endpoint) {
       case "trending":
         const trending = await benzinga.getTrendingNews(25);
-        return NextResponse.json({ news: trending });
-
+        return NextResponse.json(
+          { news: trending },
+          {
+            headers: {
+              "Cache-Control": "no-store, no-cache, must-revalidate",
+            },
+          },
+        );
       case "ticker-news":
         if (!ticker) {
           return NextResponse.json(

@@ -46,7 +46,9 @@ export interface EarningsAnalysis {
 
 class BenzingaAPI {
   private apiKey: string;
-  private baseURL = "https://api.benzinga.com/api/v2";
+  private v1BaseURL = "https://api.benzinga.com/api/v1";
+  private v2BaseURL = "https://api.benzinga.com/api/v2";
+  private v21BaseURL = "https://api.benzinga.com/api/v2.1";
   private wsURL = "wss://api.benzinga.com/streams/v2";
 
   constructor(apiKey: string) {
@@ -102,7 +104,7 @@ class BenzingaAPI {
   async getTrendingNews(limit = 25, pageNum = 1): Promise<BenzingaNewsItem[]> {
     try {
       const response = await fetch(
-        `${this.baseURL}/news?token=${this.apiKey}&limit=${limit}&page=${pageNum}`,
+        `${this.v1BaseURL}/news?token=${this.apiKey}&limit=${limit}&page=${pageNum}`,
       );
 
       if (!response.ok) {
@@ -121,7 +123,7 @@ class BenzingaAPI {
       const data = (await response.json()) as {
         news?: BenzingaNewsItem[];
       };
-      return data.news || [];
+      return data.news ?? [];
     } catch (error) {
       console.error("Error fetching trending news:", error);
       return [];
@@ -134,27 +136,21 @@ class BenzingaAPI {
   async getTickerNews(tickers: string[]): Promise<BenzingaNewsItem[]> {
     try {
       const tickerList = tickers.join(",");
+
       const response = await fetch(
-        `${this.baseURL}/news?token=${this.apiKey}&tickers=${tickerList}`,
+        `${this.v1BaseURL}/news?token=${this.apiKey}&symbols=${tickerList}`,
       );
 
       if (!response.ok) {
-        console.warn(
-          `Benzinga API returned ${response.status}: ${response.statusText}`,
-        );
-        return [];
-      }
-
-      const contentType = response.headers.get("content-type");
-      if (!contentType?.includes("application/json")) {
-        console.warn("Benzinga API did not return JSON");
+        const text = await response.text();
+        console.warn("Benzinga error:", response.status, text);
         return [];
       }
 
       const data = (await response.json()) as {
         news?: BenzingaNewsItem[];
       };
-      return data.news || [];
+      return data.news ?? [];
     } catch (error) {
       console.error("Error fetching ticker news:", error);
       return [];
@@ -169,24 +165,20 @@ class BenzingaAPI {
   ): Promise<BullsBearsAnalysis | null> {
     try {
       const response = await fetch(
-        `${this.baseURL}/assets/${encodeURIComponent(ticker)}/analysis?token=${this.apiKey}`,
+        `${this.v1BaseURL}/bulls_bears_say?token=${this.apiKey}&symbols=${ticker}`,
       );
 
       if (!response.ok) {
         console.warn(
           `Benzinga API returned ${response.status}: ${response.statusText}`,
         );
+        const text = await response.text();
+        console.warn("Benzinga response:", text);
         return null;
       }
 
-      const contentType = response.headers.get("content-type");
-      if (!contentType?.includes("application/json")) {
-        console.warn("Benzinga API did not return JSON");
-        return null;
-      }
-
-      const data = (await response.json()) as BullsBearsAnalysis;
-      return data;
+      const data = await response.json();
+      return data?.[0] ?? null;
     } catch (error) {
       console.error("Error fetching bulls & bears analysis:", error);
       return null;
@@ -232,7 +224,7 @@ class BenzingaAPI {
   ): Promise<Array<{ symbol: string; name: string }>> {
     try {
       const response = await fetch(
-        `${this.baseURL}/assets/search?token=${this.apiKey}&query=${encodeURIComponent(query)}`,
+        `${this.v1BaseURL}/assets/search?token=${this.apiKey}&query=${encodeURIComponent(query)}`,
       );
 
       if (!response.ok) {
@@ -251,7 +243,7 @@ class BenzingaAPI {
       const data = (await response.json()) as {
         assets?: Array<{ symbol: string; name: string }>;
       };
-      return data.assets || [];
+      return data.assets ?? [];
     } catch (error) {
       console.error("Error searching assets:", error);
       return [];

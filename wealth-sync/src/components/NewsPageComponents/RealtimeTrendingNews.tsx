@@ -32,7 +32,7 @@ export function RealtimeTrendingNews({
   const t = useTranslations("NewsPage");
 
   useEffect(() => {
-    let pollInterval: NodeJS.Timeout;
+    let pollInterval: ReturnType<typeof setInterval>;
 
     const fetchTrendingNews = async () => {
       try {
@@ -56,7 +56,6 @@ export function RealtimeTrendingNews({
     // Fetch immediately
     fetchTrendingNews();
 
-    // Poll every 30 seconds for new news
     pollInterval = setInterval(fetchTrendingNews, 30000);
 
     return () => {
@@ -85,6 +84,9 @@ export function RealtimeTrendingNews({
     if (importance >= 5) return "default";
     return "secondary";
   };
+
+  console.log('news', news);
+  
 
   return (
     <Card className="rounded-3xl border border-gray-200 bg-white/80 shadow-sm dark:border-gray-700 dark:bg-slate-900/80">
