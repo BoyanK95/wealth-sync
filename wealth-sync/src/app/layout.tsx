@@ -2,7 +2,6 @@ import { CookieConsentDialog } from "@/components/CookiesConsent/CookiesConsent"
 import { Navbar } from "@/components/Navbar/Navbar";
 import { Providers } from "@/components/Providers";
 import { PlatformConnectionProvider } from "@/lib/contexts/PlatformConnectionContext";
-// @ts-expect-error now a real import error but getting flaged for some reason
 import "@/styles/globals.css";
 import { NextIntlClientProvider } from "next-intl";
 import { type Metadata } from "next";
