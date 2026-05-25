@@ -94,7 +94,7 @@ export default function NewsPage() {
               hasSearched={hasSearched}
             />
           ) : (
-            <NoNewsResult />
+            <NoNewsResult fetchRecentNews={fetchRecentNews} />
           )}
         </div>
       )}
