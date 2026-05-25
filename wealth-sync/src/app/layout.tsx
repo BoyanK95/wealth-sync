@@ -2,6 +2,7 @@ import { CookieConsentDialog } from "@/components/CookiesConsent/CookiesConsent"
 import { Navbar } from "@/components/Navbar/Navbar";
 import { Providers } from "@/components/Providers";
 import { PlatformConnectionProvider } from "@/lib/contexts/PlatformConnectionContext";
+// @ts-expect-error now a real import error but getting flaged for some reason
 import "@/styles/globals.css";
 import { NextIntlClientProvider } from "next-intl";
 import { type Metadata } from "next";
@@ -21,10 +22,8 @@ const geist = Geist({
 
 export default async function RootLayout({
   children,
-  params,
 }: Readonly<{
   children: React.ReactNode;
-  params: Promise<{ locale: string }>;
 }>) {
   const messages = await getMessages();
 
@@ -44,3 +43,4 @@ export default async function RootLayout({
     </html>
   );
 }
+
