@@ -12,6 +12,8 @@ import { RealtimeTrendingNews } from "./RealtimeTrendingNews";
 import { BullsBearsAnalysisComponent } from "./BullsBearsAnalysis";
 import { EarningsAnalysisComponent } from "./EarningsAnalysis";
 import { BenzingaTickerNews } from "./BenzingaTickerNews";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Newspaper, TrendingUp, Calendar, Radio } from "lucide-react";
 
 export default function NewsPage({
   benzingaApiKey,
@@ -103,28 +105,65 @@ export default function NewsPage({
         <div className="space-y-6">
           <TickerInfoComponent result={result} />
 
-          {benzingaApiKey && result.symbol && (
-            <div className="space-y-6">
-              <BullsBearsAnalysisComponent
-                ticker={result.symbol}
-                apiKey={benzingaApiKey}
-              />
-              <EarningsAnalysisComponent
-                ticker={result.symbol}
-                apiKey={benzingaApiKey}
-              />
-              <BenzingaTickerNews
-                ticker={result.symbol}
-                apiKey={benzingaApiKey}
-                maxItems={10}
-              />
-            </div>
-          )}
+          {benzingaApiKey && result.symbol ? (
+            <Tabs defaultValue="news" className="w-full">
+              <TabsList className="grid w-full grid-cols-4">
+                <TabsTrigger value="news" className="gap-2">
+                  <Newspaper className="size-4" />
+                  <span className="hidden sm:inline">News</span>
+                </TabsTrigger>
+                <TabsTrigger value="bulls-bears" className="gap-2">
+                  <TrendingUp className="size-4" />
+                  <span className="hidden sm:inline">Bulls & Bears</span>
+                </TabsTrigger>
+                <TabsTrigger value="earnings" className="gap-2">
+                  <Calendar className="size-4" />
+                  <span className="hidden sm:inline">Earnings</span>
+                </TabsTrigger>
+                <TabsTrigger value="benzinga" className="gap-2">
+                  <Radio className="size-4" />
+                  <span className="hidden sm:inline">Benzinga</span>
+                </TabsTrigger>
+              </TabsList>
 
-          {result.news?.length ? (
-            <NewsResults result={result} />
+              <TabsContent value="news" className="mt-6">
+                {result.news?.length ? (
+                  <NewsResults result={result} />
+                ) : (
+                  <NoNewsResult />
+                )}
+              </TabsContent>
+
+              <TabsContent value="bulls-bears" className="mt-6">
+                <BullsBearsAnalysisComponent
+                  ticker={result.symbol}
+                  apiKey={benzingaApiKey}
+                />
+              </TabsContent>
+
+              <TabsContent value="earnings" className="mt-6">
+                <EarningsAnalysisComponent
+                  ticker={result.symbol}
+                  apiKey={benzingaApiKey}
+                />
+              </TabsContent>
+
+              <TabsContent value="benzinga" className="mt-6">
+                <BenzingaTickerNews
+                  ticker={result.symbol}
+                  apiKey={benzingaApiKey}
+                  maxItems={10}
+                />
+              </TabsContent>
+            </Tabs>
           ) : (
-            <NoNewsResult />
+            <>
+              {result.news?.length ? (
+                <NewsResults result={result} />
+              ) : (
+                <NoNewsResult />
+              )}
+            </>
           )}
         </div>
       )}

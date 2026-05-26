@@ -56,7 +56,7 @@ export function BenzingaTickerNews({
       }
     };
 
-    fetchNews();
+    void fetchNews();
   }, [ticker, apiKey, maxItems, t]);
 
   const getSentimentColor = (sentiment?: string) => {
