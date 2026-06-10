@@ -1,29 +1,29 @@
-"use client";
+// "use client";
 
-import { useSession, signOut } from "next-auth/react";
-import { Button } from "./ui/button";
-import LoadingText from "./Common/LoadingText";
+// import { useSession, signOut } from "next-auth/react";
+// import { Button } from "./ui/button";
+// import LoadingText from "./Common/LoadingText";
 
-export function UserNav() {
-  const { data: session, status } = useSession();
+// export function UserNav() {
+//   const { data: session, status } = useSession();
 
-  if (status === "loading") {
-    return <LoadingText text="Loading user..." />;
-  }
+//   if (status === "loading") {
+//     return <LoadingText text="Loading user..." />;
+//   }
 
-  if (!session) {
-    return null;
-  }
+//   if (!session) {
+//     return null;
+//   }
 
-  return (
-    <div className="flex items-center gap-4">
-      <span>Welcome, {session.user?.name}</span>
-      <Button
-        variant="outline"
-        onClick={() => signOut({ callbackUrl: "/auth/login" })}
-      >
-        Sign out
-      </Button>
-    </div>
-  );
-}
+//   return (
+//     <div className="flex items-center gap-4">
+//       <span>Welcome, {session.user?.name}</span>
+//       <Button
+//         variant="outline"
+//         onClick={() => signOut({ callbackUrl: "/auth/login" })}
+//       >
+//         Sign out
+//       </Button>
+//     </div>
+//   );
+// }
