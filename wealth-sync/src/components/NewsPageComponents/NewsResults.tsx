@@ -1,11 +1,14 @@
-'use client';
+"use client";
 
 import { Card, CardDescription, CardHeader, CardTitle } from "../ui/card";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { Button } from "../ui/button";
 
 export default function NewsResults({
   result,
+  hasSearched,
+  fetchRecentNews,
 }: {
   result: {
     news: Array<{
@@ -15,12 +18,14 @@ export default function NewsResults({
       url: string;
     }>;
   };
+  hasSearched: boolean;
+  fetchRecentNews: () => void;
 }) {
   const t = useTranslations("NewsPage.NewsResults");
 
   return (
-    <div className="rounded-3xl border border-gray-200 bg-white/80 p-6 shadow-sm dark:border-gray-700 dark:bg-slate-900/80">
-      <h3 className="text-lg font-semibold">{t("latestNews")}</h3>
+    <div className="rounded-3xl border border-gray-200 bg-white/80 p-6 text-center shadow-sm dark:border-gray-700 dark:bg-slate-900/80">
+      <h3 className="pt-3 pb-3 text-lg font-semibold">{t("latestNews")}</h3>
       <ul className="mt-4 space-y-4">
         {result.news.map((item, index) => (
           <Link href={item.url} target="_blank" rel="noreferrer" key={index}>
@@ -43,6 +48,16 @@ export default function NewsResults({
           </Link>
         ))}
       </ul>
+      {hasSearched && (
+        <Button
+          size={"default"}
+          variant={"outline"}
+          className="mt-5 p-5"
+          onClick={fetchRecentNews}
+        >
+          {t("seeRecentNewsButton")}
+        </Button>
+      )}
     </div>
   );
 }

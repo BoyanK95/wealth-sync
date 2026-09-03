@@ -11,7 +11,7 @@ function ErrorComponent({
   error: string;
   fetchRecentNews: (event: React.SyntheticEvent<EventTarget>) => void;
 }) {
-  const t = useTranslations("NewsPage.ErrorComponent");
+  const t = useTranslations("NewsPage");
 
   return (
     <div
