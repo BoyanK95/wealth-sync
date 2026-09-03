@@ -7,8 +7,19 @@ import type { TickerInfoType } from "./types";
 import TickerInfoComponent from "./TickerInfoComponent";
 import LoadingCard from "../Common/LoadingCard";
 import TickerSearchForm from "./TickerSearchForm";
+import { toast } from "sonner";
+import { RealtimeTrendingNews } from "./RealtimeTrendingNews";
+import { BullsBearsAnalysisComponent } from "./BullsBearsAnalysis";
+import { EarningsAnalysisComponent } from "./EarningsAnalysis";
+import { BenzingaTickerNews } from "./BenzingaTickerNews";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Newspaper, TrendingUp, Calendar, Radio } from "lucide-react";
 
-export default function NewsPage() {
+export default function NewsPage({
+  benzingaApiKey,
+}: {
+  benzingaApiKey?: string;
+}) {
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -73,7 +84,7 @@ export default function NewsPage() {
   }
 
   return (
-    <div className="mx-auto mt-13 max-w-4xl px-4 py-10">
+    <div className="mx-auto mt-13 max-w-5xl px-4 py-10">
       <TickerSearchForm
         query={query}
         setQuery={setQuery}
@@ -82,19 +93,78 @@ export default function NewsPage() {
         error={error}
         fetchRecentNews={fetchRecentNews}
       />
+
+      {benzingaApiKey && (
+        <div className="mb-6">
+          <RealtimeTrendingNews apiKey={benzingaApiKey} maxItems={15} />
+        </div>
+      )}
+
       {loading && <LoadingCard />}
+
       {result && (
         <div className="space-y-6">
           <TickerInfoComponent result={result} />
 
-          {result.news?.length ? (
-            <NewsResults
-              result={result}
-              fetchRecentNews={fetchRecentNews}
-              hasSearched={hasSearched}
-            />
+          {benzingaApiKey && result.symbol ? (
+            <Tabs defaultValue="news" className="w-full">
+              <TabsList className="grid w-full grid-cols-4">
+                <TabsTrigger value="news" className="gap-2">
+                  <Newspaper className="size-4" />
+                  <span className="hidden sm:inline">News</span>
+                </TabsTrigger>
+                <TabsTrigger value="bulls-bears" className="gap-2">
+                  <TrendingUp className="size-4" />
+                  <span className="hidden sm:inline">Bulls & Bears</span>
+                </TabsTrigger>
+                <TabsTrigger value="earnings" className="gap-2">
+                  <Calendar className="size-4" />
+                  <span className="hidden sm:inline">Earnings</span>
+                </TabsTrigger>
+                <TabsTrigger value="benzinga" className="gap-2">
+                  <Radio className="size-4" />
+                  <span className="hidden sm:inline">Benzinga</span>
+                </TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="news" className="mt-6">
+                {result.news?.length ? (
+                  <NewsResults result={result} />
+                ) : (
+                  <NoNewsResult />
+                )}
+              </TabsContent>
+
+              <TabsContent value="bulls-bears" className="mt-6">
+                <BullsBearsAnalysisComponent
+                  ticker={result.symbol}
+                  apiKey={benzingaApiKey}
+                />
+              </TabsContent>
+
+              <TabsContent value="earnings" className="mt-6">
+                <EarningsAnalysisComponent
+                  ticker={result.symbol}
+                  apiKey={benzingaApiKey}
+                />
+              </TabsContent>
+
+              <TabsContent value="benzinga" className="mt-6">
+                <BenzingaTickerNews
+                  ticker={result.symbol}
+                  apiKey={benzingaApiKey}
+                  maxItems={10}
+                />
+              </TabsContent>
+            </Tabs>
           ) : (
-            <NoNewsResult fetchRecentNews={fetchRecentNews} />
+            <>
+              {result.news?.length ? (
+                <NewsResults result={result} />
+              ) : (
+                <NoNewsResult />
+              )}
+            </>
           )}
         </div>
       )}
