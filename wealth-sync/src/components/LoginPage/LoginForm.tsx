@@ -1,0 +1,87 @@
+"use client";
+
+import { useState } from "react";
+import { signIn } from "next-auth/react";
+import { Routes } from "@/lib/constants/routes";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { CardContent } from "@/components/ui/card";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
+
+export default function LoginForm() {
+  const t = useTranslations("LoginPage.form");
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      const result = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
+
+      if (result?.error) {
+        setEmail("");
+        setPassword("");
+        toast.error(t("errors.invalidCredentials"));
+      } else if (result?.ok) {
+        router.push(Routes.DASHBOARD);
+        toast.success(t("success"));
+      }
+    } catch (error) {
+      toast.error(t("errors.failed"), {
+        description: (error as Error).message,
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <CardContent className="grid gap-4">
+      <form onSubmit={handleSubmit} className="grid gap-4">
+        <div className="grid gap-2">
+          <Label htmlFor="email">{t("email")}</Label>
+          <Input
+            id="email"
+            type="email"
+            placeholder={t("emailPlaceholder")}
+            autoComplete="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            disabled={isLoading}
+            required
+          />
+        </div>
+        <div className="grid gap-2">
+          <Label htmlFor="password">{t("password")}</Label>
+          <Input
+            id="password"
+            type="password"
+            autoComplete="current-password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            disabled={isLoading}
+            required
+          />
+        </div>
+        <Button
+          type="submit"
+          className="w-full cursor-pointer"
+          disabled={isLoading}
+        >
+          {isLoading ? t("signingIn") : t("submit")}
+        </Button>
+      </form>
+    </CardContent>
+  );
+}

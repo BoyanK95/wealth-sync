@@ -123,3 +123,21 @@
     @apply bg-background text-foreground;
   }
 }
+
+.toaster-custom {
+  --toast-icon-size: 24px;
+}
+
+.toaster-custom [data-icon] {
+  width: var(--toast-icon-size);
+  height: var(--toast-icon-size);
+}
+
+.toaster-custom [data-title] {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.toaster-custom [data-description] {
+  font-size: 0.95rem;
+}

@@ -1,0 +1,78 @@
+'use client";';
+
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Routes } from "@/lib/constants/routes";
+import { Plus } from "lucide-react";
+import Link from "next/link";
+import RecentTransactionsTab from "./RecentTransactionsTab";
+import { usePlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
+import { CiCircleCheck } from "react-icons/ci";
+import { useTranslations } from "next-intl";
+
+const ConnectedPlatformsTab = () => {
+  const t = useTranslations("ConnectedPlatformsTab");
+  const { connections } = usePlatformConnection();
+
+  return (
+    <div className="grid gap-4 md:grid-cols-2">
+      <Card>
+        <CardHeader>
+          <CardTitle>{t("title")}</CardTitle>
+          <CardDescription>{t("description")}</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            {Object.values(connections).map((platform) => (
+              <div
+                key={platform.platformId}
+                className="flex items-center justify-between"
+              >
+                <div className="flex items-center">
+                  <div className="bg-muted mr-3 flex h-10 w-10 items-center justify-center rounded-full">
+                    {platform.platformId.charAt(0).toUpperCase()}
+                  </div>
+                  <div>
+                    <p className="font-medium">{platform.platformId}</p>
+                    <p className="text-muted-foreground text-xs">
+                      {platform.isConnected ? "Connected" : "Not connected"}
+                    </p>
+                  </div>
+                </div>
+                {platform.isConnected ? (
+                  <Button variant="outline" size="sm">
+                    <CiCircleCheck className="mr-2 h-4 w-4" color="green" />
+                    {t("syncedButton")}
+                  </Button>
+                ) : (
+                  <Button size="sm" className="bg-green-700 hover:bg-green-800">
+                    {t("connectButton")}
+                  </Button>
+                )}
+              </div>
+            ))}
+          </div>
+        </CardContent>
+        <CardFooter>
+          <Link href={Routes.INTEGRATIONS} className="w-full">
+            <Button variant="outline" className="w-full cursor-pointer">
+              <Plus className="mr-2 h-4 w-4" />
+              {t("newPlatformButton")}
+            </Button>
+          </Link>
+        </CardFooter>
+      </Card>
+
+      <RecentTransactionsTab />
+    </div>
+  );
+};
+
+export default ConnectedPlatformsTab;
