@@ -89,12 +89,12 @@ export const authConfig = {
     GitHub({
       clientId: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      allowDangerousEmailAccountLinking: true, // Add this line
+      allowDangerousEmailAccountLinking: true, // Add this line for now delete this line if you don't want to allow dangerous email account linking in future
     }),
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      allowDangerousEmailAccountLinking: true, // Add this line
+      allowDangerousEmailAccountLinking: true, // Add this line for now delete this line if you don't want to allow dangerous email account linking in future
     }),
     /**
      * ...add more providers here.
