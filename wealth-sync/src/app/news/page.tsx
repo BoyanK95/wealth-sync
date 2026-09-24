@@ -1,5 +1,6 @@
 import NewsPageComponent from "@/components/NewsPageComponents/NewsPageComponent";
 import { type Metadata } from "next";
+import { env } from "@/env";
 
 export const metadata: Metadata = {
   title: "News | WealthSync",
@@ -7,5 +8,7 @@ export const metadata: Metadata = {
 };
 
 export default function NewsPage() {
-  return <NewsPageComponent />;
+  const benzingaApiKey = env.BENZINGA_APIKEY;
+
+  return <NewsPageComponent benzingaApiKey={benzingaApiKey} />;
 }
