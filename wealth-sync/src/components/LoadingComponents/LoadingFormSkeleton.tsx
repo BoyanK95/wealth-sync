@@ -16,7 +16,7 @@ export default function LoadingFormSkeleton() {
                 <div className="bg-muted h-10 w-full animate-pulse rounded-md" />
               </div>
             ))}
-            = <div className="bg-muted h-10 w-full animate-pulse rounded-md" />
+            <div className="bg-muted h-10 w-full animate-pulse rounded-md" />
           </div>
         </div>
       </Card>

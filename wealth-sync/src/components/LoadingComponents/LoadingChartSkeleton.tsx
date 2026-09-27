@@ -83,7 +83,10 @@ export default function LoadingChartSkeleton() {
                       className="ping-dot"
                     />
                   </svg>
-                  <span className="absolute bottom-4 text-xs font-medium tracking-wide text-green-700/70">
+                  <span
+                    role="status"
+                    className="absolute bottom-4 text-xs font-medium tracking-wide text-green-700/70"
+                  >
                     Loading your portfolio…
                   </span>
                 </div>
