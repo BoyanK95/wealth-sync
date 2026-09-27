@@ -1,15 +1,5 @@
 import React from "react";
 
-/**
- * Next.js App Router loading UI.
- * Renders automatically while this route segment's data/streaming
- * suspends — no wiring needed, Next.js picks this up by convention.
- *
- * Mirrors the real hero + features layout so there's minimal layout
- * shift once the actual content resolves, and adds a small animated
- * "live chart" motif so it reads as a finance app, not a generic
- * gray skeleton.
- */
 export default function LoadingChartSkeleton() {
   return (
     <div className="flex min-h-screen flex-col">
