@@ -1,10 +1,17 @@
 "use client";
 
 import React, { useRef } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import {
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 
 const HeroIllustration = () => {
   const ref = useRef<HTMLDivElement>(null);
+  const shouldReduceMotion = useReducedMotion();
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -39,13 +46,23 @@ const HeroIllustration = () => {
         ref={ref}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-        initial={{ opacity: 0, scale: 0.92 }}
+        style={{
+          rotateX: shouldReduceMotion ? 0 : rotateX,
+          rotateY: shouldReduceMotion ? 0 : rotateY,
+          transformStyle: "preserve-3d",
+        }}
+        initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.92 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        transition={
+          shouldReduceMotion
+            ? { duration: 0 }
+            : { duration: 0.7, ease: [0.22, 1, 0.36, 1] }
+        }
         className="relative h-full w-full max-w-[520px]"
       >
         <svg
+          role="img"
+          aria-label="image of a chart and a coin stack"
           viewBox="0 0 600 520"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +85,13 @@ const HeroIllustration = () => {
               <stop offset="0%" stopColor="#4ade80" />
               <stop offset="100%" stopColor="#15803d" />
             </linearGradient>
-            <filter id="softShadow" x="-40%" y="-40%" width="180%" height="180%">
+            <filter
+              id="softShadow"
+              x="-40%"
+              y="-40%"
+              width="180%"
+              height="180%"
+            >
               <feDropShadow
                 dx="0"
                 dy="18"
@@ -84,7 +107,12 @@ const HeroIllustration = () => {
 
           {/* back allocation ring, floats behind main panel */}
           <g transform="translate(430 120)" filter="url(#softShadow)">
-            <circle r="70" fill="url(#panel)" stroke="#d1fae5" strokeWidth="2" />
+            <circle
+              r="70"
+              fill="url(#panel)"
+              stroke="#d1fae5"
+              strokeWidth="2"
+            />
             <circle
               r="52"
               fill="none"
@@ -128,10 +156,40 @@ const HeroIllustration = () => {
             />
             {/* header row */}
             <circle cx="34" cy="34" r="14" fill="#16a34a" />
-            <rect x="58" y="26" width="90" height="8" rx="4" fill="#166534" opacity="0.6" />
-            <rect x="58" y="40" width="60" height="6" rx="3" fill="#166534" opacity="0.3" />
-            <rect x="286" y="24" width="46" height="20" rx="10" fill="#dcfce7" />
-            <text x="309" y="38" textAnchor="middle" fontSize="11" fill="#166534" fontWeight="700">
+            <rect
+              x="58"
+              y="26"
+              width="90"
+              height="8"
+              rx="4"
+              fill="#166534"
+              opacity="0.6"
+            />
+            <rect
+              x="58"
+              y="40"
+              width="60"
+              height="6"
+              rx="3"
+              fill="#166534"
+              opacity="0.3"
+            />
+            <rect
+              x="286"
+              y="24"
+              width="46"
+              height="20"
+              rx="10"
+              fill="#dcfce7"
+            />
+            <text
+              x="309"
+              y="38"
+              textAnchor="middle"
+              fontSize="11"
+              fill="#166534"
+              fontWeight="700"
+            >
               +12%
             </text>
 
@@ -160,7 +218,14 @@ const HeroIllustration = () => {
 
           {/* floating "asset stack" coin element */}
           <g transform="translate(90 380)" filter="url(#softShadow)">
-            <ellipse cx="0" cy="40" rx="60" ry="16" fill="url(#coin)" opacity="0.9" />
+            <ellipse
+              cx="0"
+              cy="40"
+              rx="60"
+              ry="16"
+              fill="url(#coin)"
+              opacity="0.9"
+            />
             <ellipse cx="0" cy="22" rx="60" ry="16" fill="url(#coin)" />
             <ellipse cx="0" cy="4" rx="60" ry="16" fill="#4ade80" />
             <text
@@ -177,7 +242,13 @@ const HeroIllustration = () => {
 
           {/* small floating bar-chip, bottom right */}
           <g transform="translate(420 350)" filter="url(#softShadow)">
-            <rect width="120" height="90" rx="16" fill="url(#panel)" stroke="#bbf7d0" />
+            <rect
+              width="120"
+              height="90"
+              rx="16"
+              fill="url(#panel)"
+              stroke="#bbf7d0"
+            />
             <rect x="20" y="55" width="14" height="20" rx="3" fill="#86efac" />
             <rect x="42" y="42" width="14" height="33" rx="3" fill="#4ade80" />
             <rect x="64" y="28" width="14" height="47" rx="3" fill="#22c55e" />
