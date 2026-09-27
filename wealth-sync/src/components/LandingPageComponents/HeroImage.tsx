@@ -68,6 +68,7 @@ const HeroIllustration = () => {
           xmlns="http://www.w3.org/2000/svg"
           className="h-full w-full"
         >
+          <title id="hero-image-title">image of a chart and a coin stack</title>
           <defs>
             <radialGradient id="glow" cx="50%" cy="35%" r="65%">
               <stop offset="0%" stopColor="#22c55e" stopOpacity="0.35" />
