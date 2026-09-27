@@ -2,10 +2,10 @@ import React from "react";
 import { ArrowRight, Shield, Smartphone, Zap } from "lucide-react";
 import { Button } from "../ui/button";
 import { auth } from "@/server/auth";
-import Image from "next/image";
 import Link from "next/link";
 import { Routes } from "@/lib/constants/routes";
 import { getTranslations } from "next-intl/server";
+import HeroImage from "./HeroImage";
 
 const IntroductionSection = async () => {
   const t = await getTranslations("IntroductionSection");
@@ -74,14 +74,7 @@ const IntroductionSection = async () => {
           </div>
           <div className="flex items-center justify-center">
             <div className="bg-background relative w-full overflow-hidden rounded-lg p-2 sm:h-[400px] lg:h-[500px]">
-              <Image
-                src="/calculatior.png"
-                alt="Dashboard Preview"
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                className="object-contain"
-                priority
-              />
+              <HeroImage />
             </div>
           </div>
         </div>
