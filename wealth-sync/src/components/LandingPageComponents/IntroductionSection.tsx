@@ -2,10 +2,11 @@ import React from "react";
 import { ArrowRight, Shield, Smartphone, Zap } from "lucide-react";
 import { Button } from "../ui/button";
 import { auth } from "@/server/auth";
-import Image from "next/image";
 import Link from "next/link";
 import { Routes } from "@/lib/constants/routes";
 import { getTranslations } from "next-intl/server";
+import HeroImage from "./HeroImage";
+import DynamicHeader from "./DynamicHeader";
 
 const IntroductionSection = async () => {
   const t = await getTranslations("IntroductionSection");
@@ -13,6 +14,10 @@ const IntroductionSection = async () => {
 
   return (
     <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
+        <DynamicHeader
+          text={t("heading")}
+          className="mx-auto mb-8 max-w-3xl text-center text-2xl font-semibold tracking-tight text-green-800 sm:text-3xl md:text-4xl"
+        />
       <div className="container px-4 md:px-6">
         {session?.user && (
           <h3>
@@ -74,14 +79,7 @@ const IntroductionSection = async () => {
           </div>
           <div className="flex items-center justify-center">
             <div className="bg-background relative w-full overflow-hidden rounded-lg p-2 sm:h-[400px] lg:h-[500px]">
-              <Image
-                src="/calculatior.png"
-                alt="Dashboard Preview"
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                className="object-contain"
-                priority
-              />
+              <HeroImage />
             </div>
           </div>
         </div>
