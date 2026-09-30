@@ -721,6 +721,18 @@
     "availablePlatforms": "Достъпни платформи",
     "preferedPlatforms": "Моля, изберете вашата предпочитана платформа и кликнете върху нея, за да я свържете."
   },
+  "NoPlatformsConnectedHeroImage": {
+    "bank": "Банки",
+    "investments": "Инвестиции",
+    "crypto": "Крипто",
+    "realEstate": "Недвижими имоти",
+    "preciousMetals": "Инвестиционни метали",
+    "creditCard": "Кредитна карта",
+    "loans": "Заеми",
+    "allPlatfromsCaption": "Всички ваши платформи, един таблодо",
+    "assets": "Активи",
+    "liabilities": "Пасиви"
+  },
   "DashboardTabs": {
     "overview": "Преглед",
     "assets": "Активи",

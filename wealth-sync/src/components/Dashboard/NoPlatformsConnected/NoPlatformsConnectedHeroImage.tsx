@@ -12,90 +12,9 @@ import {
   Layers,
   TrendingUp,
 } from "lucide-react";
-
-/**
- * "Aggregated platforms" illustration — the counterpart to
- * NoPlatformsIllustration. Multiple platform types (assets in
- * green, liabilities in amber) feed into a central hub that
- * represents the unified dashboard, with small pulses traveling
- * along each connector to suggest live, continuous syncing.
- */
+import { useTranslations } from "next-intl";
 
 type Group = "asset" | "liability";
-
-const nodes: {
-  Icon: typeof Landmark;
-  label: string;
-  group: Group;
-  top: string;
-  left: string;
-  x: number;
-  y: number;
-}[] = [
-  {
-    Icon: Landmark,
-    label: "Bank",
-    group: "asset",
-    top: "12.5%",
-    left: "50%",
-    x: 200,
-    y: 50,
-  },
-  {
-    Icon: TrendingUp,
-    label: "Investments",
-    group: "asset",
-    top: "26.63%",
-    left: "79.33%",
-    x: 317.3,
-    y: 106.5,
-  },
-  {
-    Icon: Bitcoin,
-    label: "Crypto",
-    group: "asset",
-    top: "58.35%",
-    left: "86.55%",
-    x: 346.2,
-    y: 233.4,
-  },
-  {
-    Icon: Home,
-    label: "Real Estate",
-    group: "asset",
-    top: "83.78%",
-    left: "66.28%",
-    x: 265.1,
-    y: 335.1,
-  },
-  {
-    Icon: Gem,
-    label: "Precious Metals",
-    group: "asset",
-    top: "83.78%",
-    left: "33.73%",
-    x: 134.9,
-    y: 335.1,
-  },
-  {
-    Icon: CreditCard,
-    label: "Credit Card",
-    group: "liability",
-    top: "58.35%",
-    left: "13.45%",
-    x: 53.8,
-    y: 233.4,
-  },
-  {
-    Icon: Banknote,
-    label: "Loans",
-    group: "liability",
-    top: "26.63%",
-    left: "20.68%",
-    x: 82.7,
-    y: 106.5,
-  },
-];
 
 const HUB = { x: 200, y: 200 };
 
@@ -126,6 +45,82 @@ const nodeVariants = {
 };
 
 const NoPlatformsCOnnectedHeroImage = () => {
+  const t = useTranslations("NoPlatformsConnectedHeroImage");
+
+  const nodes: {
+    Icon: typeof Landmark;
+    label: string;
+    group: Group;
+    top: string;
+    left: string;
+    x: number;
+    y: number;
+  }[] = [
+    {
+      Icon: Landmark,
+      label: t("bank"),
+      group: "asset",
+      top: "12.5%",
+      left: "50%",
+      x: 200,
+      y: 50,
+    },
+    {
+      Icon: TrendingUp,
+      label: t("investments"),
+      group: "asset",
+      top: "26.63%",
+      left: "79.33%",
+      x: 317.3,
+      y: 106.5,
+    },
+    {
+      Icon: Bitcoin,
+      label: t("crypto"),
+      group: "asset",
+      top: "58.35%",
+      left: "86.55%",
+      x: 346.2,
+      y: 233.4,
+    },
+    {
+      Icon: Home,
+      label: t("realEstate"),
+      group: "asset",
+      top: "83.78%",
+      left: "66.28%",
+      x: 265.1,
+      y: 335.1,
+    },
+    {
+      Icon: Gem,
+      label: t("preciousMetals"),
+      group: "asset",
+      top: "83.78%",
+      left: "33.73%",
+      x: 134.9,
+      y: 335.1,
+    },
+    {
+      Icon: CreditCard,
+      label: t("creditCard"),
+      group: "liability",
+      top: "58.35%",
+      left: "13.45%",
+      x: 53.8,
+      y: 233.4,
+    },
+    {
+      Icon: Banknote,
+      label: t("loans"),
+      group: "liability",
+      top: "26.63%",
+      left: "20.68%",
+      x: 82.7,
+      y: 106.5,
+    },
+  ];
+
   return (
     <div className="mx-auto flex w-full max-w-[440px] flex-col items-center gap-4">
       <style>{`
@@ -252,16 +247,16 @@ const NoPlatformsCOnnectedHeroImage = () => {
         className="flex flex-col items-center gap-2"
       >
         <span className="text-sm font-semibold text-slate-700">
-          All your platforms, one dashboard
+          {t("allPlatfromsCaption")}
         </span>
         <div className="flex items-center gap-4 text-xs">
           <span className="flex items-center gap-1.5 text-green-700">
             <span className="h-2 w-2 rounded-full bg-green-500" />
-            Assets
+            {t("assets")}
           </span>
           <span className="flex items-center gap-1.5 text-amber-700">
             <span className="h-2 w-2 rounded-full bg-amber-500" />
-            Liabilities
+            {t("liabilities")}
           </span>
         </div>
       </motion.div>
