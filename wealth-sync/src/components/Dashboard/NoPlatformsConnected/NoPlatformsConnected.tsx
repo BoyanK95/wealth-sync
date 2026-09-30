@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import IntegrationPlatformsGrid from "@/components/IntegrationPlatformsSection/IntegrationPlatformsGrid";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import DynamicText from "@/components/LandingPageComponents/DynamicHeader";
+import DynamicText from "@/components/Common/DynamicHeader";
 
 const NoPlatformsConnected = () => {
   const t = useTranslations("NoPlatformsConnected");
