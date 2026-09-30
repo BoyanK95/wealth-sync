@@ -5,13 +5,17 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import IntegrationPlatformsGrid from "@/components/IntegrationPlatformsSection/IntegrationPlatformsGrid";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import DynamicText from "@/components/LandingPageComponents/DynamicHeader";
 
 const NoPlatformsConnected = () => {
   const t = useTranslations("NoPlatformsConnected");
+
   return (
     <Card className="mt-7 w-full text-center">
       <CardHeader>
-        <CardTitle className="bold text-2xl">{t("title")}</CardTitle>
+        <CardTitle>
+          <DynamicText text={t("title")} className="text-2xl font-bold" />
+        </CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
         <Image
@@ -22,7 +26,10 @@ const NoPlatformsConnected = () => {
           className="mx-auto"
         />
         <div className="text-muted-foreground text-xl">
-          <p>{t("description")}</p>
+          <DynamicText
+            text={t("description")}
+            className="mx-auto max-w-2xl text-center text-lg"
+          />
         </div>
 
         <div className="items-center justify-center space-y-3">
