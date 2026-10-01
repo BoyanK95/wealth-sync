@@ -6,10 +6,16 @@
     "description": "Connect to multiple exchanges, track your investments, and analyze your performance with powerful charts and insights.",
     "goToDashboard": "Go to Dashboard",
     "getStarted": "Get Started",
+    "exploreFeatures": "Explore Features",
     "features": {
       "secure": "Secure Connections",
       "realtime": "Real-time Updates",
       "mobile": "Mobile App"
+    },
+    "PremiumHero": {
+      "portfolioValue": "Portfolio Value",
+      "returnYTD": "Return YTD",
+      "platforms": "Platforms"
     }
   },
   "FeaturesSection": {
