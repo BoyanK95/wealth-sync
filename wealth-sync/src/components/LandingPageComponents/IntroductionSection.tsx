@@ -15,6 +15,7 @@ const IntroductionSection = async () => {
       description={t("description")}
       getStarted={t("getStarted")}
       goToDashboard={t("goToDashboard")}
+      exploreFeatures={t("exploreFeatures")}
       secure={t("features.secure")}
       realtime={t("features.realtime")}
       mobile={t("features.mobile")}
