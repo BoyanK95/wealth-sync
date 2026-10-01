@@ -15,7 +15,9 @@
     "PremiumHero": {
       "portfolioValue": "Portfolio Value",
       "returnYTD": "Return YTD",
-      "platforms": "Platforms"
+      "platforms": "Platforms",
+      "liveOverview": "Live Overview",
+      "portfolio": "Portfolio"
     }
   },
   "FeaturesSection": {
