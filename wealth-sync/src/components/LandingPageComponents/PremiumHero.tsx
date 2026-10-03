@@ -6,7 +6,7 @@ import Link from "next/link";
 
 import { Routes } from "@/lib/constants/routes";
 import { Button } from "@/components/ui/button";
-import DynamicHeader from "./DynamicHeader";
+import DynamicHeader from "../Common/DynamicHeader";
 import HeroImage from "./HeroImage";
 import { useTranslations } from "next-intl";
 

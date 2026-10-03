@@ -725,6 +725,18 @@
     "availablePlatforms": "Available Platforms",
     "preferedPlatforms": "Please choose your preferred platform and click it to connect."
   },
+  "NoPlatformsConnectedHeroImage": {
+    "bank": "Bank",
+    "investments": "Investments",
+    "crypto": "Crypto",
+    "realEstate": "Real Estate",
+    "preciousMetals": "Precious Metals",
+    "creditCard": "Credit Card",
+    "loans": "Loans",
+    "allPlatfromsCaption": "All your platforms, one dashboard",
+    "assets": "Assets",
+    "liabilities": "Liabilities"
+  },
   "DashboardTabs": {
     "overview": "Overview",
     "assets": "Assets",
