@@ -196,7 +196,7 @@ export default function PremiumHero({
                   <span className="h-2.5 w-2.5 rounded-full bg-emerald-500" />
                 </div>
                 <span className="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-[10px] font-medium tracking-[0.16em] text-slate-500 uppercase dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300">
-                  Live overview
+                  {t("liveOverview")}
                 </span>
               </div>
 
@@ -212,8 +212,9 @@ export default function PremiumHero({
               className="absolute top-14 -left-4 rounded-2xl border border-emerald-200 bg-white/90 p-3 shadow-[0_16px_38px_rgba(16,185,129,0.10)] backdrop-blur-xl dark:border-emerald-900/60 dark:bg-slate-900/85"
             >
               <p className="text-[10px] font-medium tracking-[0.18em] text-slate-500 uppercase dark:text-slate-400">
-                Portfolio
+                {t("portfolio")}
               </p>
+              {/* TODO: Add a dynamic value here for the portfolio value instead of hardcoding it. */}
               <p className="mt-2 text-2xl font-semibold text-slate-900 dark:text-white">
                 $284.9K
               </p>
@@ -225,6 +226,7 @@ export default function PremiumHero({
               transition={{ delay: 0.48, ease: "easeOut" }}
               className="absolute right-4 -bottom-3 rounded-2xl border border-slate-200 bg-white/90 p-3 shadow-[0_20px_42px_rgba(15,23,42,0.12)] backdrop-blur-xl dark:border-slate-700 dark:bg-slate-900/85"
             >
+              {/* TODO: Add a dynamic value here for the portfolio value instead of hardcoding it. */}
               <div className="flex items-center gap-2 text-sm">
                 <span className="inline-block h-2.5 w-2.5 rounded-full bg-emerald-500" />
                 <span className="font-medium text-slate-900 dark:text-white">

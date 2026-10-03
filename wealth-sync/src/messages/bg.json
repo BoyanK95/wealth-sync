@@ -15,7 +15,9 @@
     "PremiumHero": {
       "portfolioValue": "Стойност на портфолиото",
       "returnYTD": "Възвръщане YTD",
-      "platforms": "Платформи"
+      "platforms": "Платформи",
+      "liveOverview": "Преглед в реално време",
+      "portfolio": "Портфолио"
     }
   },
   "FeaturesSection": {
