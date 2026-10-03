@@ -9,6 +9,9 @@ import { Button } from "@/components/ui/button";
 import DynamicHeader from "../Common/DynamicHeader";
 import HeroImage from "./HeroImage";
 import { useTranslations } from "next-intl";
+import { usePortfolioSummary } from "@/lib/hooks/usePortfolioSummary";
+import { usePlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
+import LoadingCard from "../Common/LoadingCard";
 
 type PremiumHeroProps = {
   heading: string;
@@ -49,15 +52,27 @@ export default function PremiumHero({
   isLoggedIn,
 }: PremiumHeroProps) {
   const t = useTranslations("IntroductionSection.PremiumHero");
+  const { loading, error, data } = usePortfolioSummary(true);
+  const { connectionsCount } = usePlatformConnection();
 
   const quickStats = [
     {
       label: t("portfolioValue"),
-      value: "$284.9K",
+      value: data.totalValue ? `$${data.totalValue.toLocaleString()}` : "$0",
       accent: "text-emerald-600",
     },
-    { label: t("returnYTD"), value: "+18.4%", accent: "text-emerald-600" },
-    { label: t("platforms"), value: "4 connected", accent: "text-slate-700" },
+    {
+      label: t("returnYTD"),
+      value: data.totalChangePercent
+        ? `${data.totalChangePercent.toFixed(2)}%`
+        : "+18.4%",
+      accent: "text-emerald-600",
+    },
+    {
+      label: t("platforms"),
+      value: connectionsCount ? `${connectionsCount} connected` : "0 connected",
+      accent: "text-slate-700",
+    },
   ];
 
   return (
@@ -243,21 +258,26 @@ export default function PremiumHero({
           transition={{ delay: 0.34, duration: 0.7, ease: "easeOut" }}
           className="mt-8 grid gap-3 sm:grid-cols-3"
         >
-          {quickStats.map((stat) => (
-            <div
-              key={stat.label}
-              className="rounded-2xl border border-slate-200/80 bg-white/60 px-4 py-3 text-center shadow-[0_10px_24px_rgba(15,23,42,0.04)] backdrop-blur-xl dark:border-slate-700/80 dark:bg-slate-900/60"
-            >
-              <div className="text-xs font-medium tracking-[0.2em] text-slate-500 uppercase dark:text-slate-400">
-                {stat.label}
-              </div>
+          {/* //TODO add error state and showState for the quick stats cards */}
+          {loading ? (
+            <LoadingCard />
+          ) : (
+            quickStats.map((stat) => (
               <div
-                className={`mt-2 text-xl font-semibold ${stat.accent} dark:text-emerald-300`}
+                key={stat.label}
+                className="rounded-2xl border border-slate-200/80 bg-white/60 px-4 py-3 text-center shadow-[0_10px_24px_rgba(15,23,42,0.04)] backdrop-blur-xl dark:border-slate-700/80 dark:bg-slate-900/60"
               >
-                {stat.value}
+                <div className="text-xs font-medium tracking-[0.2em] text-slate-500 uppercase dark:text-slate-400">
+                  {stat.label}
+                </div>
+                <div
+                  className={`mt-2 text-xl font-semibold ${stat.accent} dark:text-emerald-300`}
+                >
+                  {stat.value}
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          )}
         </motion.div>
       </div>
     </section>
