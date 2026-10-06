@@ -1,8 +1,8 @@
 # 💰 Wealth-Sync
 
-**Wealth-Sync** is a unified financial dashboard that seamlessly syncs data from multiple stock and crypto exchanges—like **Binance**, **Trading212**, and more—and displays it in a beautifully designed, responsive interface.
+**Wealth-Sync** is a unified financial dashboard that seamlessly syncs data from multiple stock and crypto exchanges—like **Binance**, **Trading212**, **Etoro** and many more platforms. Add all your assets and liabilities and displays it in a beautifully designed, responsive interface.
 
-<img width="1728" alt="Screenshot 2025-04-20 at 21 13 30" src="https://github.com/user-attachments/assets/b08fb321-ab49-471e-b227-3f9c2a31cfab" />
+<img width="1466" height="792" alt="Screenshot 2026-10-06 at 23 59 22" src="https://github.com/user-attachments/assets/f0078933-5583-4aa0-9370-c378c9f24e95" />
 
 
 Built using the powerful **T3 Stack** (Next.js, tRPC, TailwindCSS, Prisma), Wealth-Sync offers a full-stack TypeScript experience with blazing-fast performance and type safety from front to back. Hosted on **Vercel** for zero-config deployments and global availability.
@@ -45,7 +45,9 @@ Built using the powerful **T3 Stack** (Next.js, tRPC, TailwindCSS, Prisma), Weal
 - [tRPC](https://trpc.io/)  
 - [TailwindCSS](https://tailwindcss.com/)  
 - [Prisma](https://prisma.io/)  
-- [TypeScript](https://www.typescriptlang.org/)  
+- [TypeScript](https://www.typescriptlang.org/)
+- [SQL](https://www.postgresql.org/)
+- [FRAMER-MOTION](https://motion.dev/)
 - [Vercel](https://vercel.com/) for deployment  
 
 ---
