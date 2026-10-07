@@ -9,6 +9,12 @@ import { Button } from "@/components/ui/button";
 import DynamicHeader from "../Common/DynamicHeader";
 import HeroImage from "./HeroImage";
 import { useTranslations } from "next-intl";
+import { usePortfolioSummary } from "@/lib/hooks/usePortfolioSummary";
+import { usePlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
+import LoadingCard from "../Common/LoadingCard";
+import ShowStatsButton from "../Common/ShowStatsButton";
+import { useState } from "react";
+import ErrorState from "../Common/ErrorState";
 
 type PremiumHeroProps = {
   heading: string;
@@ -49,15 +55,38 @@ export default function PremiumHero({
   isLoggedIn,
 }: PremiumHeroProps) {
   const t = useTranslations("IntroductionSection.PremiumHero");
+  const [showStats, setShowStats] = useState(false);
+  const { loading, error, data } = usePortfolioSummary(showStats);
+  const { connectionsCount } = usePlatformConnection();
 
   const quickStats = [
     {
       label: t("portfolioValue"),
-      value: "$284.9K",
+      value: showStats
+        ? data.totalValue
+          ? `$${data.totalValue.toLocaleString()}`
+          : "$0"
+        : "****",
       accent: "text-emerald-600",
     },
-    { label: t("returnYTD"), value: "+18.4%", accent: "text-emerald-600" },
-    { label: t("platforms"), value: "4 connected", accent: "text-slate-700" },
+    {
+      label: t("returnYTD"),
+      value: showStats
+        ? data.totalChangePercent
+          ? `${data.totalChangePercent.toFixed(2)}%`
+          : "+N/A%"
+        : "****",
+      accent: "text-emerald-600",
+    },
+    {
+      label: t("platforms"),
+      value: showStats
+        ? connectionsCount
+          ? `${connectionsCount} connected`
+          : "0 connected"
+        : "****",
+      accent: "text-slate-700",
+    },
   ];
 
   return (
@@ -226,7 +255,6 @@ export default function PremiumHero({
               transition={{ delay: 0.48, ease: "easeOut" }}
               className="absolute right-4 -bottom-3 rounded-2xl border border-slate-200 bg-white/90 p-3 shadow-[0_20px_42px_rgba(15,23,42,0.12)] backdrop-blur-xl dark:border-slate-700 dark:bg-slate-900/85"
             >
-              {/* TODO: Add a dynamic value here for the portfolio value instead of hardcoding it. */}
               <div className="flex items-center gap-2 text-sm">
                 <span className="inline-block h-2.5 w-2.5 rounded-full bg-emerald-500" />
                 <span className="font-medium text-slate-900 dark:text-white">
@@ -241,23 +269,40 @@ export default function PremiumHero({
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.34, duration: 0.7, ease: "easeOut" }}
-          className="mt-8 grid gap-3 sm:grid-cols-3"
         >
-          {quickStats.map((stat) => (
-            <div
-              key={stat.label}
-              className="rounded-2xl border border-slate-200/80 bg-white/60 px-4 py-3 text-center shadow-[0_10px_24px_rgba(15,23,42,0.04)] backdrop-blur-xl dark:border-slate-700/80 dark:bg-slate-900/60"
-            >
-              <div className="text-xs font-medium tracking-[0.2em] text-slate-500 uppercase dark:text-slate-400">
-                {stat.label}
-              </div>
-              <div
-                className={`mt-2 text-xl font-semibold ${stat.accent} dark:text-emerald-300`}
-              >
-                {stat.value}
-              </div>
-            </div>
-          ))}
+          {!error && !loading && (
+            <ShowStatsButton
+              showStats={showStats}
+              setShowStats={setShowStats}
+            />
+          )}
+          <div className="grid gap-3 sm:grid-cols-3">
+            {loading ? (
+              <LoadingCard />
+            ) : error ? (
+              <ErrorState
+                title={t("error.title")}
+                message={t("error.message")}
+                onRetry={() => window.location.reload()}
+              />
+            ) : (
+              quickStats.map((stat) => (
+                <div
+                  key={stat.label}
+                  className="rounded-2xl border border-slate-200/80 bg-white/60 px-4 py-3 text-center shadow-[0_10px_24px_rgba(15,23,42,0.04)] backdrop-blur-xl dark:border-slate-700/80 dark:bg-slate-900/60"
+                >
+                  <div className="text-xs font-medium tracking-[0.2em] text-slate-500 uppercase dark:text-slate-400">
+                    {stat.label}
+                  </div>
+                  <div
+                    className={`mt-2 text-xl font-semibold ${stat.accent} dark:text-emerald-300`}
+                  >
+                    {stat.value}
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
         </motion.div>
       </div>
     </section>
