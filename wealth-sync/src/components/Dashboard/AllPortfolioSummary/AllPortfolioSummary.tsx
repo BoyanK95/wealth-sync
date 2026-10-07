@@ -50,6 +50,7 @@ const AllPortfolioSummary = ({
     <>
       <div className="ml-5 flex items-center space-x-2">
         <h2 className="text-xl font-semibold">{t("title")}</h2>
+        {/* Add showStats button here to toggle the visibility of the stats */}
         <Button
           variant="ghost"
           onClick={() => setShowStats(!showStats)}
