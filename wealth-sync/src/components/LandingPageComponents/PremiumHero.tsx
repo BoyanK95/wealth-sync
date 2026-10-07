@@ -65,7 +65,7 @@ export default function PremiumHero({
       label: t("returnYTD"),
       value: data.totalChangePercent
         ? `${data.totalChangePercent.toFixed(2)}%`
-        : "+18.4%",
+        : "+N/A%",
       accent: "text-emerald-600",
     },
     {
