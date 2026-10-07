@@ -278,7 +278,7 @@ export default function PremiumHero({
           )}
           <div className="grid gap-3 sm:grid-cols-3">
             {loading ? (
-              <LoadingCard />
+              <LoadingCard cardCount={3} rowCount={1} />
             ) : error ? (
               <ErrorState
                 title={t("error.title")}
