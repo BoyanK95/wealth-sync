@@ -17,7 +17,11 @@
       "returnYTD": "Return YTD",
       "platforms": "Platforms",
       "liveOverview": "Live Overview",
-      "portfolio": "Portfolio"
+      "portfolio": "Portfolio",
+      "error": {
+        "title": "Error Loading Data",
+        "message": "There was an issue loading your portfolio data. Please try again."
+      }
     }
   },
   "FeaturesSection": {

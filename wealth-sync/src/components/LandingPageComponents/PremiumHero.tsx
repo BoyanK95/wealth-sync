@@ -14,6 +14,7 @@ import { usePlatformConnection } from "@/lib/contexts/PlatformConnectionContext"
 import LoadingCard from "../Common/LoadingCard";
 import ShowStatsButton from "../Common/ShowStatsButton";
 import { useState } from "react";
+import ErrorState from "../Common/ErrorState";
 
 type PremiumHeroProps = {
   heading: string;
@@ -269,11 +270,21 @@ export default function PremiumHero({
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.34, duration: 0.7, ease: "easeOut" }}
         >
-          {/* //TODO add error state and showState for the quick stats cards */}
-          <ShowStatsButton showStats={showStats} setShowStats={setShowStats} />
+          {!error && !loading && (
+            <ShowStatsButton
+              showStats={showStats}
+              setShowStats={setShowStats}
+            />
+          )}
           <div className="grid gap-3 sm:grid-cols-3">
             {loading ? (
               <LoadingCard />
+            ) : error ? (
+              <ErrorState
+                title={t("error.title")}
+                message={t("error.message")}
+                onRetry={() => window.location.reload()}
+              />
             ) : (
               quickStats.map((stat) => (
                 <div
