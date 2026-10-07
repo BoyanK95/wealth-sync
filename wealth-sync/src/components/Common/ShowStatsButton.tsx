@@ -15,7 +15,11 @@ export default function ShowStatsButton({
       onClick={() => setShowStats((prev) => !prev)}
       className="cursor-pointer text-gray-400 dark:hover:text-gray-200"
     >
-      {showStats ? <Eye className="h-6 w-6" /> : <EyeOff className="h-6 w-6" />}
+      {showStats ? (
+        <Eye aria-label="Hide stats" className="h-6 w-6" />
+      ) : (
+        <EyeOff aria-label="Show stats" className="h-6 w-6" />
+      )}
     </Button>
   );
 }
