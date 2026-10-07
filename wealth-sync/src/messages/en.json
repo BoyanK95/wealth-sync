@@ -61,8 +61,11 @@
     "description": "{siteName} integrates with major stock exchanges, crypto platforms, and brokerages."
   },
   "ChartPreviewSection": {
+    "analyticsBadge": "Analytics",
     "title": "Powerful analytics at your fingertips",
-    "description": "Visualize the investment performance of all your aggregated stock exchange accounts with interactive charts and detailed metrics. Identify trends, track growth, and make informed decisions."
+    "description": "Visualize the investment performance of all your aggregated stock exchange accounts with interactive charts and detailed metrics. Identify trends, track growth, and make informed decisions.",
+    "realTimeTrackingBadge": "Real-time Tracking",
+    "betterDecisionsBadge": "Better Decisions"
   },
   "ActionSection": {
     "title": "Ready to take control of your investments?",
