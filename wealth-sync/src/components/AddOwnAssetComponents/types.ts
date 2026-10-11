@@ -3,6 +3,7 @@ export const CATEGORIES = [
   "stock",
   "metal",
   "realEstate",
+  "savings",
   "other",
 ] as const;
 export type AssetCategory = (typeof CATEGORIES)[number];
@@ -15,6 +16,7 @@ export const CATEGORY_LABELS: Record<
   stock: { label: "Stock / ETF", tab: "Stocks" },
   metal: { label: "Precious metal", tab: "Metals" },
   realEstate: { label: "Real estate", tab: "Real estate" },
+  savings: { label: "Savings", tab: "Savings" },
   other: { label: "Other", tab: "Other" },
 };
 
@@ -28,6 +30,7 @@ export interface Asset {
   unit: string;
   buyPrice: number;
   currentPrice: number;
+  interestRate?: number;
   /** Null when the asset has no live price (real estate, other). */
   changePercent: number | null;
   /** What the change covers, e.g. "24h". */

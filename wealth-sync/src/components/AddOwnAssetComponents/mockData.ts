@@ -60,4 +60,15 @@ export const MOCK_ASSETS: Asset[] = [
     currentPrice: 118000,
     changePercent: null,
   },
+  {
+    id: "6",
+    name: "Savings DSK Bank",
+    category: "savings",
+    quantity: 1,
+    unit: "item",
+    buyPrice: 95000,
+    interestRate: 0.03,
+    currentPrice: 118000,
+    changePercent: null,
+  },
 ];

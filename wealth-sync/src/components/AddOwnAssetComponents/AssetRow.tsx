@@ -7,6 +7,7 @@ import {
   Home,
   LineChart,
   Package,
+  Banknote,
   Pencil,
   Trash2,
   type LucideIcon,
@@ -28,6 +29,7 @@ const ICONS: Record<AssetCategory, LucideIcon> = {
   stock: LineChart,
   metal: Gem,
   realEstate: Home,
+  savings: Banknote,
   other: Package,
 };
 
@@ -44,6 +46,11 @@ export default function AssetRow({ asset }: { asset: Asset }) {
   //TODO: Delete asset (not implemented yet, just logs to console)
   const deleteAsset = () => {
     console.log(`Deleting asset: ${asset.name}`);
+  };
+
+  //TODO: Edit asset (not implemented yet, just logs to console)
+  const editAsset = () => {
+    console.log(`Editing asset: ${asset.name}`);
   };
 
   return (
@@ -121,6 +128,7 @@ export default function AssetRow({ asset }: { asset: Asset }) {
               size="icon"
               aria-label={`Edit ${asset.name}`}
               className="cursor-pointer"
+              onClick={editAsset}
             >
               <Pencil className="h-4 w-4" />
             </Button>
