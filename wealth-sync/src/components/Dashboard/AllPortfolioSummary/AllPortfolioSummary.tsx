@@ -15,6 +15,7 @@ import {
 } from "./components";
 import { usePlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
 import { useTranslations } from "next-intl";
+import ShowStatsButton from "@/components/Common/ShowStatsButton";
 
 const AllPortfolioSummary = ({
   showStats,
@@ -50,7 +51,7 @@ const AllPortfolioSummary = ({
     <>
       <div className="ml-5 flex items-center space-x-2">
         <h2 className="text-xl font-semibold">{t("title")}</h2>
-        <ShowStatsButton showStats={showStats} setShowStats={setShowStats} />
+        <ShowStatsButton />
       </div>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <TotalPortfolioValueSection
