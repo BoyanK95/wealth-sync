@@ -50,18 +50,7 @@ const AllPortfolioSummary = ({
     <>
       <div className="ml-5 flex items-center space-x-2">
         <h2 className="text-xl font-semibold">{t("title")}</h2>
-        {/* Add showStats button here to toggle the visibility of the stats */}
-        <Button
-          variant="ghost"
-          onClick={() => setShowStats(!showStats)}
-          className="cursor-pointer text-gray-400 dark:hover:text-gray-200"
-        >
-          {showStats ? (
-            <Eye className="h-6 w-6" />
-          ) : (
-            <EyeOff className="h-6 w-6" />
-          )}
-        </Button>
+        <ShowStatsButton showStats={showStats} setShowStats={setShowStats} />
       </div>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <TotalPortfolioValueSection
