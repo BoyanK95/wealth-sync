@@ -1,7 +1,8 @@
+import AddYourOwnAssetPage from "@/components/AddOwnAssetComponents/AddOwnAssetPage";
 import React from "react";
 
 function AddYourOwnAsset() {
-  return <div>AddYourOwnAsset</div>;
+  return <AddYourOwnAssetPage />;
 }
 
 export default AddYourOwnAsset;
