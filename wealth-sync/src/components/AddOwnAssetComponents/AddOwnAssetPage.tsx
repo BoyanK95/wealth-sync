@@ -6,13 +6,13 @@ import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AssetSummaryCards from "./AssetSummaryCarts";
-import { CATEGORIES, CATEGORY_LABELS, type Asset, type AssetCategory } from "./types";
+import { CATEGORIES, CATEGORY_LABELS, type Asset } from "./types";
 import { MOCK_ASSETS } from "./mockData";
 import AssetsEmptyState from "./AssetEmptyState";
 import AssetRow from "./AssetRow";
 import AddAssetDialog from "./AddAssetDialog";
 
-type Tab = "all" | AssetCategory;
+type Tab = "all" | Asset["category"];
 
 export default function AddYourOwnAssetPage({
   assets = MOCK_ASSETS,
@@ -25,12 +25,12 @@ export default function AddYourOwnAssetPage({
   const visible =
     tab === "all" ? assets : assets.filter((a) => a.category === tab);
 
-  const totalValue = visible.reduce((s, a) => s + a.quantity * a.currentPrice, 0) as number;
-  const totalCost = visible.reduce((s, a) => s + a.quantity * a.buyPrice, 0) as number;
+  const totalValue = visible.reduce<number>((s, a) => s + a.quantity * a.currentPrice, 0);
+  const totalCost = visible.reduce<number>((s, a) => s + a.quantity * a.buyPrice, 0);
   const gainLoss = totalValue - totalCost;
 
   return (
-    <div className="space-y-6 mt-23">
+    <div className="mt-23 space-y-6">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">My assets</h1>
@@ -41,7 +41,7 @@ export default function AddYourOwnAssetPage({
         </div>
         <Button
           onClick={() => setDialogOpen(true)}
-          className="cursor-pointer bg-green-700 hover:bg-green-800 dark:hover:text-white "
+          className="cursor-pointer bg-green-700 hover:bg-green-800 dark:hover:text-white"
         >
           <Plus className="mr-1.5 h-4 w-4" />
           Add asset
