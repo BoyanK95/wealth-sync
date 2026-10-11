@@ -1,10 +1,8 @@
 "use client";
 
 import ContainerCardErrorState from "@/components/Dashboard/ContainerCardErrorState/ContainerCardErrorState";
-import { Button } from "@/components/ui/button";
 import { usePortfolioSummary } from "@/lib/hooks/usePortfolioSummary";
-import { Eye, EyeOff } from "lucide-react";
-import { useCallback } from "react";
+import { useCallback, type Dispatch, type SetStateAction } from "react";
 import { loadingCards } from "../ContainerCardLoadingState/constants";
 import ContainerCardLoadingState from "../ContainerCardLoadingState/ContainerCardLoadingState.tsx";
 import {
@@ -22,7 +20,7 @@ const AllPortfolioSummary = ({
   setShowStats,
 }: {
   showStats: boolean;
-  setShowStats: (showStats: boolean) => void;
+  setShowStats: Dispatch<SetStateAction<boolean>>;
 }) => {
   const t = useTranslations("AllPortfolioSummary");
 
