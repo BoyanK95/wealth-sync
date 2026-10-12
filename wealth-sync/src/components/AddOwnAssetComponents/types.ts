@@ -20,6 +20,13 @@ export const CATEGORY_LABELS: Record<
   other: { label: "Other", tab: "Other" },
 };
 
+export const numberInput = {
+  type: "number",
+  inputMode: "decimal" as const,
+  step: "any",
+  min: "0",
+};
+
 export interface Asset {
   id: string;
   name: string;
