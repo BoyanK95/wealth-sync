@@ -54,9 +54,17 @@ export default function AddAssetDialog({
   onOpenChange: (open: boolean) => void;
 }) {
   const [category, setCategory] = useState<AssetCategory>("crypto");
+
   const isMetal = category === "metal";
+  const isSavings = category === "savings";
   const isManual = category === "realEstate" || category === "other";
   const isTicker = category === "crypto" || category === "stock";
+
+  //TODO: Handle form submission till creating DB (not implemented yet, just logs to console)
+  const handleSubmitOfOwnAsset = (e: React.SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log("Submitting own asset form");
+  };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -68,13 +76,7 @@ export default function AddAssetDialog({
           </DialogDescription>
         </DialogHeader>
 
-        <form
-          className="space-y-4"
-          onSubmit={(e) => {
-            e.preventDefault();
-            onOpenChange(false); // nothing is saved yet
-          }}
-        >
+        <form className="space-y-4" onSubmit={handleSubmitOfOwnAsset}>
           <Field label="Category">
             <Select
               value={category}
@@ -106,6 +108,19 @@ export default function AddAssetDialog({
             </Field>
           )}
 
+          {isSavings && (
+            <>
+              <Field label="Bank / account name">
+                <Input placeholder="e.g. Chase, Revolut, Wise" />
+              </Field>
+              <Field
+                label="Interest rate (optional)"
+                hint="Annual interest rate in %"
+              >
+                <Input {...numberInput} placeholder="e.g. 1.5" type="number" />
+              </Field>
+            </>
+          )}
           {isMetal && (
             <div className="grid grid-cols-2 gap-3">
               <Field label="Metal">
