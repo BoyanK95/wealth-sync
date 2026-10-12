@@ -11,6 +11,7 @@ import { MOCK_ASSETS } from "./mockData";
 import AssetsEmptyState from "./AssetEmptyState";
 import AssetRow from "./AssetRow";
 import AddAssetDialog from "./AddAssetDialog";
+import { useTranslations } from "next-intl";
 
 type Tab = "all" | Asset["category"];
 
@@ -19,6 +20,8 @@ export default function AddYourOwnAssetPage({
 }: {
   assets?: Asset[];
 }) {
+  const t = useTranslations("AddOwnAssetPage");
+
   const [tab, setTab] = useState<Tab>("all");
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -33,10 +36,9 @@ export default function AddYourOwnAssetPage({
     <div className="mt-23 space-y-6">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">My assets</h1>
+          <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
           <p className="text-muted-foreground mt-1">
-            Track crypto, stocks, precious metals, real estate and anything else
-            you own.
+            {t("description")}
           </p>
         </div>
         <Button
@@ -44,7 +46,7 @@ export default function AddYourOwnAssetPage({
           className="cursor-pointer bg-green-700 hover:bg-green-800 dark:hover:text-white"
         >
           <Plus className="mr-1.5 h-4 w-4" />
-          Add asset
+          {t("addAssetButton")}
         </Button>
       </div>
 
@@ -60,7 +62,7 @@ export default function AddYourOwnAssetPage({
       <Tabs value={tab} onValueChange={(v) => setTab(v as Tab)}>
         <TabsList className="h-auto flex-wrap justify-start">
           <TabsTrigger value="all" className="cursor-pointer">
-            All ({assets.length})
+            {t("tabsTrigerHeader", { assetCount: assets.length })}
           </TabsTrigger>
           {CATEGORIES.map((c) => (
             <TabsTrigger key={c} value={c} className="cursor-pointer">

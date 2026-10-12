@@ -30,7 +30,7 @@ const initialSavings: SavingsFormValues = {
 
 export type AddAssetFormData = {
   category: AssetCategory;
-  values: Record<string, FormDataEntryValue | SavingsFormValues[string]>;
+  values: Record<string, FormDataEntryValue | string>;
 };
 
 type AssetFormProps = {

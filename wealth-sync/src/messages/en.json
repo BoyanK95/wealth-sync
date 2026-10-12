@@ -718,6 +718,12 @@
   "AllPortfolioSummary": {
     "title": "Portfolio Summary"
   },
+  "AddOwnAssetPage": {
+    "title": "My assets",
+    "description": "Track crypto, stocks, precious metals, real estate and anything else you own.",
+    "addAssetButton": "Add Asset",
+    "tabsTrigerHeader": "All {assetCount}"
+  },
   "ConnectedPlatformsSection": {
     "title": "Connected Platforms",
     "description": "of {platformCount} available integrations"
