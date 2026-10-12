@@ -12,12 +12,14 @@ import {
 } from "@/components/ui/select";
 
 import { CATEGORIES, CATEGORY_LABELS, type AssetCategory } from "./types";
-import { SavingsFields, type SavingsFormValues } from "./DialogFields/SavingsFields";
+import {
+  SavingsFields,
+  type SavingsFormValues,
+} from "./DialogFields/SavingsFields";
 import { DialogField } from "./DialogField";
 import { TickerField } from "./DialogFields/TickerFields";
 import { MetalFields } from "./DialogFields/MetalFields";
 import { AssetFormFields } from "./AssetFormFields";
-
 
 const initialSavings: SavingsFormValues = {
   accountType: "savingsAccount",
@@ -93,14 +95,6 @@ export function AssetForm({ onCancel, onSubmit }: AssetFormProps) {
       {category === "metal" && <MetalFields />}
 
       {!isSavings && <AssetFormFields category={category} />}
-
-      <div className="grid grid-cols-2 gap-3">
-        {isTicker && (
-          <DialogField label="Purchase date (optional)">
-            <Input name="purchaseDate" type="date" />
-          </DialogField>
-        )}
-      </div>
 
       <div className="flex justify-end gap-2 pt-2">
         <Button type="button" variant="outline" onClick={onCancel}>
