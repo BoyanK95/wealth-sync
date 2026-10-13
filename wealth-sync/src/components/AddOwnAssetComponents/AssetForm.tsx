@@ -80,7 +80,7 @@ export function AssetForm({ onCancel, onSubmit }: AssetFormProps) {
           </SelectTrigger>
           <SelectContent>
             {CATEGORIES.map((item) => (
-              <SelectItem key={item} value={item}>
+              <SelectItem className="hover:bg-muted/70" key={item} value={item}>
                 {CATEGORY_LABELS[item].label}
               </SelectItem>
             ))}
