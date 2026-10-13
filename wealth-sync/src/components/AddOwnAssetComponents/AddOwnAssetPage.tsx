@@ -22,7 +22,7 @@ export default function AddYourOwnAssetPage({
   showStats,
 }: {
   assets?: Asset[];
-  showStats: boolean;
+  showStats?: boolean;
 }) {
   const t = useTranslations("AddOwnAssetPage");
 

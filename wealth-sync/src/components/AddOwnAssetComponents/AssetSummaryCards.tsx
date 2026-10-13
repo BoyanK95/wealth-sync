@@ -5,7 +5,7 @@ import { signedPercent, signedUsd, trendColor, usd } from "./format";
 import { useTranslations } from "next-intl";
 
 interface AssetSummaryCardsProps {
-  showStats: boolean;
+  showStats?: boolean;
   totalValue: number;
   gainLoss: number;
   gainLossPercent: number | null;
