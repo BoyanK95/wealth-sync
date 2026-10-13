@@ -19,7 +19,8 @@ import {
 import { DialogField } from "./DialogField";
 import { TickerField } from "./DialogFields/TickerFields";
 import { MetalFields } from "./DialogFields/MetalFields";
-import { AssetFormFields } from "./AssetFormFields";
+import { AssetFormFields } from "./DialogFields/AssetFormFields";
+import { useTranslations } from "next-intl";
 
 const initialSavings: SavingsFormValues = {
   accountType: "savingsAccount",
@@ -41,6 +42,7 @@ type AssetFormProps = {
 };
 
 export function AssetForm({ onCancel, onSubmit }: AssetFormProps) {
+  const t = useTranslations("AddOwnAssetPage.AssetForm");
   const [category, setCategory] = useState<AssetCategory>("crypto");
   const [savings, setSavings] = useState<SavingsFormValues>(initialSavings);
 
@@ -70,7 +72,7 @@ export function AssetForm({ onCancel, onSubmit }: AssetFormProps) {
 
   return (
     <form className="space-y-4" onSubmit={handleSubmit}>
-      <DialogField label="Category">
+      <DialogField label={t("categoryLabel")}>
         <Select
           value={category}
           onValueChange={(value) => setCategory(value as AssetCategory)}
@@ -98,10 +100,10 @@ export function AssetForm({ onCancel, onSubmit }: AssetFormProps) {
 
       <div className="flex justify-end gap-2 pt-2">
         <Button type="button" variant="outline" onClick={onCancel}>
-          Cancel
+          {t("cancelButton")}
         </Button>
         <Button type="submit" className="bg-green-700 hover:bg-green-800">
-          Add asset
+          {t("addAssetButton")}
         </Button>
       </div>
     </form>

@@ -724,6 +724,15 @@
     "description": "Проследявайте крипто, акции, драги метали, недвижими имоти и всичко друго, което притежавате.",
     "addAssetButton": "Добавяне на актив",
     "tabsTrigerHeader": "Всички {assetCount}",
+    "Dialog": {
+      "title": "Добавяне на собствен актив",
+      "description": "Изберете категория на актив и въведете неговите данни."
+    },
+    "AssetForm": {
+      "categoryLabel": "Категория",
+      "cancelButton": "Отказ",
+      "addAssetButton": "Добави Актив"
+    },
     "metalFields": {
       "metal": "метал",
       "unit": "единица",
@@ -734,6 +743,26 @@
       "troyOz": "Тройунция",
       "gram": "Грам",
       "kilogram": "Килограм"
+    },
+    "SavingsFields": {
+      "savingsType": "Тип спестяване",
+      "chooseSavingsType": "Изберете тип на спестяване",
+      "institution": "Банка/Институция",
+      "institutionHint": "Опция за спестявания в кеш",
+      "institutionPlaceholder": "Револют, ДСК, ОББ",
+      "currency": "Валута",
+      "currentBalance": "Текущ баланс",
+      "currentBalanceHint": "Въведете текущия баланс на сметката си",
+      "currentBalancePlaceholder": "e.g. 10000",
+      "annualInterestRate": "Годишен лихвен процент (%)",
+      "annualInterestRateHint": "Въведете годишния лихвен процент, предлаган от вашия банк, e.g. 2.5.",
+      "annualInterestRatePlaceholder": "e.g. 2.5",
+      "maturityDate": "Дата на изтичане",
+      "maturityDateHint": "Кога завършва термът на депозита."
+    },
+    "TickerField": {
+      "cryptoExample": "Например BTC или ETH.",
+      "stockExample": "Американски акции или ETF-и, като например AAPL."
     }
   },
   "AssetsEmptyState": {

@@ -723,6 +723,15 @@
     "description": "Track crypto, stocks, precious metals, real estate and anything else you own.",
     "addAssetButton": "Add Asset",
     "tabsTrigerHeader": "All {assetCount}",
+    "Dialog": {
+      "title": "Add own asset",
+      "description": "Choose an asset category and enter its details."
+    },
+    "AssetForm": {
+      "categoryLabel": "Category",
+      "cancelButton": "Cancel",
+      "addAssetButton": "Add Asset"
+    },
     "metalFields": {
       "metal": "metal",
       "unit": "unit",
@@ -733,6 +742,26 @@
       "troyOz": "Troy Oz",
       "gram": "Gram",
       "kilogram": "Kilogram"
+    },
+    "SavingsFields": {
+      "savingsType": "Savings type",
+      "chooseSavingsType": "Choose savings type",
+      "institution": "Bank/institution",
+      "institutionHint": "Optional for cash savings.",
+      "institutionPlaceholder": "e.g. Revolut, Wise, DSK Bank",
+      "currency": "Currency",
+      "currentBalance": "Current balance",
+      "currentBalanceHint": "Enter current savings balance",
+      "currentBalancePlaceholder": "e.g. 10000",
+      "annualInterestRate": "Annual interest rate (%)",
+      "annualInterestRateHint": "Enter the annual rate offered by your bank, e.g. 2.5.",
+      "annualInterestRatePlaceholder": "e.g. 2.5",
+      "maturityDate": "Maturity date",
+      "maturityDateHint": "When the deposit term ends."
+    },
+    "TickerField": {
+      "cryptoExample": "For example BTC or ETH.",
+      "stockExample": "US-listed stocks and ETFs, for example AAPL."
     }
   },
   "AssetsEmptyState": {

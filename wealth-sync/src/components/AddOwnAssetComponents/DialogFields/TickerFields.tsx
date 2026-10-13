@@ -1,11 +1,15 @@
+"use client";
+
 import { Input } from "@/components/ui/input";
 import { DialogField } from "../DialogField";
+import { useTranslations } from "next-intl";
 
 type TickerFieldProps = {
   category: "crypto" | "stock";
 };
 
 export function TickerField({ category }: TickerFieldProps) {
+  const t = useTranslations("AddOwnAssetPage.TickerField");
   const isCrypto = category === "crypto";
 
   return (
@@ -13,8 +17,8 @@ export function TickerField({ category }: TickerFieldProps) {
       label="Ticker"
       hint={
         isCrypto
-          ? "For example BTC or ETH."
-          : "US-listed stocks and ETFs, for example AAPL."
+          ? t('cryptoExample')
+          : t('stockExample')
       }
     >
       <Input

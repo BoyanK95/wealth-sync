@@ -1,6 +1,6 @@
 import { Input } from "@/components/ui/input";
-import { DialogField } from "./DialogField";
-import { numberInput, type AssetCategory } from "./types";
+import { DialogField } from "../DialogField";
+import { numberInput, type AssetCategory } from "../types";
 
 type AssetFormFieldsProps = {
   category: AssetCategory;

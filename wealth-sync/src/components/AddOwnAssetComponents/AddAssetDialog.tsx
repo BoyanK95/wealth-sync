@@ -8,6 +8,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { AssetForm, type AddAssetFormData } from "./AssetForm";
+import { useTranslations } from "next-intl";
 
 type AddAssetDialogProps = {
   open: boolean;
@@ -18,6 +19,8 @@ export default function AddAssetDialog({
   open,
   onOpenChange,
 }: AddAssetDialogProps) {
+  const t = useTranslations('AddOwnAssetPage.Dialog');
+
   function handleSubmit(data: AddAssetFormData) {
     // TODO: Validate and persist the asset through your server action/API.
     console.log("Submitting asset:", data);
@@ -28,9 +31,9 @@ export default function AddAssetDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>Add an asset</DialogTitle>
+          <DialogTitle>{t('title')}</DialogTitle>
           <DialogDescription>
-            Choose an asset category and enter its details.
+            {t('description')}
           </DialogDescription>
         </DialogHeader>
 
