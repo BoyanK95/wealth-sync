@@ -27,11 +27,9 @@ export function CollapsibleSection({
 
   return (
     <Collapsible open={open} onOpenChange={setOpen}>
-      <CollapsibleTrigger className="hover:bg-muted/50 flex w-full items-center justify-between rounded-md border p-3 text-left cursor-pointer">
+      <CollapsibleTrigger className="hover:bg-muted/50 flex w-full cursor-pointer items-center justify-between rounded-md border p-3 text-left">
         <div className="min-w-0 flex-1 space-y-1">
-          {headerChildren ? (
-            headerChildren
-          ) : (
+          {headerChildren ?? (
             <>
               <p className="text-sm font-medium">{title}</p>
               {description && (
