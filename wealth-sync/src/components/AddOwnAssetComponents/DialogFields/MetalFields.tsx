@@ -1,4 +1,4 @@
-"uce client";
+"use client";
 
 import {
   Select,
@@ -16,7 +16,7 @@ export function MetalFields() {
   return (
     <div className="grid grid-cols-2 gap-3">
       <DialogField label={t("metal")}>
-        <Select name={t("metal")} defaultValue="XAU">
+        <Select name="metal" defaultValue="XAU">
           <SelectTrigger className="w-full">
             <SelectValue />
           </SelectTrigger>
@@ -30,7 +30,7 @@ export function MetalFields() {
       </DialogField>
 
       <DialogField label={t("unit")}>
-        <Select name={t("unit")} defaultValue="oz">
+        <Select name="unit" defaultValue="oz">
           <SelectTrigger className="w-full">
             <SelectValue />
           </SelectTrigger>
