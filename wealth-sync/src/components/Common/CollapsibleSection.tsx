@@ -9,8 +9,9 @@ import { ChevronDown } from "lucide-react";
 import { useState, type ReactNode } from "react";
 
 type CollapsibleSectionProps = {
-  title: string;
+  title?: string;
   description?: string;
+  headerChildren?: ReactNode;
   children: ReactNode;
   defaultOpen?: boolean;
 };
@@ -18,8 +19,9 @@ type CollapsibleSectionProps = {
 export function CollapsibleSection({
   title,
   description,
+  headerChildren,
   children,
-  defaultOpen = false,
+  defaultOpen = true,
 }: CollapsibleSectionProps) {
   const [open, setOpen] = useState(defaultOpen);
 
@@ -27,9 +29,15 @@ export function CollapsibleSection({
     <Collapsible open={open} onOpenChange={setOpen}>
       <CollapsibleTrigger className="hover:bg-muted/50 flex w-full items-center justify-between rounded-md border p-3 text-left">
         <div>
-          <p className="text-sm font-medium">{title}</p>
-          {description && (
-            <p className="text-muted-foreground text-xs">{description}</p>
+          {headerChildren ? (
+            headerChildren
+          ) : (
+            <>
+              <p className="text-sm font-medium">{title}</p>
+              {description && (
+                <p className="text-muted-foreground text-xs">{description}</p>
+              )}
+            </>
           )}
         </div>
 
