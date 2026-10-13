@@ -1,6 +1,7 @@
 import { Plus, Wallet } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { useTranslations } from "next-intl";
 
 export default function AssetsEmptyState({
   hasAnyAssets,
@@ -9,6 +10,8 @@ export default function AssetsEmptyState({
   hasAnyAssets: boolean;
   onAdd: () => void;
 }) {
+  const t = useTranslations("AssetsEmptyState");
+
   return (
     <Card className="rounded-2xl border-dashed">
       <CardContent className="flex flex-col items-center gap-3 py-12 text-center">
@@ -19,16 +22,14 @@ export default function AssetsEmptyState({
           <p className="font-semibold">
             {hasAnyAssets ? "Nothing in this category yet" : "No assets yet"}
           </p>
-          <p className="text-muted-foreground text-sm">
-            Add what you own and keep an eye on its value.
-          </p>
+          <p className="text-muted-foreground text-sm">{t("description")}</p>
         </div>
         <Button
           onClick={onAdd}
           className="cursor-pointer bg-green-700 hover:bg-green-800"
         >
           <Plus className="mr-1.5 h-4 w-4" />
-          Add your first asset
+          {t("addAssetButton")}
         </Button>
       </CardContent>
     </Card>

@@ -724,6 +724,10 @@
     "addAssetButton": "Add Asset",
     "tabsTrigerHeader": "All {assetCount}"
   },
+  "AssetsEmptyState": {
+    "description": "You haven't added any assets yet. Add your first asset to start tracking its performance.",
+    "addAssetButton": "Add your first asset"
+  },
   "ConnectedPlatformsSection": {
     "title": "Connected Platforms",
     "description": "of {platformCount} available integrations"

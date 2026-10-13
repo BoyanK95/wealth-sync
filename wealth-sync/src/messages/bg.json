@@ -725,6 +725,10 @@
     "addAssetButton": "Добавяне на актив",
     "tabsTrigerHeader": "Всички {assetCount}"
   },
+  "AssetsEmptyState": {
+    "description": "Не сте добавили никакви активи все още. Добавете своя първи актив, за да започнете да го проследявате.",
+    "addAssetButton": "Добавете своя първи актив"
+  },
   "ConnectedPlatformsSection": {
     "title": "Свързани платформи",
     "description": "на {platformCount} налични интеграции"
