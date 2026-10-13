@@ -1,3 +1,5 @@
+"uce client";
+
 import {
   Select,
   SelectContent,
@@ -6,33 +8,36 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { DialogField } from "../DialogField";
+import { useTranslations } from "next-intl";
 
 export function MetalFields() {
+  const t = useTranslations("AddOwnAssetPage.metalFields");
+
   return (
     <div className="grid grid-cols-2 gap-3">
-      <DialogField label="Metal">
-        <Select name="metal" defaultValue="XAU">
+      <DialogField label={t("metal")}>
+        <Select name={t("metal")} defaultValue="XAU">
           <SelectTrigger className="w-full">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="XAU">Gold</SelectItem>
-            <SelectItem value="XAG">Silver</SelectItem>
-            <SelectItem value="XPT">Platinum</SelectItem>
-            <SelectItem value="XPD">Palladium</SelectItem>
+            <SelectItem value="XAU">{t("gold")}</SelectItem>
+            <SelectItem value="XAG">{t("silver")}</SelectItem>
+            <SelectItem value="XPT">{t("platinum")}</SelectItem>
+            <SelectItem value="XPD">{t("palladium")}</SelectItem>
           </SelectContent>
         </Select>
       </DialogField>
 
-      <DialogField label="Unit">
-        <Select name="unit" defaultValue="oz">
+      <DialogField label={t("unit")}>
+        <Select name={t("unit")} defaultValue="oz">
           <SelectTrigger className="w-full">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="oz">Troy oz</SelectItem>
-            <SelectItem value="g">Grams</SelectItem>
-            <SelectItem value="kg">Kilograms</SelectItem>
+            <SelectItem value="oz">{t("troyOz")}</SelectItem>
+            <SelectItem value="g">{t("gram")}</SelectItem>
+            <SelectItem value="kg">{t("kilogram")}</SelectItem>
           </SelectContent>
         </Select>
       </DialogField>

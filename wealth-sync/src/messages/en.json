@@ -722,7 +722,18 @@
     "title": "My assets",
     "description": "Track crypto, stocks, precious metals, real estate and anything else you own.",
     "addAssetButton": "Add Asset",
-    "tabsTrigerHeader": "All {assetCount}"
+    "tabsTrigerHeader": "All {assetCount}",
+    "metalFields": {
+      "metal": "metal",
+      "unit": "unit",
+      "gold": "Gold",
+      "silver": "Silver",
+      "platinum": "Platinum",
+      "palladium": "Palladium",
+      "troyOz": "Troy Oz",
+      "gram": "Gram",
+      "kilogram": "Kilogram"
+    }
   },
   "AssetsEmptyState": {
     "description": "You haven't added any assets yet. Add your first asset to start tracking its performance.",
