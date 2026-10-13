@@ -725,7 +725,7 @@
     "addAssetButton": "Добавяне на актив",
     "tabsTrigerHeader": "Всички {assetCount}",
     "SummaryCard": {
-      "totalValue": "Обшо наличие",
+      "totalValue": "Общо наличие",
       "totalValueLoss": "Общ профит / загуба",
       "vsWhatYouPayed": "срещу това което си платил",
       "assetsTracked": "Проследявани активи",
