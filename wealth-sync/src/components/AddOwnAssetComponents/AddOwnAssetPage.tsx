@@ -13,6 +13,7 @@ import AssetRow from "./AssetRow";
 import AddAssetDialog from "./AddAssetDialog";
 import { useTranslations } from "next-intl";
 import { CollapsibleSection } from "../Common/CollapsibleSection";
+import { Card } from "../ui/card";
 
 type Tab = "all" | Asset["category"];
 
@@ -40,7 +41,7 @@ export default function AddYourOwnAssetPage({
   const gainLoss = totalValue - totalCost;
 
   return (
-    <div className="mt-23 space-y-6">
+    <Card className="mt-23 space-y-6 p-5">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
@@ -112,6 +113,6 @@ export default function AddYourOwnAssetPage({
           />
         </>
       )}
-    </div>
+    </Card>
   );
 }

@@ -21,7 +21,7 @@ export function CollapsibleSection({
   description,
   headerChildren,
   children,
-  defaultOpen = true,
+  defaultOpen = false,
 }: CollapsibleSectionProps) {
   const [open, setOpen] = useState(defaultOpen);
 
