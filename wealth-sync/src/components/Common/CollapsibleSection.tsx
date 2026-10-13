@@ -28,7 +28,7 @@ export function CollapsibleSection({
   return (
     <Collapsible open={open} onOpenChange={setOpen}>
       <CollapsibleTrigger className="hover:bg-muted/50 flex w-full items-center justify-between rounded-md border p-3 text-left">
-        <div>
+        <div className="min-w-0 flex-1 space-y-1">
           {headerChildren ? (
             headerChildren
           ) : (
@@ -42,7 +42,7 @@ export function CollapsibleSection({
         </div>
 
         <ChevronDown
-          className={`h-4 w-4 shrink-0 transition-transform ${
+          className={`h-7 w-7 shrink-0 transition-transform ${
             open ? "rotate-180" : ""
           }`}
         />
