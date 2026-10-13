@@ -1,5 +1,8 @@
+"use client";
+
 import { Card, CardContent } from "@/components/ui/card";
 import { signedPercent, signedUsd, trendColor, usd } from "./format";
+import { useTranslations } from "next-intl";
 
 interface AssetSummaryCardsProps {
   totalValue: number;
@@ -42,23 +45,25 @@ export default function AssetSummaryCards({
   gainLossPercent,
   assetCount,
 }: AssetSummaryCardsProps) {
+  const t = useTranslations("AddOwnAssetPage.SummaryCard");
+
   return (
     <div className="grid gap-3 sm:grid-cols-3">
-      <SummaryCard label="Total value" value={usd(totalValue)} />
+      <SummaryCard label={t("totalValue")} value={usd(totalValue)} />
       <SummaryCard
-        label="Total gain / loss"
+        label={t("totalValueLoss")}
         value={signedUsd(gainLoss)}
         valueClassName={trendColor(gainLoss)}
         sub={
           gainLossPercent !== null
-            ? `${signedPercent(gainLossPercent)} vs. what you paid`
+            ? `${signedPercent(gainLossPercent)} ${t("vsWhatYouPayed")}`
             : undefined
         }
       />
       <SummaryCard
-        label="Assets tracked"
+        label={t("assetsTracked")}
         value={String(assetCount)}
-        sub="Across all categories"
+        sub={t("accrosAllCategories")}
       />
     </div>
   );

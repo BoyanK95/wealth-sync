@@ -5,7 +5,7 @@ import { AnimatePresence } from "framer-motion";
 import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import AssetSummaryCards from "./AssetSummaryCarts";
+import AssetSummaryCards from "./AssetSummaryCards";
 import { CATEGORIES, CATEGORY_LABELS, type Asset } from "./types";
 import { MOCK_ASSETS } from "./mockData";
 import AssetsEmptyState from "./AssetEmptyState";

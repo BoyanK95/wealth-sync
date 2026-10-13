@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from "framer-motion";
 import {
   ArrowDownRight,
@@ -23,6 +25,7 @@ import {
   trendColor,
   usd,
 } from "./format";
+import { useTranslations } from "next-intl";
 
 const ICONS: Record<AssetCategory, LucideIcon> = {
   crypto: Bitcoin,
@@ -34,6 +37,8 @@ const ICONS: Record<AssetCategory, LucideIcon> = {
 };
 
 export default function AssetRow({ asset }: { asset: Asset }) {
+  const t = useTranslations("AddOwnAssetPage.AssetRow");
+
   const Icon = ICONS[asset.category];
   const value = asset.quantity * asset.currentPrice;
   const cost = asset.quantity * asset.buyPrice;
@@ -78,7 +83,7 @@ export default function AssetRow({ asset }: { asset: Asset }) {
                 )}
               </div>
               <p className="text-muted-foreground mt-0.5 text-sm">
-                {formatQuantity(asset.quantity)} {asset.unit} · bought at{" "}
+                {formatQuantity(asset.quantity)} {asset.unit} · {t('boughtAt')}
                 {usd(asset.buyPrice)}
               </p>
             </div>
@@ -86,7 +91,7 @@ export default function AssetRow({ asset }: { asset: Asset }) {
 
           {/* price */}
           <div className="text-sm">
-            <div className="text-muted-foreground text-xs">Price</div>
+            <div className="text-muted-foreground text-xs">{t("price")}</div>
             <div className="font-medium">{usd(asset.currentPrice)}</div>
             {hasChange ? (
               <span
@@ -102,7 +107,7 @@ export default function AssetRow({ asset }: { asset: Asset }) {
               </span>
             ) : (
               <span className="text-muted-foreground text-xs">
-                Value set by you
+                {t("valueSetByYou")}
               </span>
             )}
           </div>
@@ -116,12 +121,11 @@ export default function AssetRow({ asset }: { asset: Asset }) {
               {gainLossPercent !== null &&
                 ` (${signedPercent(gainLossPercent)})`}{" "}
               <span className="text-muted-foreground font-normal">
-                all time
+                {t("allTime")}
               </span>
             </span>
           </div>
 
-          {/* actions (not wired yet) */}
           <div className="flex justify-end gap-1">
             <Button
               variant="ghost"

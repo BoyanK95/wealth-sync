@@ -724,6 +724,19 @@
     "description": "Проследявайте крипто, акции, драги метали, недвижими имоти и всичко друго, което притежавате.",
     "addAssetButton": "Добавяне на актив",
     "tabsTrigerHeader": "Всички {assetCount}",
+    "SummaryCard": {
+      "totalValue": "Обшо наличие",
+      "totalValueLoss": "Общ профит / загуба",
+      "vsWhatYouPayed": "срещу това което си платил",
+      "assetsTracked": "Проследявани активи",
+      "accrosAllCategories": "От всички категорий"
+    },
+    "AssetRow": {
+      "boughtAt": "купено на ",
+      "price": "Цена",
+      "valueSetByYou": "Дадена от вас цена",
+      "allTime": "Общо"
+    },
     "Dialog": {
       "title": "Добавяне на собствен актив",
       "description": "Изберете категория на актив и въведете неговите данни."

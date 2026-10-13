@@ -723,6 +723,19 @@
     "description": "Track crypto, stocks, precious metals, real estate and anything else you own.",
     "addAssetButton": "Add Asset",
     "tabsTrigerHeader": "All {assetCount}",
+    "SummaryCard": {
+      "totalValue": "Total Value",
+      "totalValueLoss": "Total gain / loss",
+      "vsWhatYouPayed": "vs. what you paid",
+      "assetsTracked": "Assets tracked",
+      "accrosAllCategories": "Across all categories"
+    },
+    "AssetRow": {
+      "boughtAt": "bought at ",
+      "price": "Price",
+      "valueSetByYou": "Value set by you",
+      "allTime": "All time"
+    },
     "Dialog": {
       "title": "Add own asset",
       "description": "Choose an asset category and enter its details."
@@ -778,7 +791,7 @@
       "currentValueHint": "Update this value to keep your portfolio totals accurate.",
       "purchaseDateLabel": "Purchase date (optional)",
       "notesLabel": "Notes (optional)",
-      "notesPlaceholder": "Add a note..." 
+      "notesPlaceholder": "Add a note..."
     }
   },
   "AssetsEmptyState": {

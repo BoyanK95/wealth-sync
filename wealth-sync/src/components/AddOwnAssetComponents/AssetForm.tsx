@@ -43,6 +43,7 @@ type AssetFormProps = {
 
 export function AssetForm({ onCancel, onSubmit }: AssetFormProps) {
   const t = useTranslations("AddOwnAssetPage.AssetForm");
+
   const [category, setCategory] = useState<AssetCategory>("crypto");
   const [savings, setSavings] = useState<SavingsFormValues>(initialSavings);
 
