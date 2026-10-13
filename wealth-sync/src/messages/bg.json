@@ -727,7 +727,9 @@
   },
   "AssetsEmptyState": {
     "description": "Не сте добавили никакви активи все още. Добавете своя първи актив, за да започнете да го проследявате.",
-    "addAssetButton": "Добавете своя първи актив"
+    "addAssetButton": "Добавете своя първи актив",
+    "nothingInThisCategory": "Няма активи в тази категория все още",
+    "noAssetsYet": "Все още няма активи"
   },
   "ConnectedPlatformsSection": {
     "title": "Свързани платформи",

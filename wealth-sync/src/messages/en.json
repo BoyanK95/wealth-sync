@@ -726,7 +726,9 @@
   },
   "AssetsEmptyState": {
     "description": "You haven't added any assets yet. Add your first asset to start tracking its performance.",
-    "addAssetButton": "Add your first asset"
+    "addAssetButton": "Add your first asset",
+    "nothingInThisCategory": "Nothing in this category yet",
+    "noAssetsYet": "No assets yet"
   },
   "ConnectedPlatformsSection": {
     "title": "Connected Platforms",

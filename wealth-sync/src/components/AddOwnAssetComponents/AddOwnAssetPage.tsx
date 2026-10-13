@@ -17,7 +17,7 @@ import { CollapsibleSection } from "../Common/CollapsibleSection";
 type Tab = "all" | Asset["category"];
 
 export default function AddYourOwnAssetPage({
-  assets = MOCK_ASSETS,
+  assets = [],
 }: {
   assets?: Asset[];
 }) {

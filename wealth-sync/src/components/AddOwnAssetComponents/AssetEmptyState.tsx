@@ -20,7 +20,9 @@ export default function AssetsEmptyState({
         </div>
         <div>
           <p className="font-semibold">
-            {hasAnyAssets ? "Nothing in this category yet" : "No assets yet"}
+            {hasAnyAssets
+              ? t("nothingInThisCategory")
+              : t("noAssetsYet")}
           </p>
           <p className="text-muted-foreground text-sm">{t("description")}</p>
         </div>
