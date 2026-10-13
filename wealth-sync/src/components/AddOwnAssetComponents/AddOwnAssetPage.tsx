@@ -104,10 +104,13 @@ export default function AddYourOwnAssetPage({
       )}
 
       {assets.length === 0 && (
-        <AssetsEmptyState
-          hasAnyAssets={assets.length > 0}
-          onAdd={() => setDialogOpen(true)}
-        />
+        <>
+          <AddAssetDialog open={dialogOpen} onOpenChange={setDialogOpen} />
+          <AssetsEmptyState
+            hasAnyAssets={assets.length > 0}
+            onAdd={() => setDialogOpen(true)}
+          />
+        </>
       )}
     </div>
   );
