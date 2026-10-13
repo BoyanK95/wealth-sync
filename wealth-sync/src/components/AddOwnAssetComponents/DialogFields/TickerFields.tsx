@@ -14,7 +14,7 @@ export function TickerField({ category }: TickerFieldProps) {
 
   return (
     <DialogField
-      label="Ticker"
+      label={t('ticker')}
       hint={
         isCrypto
           ? t('cryptoExample')

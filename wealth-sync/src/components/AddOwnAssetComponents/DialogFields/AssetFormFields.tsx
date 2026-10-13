@@ -1,12 +1,17 @@
+"use client";
+
 import { Input } from "@/components/ui/input";
 import { DialogField } from "../DialogField";
 import { numberInput, type AssetCategory } from "../types";
+import { useTranslations } from "next-intl";
 
 type AssetFormFieldsProps = {
   category: AssetCategory;
 };
 
 export function AssetFormFields({ category }: AssetFormFieldsProps) {
+  const t = useTranslations("AddOwnAssetPage.AssetFormFields");
+
   const isManual = category === "realEstate" || category === "other";
   const isSavings = category === "savings";
 
@@ -15,14 +20,14 @@ export function AssetFormFields({ category }: AssetFormFieldsProps) {
   return (
     <div className="space-y-4">
       <DialogField
-        label={isManual ? "Name" : "Name (optional)"}
-        hint={isManual ? undefined : "Defaults to the ticker or asset name."}
+        label={isManual ? t('manualLabel') : t('notManualLabel')}
+        hint={isManual ? undefined : t('notManualHint')}
       >
         <Input
           name="name"
           required={isManual}
           maxLength={100}
-          placeholder={isManual ? "e.g. Apartment in Sofia" : "e.g. Bitcoin"}
+          placeholder={isManual ? t('manualInputPlaceholder') : t('notManualInputPlaceholder')}
         />
       </DialogField>
 
@@ -30,12 +35,12 @@ export function AssetFormFields({ category }: AssetFormFieldsProps) {
         <DialogField
           label={
             category === "stock"
-              ? "Shares"
+              ? t('shares')
               : category === "metal"
-                ? "Amount"
+                ? t("amount")
                 : isManual
-                  ? "Quantity"
-                  : "Amount"
+                  ? t("quantity")
+                  : t("amount")
           }
         >
           <Input
@@ -46,15 +51,15 @@ export function AssetFormFields({ category }: AssetFormFieldsProps) {
           />
         </DialogField>
 
-        <DialogField label="Buy price (USD)">
+        <DialogField label={t('buyPriceLabel')}>
           <Input {...numberInput} name="buyPrice" required placeholder="0.00" />
         </DialogField>
       </div>
 
       {isManual && (
         <DialogField
-          label="Current value (USD)"
-          hint="Update this value to keep your portfolio totals accurate."
+          label={t('currentValueLabel')}
+          hint={t('currentValueHint')}
         >
           <Input
             {...numberInput}
@@ -65,12 +70,12 @@ export function AssetFormFields({ category }: AssetFormFieldsProps) {
         </DialogField>
       )}
 
-      <DialogField label="Purchase date (optional)">
+      <DialogField label={t('purchaseDateLabel')}>
         <Input name="purchaseDate" type="date" />
       </DialogField>
 
-      <DialogField label="Notes (optional)">
-        <Input name="notes" maxLength={500} placeholder="Add a note..." />
+      <DialogField label={t('notesLabel')}>
+        <Input name="notes" maxLength={500} placeholder={t('notesPlaceholder')} />
       </DialogField>
     </div>
   );

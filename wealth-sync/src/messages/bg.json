@@ -761,8 +761,25 @@
       "maturityDateHint": "Кога завършва термът на депозита."
     },
     "TickerField": {
+      "ticker": "Тикер",
       "cryptoExample": "Например BTC или ETH.",
       "stockExample": "Американски акции или ETF-и, като например AAPL."
+    },
+    "AssetFormFields": {
+      "manualLabel": "Име",
+      "notManualLabel": "Име (опция)",
+      "notManualHint": "Име на тикера или актива",
+      "manualInputPlaceholder": "Апартамент в София",
+      "notManualInputPlaceholder": "e.g. Bitcoin",
+      "shares": "Шерове",
+      "amount": "Количество",
+      "quantity": "Брой",
+      "buyPriceLabel": "Цена на купуване (USD)",
+      "currentValueLabel": "Текуша цена (USD)",
+      "currentValueHint": "Променете за да запазите си портфолиото си точно",
+      "purchaseDateLabel": "Дата на купуване (не е задължително)",
+      "notesLabel": "Бележки (не е задължително)",
+      "notesPlaceholder": "Добавете бележка..."
     }
   },
   "AssetsEmptyState": {

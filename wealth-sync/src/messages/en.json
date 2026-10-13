@@ -760,8 +760,25 @@
       "maturityDateHint": "When the deposit term ends."
     },
     "TickerField": {
+      "ticker": "Ticker",
       "cryptoExample": "For example BTC or ETH.",
       "stockExample": "US-listed stocks and ETFs, for example AAPL."
+    },
+    "AssetFormFields": {
+      "manualLabel": "Name",
+      "notManualLabel": "Name (optional)",
+      "notManualHint": "Defaults to the ticker or asset name.",
+      "manualInputPlaceholder": "e.g. Apartment in Sofia",
+      "notManualInputPlaceholder": "e.g. Bitcoin",
+      "shares": "Shares",
+      "amount": "Amount",
+      "quantity": "Quantity",
+      "buyPriceLabel": "Buy price (USD)",
+      "currentValueLabel": "Current value (USD)",
+      "currentValueHint": "Update this value to keep your portfolio totals accurate.",
+      "purchaseDateLabel": "Purchase date (optional)",
+      "notesLabel": "Notes (optional)",
+      "notesPlaceholder": "Add a note..." 
     }
   },
   "AssetsEmptyState": {
