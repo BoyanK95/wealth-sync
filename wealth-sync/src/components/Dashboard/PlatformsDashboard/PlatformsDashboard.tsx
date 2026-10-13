@@ -24,7 +24,7 @@ const PlatformsDashboard = ({ user }: { user: User }) => {
     <div className="ml-2 flex flex-col space-y-6">
       <DashboardWelcomeHeader userName={user.name} />
       <AllPortfolioSummary showStats={showStats} setShowStats={setShowStats} />
-      <AddYourOwnAssetPage />
+      <AddYourOwnAssetPage showStats={showStats}/>
       {showStats && connections[PlatformKey.TRADING_212]?.isConnected && (
         <Trading212Portfolio />
       )}

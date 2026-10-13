@@ -19,8 +19,10 @@ type Tab = "all" | Asset["category"];
 
 export default function AddYourOwnAssetPage({
   assets = MOCK_ASSETS,
+  showStats,
 }: {
   assets?: Asset[];
+  showStats: boolean;
 }) {
   const t = useTranslations("AddOwnAssetPage");
 
@@ -60,6 +62,7 @@ export default function AddYourOwnAssetPage({
 
       {assets.length > 0 && (
         <CollapsibleSection
+          enabled={showStats}
           headerChildren={
             <AssetSummaryCards
               totalValue={totalValue}
