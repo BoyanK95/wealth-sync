@@ -65,6 +65,7 @@ export default function AddYourOwnAssetPage({
           enabled={showStats}
           headerChildren={
             <AssetSummaryCards
+              showStats={showStats}
               totalValue={totalValue}
               gainLoss={gainLoss}
               gainLossPercent={
