@@ -103,20 +103,16 @@ export default function AddYourOwnAssetPage({
               </AnimatePresence>
             </div>
           )}
-
-          <AddAssetDialog open={dialogOpen} onOpenChange={setDialogOpen} />
         </CollapsibleSection>
       )}
 
       {assets.length === 0 && (
-        <>
-          <AddAssetDialog open={dialogOpen} onOpenChange={setDialogOpen} />
-          <AssetsEmptyState
-            hasAnyAssets={assets.length > 0}
-            onAdd={() => setDialogOpen(true)}
-          />
-        </>
+        <AssetsEmptyState
+          hasAnyAssets={assets.length > 0}
+          onAdd={() => setDialogOpen(true)}
+        />
       )}
+      <AddAssetDialog open={dialogOpen} onOpenChange={setDialogOpen} />
     </Card>
   );
 }
