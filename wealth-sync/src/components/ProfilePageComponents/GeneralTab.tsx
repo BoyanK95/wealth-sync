@@ -66,7 +66,7 @@ const GeneralTab = ({ user }: UserFormProps) => {
     } finally {
       setIsLoading(false);
     }
-  };
+  };  
 
   const handleLogout = async () => {
     setIsLoading(true);
@@ -94,7 +94,7 @@ const GeneralTab = ({ user }: UserFormProps) => {
                 <div className="bg-muted flex h-full w-full items-center justify-center overflow-hidden rounded-full border-4 border-green-700">
                   {profileImage ? (
                     <Image
-                      src={profileImage || "/profile-picture.png"}
+                      src={profileImage ?? "/profile-picture.png"}
                       alt="Profile"
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
