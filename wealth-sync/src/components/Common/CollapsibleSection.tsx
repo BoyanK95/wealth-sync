@@ -14,6 +14,7 @@ type CollapsibleSectionProps = {
   headerChildren?: ReactNode;
   children: ReactNode;
   defaultOpen?: boolean;
+  enabled?: boolean;
 };
 
 export function CollapsibleSection({
@@ -21,13 +22,24 @@ export function CollapsibleSection({
   description,
   headerChildren,
   children,
-  defaultOpen = true,
+  defaultOpen = false,
+  enabled = true,
 }: CollapsibleSectionProps) {
   const [open, setOpen] = useState(defaultOpen);
 
+  const isOpen = enabled && open;
+
   return (
-    <Collapsible open={open} onOpenChange={setOpen}>
-      <CollapsibleTrigger className="hover:bg-muted/50 flex w-full cursor-pointer items-center justify-between rounded-md border p-3 text-left">
+    <Collapsible
+      open={isOpen}
+      onOpenChange={(nextOpen) => {
+        if (enabled) setOpen(nextOpen);
+      }}
+    >
+      <CollapsibleTrigger
+        disabled={!enabled}
+        className="hover:bg-muted/50 flex w-full cursor-pointer items-center justify-between rounded-md border p-3 text-left disabled:cursor-not-allowed disabled:opacity-50"
+      >
         <div className="min-w-0 flex-1 space-y-1">
           {headerChildren ?? (
             <>
@@ -41,7 +53,7 @@ export function CollapsibleSection({
 
         <ChevronDown
           className={`h-7 w-7 shrink-0 transition-transform ${
-            open ? "rotate-180" : ""
+            isOpen ? "rotate-180" : ""
           }`}
         />
       </CollapsibleTrigger>

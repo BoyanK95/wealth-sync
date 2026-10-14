@@ -10,6 +10,7 @@ import { usePlatformConnection } from "@/lib/contexts/PlatformConnectionContext"
 import { useState } from "react";
 import BinancePortfolio from "../BinancePortfolio/BinancePortfolio";
 import NoPlatformsConnected from "../NoPlatformsConnected/NoPlatformsConnected";
+import AddYourOwnAssetPage from "@/components/AddOwnAssetComponents/AddOwnAssetPage";
 
 const PlatformsDashboard = ({ user }: { user: User }) => {
   const [showStats, setShowStats] = useState<boolean>(false);
@@ -23,6 +24,7 @@ const PlatformsDashboard = ({ user }: { user: User }) => {
     <div className="ml-2 flex flex-col space-y-6">
       <DashboardWelcomeHeader userName={user.name} />
       <AllPortfolioSummary showStats={showStats} setShowStats={setShowStats} />
+      <AddYourOwnAssetPage showStats={showStats}/>
       {showStats && connections[PlatformKey.TRADING_212]?.isConnected && (
         <Trading212Portfolio />
       )}
