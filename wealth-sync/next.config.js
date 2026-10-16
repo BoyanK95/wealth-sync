@@ -11,8 +11,20 @@ const s3ObjectPattern =
   env.AWS_ENDPOINT_URL_S3 && env.AWS_S3_BUCKET_NAME
     ? (() => {
         const url = new URL(env.AWS_ENDPOINT_URL_S3);
+        /** @type {"http" | "https" | null} */
+        const protocol =
+          url.protocol === "http:"
+            ? "http"
+            : url.protocol === "https:"
+              ? "https"
+              : null;
+
+        if (!protocol) {
+          throw new Error("AWS_ENDPOINT_URL_S3 must use HTTP or HTTPS");
+        }
+
         return {
-          protocol: url.protocol.slice(0, -1),
+          protocol,
           hostname: url.hostname,
           pathname: `${url.pathname.replace(/\/$/, "")}/${env.AWS_S3_BUCKET_NAME}/**`,
         };

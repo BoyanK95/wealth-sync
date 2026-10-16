@@ -54,8 +54,13 @@ export async function uploadProfileImage(userId: string, dataUrl: string) {
   );
   if (!match) throw new Error("Unsupported profile image format");
 
-  const contentType = match[1] as keyof typeof profileImageMimeTypes;
-  const body = Buffer.from(match[2], "base64");
+  const [, mimeType, encodedBody] = match;
+  if (!mimeType || !encodedBody) {
+    throw new Error("Unsupported profile image format");
+  }
+
+  const contentType = mimeType as keyof typeof profileImageMimeTypes;
+  const body = Buffer.from(encodedBody, "base64");
   if (!body.length || body.length > 5 * 1024 * 1024) {
     throw new Error("Profile image must be smaller than 5 MB");
   }
