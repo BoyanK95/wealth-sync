@@ -118,8 +118,8 @@ export const authConfig = {
         session.user.id = token.sub;
 
         if (user) {
-          session.user.name = user.name;
-          session.user.email = user.email;
+          session.user.name = user.name!;
+          session.user.email = user.email!;
           session.user.image = user.image;
         }
       }
