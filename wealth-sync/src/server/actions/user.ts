@@ -2,7 +2,10 @@
 
 import { db } from "@/server/db";
 import { auth } from "@/server/auth";
-import { uploadProfileImage } from "@/server/storage/profileImages";
+import {
+  resolveProfileImage,
+  uploadProfileImage,
+} from "@/server/storage/profileImages";
 import { updateProfileSchema } from "./schema";
 
 export type UpdateProfileInput = {
@@ -10,6 +13,18 @@ export type UpdateProfileInput = {
   email: string;
   image?: string | null;
 };
+
+export async function getProfileImageUrl() {
+  const session = await auth();
+  if (!session?.user?.id) return null;
+
+  const user = await db.user.findUnique({
+    where: { id: session.user.id },
+    select: { image: true },
+  });
+
+  return resolveProfileImage(user?.image ?? null);
+}
 
 export async function updateProfile(data: UpdateProfileInput) {
   const session = await auth();

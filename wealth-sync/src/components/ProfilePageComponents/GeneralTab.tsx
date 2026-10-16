@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Camera, Loader2, LogOut, Save, User } from "lucide-react";
@@ -19,7 +19,7 @@ import type { UserFormProps } from "./interfaces";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useSession } from "next-auth/react";
-import { updateProfile } from "@/server/actions/user";
+import { getProfileImageUrl, updateProfile } from "@/server/actions/user";
 
 const readImageAsDataUrl = (file: File) =>
   new Promise<string>((resolve, reject) => {
@@ -44,6 +44,26 @@ const GeneralTab = ({ user }: UserFormProps) => {
     user?.image as string | null,
   );
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const displayableProfileImage = profileImage?.startsWith("neon-s3://")
+    ? null
+    : profileImage;
+
+  useEffect(() => {
+    if (!profileImage?.startsWith("neon-s3://")) return;
+
+    let isCurrent = true;
+    getProfileImageUrl()
+      .then((imageUrl) => {
+        if (isCurrent) setProfileImage(imageUrl);
+      })
+      .catch(() => {
+        if (isCurrent) setProfileImage(null);
+      });
+
+    return () => {
+      isCurrent = false;
+    };
+  }, [profileImage]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.[0]) {
@@ -132,9 +152,9 @@ const GeneralTab = ({ user }: UserFormProps) => {
             <div className="flex flex-col items-center space-y-4">
               <div className="relative h-32 w-32">
                 <div className="bg-muted flex h-full w-full items-center justify-center overflow-hidden rounded-full border-4 border-green-700">
-                  {profileImage ? (
+                  {displayableProfileImage ? (
                     <Image
-                      src={profileImage || "/profile-picture.png"}
+                      src={displayableProfileImage}
                       alt="Profile"
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
