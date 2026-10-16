@@ -1,10 +1,8 @@
 "use client";
 
 import ContainerCardErrorState from "@/components/Dashboard/ContainerCardErrorState/ContainerCardErrorState";
-import { Button } from "@/components/ui/button";
 import { usePortfolioSummary } from "@/lib/hooks/usePortfolioSummary";
-import { Eye, EyeOff } from "lucide-react";
-import { useCallback } from "react";
+import { useCallback, type Dispatch, type SetStateAction } from "react";
 import { loadingCards } from "../ContainerCardLoadingState/constants";
 import ContainerCardLoadingState from "../ContainerCardLoadingState/ContainerCardLoadingState.tsx";
 import {
@@ -15,13 +13,14 @@ import {
 } from "./components";
 import { usePlatformConnection } from "@/lib/contexts/PlatformConnectionContext";
 import { useTranslations } from "next-intl";
+import ShowStatsButton from "@/components/Common/ShowStatsButton";
 
 const AllPortfolioSummary = ({
   showStats,
   setShowStats,
 }: {
   showStats: boolean;
-  setShowStats: (showStats: boolean) => void;
+  setShowStats: Dispatch<SetStateAction<boolean>>;
 }) => {
   const t = useTranslations("AllPortfolioSummary");
 
@@ -50,17 +49,7 @@ const AllPortfolioSummary = ({
     <>
       <div className="ml-5 flex items-center space-x-2">
         <h2 className="text-xl font-semibold">{t("title")}</h2>
-        <Button
-          variant="ghost"
-          onClick={() => setShowStats(!showStats)}
-          className="cursor-pointer text-gray-400 dark:hover:text-gray-200"
-        >
-          {showStats ? (
-            <Eye className="h-6 w-6" />
-          ) : (
-            <EyeOff className="h-6 w-6" />
-          )}
-        </Button>
+        <ShowStatsButton showStats={showStats} setShowStats={setShowStats} />
       </div>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <TotalPortfolioValueSection

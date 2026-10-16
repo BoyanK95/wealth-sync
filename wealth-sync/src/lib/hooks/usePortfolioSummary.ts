@@ -40,6 +40,13 @@ const initialPortfolioData = {
   bestPerformingAsset: null,
 };
 
+/**
+ * Hook used to fetch and compute the portfolio summary data from various sources.
+ * It combines data from all connected platforms assets and liabilities, and computes the total portfolio value,
+ * total change, percentage change, and the best performing asset.
+ * @param showStats
+ * @returns loading state, error state, and data as computed portfolio summary data.
+ */
 export function usePortfolioSummary(showStats: boolean) {
   const [portfolioData, setPortfolioData] = useState<IPortfolioState>({
     loading: true,

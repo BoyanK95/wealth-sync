@@ -32,9 +32,7 @@ export default async function ProfilePage() {
                 {t("description")}
               </p>
             </div>
-
             <ProfileForm user={session.user} />
-
           </div>
         </div>
       </main>

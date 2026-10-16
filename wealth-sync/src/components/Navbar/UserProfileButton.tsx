@@ -20,7 +20,7 @@ const UserProfileButton = ({
 }: {
   session: User & {
     user: {
-      name?: string | null | undefined;
+      name?: string;
       image?: string | null | undefined;
     };
   };

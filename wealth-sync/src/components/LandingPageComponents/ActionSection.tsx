@@ -12,29 +12,47 @@ const ActionSection = async () => {
   const session = await auth();
 
   return (
-    <section className="flex w-full justify-center bg-green-700 dark:bg-green-900 py-12 text-white md:py-24 lg:py-32">
-      <div className="container px-4 md:px-6">
-        <div className="flex flex-col items-center justify-center space-y-4 text-center">
-          <div className="space-y-2">
-            <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
+    <section className="relative overflow-hidden py-16 md:py-24">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(16,185,129,0.16),transparent_35%)]" />
+
+      <div className="container relative mx-auto px-4 md:px-6">
+        <div className="rounded-[32px] border border-emerald-200/80 bg-[linear-gradient(135deg,#0f172a_0%,#111827_35%,#082f29_100%)] px-6 py-12 text-center text-white shadow-[0_30px_80px_rgba(15,23,42,0.18)] md:px-12 md:py-16">
+          <div className="mx-auto max-w-3xl">
+            <div className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.2em] text-emerald-200">
+              Ready when you are
+            </div>
+            <h2 className="mt-5 text-3xl font-semibold tracking-[-0.06em] md:text-5xl">
               {t("title")}
             </h2>
-            <p className="max-w-[600px] text-green-100 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+            <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-slate-200 md:text-lg">
               {t("description", { siteName: SITE_NAME })}
             </p>
-          </div>
-          <div className="flex flex-col gap-2 min-[400px]:flex-row">
-            <Button
-              size="lg"
-              className="bg-white text-green-700 hover:bg-green-50 cursor-pointer"
-            >
+
+            <div className="mt-8 flex justify-center">
               {session?.user ? (
-                <Link href={Routes.DASHBOARD}>{t("goToDashboard")}</Link>
+                <Button
+                  size="lg"
+                  asChild
+                  className="h-12 rounded-full bg-white px-6 text-sm font-medium text-slate-950 shadow-[0_18px_40px_rgba(255,255,255,0.18)] hover:bg-emerald-50"
+                >
+                  <Link href={Routes.DASHBOARD} className="inline-flex items-center">
+                    <span>{t("goToDashboard")}</span>
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
               ) : (
-                <Link href={Routes.LOGIN}>{t("getStarted")}</Link>
+                <Button
+                  size="lg"
+                  asChild
+                  className="h-12 rounded-full bg-white px-6 text-sm font-medium text-slate-950 shadow-[0_18px_40px_rgba(255,255,255,0.18)] hover:bg-emerald-50"
+                >
+                  <Link href={Routes.LOGIN} className="inline-flex items-center">
+                    <span>{t("getStarted")}</span>
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
               )}
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
+            </div>
           </div>
         </div>
       </div>

@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import ErrorComponent from "./ErrorComponent";
+import NewsErrorComponent from "./NewsErrorComponent";
 
 type TickerSearchFormProps = {
   query: string;
@@ -46,7 +46,7 @@ export default function TickerSearchForm({
       </form>
 
       {error && (
-        <ErrorComponent error={error} fetchRecentNews={fetchRecentNews} />
+        <NewsErrorComponent error={error} fetchRecentNews={fetchRecentNews} />
       )}
     </div>
   );

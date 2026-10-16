@@ -1,14 +1,27 @@
 {
   "IntroductionSection": {
+    "heading": "Проследявай всичките си активи и пасиви на едно място",
     "welcomeBack": "Добре дошъл обратно",
     "title": "Всичките ти финансови инвестиции на едно място",
     "description": "Свържи се с различни борси, следи инвестициите си и анализирай резултатите с мощни графики и анализи.",
     "goToDashboard": "Към таблото",
     "getStarted": "Започни",
+    "exploreFeatures": "Разгледай функциите",
     "features": {
       "secure": "Сигурни връзки",
       "realtime": "Обновяване в реално време",
       "mobile": "Мобилно приложение"
+    },
+    "PremiumHero": {
+      "portfolioValue": "Стойност на портфолиото",
+      "returnYTD": "Възвръщане YTD",
+      "platforms": "Платформи",
+      "liveOverview": "Преглед в реално време",
+      "portfolio": "Портфолио",
+      "error": {
+        "title": "Грешка при зареждане на данните",
+        "message": "Имаше проблем при зареждане на данните за твоето портфолио. Моля, опитай отново."
+      }
     }
   },
   "FeaturesSection": {
@@ -48,8 +61,11 @@
     "description": "{siteName} се интегрира с големи фондови борси, крипто платформи и брокери."
   },
   "ChartPreviewSection": {
+    "analyticsBadge": "Анализи",
     "title": "Мощни анализи на една ръка разстояние",
-    "description": "Визуализирай представянето на инвестициите във всичките си обединени борсови акаунти чрез интерактивни графики и подробни метрики. Откривай тенденции, проследявай растежа и вземай информирани решения."
+    "description": "Визуализирай представянето на инвестициите във всичките си обединени борсови акаунти чрез интерактивни графики и подробни метрики. Откривай тенденции, проследявай растежа и вземай информирани решения.",
+    "realTimeTrackingBadge": "Проследяване в реално време",
+    "betterDecisionsBadge": "По-добри решения"
   },
   "ActionSection": {
     "title": "Готов ли си да поемеш контрол над инвестициите си?",
@@ -703,6 +719,88 @@
   "AllPortfolioSummary": {
     "title": "Общ преглед на портфолиото"
   },
+  "AddOwnAssetPage": {
+    "title": "Моите активи",
+    "description": "Проследявайте крипто, акции, драги метали, недвижими имоти и всичко друго, което притежавате.",
+    "addAssetButton": "Добавяне на актив",
+    "tabsTrigerHeader": "Всички {assetCount}",
+    "SummaryCard": {
+      "totalValue": "Общо наличие",
+      "totalValueLoss": "Общ профит / загуба",
+      "vsWhatYouPayed": "срещу това което си платил",
+      "assetsTracked": "Проследявани активи",
+      "accrosAllCategories": "От всички категорий"
+    },
+    "AssetRow": {
+      "boughtAt": "купено на ",
+      "price": "Цена",
+      "valueSetByYou": "Дадена от вас цена",
+      "allTime": "Общо"
+    },
+    "Dialog": {
+      "title": "Добавяне на собствен актив",
+      "description": "Изберете категория на актив и въведете неговите данни."
+    },
+    "AssetForm": {
+      "categoryLabel": "Категория",
+      "cancelButton": "Отказ",
+      "addAssetButton": "Добави Актив"
+    },
+    "metalFields": {
+      "metal": "метал",
+      "unit": "единица",
+      "gold": "Злато",
+      "silver": "Сребро",
+      "platinum": "Платина",
+      "palladium": "Паладий",
+      "troyOz": "Тройунция",
+      "gram": "Грам",
+      "kilogram": "Килограм"
+    },
+    "SavingsFields": {
+      "savingsType": "Тип спестяване",
+      "chooseSavingsType": "Изберете тип на спестяване",
+      "institution": "Банка/Институция",
+      "institutionHint": "Опция за спестявания в кеш",
+      "institutionPlaceholder": "Револют, ДСК, ОББ",
+      "currency": "Валута",
+      "currentBalance": "Текущ баланс",
+      "currentBalanceHint": "Въведете текущия баланс на сметката си",
+      "currentBalancePlaceholder": "e.g. 10000",
+      "annualInterestRate": "Годишен лихвен процент (%)",
+      "annualInterestRateHint": "Въведете годишния лихвен процент, предлаган от вашия банк, e.g. 2.5.",
+      "annualInterestRatePlaceholder": "e.g. 2.5",
+      "maturityDate": "Дата на изтичане",
+      "maturityDateHint": "Кога завършва термът на депозита."
+    },
+    "TickerField": {
+      "ticker": "Тикер",
+      "cryptoExample": "Например BTC или ETH.",
+      "stockExample": "Американски акции или ETF-и, като например AAPL."
+    },
+    "AssetFormFields": {
+      "manualLabel": "Име",
+      "notManualLabel": "Име (опция)",
+      "notManualHint": "Име на тикера или актива",
+      "manualInputPlaceholder": "Апартамент в София",
+      "notManualInputPlaceholder": "e.g. Bitcoin",
+      "shares": "Шерове",
+      "amount": "Количество",
+      "quantity": "Брой",
+      "buyPriceLabel": "Цена на купуване (USD)",
+      "currentValueLabel": "Текуша цена (USD)",
+      "currentValueHint": "Променете за да запазите си портфолиото си точно",
+      "purchaseDateLabel": "Дата на купуване (не е задължително)",
+      "notesLabel": "Бележки (не е задължително)",
+      "notesPlaceholder": "Добавете бележка..."
+    }
+  },
+  "AssetsEmptyState": {
+    "description": "Не сте добавили никакви активи все още. Добавете своя първи актив, за да започнете да го проследявате.",
+    "addAssetButton": "Добавете своя първи актив",
+    "nothingInThisCategory": "Няма активи в тази категория все още",
+    "noAssetsYet": "Все още няма активи"
+  },
   "ConnectedPlatformsSection": {
     "title": "Свързани платформи",
     "description": "на {platformCount} налични интеграции"
@@ -719,6 +817,18 @@
     "description": "Свържи поне една платформа, за да видиш обобщението на портфолиото си.",
     "availablePlatforms": "Достъпни платформи",
     "preferedPlatforms": "Моля, изберете вашата предпочитана платформа и кликнете върху нея, за да я свържете."
+  },
+  "NoPlatformsConnectedHeroImage": {
+    "bank": "Банки",
+    "investments": "Инвестиции",
+    "crypto": "Крипто",
+    "realEstate": "Недвижими имоти",
+    "preciousMetals": "Инвестиционни метали",
+    "creditCard": "Кредитна карта",
+    "loans": "Заеми",
+    "allPlatfromsCaption": "Всички ваши платформи на едно табло",
+    "assets": "Активи",
+    "liabilities": "Пасиви"
   },
   "DashboardTabs": {
     "overview": "Преглед",

@@ -1,14 +1,27 @@
 {
   "IntroductionSection": {
+    "heading": "Track all your assets and liabilities in one place",
     "welcomeBack": "Welcome back",
     "title": "Your complete financial portfolio in one place",
     "description": "Connect to multiple exchanges, track your investments, and analyze your performance with powerful charts and insights.",
     "goToDashboard": "Go to Dashboard",
     "getStarted": "Get Started",
+    "exploreFeatures": "Explore Features",
     "features": {
       "secure": "Secure Connections",
       "realtime": "Real-time Updates",
       "mobile": "Mobile App"
+    },
+    "PremiumHero": {
+      "portfolioValue": "Portfolio Value",
+      "returnYTD": "Return YTD",
+      "platforms": "Platforms",
+      "liveOverview": "Live Overview",
+      "portfolio": "Portfolio",
+      "error": {
+        "title": "Error Loading Data",
+        "message": "There was an issue loading your portfolio data. Please try again."
+      }
     }
   },
   "FeaturesSection": {
@@ -48,8 +61,11 @@
     "description": "{siteName} integrates with major stock exchanges, crypto platforms, and brokerages."
   },
   "ChartPreviewSection": {
+    "analyticsBadge": "Analytics",
     "title": "Powerful analytics at your fingertips",
-    "description": "Visualize the investment performance of all your aggregated stock exchange accounts with interactive charts and detailed metrics. Identify trends, track growth, and make informed decisions."
+    "description": "Visualize the investment performance of all your aggregated stock exchange accounts with interactive charts and detailed metrics. Identify trends, track growth, and make informed decisions.",
+    "realTimeTrackingBadge": "Real-time Tracking",
+    "betterDecisionsBadge": "Better Decisions"
   },
   "ActionSection": {
     "title": "Ready to take control of your investments?",
@@ -702,6 +718,88 @@
   "AllPortfolioSummary": {
     "title": "Portfolio Summary"
   },
+  "AddOwnAssetPage": {
+    "title": "My assets",
+    "description": "Track crypto, stocks, precious metals, real estate and anything else you own.",
+    "addAssetButton": "Add Asset",
+    "tabsTrigerHeader": "All {assetCount}",
+    "SummaryCard": {
+      "totalValue": "Total Value",
+      "totalValueLoss": "Total gain / loss",
+      "vsWhatYouPayed": "vs. what you paid",
+      "assetsTracked": "Assets tracked",
+      "accrosAllCategories": "Across all categories"
+    },
+    "AssetRow": {
+      "boughtAt": "bought at ",
+      "price": "Price",
+      "valueSetByYou": "Value set by you",
+      "allTime": "All time"
+    },
+    "Dialog": {
+      "title": "Add own asset",
+      "description": "Choose an asset category and enter its details."
+    },
+    "AssetForm": {
+      "categoryLabel": "Category",
+      "cancelButton": "Cancel",
+      "addAssetButton": "Add Asset"
+    },
+    "metalFields": {
+      "metal": "metal",
+      "unit": "unit",
+      "gold": "Gold",
+      "silver": "Silver",
+      "platinum": "Platinum",
+      "palladium": "Palladium",
+      "troyOz": "Troy Oz",
+      "gram": "Gram",
+      "kilogram": "Kilogram"
+    },
+    "SavingsFields": {
+      "savingsType": "Savings type",
+      "chooseSavingsType": "Choose savings type",
+      "institution": "Bank/institution",
+      "institutionHint": "Optional for cash savings.",
+      "institutionPlaceholder": "e.g. Revolut, Wise, DSK Bank",
+      "currency": "Currency",
+      "currentBalance": "Current balance",
+      "currentBalanceHint": "Enter current savings balance",
+      "currentBalancePlaceholder": "e.g. 10000",
+      "annualInterestRate": "Annual interest rate (%)",
+      "annualInterestRateHint": "Enter the annual rate offered by your bank, e.g. 2.5.",
+      "annualInterestRatePlaceholder": "e.g. 2.5",
+      "maturityDate": "Maturity date",
+      "maturityDateHint": "When the deposit term ends."
+    },
+    "TickerField": {
+      "ticker": "Ticker",
+      "cryptoExample": "For example BTC or ETH.",
+      "stockExample": "US-listed stocks and ETFs, for example AAPL."
+    },
+    "AssetFormFields": {
+      "manualLabel": "Name",
+      "notManualLabel": "Name (optional)",
+      "notManualHint": "Defaults to the ticker or asset name.",
+      "manualInputPlaceholder": "e.g. Apartment in Sofia",
+      "notManualInputPlaceholder": "e.g. Bitcoin",
+      "shares": "Shares",
+      "amount": "Amount",
+      "quantity": "Quantity",
+      "buyPriceLabel": "Buy price (USD)",
+      "currentValueLabel": "Current value (USD)",
+      "currentValueHint": "Update this value to keep your portfolio totals accurate.",
+      "purchaseDateLabel": "Purchase date (optional)",
+      "notesLabel": "Notes (optional)",
+      "notesPlaceholder": "Add a note..."
+    }
+  },
+  "AssetsEmptyState": {
+    "description": "You haven't added any assets yet. Add your first asset to start tracking its performance.",
+    "addAssetButton": "Add your first asset",
+    "nothingInThisCategory": "Nothing in this category yet",
+    "noAssetsYet": "No assets yet"
+  },
   "ConnectedPlatformsSection": {
     "title": "Connected Platforms",
     "description": "of {platformCount} available integrations"
@@ -717,6 +815,18 @@
     "description": "You haven't connected any trading platforms yet. Connect your platforms to start tracking your portfolio performance in one place.",
     "availablePlatforms": "Available Platforms",
     "preferedPlatforms": "Please choose your preferred platform and click it to connect."
+  },
+  "NoPlatformsConnectedHeroImage": {
+    "bank": "Bank",
+    "investments": "Investments",
+    "crypto": "Crypto",
+    "realEstate": "Real Estate",
+    "preciousMetals": "Precious Metals",
+    "creditCard": "Credit Card",
+    "loans": "Loans",
+    "allPlatfromsCaption": "All your platforms, one dashboard",
+    "assets": "Assets",
+    "liabilities": "Liabilities"
   },
   "DashboardTabs": {
     "overview": "Overview",

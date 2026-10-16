@@ -45,14 +45,15 @@ function Trading212ConnectPage({
 
       await refreshConnections();
       toast.success("Successfully connected to Trading212");
+      setApiKey("");
       router.push(Routes.DASHBOARD);
     } catch (error) {
-      setApiKey("");
       toast.error("Failed to connect", {
         description:
           error instanceof Error ? error.message : "Please try again",
       });
     } finally {
+      setApiKey("");
       setIsLoading(false);
     }
   };

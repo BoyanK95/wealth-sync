@@ -4,7 +4,7 @@ import { IoIosWarning } from "react-icons/io";
 import { Button } from "../ui/button";
 import { useTranslations } from "next-intl";
 
-function ErrorComponent({
+function NewsErrorComponent({
   error,
   fetchRecentNews,
 }: {
@@ -33,4 +33,4 @@ function ErrorComponent({
   );
 }
 
-export default ErrorComponent;
+export default NewsErrorComponent;
