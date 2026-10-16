@@ -18,6 +18,18 @@ import { signOut } from "next-auth/react";
 import type { UserFormProps } from "./interfaces";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { updateProfile } from "@/server/actions/user";
+
+const readImageAsDataUrl = (file: File) =>
+  new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () =>
+      typeof reader.result === "string"
+        ? resolve(reader.result)
+        : reject(new Error("Could not read profile image"));
+    reader.onerror = () => reject(new Error("Could not read profile image"));
+    reader.readAsDataURL(file);
+  });
 
 const GeneralTab = ({ user }: UserFormProps) => {
   const t = useTranslations("ProfilePage.general");
@@ -35,9 +47,10 @@ const GeneralTab = ({ user }: UserFormProps) => {
     if (e.target.files?.[0]) {
       const file = e.target.files[0];
       setImageFile(file);
-
       // Create a preview URL for the selected image
       const reader = new FileReader();
+      console.log('reader', reader);
+      
       reader.onload = (event) => {
         if (event.target?.result) {
           setProfileImage(event.target.result as string);
@@ -52,16 +65,27 @@ const GeneralTab = ({ user }: UserFormProps) => {
     setIsLoading(true);
 
     try {
-      //TODO : Implement profile update logic
-      // In a real application, you would upload the image and update profile info
-      // This is a mock implementation
-      await new Promise((resolve) => setTimeout(resolve, 1500)); // Simulate API call
+      const result = await updateProfile({
+        name,
+        email,
+        ...(imageFile ? { image: await readImageAsDataUrl(imageFile) } : {}),
+      });
+
+      if (!result.success) {
+        toast.error(result.error);
+        return;
+      }
+
+      setName(result.user.name ?? "");
+      setEmail(result.user.email ?? "");
+      setProfileImage(result.user.image);
+      setImageFile(null);
 
       toast.success(t("success"));
 
       // Refresh the page to show updated data
       router.refresh();
-    } catch (error) {
+    } catch {
       toast.error(t("errors.updateFailed"));
     } finally {
       setIsLoading(false);
@@ -119,8 +143,8 @@ const GeneralTab = ({ user }: UserFormProps) => {
                 />
               </div>
               <div className="text-center">
-                <h3 className="text-lg font-medium">{user.name ?? t("userFallback")}</h3>
-                <p className="text-muted-foreground text-sm">{user.email}</p>
+                <h3 className="text-lg font-medium">{name || t("userFallback")}</h3>
+                <p className="text-muted-foreground text-sm">{email}</p>
               </div>
             </div>
 
