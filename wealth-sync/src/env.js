@@ -24,6 +24,7 @@ export const env = createEnv({
     AWS_REGION: z.string().optional(),
     AWS_S3_BUCKET_NAME: z.string().optional(),
     FINNHUB_KEY: z.string(),
+    BENZINGA_APIKEY: z.string().optional(),
     NODE_ENV: z
       .enum(["development", "test", "production"])
       .default("development"),
@@ -57,6 +58,7 @@ export const env = createEnv({
     AWS_REGION: process.env.AWS_REGION,
     AWS_S3_BUCKET_NAME: process.env.AWS_S3_BUCKET_NAME,
     FINNHUB_KEY: process.env.FINNHUB_KEY,
+    BENZINGA_APIKEY: process.env.BENZINGA_APIKEY,
     NODE_ENV: process.env.NODE_ENV,
   },
   /**
