@@ -19,7 +19,8 @@ declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
       id: string;
-      // ...other properties
+      name: string;
+      email: string
       // role: UserRole;
     } & DefaultSession["user"];
   }
@@ -108,8 +109,19 @@ export const authConfig = {
   ],
   callbacks: {
     async session({ session, token }) {
-      if (token && session.user) {
-        session.user.id = token.sub!;
+      if (token.sub && session.user) {
+        const user = await db.user.findUnique({
+          where: { id: token.sub },
+          select: { name: true, email: true, image: true },
+        });
+
+        session.user.id = token.sub;
+
+        if (user) {
+          session.user.name = user.name;
+          session.user.email = user.email;
+          session.user.image = user.image;
+        }
       }
       return session;
     },

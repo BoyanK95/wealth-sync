@@ -18,6 +18,7 @@ import { signOut } from "next-auth/react";
 import type { UserFormProps } from "./interfaces";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { useSession } from "next-auth/react";
 import { updateProfile } from "@/server/actions/user";
 
 const readImageAsDataUrl = (file: File) =>
@@ -34,6 +35,7 @@ const readImageAsDataUrl = (file: File) =>
 const GeneralTab = ({ user }: UserFormProps) => {
   const t = useTranslations("ProfilePage.general");
   const router = useRouter();
+  const { update: updateSession } = useSession();
 
   const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState(user.name ?? "");
@@ -49,8 +51,8 @@ const GeneralTab = ({ user }: UserFormProps) => {
       setImageFile(file);
       // Create a preview URL for the selected image
       const reader = new FileReader();
-      console.log('reader', reader);
-      
+      console.log("reader", reader);
+
       reader.onload = (event) => {
         if (event.target?.result) {
           setProfileImage(event.target.result as string);
@@ -80,10 +82,14 @@ const GeneralTab = ({ user }: UserFormProps) => {
       setEmail(result.user.email ?? "");
       setProfileImage(result.user.image);
       setImageFile(null);
+      try {
+        await updateSession();
+      } catch (error) {
+        toast.error(t("Error occured in updating session"));
+        throw error;
+      }
 
       toast.success(t("success"));
-
-      // Refresh the page to show updated data
       router.refresh();
     } catch {
       toast.error(t("errors.updateFailed"));
@@ -100,7 +106,8 @@ const GeneralTab = ({ user }: UserFormProps) => {
       });
     } catch (error) {
       toast.error(t("errors.logoutFailed"), {
-        description: error instanceof Error ? error.message : t("errors.unknown"),
+        description:
+          error instanceof Error ? error.message : t("errors.unknown"),
       });
       setIsLoading(false);
     } finally {
@@ -143,7 +150,9 @@ const GeneralTab = ({ user }: UserFormProps) => {
                 />
               </div>
               <div className="text-center">
-                <h3 className="text-lg font-medium">{name || t("userFallback")}</h3>
+                <h3 className="text-lg font-medium">
+                  {name || t("userFallback")}
+                </h3>
                 <p className="text-muted-foreground text-sm">{email}</p>
               </div>
             </div>
