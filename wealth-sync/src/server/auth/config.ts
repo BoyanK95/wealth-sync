@@ -6,6 +6,7 @@ import Facebook from "next-auth/providers/facebook";
 import Google from "next-auth/providers/google";
 import GitHub from "next-auth/providers/github";
 import { db } from "@/server/db";
+import { resolveProfileImage } from "@/server/storage/profileImages";
 import { Routes } from "@/lib/constants/routes";
 import bcrypt from "bcryptjs"; // Import the entire bcryptjs package
 
@@ -19,7 +20,8 @@ declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
       id: string;
-      // ...other properties
+      name: string;
+      email: string;
       // role: UserRole;
     } & DefaultSession["user"];
   }
@@ -108,8 +110,19 @@ export const authConfig = {
   ],
   callbacks: {
     async session({ session, token }) {
-      if (token && session.user) {
-        session.user.id = token.sub!;
+      if (token.sub && session.user) {
+        const user = await db.user.findUnique({
+          where: { id: token.sub },
+          select: { name: true, email: true, image: true },
+        });
+
+        session.user.id = token.sub;
+
+        if (user) {
+          session.user.name = user.name!;
+          session.user.email = user.email!;
+          session.user.image = await resolveProfileImage(user.image);
+        }
       }
       return session;
     },

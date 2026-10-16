@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Camera, Loader2, LogOut, Save, User } from "lucide-react";
@@ -18,10 +18,24 @@ import { signOut } from "next-auth/react";
 import type { UserFormProps } from "./interfaces";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { useSession } from "next-auth/react";
+import { getProfileImageUrl, updateProfile } from "@/server/actions/user";
+
+const readImageAsDataUrl = (file: File) =>
+  new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () =>
+      typeof reader.result === "string"
+        ? resolve(reader.result)
+        : reject(new Error("Could not read profile image"));
+    reader.onerror = () => reject(new Error("Could not read profile image"));
+    reader.readAsDataURL(file);
+  });
 
 const GeneralTab = ({ user }: UserFormProps) => {
   const t = useTranslations("ProfilePage.general");
   const router = useRouter();
+  const { update: updateSession } = useSession();
 
   const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState(user.name ?? "");
@@ -30,12 +44,42 @@ const GeneralTab = ({ user }: UserFormProps) => {
     user?.image as string | null,
   );
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const displayableProfileImage = profileImage?.startsWith("neon-s3://")
+    ? null
+    : profileImage;
+
+  useEffect(() => {
+    if (!profileImage?.startsWith("neon-s3://")) return;
+
+    let isCurrent = true;
+    getProfileImageUrl()
+      .then((imageUrl) => {
+        if (isCurrent) setProfileImage(imageUrl);
+      })
+      .catch(() => {
+        if (isCurrent) setProfileImage(null);
+      });
+
+    return () => {
+      isCurrent = false;
+    };
+  }, [profileImage]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.[0]) {
       const file = e.target.files[0];
+      const supportedTypes = [
+        "image/jpeg",
+        "image/png",
+        "image/webp",
+        "image/gif",
+      ];
+      if (!supportedTypes.includes(file.type) || file.size > 5 * 1024 * 1024) {
+        toast.error("Choose a JPEG, PNG, WebP, or GIF image smaller than 5 MB");
+        e.target.value = "";
+        return;
+      }
       setImageFile(file);
-
       // Create a preview URL for the selected image
       const reader = new FileReader();
       reader.onload = (event) => {
@@ -52,16 +96,31 @@ const GeneralTab = ({ user }: UserFormProps) => {
     setIsLoading(true);
 
     try {
-      //TODO : Implement profile update logic
-      // In a real application, you would upload the image and update profile info
-      // This is a mock implementation
-      await new Promise((resolve) => setTimeout(resolve, 1500)); // Simulate API call
+      const result = await updateProfile({
+        name,
+        email,
+        ...(imageFile ? { image: await readImageAsDataUrl(imageFile) } : {}),
+      });
+
+      if (!result.success) {
+        toast.error(result.error);
+        return;
+      }
+
+      setName(result.user.name!);
+      setEmail(result.user.email!);
+      setProfileImage(result.user.image);
+      setImageFile(null);
+      try {
+        await updateSession();
+      } catch (error) {
+        toast.error(t("Error occured in updating session"));
+        throw error;
+      }
 
       toast.success(t("success"));
-
-      // Refresh the page to show updated data
       router.refresh();
-    } catch (error) {
+    } catch {
       toast.error(t("errors.updateFailed"));
     } finally {
       setIsLoading(false);
@@ -76,7 +135,8 @@ const GeneralTab = ({ user }: UserFormProps) => {
       });
     } catch (error) {
       toast.error(t("errors.logoutFailed"), {
-        description: error instanceof Error ? error.message : t("errors.unknown"),
+        description:
+          error instanceof Error ? error.message : t("errors.unknown"),
       });
       setIsLoading(false);
     } finally {
@@ -92,9 +152,9 @@ const GeneralTab = ({ user }: UserFormProps) => {
             <div className="flex flex-col items-center space-y-4">
               <div className="relative h-32 w-32">
                 <div className="bg-muted flex h-full w-full items-center justify-center overflow-hidden rounded-full border-4 border-green-700">
-                  {profileImage ? (
+                  {displayableProfileImage ? (
                     <Image
-                      src={profileImage ?? "/profile-picture.png"}
+                      src={displayableProfileImage}
                       alt="Profile"
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -119,8 +179,10 @@ const GeneralTab = ({ user }: UserFormProps) => {
                 />
               </div>
               <div className="text-center">
-                <h3 className="text-lg font-medium">{user.name ?? t("userFallback")}</h3>
-                <p className="text-muted-foreground text-sm">{user.email}</p>
+                <h3 className="text-lg font-medium">
+                  {name || t("userFallback")}
+                </h3>
+                <p className="text-muted-foreground text-sm">{email}</p>
               </div>
             </div>
 
