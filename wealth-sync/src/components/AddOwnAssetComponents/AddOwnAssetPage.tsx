@@ -13,13 +13,16 @@ import AssetRow from "./AssetRow";
 import AddAssetDialog from "./AddAssetDialog";
 import { useTranslations } from "next-intl";
 import { CollapsibleSection } from "../Common/CollapsibleSection";
+import { Card } from "../ui/card";
 
 type Tab = "all" | Asset["category"];
 
 export default function AddYourOwnAssetPage({
   assets = MOCK_ASSETS,
+  showStats,
 }: {
   assets?: Asset[];
+  showStats?: boolean;
 }) {
   const t = useTranslations("AddOwnAssetPage");
 
@@ -40,7 +43,7 @@ export default function AddYourOwnAssetPage({
   const gainLoss = totalValue - totalCost;
 
   return (
-    <div className="mt-23 space-y-6">
+    <Card className="mt-23 space-y-6 p-5">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
@@ -59,8 +62,10 @@ export default function AddYourOwnAssetPage({
 
       {assets.length > 0 && (
         <CollapsibleSection
+          enabled={showStats}
           headerChildren={
             <AssetSummaryCards
+              showStats={showStats}
               totalValue={totalValue}
               gainLoss={gainLoss}
               gainLossPercent={
@@ -98,20 +103,16 @@ export default function AddYourOwnAssetPage({
               </AnimatePresence>
             </div>
           )}
-
-          <AddAssetDialog open={dialogOpen} onOpenChange={setDialogOpen} />
         </CollapsibleSection>
       )}
 
       {assets.length === 0 && (
-        <>
-          <AddAssetDialog open={dialogOpen} onOpenChange={setDialogOpen} />
-          <AssetsEmptyState
-            hasAnyAssets={assets.length > 0}
-            onAdd={() => setDialogOpen(true)}
-          />
-        </>
+        <AssetsEmptyState
+          hasAnyAssets={assets.length > 0}
+          onAdd={() => setDialogOpen(true)}
+        />
       )}
-    </div>
+      <AddAssetDialog open={dialogOpen} onOpenChange={setDialogOpen} />
+    </Card>
   );
 }

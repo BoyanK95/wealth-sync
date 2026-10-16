@@ -19,9 +19,9 @@ export default async function SettingsPage() {
           </p>
         </div>
 
-        <Tabs defaultValue="account" className="space-y-6">
+        <Tabs defaultValue="general" className="space-y-6">
           <TabsList className="grid w-full grid-cols-3 lg:w-[400px]">
-            <TabsTrigger className="cursor-pointer" value="account">
+            <TabsTrigger className="cursor-pointer" value="general">
               {t("tabs.account")}
             </TabsTrigger>
             <TabsTrigger className="cursor-pointer" value="preferences">

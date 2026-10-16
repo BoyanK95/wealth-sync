@@ -125,7 +125,7 @@ const GeneralTab = ({ user }: UserFormProps) => {
     } finally {
       setIsLoading(false);
     }
-  };
+  };  
 
   const handleLogout = async () => {
     setIsLoading(true);

@@ -16,6 +16,7 @@ import { Loader2, Settings2, Shield, User } from "lucide-react";
 import type { Session } from "next-auth";
 import DeleteAccountDialog from "../DeleteAccount/DeleteAccountDialog";
 import { useTranslations } from "next-intl";
+import GeneralTab from "../ProfilePageComponents/GeneralTab";
 
 const AccountSettingsTab = ({ session }: { session: Session }) => {
   const t = useTranslations("SettingsPage.account");
@@ -23,28 +24,9 @@ const AccountSettingsTab = ({ session }: { session: Session }) => {
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
   return (
-    <TabsContent value="account" className="space-y-6">
+    <TabsContent value="general" className="space-y-6">
       <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <User className="h-5 w-5" />
-            {t("information.title")}
-          </CardTitle>
-          <CardDescription>
-            {t("information.description")}
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="space-y-1">
-            <Label>{t("information.emailAddress")}</Label>
-            <p className="text-muted-foreground text-sm">
-              {session?.user.email}
-            </p>
-          </div>
-          <Button className="cursor-pointer" variant="outline">
-            {t("information.updateEmail")}
-          </Button>
-        </CardContent>
+        <GeneralTab user={session.user} />
       </Card>
 
       <Card>
@@ -53,9 +35,7 @@ const AccountSettingsTab = ({ session }: { session: Session }) => {
             <Shield className="h-5 w-5" />
             {t("security.title")}
           </CardTitle>
-          <CardDescription>
-            {t("security.description")}
-          </CardDescription>
+          <CardDescription>{t("security.description")}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex items-center justify-between space-x-2">
@@ -74,9 +54,7 @@ const AccountSettingsTab = ({ session }: { session: Session }) => {
             <Settings2 className="h-5 w-5" />
             {t("danger.title")}
           </CardTitle>
-          <CardDescription>
-            {t("danger.description")}
-          </CardDescription>
+          <CardDescription>{t("danger.description")}</CardDescription>
         </CardHeader>
         <CardContent>
           <Button
