@@ -68,8 +68,32 @@ model User {
     sessions      Session[]
     posts         Post[]
     platformConnections PlatformConnection[]
+    assets        Asset[]
 
     @@map("users")
+}
+
+model Asset {
+    id            String   @id @default(cuid())
+    userId        String
+    category      String
+    name          String
+    symbol        String?
+    quantity      Float
+    unit          String
+    buyPrice      Float
+    currentPrice  Float
+    interestRate  Float?
+    changePercent Float?
+    purchaseDate  DateTime?
+    notes         String?
+    details       Json?
+    createdAt     DateTime @default(now())
+    updatedAt     DateTime @updatedAt
+    user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@index([userId, category])
+    @@map("assets")
 }
 
 model VerificationToken {
