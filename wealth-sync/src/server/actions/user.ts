@@ -2,6 +2,7 @@
 
 import { db } from "@/server/db";
 import { auth } from "@/server/auth";
+import { uploadProfileImage } from "@/server/storage/profileImages";
 import { updateProfileSchema } from "./schema";
 
 export type UpdateProfileInput = {
@@ -35,13 +36,27 @@ export async function updateProfile(data: UpdateProfileInput) {
       return { success: false as const, error: "Email already in use" };
     }
 
+    const uploadedImage = parsed.data.image
+      ? await uploadProfileImage(session.user.id, parsed.data.image)
+      : null;
+
     const user = await db.user.update({
       where: { id: session.user.id },
-      data: parsed.data,
+      data: {
+        name: parsed.data.name,
+        email: parsed.data.email,
+        ...(uploadedImage ? { image: uploadedImage.imageRef } : {}),
+      },
       select: { id: true, name: true, email: true, image: true },
     });
 
-    return { success: true as const, user };
+    return {
+      success: true as const,
+      user: {
+        ...user,
+        image: uploadedImage?.imageUrl ?? user.image,
+      },
+    };
   } catch (error) {
     console.error("Profile update error:", error);
     return { success: false as const, error: "Failed to update profile" };

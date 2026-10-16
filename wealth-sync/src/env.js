@@ -18,6 +18,11 @@ export const env = createEnv({
     FACEBOOK_CLIENT_ID: z.string(),
     FACEBOOK_CLIENT_SECRET: z.string(),
     DATABASE_URL: z.string().url(),
+    AWS_ENDPOINT_URL_S3: z.string().url().optional(),
+    AWS_ACCESS_KEY_ID: z.string().optional(),
+    AWS_SECRET_ACCESS_KEY: z.string().optional(),
+    AWS_REGION: z.string().optional(),
+    AWS_S3_BUCKET_NAME: z.string().optional(),
     FINNHUB_KEY: z.string(),
     NODE_ENV: z
       .enum(["development", "test", "production"])
@@ -46,6 +51,11 @@ export const env = createEnv({
     FACEBOOK_CLIENT_ID: process.env.FACEBOOK_CLIENT_ID,
     FACEBOOK_CLIENT_SECRET: process.env.FACEBOOK_CLIENT_SECRET,
     DATABASE_URL: process.env.DATABASE_URL,
+    AWS_ENDPOINT_URL_S3: process.env.AWS_ENDPOINT_URL_S3,
+    AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
+    AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
+    AWS_REGION: process.env.AWS_REGION,
+    AWS_S3_BUCKET_NAME: process.env.AWS_S3_BUCKET_NAME,
     FINNHUB_KEY: process.env.FINNHUB_KEY,
     NODE_ENV: process.env.NODE_ENV,
   },

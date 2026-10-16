@@ -6,6 +6,7 @@ import Facebook from "next-auth/providers/facebook";
 import Google from "next-auth/providers/google";
 import GitHub from "next-auth/providers/github";
 import { db } from "@/server/db";
+import { resolveProfileImage } from "@/server/storage/profileImages";
 import { Routes } from "@/lib/constants/routes";
 import bcrypt from "bcryptjs"; // Import the entire bcryptjs package
 
@@ -20,7 +21,7 @@ declare module "next-auth" {
     user: {
       id: string;
       name: string;
-      email: string
+      email: string;
       // role: UserRole;
     } & DefaultSession["user"];
   }
@@ -120,7 +121,7 @@ export const authConfig = {
         if (user) {
           session.user.name = user.name!;
           session.user.email = user.email!;
-          session.user.image = user.image;
+          session.user.image = await resolveProfileImage(user.image);
         }
       }
       return session;

@@ -9,5 +9,5 @@ export const registerSchema = z.object({
 export const updateProfileSchema = z.object({
   name: z.string().trim().min(2, "Name must be at least 2 characters"),
   email: z.string().trim().email("Invalid email address").toLowerCase(),
-  image: z.string().max(900_000).nullable().optional(),
+  image: z.string().max(7_000_000).nullable().optional(),
 });

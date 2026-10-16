@@ -48,11 +48,20 @@ const GeneralTab = ({ user }: UserFormProps) => {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.[0]) {
       const file = e.target.files[0];
+      const supportedTypes = [
+        "image/jpeg",
+        "image/png",
+        "image/webp",
+        "image/gif",
+      ];
+      if (!supportedTypes.includes(file.type) || file.size > 5 * 1024 * 1024) {
+        toast.error("Choose a JPEG, PNG, WebP, or GIF image smaller than 5 MB");
+        e.target.value = "";
+        return;
+      }
       setImageFile(file);
       // Create a preview URL for the selected image
       const reader = new FileReader();
-      console.log("reader", reader);
-
       reader.onload = (event) => {
         if (event.target?.result) {
           setProfileImage(event.target.result as string);
@@ -78,8 +87,8 @@ const GeneralTab = ({ user }: UserFormProps) => {
         return;
       }
 
-      setName(result.user.name ?? "");
-      setEmail(result.user.email ?? "");
+      setName(result.user.name!);
+      setEmail(result.user.email!);
       setProfileImage(result.user.image);
       setImageFile(null);
       try {
