@@ -733,7 +733,8 @@
     },
     "AssetRow": {
       "boughtAt": "купено на ",
-      "price": "Цена",
+      "buyPrice": "Цена на покупка",
+      "price": "Сегашна Цена",
       "valueSetByYou": "Дадена от вас цена",
       "spotPrice": "Спот цена",
       "allTime": "Общо"

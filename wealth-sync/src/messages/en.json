@@ -731,8 +731,9 @@
       "accrosAllCategories": "Across all categories"
     },
     "AssetRow": {
-      "boughtAt": "bought at ",
-      "price": "Price",
+      "boughtAt": "buy date ",
+      "buyPrice": "Buy price",
+      "price": "Current Price",
       "valueSetByYou": "Value set by you",
       "spotPrice": "Spot price",
       "allTime": "All time"

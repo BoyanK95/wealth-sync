@@ -88,7 +88,7 @@ export default function AssetRow({
       transition={{ duration: 0.25, ease: "easeOut" }}
     >
       <Card className="rounded-2xl">
-        <CardContent className="grid gap-4 p-4 sm:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)_minmax(0,1fr)_auto] sm:items-center">
+        <CardContent className="grid gap-4 p-4 sm:grid-cols-[minmax(0,1.4fr)_minmax(0,0.8fr)_minmax(0,0.8fr)_minmax(0,1fr)_auto] sm:items-center">
           <div className="flex min-w-0 items-center gap-3">
             <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-emerald-50 dark:bg-emerald-950/50">
               <Icon className="h-5 w-5 text-emerald-700 dark:text-emerald-300" />
@@ -104,13 +104,20 @@ export default function AssetRow({
                 )}
               </div>
               <p className="text-muted-foreground mt-0.5 text-sm">
-                {formatQuantity(asset.quantity)} {asset.unit} · {t("boughtAt")}
-                {usd(asset.buyPrice)}
+                {formatQuantity(asset.quantity)} {asset.unit}{" "}
+                {asset.purchaseDate && t("boughtAt")}
+                {asset.purchaseDate &&
+                  new Date(asset.purchaseDate).toLocaleDateString("en-GB")}
               </p>
             </div>
           </div>
 
-          {/* price */}
+          <div className="text-sm">
+            <div className="text-muted-foreground text-xs">{t("buyPrice")}</div>
+            <div className="font-medium">{usd(asset.buyPrice)}</div>
+          </div>
+
+          {/* CurrentPrice */}
           <div className="text-sm">
             <div className="text-muted-foreground text-xs">{t("price")}</div>
             <div className="font-medium">{usd(asset.currentPrice)}</div>
