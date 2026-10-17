@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AssetSummaryCards from "./AssetSummaryCards";
 import { CATEGORIES, CATEGORY_LABELS, type Asset } from "./types";
-import { MOCK_ASSETS } from "./mockData";
 import AssetsEmptyState from "./AssetEmptyState";
 import AssetRow from "./AssetRow";
 import AddAssetDialog from "./AddAssetDialog";
@@ -18,19 +17,20 @@ import { Card } from "../ui/card";
 type Tab = "all" | Asset["category"];
 
 export default function AddYourOwnAssetPage({
-  assets = MOCK_ASSETS,
+  assets,
   showStats,
 }: {
-  assets?: Asset[];
+  assets: Asset[];
   showStats?: boolean;
 }) {
   const t = useTranslations("AddOwnAssetPage");
 
+  const [assetList, setAssetList] = useState(assets);
   const [tab, setTab] = useState<Tab>("all");
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const visible =
-    tab === "all" ? assets : assets.filter((a) => a.category === tab);
+    tab === "all" ? assetList : assetList.filter((a) => a.category === tab);
 
   const totalValue = visible.reduce<number>(
     (s, a) => s + a.quantity * a.currentPrice,
@@ -49,7 +49,7 @@ export default function AddYourOwnAssetPage({
           <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
           <p className="text-muted-foreground mt-1">{t("description")}</p>
         </div>
-        {assets.length > 0 && (
+        {assetList.length > 0 && (
           <Button
             onClick={() => setDialogOpen(true)}
             className="cursor-pointer bg-green-700 hover:bg-green-800 dark:hover:text-white"
@@ -60,7 +60,7 @@ export default function AddYourOwnAssetPage({
         )}
       </div>
 
-      {assets.length > 0 && (
+      {assetList.length > 0 && (
         <CollapsibleSection
           enabled={showStats}
           headerChildren={
@@ -78,12 +78,12 @@ export default function AddYourOwnAssetPage({
           <Tabs value={tab} onValueChange={(v) => setTab(v as Tab)}>
             <TabsList className="h-auto flex-wrap justify-start">
               <TabsTrigger value="all" className="cursor-pointer">
-                {t("tabsTrigerHeader", { assetCount: assets.length })}
+                {t("tabsTrigerHeader", { assetCount: assetList.length })}
               </TabsTrigger>
               {CATEGORIES.map((c) => (
                 <TabsTrigger key={c} value={c} className="cursor-pointer">
                   {CATEGORY_LABELS[c].tab} (
-                  {assets.filter((a) => a.category === c).length})
+                  {assetList.filter((a) => a.category === c).length})
                 </TabsTrigger>
               ))}
             </TabsList>
@@ -91,7 +91,7 @@ export default function AddYourOwnAssetPage({
 
           {visible.length === 0 ? (
             <AssetsEmptyState
-              hasAnyAssets={assets.length > 0}
+              hasAnyAssets={assetList.length > 0}
               onAdd={() => setDialogOpen(true)}
             />
           ) : (
@@ -106,13 +106,17 @@ export default function AddYourOwnAssetPage({
         </CollapsibleSection>
       )}
 
-      {assets.length === 0 && (
+      {assetList.length === 0 && (
         <AssetsEmptyState
-          hasAnyAssets={assets.length > 0}
+          hasAnyAssets={assetList.length > 0}
           onAdd={() => setDialogOpen(true)}
         />
       )}
-      <AddAssetDialog open={dialogOpen} onOpenChange={setDialogOpen} />
+      <AddAssetDialog
+        open={dialogOpen}
+        onOpenChange={setDialogOpen}
+        onAssetAdded={setAssetList}
+      />
     </Card>
   );
 }

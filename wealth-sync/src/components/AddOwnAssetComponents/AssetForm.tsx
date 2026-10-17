@@ -2,7 +2,6 @@
 
 import { useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -21,6 +20,7 @@ import { TickerField } from "./DialogFields/TickerFields";
 import { MetalFields } from "./DialogFields/MetalFields";
 import { AssetFormFields } from "./DialogFields/AssetFormFields";
 import { useTranslations } from "next-intl";
+import LoadingCircle from "../Common/LoadingCircle";
 
 const initialSavings: SavingsFormValues = {
   accountType: "savingsAccount",
@@ -38,10 +38,15 @@ export type AddAssetFormData = {
 
 type AssetFormProps = {
   onCancel: () => void;
-  onSubmit: (data: AddAssetFormData) => void;
+  onSubmit: (data: AddAssetFormData) => void | Promise<void>;
+  pending?: boolean;
 };
 
-export function AssetForm({ onCancel, onSubmit }: AssetFormProps) {
+export function AssetForm({
+  onCancel,
+  onSubmit,
+  pending = false,
+}: AssetFormProps) {
   const t = useTranslations("AddOwnAssetPage.AssetForm");
 
   const [category, setCategory] = useState<AssetCategory>("crypto");
@@ -50,25 +55,32 @@ export function AssetForm({ onCancel, onSubmit }: AssetFormProps) {
   const isSavings = category === "savings";
   const isTicker = category === "crypto" || category === "stock";
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     if (isSavings) {
       if (!savings.balance || Number(savings.balance) < 0) return;
 
-      onSubmit({
-        category,
-        values: { ...savings },
-      });
-      return;
+      try {
+        await onSubmit({
+          category,
+          values: { ...savings },
+        });
+        return;
+      } catch (error) {
+        throw error;
+      }
     }
 
     const formData = new FormData(e.currentTarget);
-
-    onSubmit({
-      category,
-      values: Object.fromEntries(formData.entries()),
-    });
+    try {
+      await onSubmit({
+        category,
+        values: Object.fromEntries(formData.entries()),
+      });
+    } catch (error) {
+      throw error;
+    }
   }
 
   return (
@@ -103,7 +115,18 @@ export function AssetForm({ onCancel, onSubmit }: AssetFormProps) {
         <Button type="button" variant="outline" onClick={onCancel}>
           {t("cancelButton")}
         </Button>
-        <Button type="submit" className="bg-green-700 hover:bg-green-800">
+        <Button
+          type="submit"
+          disabled={pending}
+          className={
+            pending
+              ? "disabled:cursor-not-allowed bg-gray-400"
+              : "bg-green-700 hover:bg-green-800 hover:text-white"
+          }
+        >
+          {pending && (
+            <LoadingCircle />
+          )}
           {t("addAssetButton")}
         </Button>
       </div>
