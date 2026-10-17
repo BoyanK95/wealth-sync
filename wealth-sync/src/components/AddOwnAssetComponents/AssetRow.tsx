@@ -107,7 +107,11 @@ export default function AssetRow({
                 {formatQuantity(asset.quantity)} {asset.unit}{" "}
                 {asset.purchaseDate && t("boughtAt")}
                 {asset.purchaseDate &&
-                  new Date(asset.purchaseDate).toLocaleDateString("en-GB")}
+                  new Date(asset.purchaseDate).toLocaleDateString("en-GB", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  })}
               </p>
             </div>
           </div>
