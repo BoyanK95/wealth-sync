@@ -117,6 +117,30 @@ export async function getOwnAssets(): Promise<Asset[]> {
   }));
 }
 
+/** Deletes an asset only when it belongs to the signed-in user. */
+export async function deleteOwnAsset(id: string): Promise<Result> {
+  const session = await auth();
+  if (!session?.user?.id) {
+    return { success: false, error: "Please sign in to delete an asset" };
+  }
+  if (typeof id !== "string" || id.length === 0) {
+    return { success: false, error: "Invalid asset" };
+  }
+
+  try {
+    const result = await db.asset.deleteMany({
+      where: { id, userId: session.user.id },
+    });
+    if (result.count === 0) {
+      return { success: false, error: "Asset not found" };
+    }
+    return { success: true };
+  } catch (error) {
+    console.error("Delete asset failed:", error);
+    return { success: false, error: "Unable to delete asset" };
+  }
+}
+
 /**
  * Gets the form data and creates a call to Assets db
  * @param input -form data
