@@ -18,7 +18,6 @@ import {
 import type { Asset } from "./types";
 import ErrorState from "../Common/ErrorState";
 import { toast } from "sonner";
-import type { AssetCategory } from "./types";
 
 type AddAssetDialogProps = {
   open: boolean;
@@ -133,7 +132,7 @@ export default function AddAssetDialog({
           onCancel={() => handleOpenChange(false)}
           onSubmit={handleSubmit}
           pending={pending}
-          initialCategory={asset?.category as AssetCategory | undefined}
+          initialCategory={asset?.category}
           initialValues={initialValues}
           submitLabel={asset ? t("saveChanges") : undefined}
         />
