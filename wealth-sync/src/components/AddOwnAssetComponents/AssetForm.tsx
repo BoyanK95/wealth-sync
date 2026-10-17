@@ -38,10 +38,15 @@ export type AddAssetFormData = {
 
 type AssetFormProps = {
   onCancel: () => void;
-  onSubmit: (data: AddAssetFormData) => void;
+  onSubmit: (data: AddAssetFormData) => void | Promise<void>;
+  pending?: boolean;
 };
 
-export function AssetForm({ onCancel, onSubmit }: AssetFormProps) {
+export function AssetForm({
+  onCancel,
+  onSubmit,
+  pending = false,
+}: AssetFormProps) {
   const t = useTranslations("AddOwnAssetPage.AssetForm");
 
   const [category, setCategory] = useState<AssetCategory>("crypto");
@@ -103,7 +108,11 @@ export function AssetForm({ onCancel, onSubmit }: AssetFormProps) {
         <Button type="button" variant="outline" onClick={onCancel}>
           {t("cancelButton")}
         </Button>
-        <Button type="submit" className="bg-green-700 hover:bg-green-800">
+        <Button
+          type="submit"
+          disabled={pending}
+          className="bg-green-700 hover:bg-green-800"
+        >
           {t("addAssetButton")}
         </Button>
       </div>
