@@ -39,7 +39,9 @@ export default function AddAssetDialog({
         values: Object.fromEntries(
           Object.entries(data.values).map(([key, value]) => [
             key,
-            String(value),
+            typeof value === "object" && value !== null
+              ? JSON.stringify(value)
+              : String(value),
           ]),
         ),
       });
@@ -53,7 +55,7 @@ export default function AddAssetDialog({
       onAssetAdded?.(await getOwnAssets());
       onOpenChange(false);
     } catch (error) {
-      setError(`An error occured  ${String(error)}`)
+      setError(`An error occured  ${String(error)}`);
       throw error;
     } finally {
       setPending(false);
