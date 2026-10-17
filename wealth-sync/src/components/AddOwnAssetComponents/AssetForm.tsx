@@ -40,17 +40,31 @@ type AssetFormProps = {
   onCancel: () => void;
   onSubmit: (data: AddAssetFormData) => void | Promise<void>;
   pending?: boolean;
+  initialCategory?: AssetCategory;
+  initialValues?: Record<string, string>;
+  submitLabel?: string;
 };
 
 export function AssetForm({
   onCancel,
   onSubmit,
   pending = false,
+  initialCategory = "crypto",
+  initialValues = {},
+  submitLabel,
 }: AssetFormProps) {
   const t = useTranslations("AddOwnAssetPage.AssetForm");
 
-  const [category, setCategory] = useState<AssetCategory>("crypto");
-  const [savings, setSavings] = useState<SavingsFormValues>(initialSavings);
+  const [category, setCategory] = useState<AssetCategory>(initialCategory);
+  const [savings, setSavings] = useState<SavingsFormValues>(() => ({
+    ...initialSavings,
+    accountType: initialValues.accountType ?? initialSavings.accountType,
+    institution: initialValues.institution ?? initialSavings.institution,
+    currency: initialValues.currency ?? initialSavings.currency,
+    balance: initialValues.balance ?? initialSavings.balance,
+    interestRate: initialValues.interestRate ?? initialSavings.interestRate,
+    maturityDate: initialValues.maturityDate ?? initialSavings.maturityDate,
+  }));
 
   const isSavings = category === "savings";
   const isTicker = category === "crypto" || category === "stock";
@@ -103,13 +117,22 @@ export function AssetForm({
         </Select>
       </DialogField>
 
-      {isTicker && <TickerField category={category} />}
+      {isTicker && (
+        <TickerField category={category} defaultValue={initialValues.ticker} />
+      )}
 
       {isSavings && <SavingsFields values={savings} onChange={setSavings} />}
 
-      {category === "metal" && <MetalFields />}
+      {category === "metal" && (
+        <MetalFields
+          defaultMetal={initialValues.metal}
+          defaultUnit={initialValues.unit}
+        />
+      )}
 
-      {!isSavings && <AssetFormFields category={category} />}
+      {!isSavings && (
+        <AssetFormFields category={category} initialValues={initialValues} />
+      )}
 
       <div className="flex justify-end gap-2 pt-2">
         <Button type="button" variant="outline" onClick={onCancel}>
@@ -120,14 +143,12 @@ export function AssetForm({
           disabled={pending}
           className={
             pending
-              ? "disabled:cursor-not-allowed bg-gray-400"
+              ? "bg-gray-400 disabled:cursor-not-allowed"
               : "bg-green-700 hover:bg-green-800 hover:text-white"
           }
         >
-          {pending && (
-            <LoadingCircle />
-          )}
-          {t("addAssetButton")}
+          {pending && <LoadingCircle />}
+          {submitLabel ?? t("addAssetButton")}
         </Button>
       </div>
     </form>

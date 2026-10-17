@@ -7,9 +7,13 @@ import { useTranslations } from "next-intl";
 
 type AssetFormFieldsProps = {
   category: AssetCategory;
+  initialValues?: Record<string, string>;
 };
 
-export function AssetFormFields({ category }: AssetFormFieldsProps) {
+export function AssetFormFields({
+  category,
+  initialValues = {},
+}: AssetFormFieldsProps) {
   const t = useTranslations("AddOwnAssetPage.AssetFormFields");
 
   const isManual = category === "realEstate" || category === "other";
@@ -20,14 +24,19 @@ export function AssetFormFields({ category }: AssetFormFieldsProps) {
   return (
     <div className="space-y-4">
       <DialogField
-        label={isManual ? t('manualLabel') : t('notManualLabel')}
-        hint={isManual ? undefined : t('notManualHint')}
+        label={isManual ? t("manualLabel") : t("notManualLabel")}
+        hint={isManual ? undefined : t("notManualHint")}
       >
         <Input
           name="name"
           required={isManual}
           maxLength={100}
-          placeholder={isManual ? t('manualInputPlaceholder') : t('notManualInputPlaceholder')}
+          defaultValue={initialValues.name}
+          placeholder={
+            isManual
+              ? t("manualInputPlaceholder")
+              : t("notManualInputPlaceholder")
+          }
         />
       </DialogField>
 
@@ -35,7 +44,7 @@ export function AssetFormFields({ category }: AssetFormFieldsProps) {
         <DialogField
           label={
             category === "stock"
-              ? t('shares')
+              ? t("shares")
               : category === "metal"
                 ? t("amount")
                 : isManual
@@ -47,35 +56,52 @@ export function AssetFormFields({ category }: AssetFormFieldsProps) {
             {...numberInput}
             name="quantity"
             required
+            defaultValue={initialValues.quantity}
             placeholder={isManual ? "1" : "0.5"}
           />
         </DialogField>
 
-        <DialogField label={t('buyPriceLabel')}>
-          <Input {...numberInput} name="buyPrice" required placeholder="0.00" />
+        <DialogField label={t("buyPriceLabel")}>
+          <Input
+            {...numberInput}
+            name="buyPrice"
+            required
+            defaultValue={initialValues.buyPrice}
+            placeholder="0.00"
+          />
         </DialogField>
       </div>
 
       {isManual && (
         <DialogField
-          label={t('currentValueLabel')}
-          hint={t('currentValueHint')}
+          label={t("currentValueLabel")}
+          hint={t("currentValueHint")}
         >
           <Input
             {...numberInput}
             name="currentValue"
             required
+            defaultValue={initialValues.currentValue}
             placeholder="0.00"
           />
         </DialogField>
       )}
 
-      <DialogField label={t('purchaseDateLabel')}>
-        <Input name="purchaseDate" type="date" />
+      <DialogField label={t("purchaseDateLabel")}>
+        <Input
+          name="purchaseDate"
+          type="date"
+          defaultValue={initialValues.purchaseDate}
+        />
       </DialogField>
 
-      <DialogField label={t('notesLabel')}>
-        <Input name="notes" maxLength={500} placeholder={t('notesPlaceholder')} />
+      <DialogField label={t("notesLabel")}>
+        <Input
+          name="notes"
+          maxLength={500}
+          defaultValue={initialValues.notes}
+          placeholder={t("notesPlaceholder")}
+        />
       </DialogField>
     </div>
   );

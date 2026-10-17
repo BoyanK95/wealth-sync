@@ -42,9 +42,11 @@ const ICONS: Record<AssetCategory, LucideIcon> = {
 export default function AssetRow({
   asset,
   onDeleted,
+  onEdit,
 }: {
   asset: Asset;
   onDeleted?: (id: string) => void;
+  onEdit?: (asset: Asset) => void;
 }) {
   const t = useTranslations("AddOwnAssetPage.AssetRow");
 
@@ -76,11 +78,6 @@ export default function AssetRow({
       setLoading(false);
     }
   }
-
-  //TODO: Edit asset (not implemented yet, just logs to console)
-  const editAsset = () => {
-    console.log(`Editing asset: ${asset.name}`);
-  };
 
   return (
     <motion.div
@@ -158,7 +155,7 @@ export default function AssetRow({
               size="icon"
               aria-label={`Edit ${asset.name}`}
               className="cursor-pointer"
-              onClick={editAsset}
+              onClick={() => onEdit?.(asset)}
             >
               <Pencil className="h-4 w-4" />
             </Button>
