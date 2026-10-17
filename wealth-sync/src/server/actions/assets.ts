@@ -37,6 +37,11 @@ function numberValue(values: Record<string, string>, key: string) {
   return Number.isFinite(value) && value >= 0 ? value : null;
 }
 
+/**
+ * Fetch asset current price quite from finhub API and calculates
+ * @param symbol - string
+ * @returns current price and change rercent
+ */
 async function fetchFinnhubQuote(symbol: string) {
   const response = await fetch(
     `https://finnhub.io/api/v1/quote?symbol=${encodeURIComponent(symbol)}&token=${encodeURIComponent(env.FINNHUB_KEY)}`,
@@ -50,6 +55,40 @@ async function fetchFinnhubQuote(symbol: string) {
   return { price: quote.c, changePercent: quote.dp ?? null };
 }
 
+async function fetchMetalSpotPrice(symbol: string) {
+  const response = await fetch(
+    `https://api.gold-api.com/price/${encodeURIComponent(symbol)}`,
+    { cache: "no-store" },
+  );
+  if (!response.ok) {
+    throw new UserFacingError(
+      `Metal price provider unavailable (HTTP ${response.status})`,
+    );
+  }
+
+  const quote = (await response.json()) as {
+    symbol?: string;
+    currency?: string;
+    price?: number;
+  };
+  if (
+    quote.symbol !== symbol ||
+    quote.currency !== "USD" ||
+    typeof quote.price !== "number" ||
+    !Number.isFinite(quote.price) ||
+    quote.price <= 0
+  ) {
+    throw new UserFacingError("No current USD price found for that metal");
+  }
+
+  // Gold-API quotes precious metals in USD per troy ounce.
+  return quote.price;
+}
+
+/**
+ * Gets all the custom added assets table from db
+ * @returns Assets - array
+ */
 export async function getOwnAssets(): Promise<Asset[]> {
   const session = await auth();
   if (!session?.user?.id) return [];
@@ -78,6 +117,11 @@ export async function getOwnAssets(): Promise<Asset[]> {
   }));
 }
 
+/**
+ * Gets the form data and creates a call to Assets db
+ * @param input -form data
+ * @returns result object with success - boolean and error string if needed
+ */
 export async function createOwnAsset(input: unknown): Promise<Result> {
   const session = await auth();
   if (!session?.user?.id)
@@ -131,11 +175,10 @@ export async function createOwnAsset(input: unknown): Promise<Result> {
             XPD: "Palladium",
           } as Record<string, string>
         )[symbol] ?? symbol;
-      const quote = await fetchFinnhubQuote(`OANDA:${symbol}_USD`);
+      const ouncePrice = await fetchMetalSpotPrice(symbol);
       const unitInOunces =
         unit === "g" ? 1 / 31.1034768 : unit === "kg" ? 1000 / 31.1034768 : 1;
-      currentPrice = quote.price * unitInOunces;
-      changePercent = quote.changePercent;
+      currentPrice = ouncePrice * unitInOunces;
     } else if (category === "savings") {
       currentPrice = buyPrice;
       name = values.institution?.trim() ?? values.accountType ?? "Savings";

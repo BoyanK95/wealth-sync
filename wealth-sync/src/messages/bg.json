@@ -735,6 +735,7 @@
       "boughtAt": "купено на ",
       "price": "Цена",
       "valueSetByYou": "Дадена от вас цена",
+      "spotPrice": "Спот цена",
       "allTime": "Общо"
     },
     "Dialog": {
