@@ -734,6 +734,7 @@
       "boughtAt": "bought at ",
       "price": "Price",
       "valueSetByYou": "Value set by you",
+      "spotPrice": "Spot price",
       "allTime": "All time"
     },
     "Dialog": {

@@ -83,7 +83,7 @@ export default function AssetRow({ asset }: { asset: Asset }) {
                 )}
               </div>
               <p className="text-muted-foreground mt-0.5 text-sm">
-                {formatQuantity(asset.quantity)} {asset.unit} · {t('boughtAt')}
+                {formatQuantity(asset.quantity)} {asset.unit} · {t("boughtAt")}
                 {usd(asset.buyPrice)}
               </p>
             </div>
@@ -107,7 +107,9 @@ export default function AssetRow({ asset }: { asset: Asset }) {
               </span>
             ) : (
               <span className="text-muted-foreground text-xs">
-                {t("valueSetByYou")}
+                {asset.category === "metal"
+                  ? t("spotPrice")
+                  : t("valueSetByYou")}
               </span>
             )}
           </div>
