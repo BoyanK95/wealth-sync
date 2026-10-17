@@ -102,11 +102,11 @@ export async function createOwnAsset(input: unknown): Promise<Result> {
       const quote = await fetchFinnhubQuote(quoteSymbol);
       currentPrice = quote.price;
       changePercent = quote.changePercent;
-      name ||= symbol;
+      name ??= symbol;
       unit = category === "crypto" ? symbol : "shares";
     } else if (category === "metal") {
-      symbol = values.metal || "XAU";
-      unit = values.unit || "oz";
+      symbol = values.metal ?? "XAU";
+      unit = values.unit ?? "oz";
       name =
         (
           {
@@ -123,20 +123,20 @@ export async function createOwnAsset(input: unknown): Promise<Result> {
       changePercent = quote.changePercent;
     } else if (category === "savings") {
       currentPrice = buyPrice;
-      name = values.institution?.trim() || values.accountType || "Savings";
+      name = values.institution?.trim() ?? values.accountType ?? "Savings";
       interestRate = numberValue(values, "interestRate");
-      unit = values.currency || "USD";
+      unit = values.currency ?? "USD";
       details = {
-        accountType: values.accountType || "savingsAccount",
+        accountType: values.accountType ?? "savingsAccount",
         currency: unit,
-        maturityDate: values.maturityDate || "",
+        maturityDate: values.maturityDate ?? "",
       };
     } else {
       const currentValue = numberValue(values, "currentValue");
       if (!currentValue)
         return { success: false, error: "Enter a valid current value" };
       currentPrice = currentValue / quantity;
-      name ||= category === "realEstate" ? "Real estate" : "Other asset";
+      name ??= category === "realEstate" ? "Real estate" : "Other asset";
     }
 
     await db.asset.create({
@@ -154,7 +154,7 @@ export async function createOwnAsset(input: unknown): Promise<Result> {
         purchaseDate: values.purchaseDate
           ? new Date(`${values.purchaseDate}T00:00:00.000Z`)
           : null,
-        notes: values.notes?.trim() || null,
+        notes: values.notes?.trim() ?? null,
         details,
       },
     });

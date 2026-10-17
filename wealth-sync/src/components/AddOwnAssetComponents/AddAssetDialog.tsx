@@ -25,26 +25,37 @@ export default function AddAssetDialog({
   onAssetAdded,
 }: AddAssetDialogProps) {
   const t = useTranslations("AddOwnAssetPage.Dialog");
+
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
 
   async function handleSubmit(data: AddAssetFormData) {
     setPending(true);
     setError(null);
-    const result = await createOwnAsset({
-      category: data.category,
-      values: Object.fromEntries(
-        Object.entries(data.values).map(([key, value]) => [key, String(value)]),
-      ),
-    });
-    if (!result.success) {
-      setError(result.error);
+    try {
+      const result = await createOwnAsset({
+        category: data.category,
+        values: Object.fromEntries(
+          Object.entries(data.values).map(([key, value]) => [
+            key,
+            String(value),
+          ]),
+        ),
+      });
+
+      if (!result.success) {
+        setError(result.error);
+        setPending(false);
+        return;
+      }
+
+      onAssetAdded?.(await getOwnAssets());
+    } catch (error) {
+      throw error;
+    } finally {
       setPending(false);
-      return;
+      onOpenChange(false);
     }
-    onAssetAdded?.(await getOwnAssets());
-    setPending(false);
-    onOpenChange(false);
   }
 
   return (

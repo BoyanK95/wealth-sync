@@ -2,7 +2,6 @@
 
 import { useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -55,25 +54,32 @@ export function AssetForm({
   const isSavings = category === "savings";
   const isTicker = category === "crypto" || category === "stock";
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     if (isSavings) {
       if (!savings.balance || Number(savings.balance) < 0) return;
 
-      onSubmit({
-        category,
-        values: { ...savings },
-      });
-      return;
+      try {
+        await onSubmit({
+          category,
+          values: { ...savings },
+        });
+        return;
+      } catch (error) {
+        throw error;
+      }
     }
 
     const formData = new FormData(e.currentTarget);
-
-    onSubmit({
-      category,
-      values: Object.fromEntries(formData.entries()),
-    });
+    try {
+      await onSubmit({
+        category,
+        values: Object.fromEntries(formData.entries()),
+      });
+    } catch (error) {
+      throw error;
+    }
   }
 
   return (
