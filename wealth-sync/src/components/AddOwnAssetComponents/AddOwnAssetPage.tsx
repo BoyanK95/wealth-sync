@@ -98,7 +98,15 @@ export default function AddYourOwnAssetPage({
             <div className="space-y-3">
               <AnimatePresence initial={false}>
                 {visible.map((asset) => (
-                  <AssetRow key={asset.id} asset={asset} />
+                  <AssetRow
+                    key={asset.id}
+                    asset={asset}
+                    onDeleted={(id) =>
+                      setAssetList((current) =>
+                        current.filter((item) => item.id !== id),
+                      )
+                    }
+                  />
                 ))}
               </AnimatePresence>
             </div>

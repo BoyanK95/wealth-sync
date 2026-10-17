@@ -26,6 +26,9 @@ import {
   usd,
 } from "./format";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
+import { toast } from "sonner";
+import { deleteOwnAsset } from "@/server/actions/assets";
 
 const ICONS: Record<AssetCategory, LucideIcon> = {
   crypto: Bitcoin,
@@ -36,8 +39,16 @@ const ICONS: Record<AssetCategory, LucideIcon> = {
   other: Package,
 };
 
-export default function AssetRow({ asset }: { asset: Asset }) {
+export default function AssetRow({
+  asset,
+  onDeleted,
+}: {
+  asset: Asset;
+  onDeleted?: (id: string) => void;
+}) {
   const t = useTranslations("AddOwnAssetPage.AssetRow");
+
+  const [loading, setLoading] = useState(false);
 
   const Icon = ICONS[asset.category];
   const value = asset.quantity * asset.currentPrice;
@@ -48,10 +59,23 @@ export default function AssetRow({ asset }: { asset: Asset }) {
   const TrendIcon =
     (asset.changePercent ?? 0) < 0 ? ArrowDownRight : ArrowUpRight;
 
-  //TODO: Delete asset (not implemented yet, just logs to console)
-  const deleteAsset = () => {
-    console.log(`Deleting asset: ${asset.name}`);
-  };
+  async function deleteAsset() {
+    setLoading(true);
+    try {
+      const result = await deleteOwnAsset(asset.id);
+      if (!result.success) {
+        toast.error(result.error);
+        return;
+      }
+      onDeleted?.(asset.id);
+      toast.success("Asset deleted!");
+    } catch (error) {
+      console.error("Delete asset failed:", error);
+      toast.error("Unable to delete asset");
+    } finally {
+      setLoading(false);
+    }
+  }
 
   //TODO: Edit asset (not implemented yet, just logs to console)
   const editAsset = () => {
@@ -144,6 +168,7 @@ export default function AssetRow({ asset }: { asset: Asset }) {
               aria-label={`Delete ${asset.name}`}
               className="text-muted-foreground cursor-pointer hover:text-rose-600"
               onClick={deleteAsset}
+              disabled={loading}
             >
               <Trash2 className="h-4 w-4" />
             </Button>
