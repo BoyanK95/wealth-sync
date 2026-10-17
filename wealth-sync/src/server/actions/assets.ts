@@ -10,10 +10,23 @@ import {
   type AssetCategory,
 } from "@/components/AddOwnAssetComponents/types";
 
-const inputSchema = z.object({
-  category: z.enum(CATEGORIES),
-  values: z.record(z.string(), z.string()),
-});
+const metalUnitSchema = z.enum(["oz", "g", "kg"]);
+
+const inputSchema = z
+  .object({
+    category: z.enum(CATEGORIES),
+    values: z.record(z.string(), z.string()),
+  })
+  .refine(
+    ({ category, values }) =>
+      category !== "metal" ||
+      values.unit === undefined ||
+      metalUnitSchema.safeParse(values.unit).success,
+    {
+      path: ["values", "unit"],
+      message: "Invalid metal unit",
+    },
+  );
 
 class UserFacingError extends Error {}
 
@@ -165,7 +178,10 @@ export async function createOwnAsset(input: unknown): Promise<Result> {
     console.error("Create asset failed:", error);
     return {
       success: false,
-      error: error instanceof UserFacingError ? error.message : "Unable to add asset",
+      error:
+        error instanceof UserFacingError
+          ? error.message
+          : "Unable to add asset",
     };
   }
 }
