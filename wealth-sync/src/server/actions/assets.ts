@@ -15,6 +15,8 @@ const inputSchema = z.object({
   values: z.record(z.string(), z.string()),
 });
 
+class UserFacingError extends Error {}
+
 type Result = { success: true } | { success: false; error: string };
 
 function numberValue(values: Record<string, string>, key: string) {
@@ -27,10 +29,10 @@ async function fetchFinnhubQuote(symbol: string) {
     `https://finnhub.io/api/v1/quote?symbol=${encodeURIComponent(symbol)}&token=${encodeURIComponent(env.FINNHUB_KEY)}`,
     { next: { revalidate: 0 } },
   );
-  if (!response.ok) throw new Error("Price provider unavailable");
+  if (!response.ok) throw new UserFacingError("Price provider unavailable");
   const quote = (await response.json()) as { c?: number; dp?: number };
   if (!quote.c || !Number.isFinite(quote.c)) {
-    throw new Error("No current price found for that symbol");
+    throw new UserFacingError("No current price found for that symbol");
   }
   return { price: quote.c, changePercent: quote.dp ?? null };
 }
@@ -163,7 +165,7 @@ export async function createOwnAsset(input: unknown): Promise<Result> {
     console.error("Create asset failed:", error);
     return {
       success: false,
-      error: error instanceof Error ? error.message : "Unable to add asset",
+      error: error instanceof UserFacingError ? error.message : "Unable to add asset",
     };
   }
 }
