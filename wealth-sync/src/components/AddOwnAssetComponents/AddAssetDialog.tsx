@@ -54,13 +54,17 @@ export default function AddAssetDialog({
         return;
       }
 
-      onAssetAdded?.(await getOwnAssets());
-      toast.success("Asset added successfully!");
       onOpenChange(false);
+      try {
+        onAssetAdded?.(await getOwnAssets());
+        toast.success("Asset added successfully!");
+      } catch (refreshError) {
+        console.error("Asset list refresh failed:", refreshError);
+      }
     } catch (error) {
-      setError(`An error occured  ${String(error)}`);
       toast.error(`An error occured ${String(error)}`);
-      throw error;
+      setError("Unable to add asset. Please try again!");
+      console.error("Create asset failed", error);
     } finally {
       setPending(false);
     }
@@ -71,8 +75,8 @@ export default function AddAssetDialog({
    * @param next - boolean
    */
   function handleOpenChange(next: boolean) {
-    if (!next) setError(null)
-      onOpenChange(next)
+    if (!next) setError(null);
+    onOpenChange(next);
   }
 
   return (
