@@ -28,6 +28,7 @@ export default function AddYourOwnAssetPage({
   const [assetList, setAssetList] = useState(assets);
   const [tab, setTab] = useState<Tab>("all");
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [editingAsset, setEditingAsset] = useState<Asset | null>(null);
 
   const visible =
     tab === "all" ? assetList : assetList.filter((a) => a.category === tab);
@@ -51,7 +52,10 @@ export default function AddYourOwnAssetPage({
         </div>
         {assetList.length > 0 && (
           <Button
-            onClick={() => setDialogOpen(true)}
+            onClick={() => {
+              setEditingAsset(null);
+              setDialogOpen(true);
+            }}
             className="cursor-pointer bg-green-700 hover:bg-green-800 dark:hover:text-white"
           >
             <Plus className="mr-1.5 h-4 w-4" />
@@ -106,6 +110,10 @@ export default function AddYourOwnAssetPage({
                         current.filter((item) => item.id !== id),
                       )
                     }
+                    onEdit={(selectedAsset) => {
+                      setEditingAsset(selectedAsset);
+                      setDialogOpen(true);
+                    }}
                   />
                 ))}
               </AnimatePresence>
@@ -122,7 +130,11 @@ export default function AddYourOwnAssetPage({
       )}
       <AddAssetDialog
         open={dialogOpen}
-        onOpenChange={setDialogOpen}
+        asset={editingAsset}
+        onOpenChange={(open) => {
+          setDialogOpen(open);
+          if (!open) setEditingAsset(null);
+        }}
         onAssetAdded={setAssetList}
       />
     </Card>

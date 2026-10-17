@@ -42,4 +42,7 @@ export interface Asset {
   changePercent: number | null;
   /** What the change covers, e.g. "24h". */
   changeLabel?: string;
+  purchaseDate?: string;
+  notes?: string;
+  details?: Record<string, string>;
 }

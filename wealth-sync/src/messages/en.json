@@ -739,7 +739,10 @@
     },
     "Dialog": {
       "title": "Add own asset",
-      "description": "Choose an asset category and enter its details."
+      "description": "Choose an asset category and enter its details.",
+      "editTitle": "Edit asset",
+      "editDescription": "Update the asset details.",
+      "saveChanges": "Save changes"
     },
     "AssetForm": {
       "categoryLabel": "Category",

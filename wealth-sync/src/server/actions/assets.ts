@@ -1,6 +1,7 @@
 "use server";
 
 import { z } from "zod";
+import type { Prisma } from "@prisma/client";
 import { auth } from "@/server/auth";
 import { db } from "@/server/db";
 import { env } from "@/env";
@@ -31,6 +32,10 @@ const inputSchema = z
 class UserFacingError extends Error {}
 
 type Result = { success: true } | { success: false; error: string };
+type AssetWriteData = Omit<
+  Prisma.AssetUncheckedCreateInput,
+  "id" | "userId" | "createdAt" | "updatedAt"
+>;
 
 function numberValue(values: Record<string, string>, key: string) {
   const value = Number(values[key]);
@@ -85,6 +90,100 @@ async function fetchMetalSpotPrice(symbol: string) {
   return quote.price;
 }
 
+async function prepareAssetData(
+  category: AssetCategory,
+  values: Record<string, string>,
+): Promise<
+  { success: true; data: AssetWriteData } | { success: false; error: string }
+> {
+  const quantity = category === "savings" ? 1 : numberValue(values, "quantity");
+  const buyPrice =
+    category === "savings"
+      ? numberValue(values, "balance")
+      : numberValue(values, "buyPrice");
+  if (quantity === null || quantity <= 0 || buyPrice === null) {
+    return {
+      success: false,
+      error: "Enter a valid quantity and purchase price",
+    };
+  }
+
+  let name = values.name?.trim();
+  let symbol: string | null = null;
+  let unit = "item";
+  let currentPrice: number;
+  let changePercent: number | null = null;
+  let interestRate: number | null = null;
+  let details: Prisma.InputJsonObject = {};
+
+  if (category === "stock" || category === "crypto") {
+    symbol = values.ticker?.trim().toUpperCase() ?? "";
+    if (!/^[A-Z0-9.-]{1,20}$/.test(symbol)) {
+      return { success: false, error: "Enter a valid ticker symbol" };
+    }
+    const quoteSymbol =
+      category === "crypto" ? `BINANCE:${symbol}USDT` : symbol;
+    const quote = await fetchFinnhubQuote(quoteSymbol);
+    currentPrice = quote.price;
+    changePercent = quote.changePercent;
+    name ??= symbol;
+    unit = category === "crypto" ? symbol : "shares";
+  } else if (category === "metal") {
+    symbol = values.metal ?? "XAU";
+    unit = values.unit ?? "oz";
+    name =
+      (
+        {
+          XAU: "Gold",
+          XAG: "Silver",
+          XPT: "Platinum",
+          XPD: "Palladium",
+        } as Record<string, string>
+      )[symbol] ?? symbol;
+    const ouncePrice = await fetchMetalSpotPrice(symbol);
+    const unitInOunces =
+      unit === "g" ? 1 / 31.1034768 : unit === "kg" ? 1000 / 31.1034768 : 1;
+    currentPrice = ouncePrice * unitInOunces;
+  } else if (category === "savings") {
+    currentPrice = buyPrice;
+    name = values.institution?.trim() ?? values.accountType ?? "Savings";
+    interestRate = numberValue(values, "interestRate");
+    unit = values.currency ?? "USD";
+    details = {
+      accountType: values.accountType ?? "savingsAccount",
+      currency: unit,
+      maturityDate: values.maturityDate ?? "",
+    };
+  } else {
+    const currentValue = numberValue(values, "currentValue");
+    if (!currentValue) {
+      return { success: false, error: "Enter a valid current value" };
+    }
+    currentPrice = currentValue / quantity;
+    name ??= category === "realEstate" ? "Real estate" : "Other asset";
+  }
+
+  return {
+    success: true,
+    data: {
+      category,
+      name: name || category,
+      symbol,
+      quantity,
+      unit,
+      buyPrice,
+      currentPrice,
+      changePercent,
+      interestRate,
+      purchaseDate: values.purchaseDate
+        ? new Date(`${values.purchaseDate}T00:00:00.000Z`)
+        : null,
+      notes: values.notes?.trim() ?? null,
+      details,
+    },
+  };
+}
+
 /**
  * Gets all the custom added assets table from db
  * @returns Assets - array
@@ -114,6 +213,19 @@ export async function getOwnAssets(): Promise<Asset[]> {
         : row.category === "crypto"
           ? "24h"
           : undefined,
+    purchaseDate: row.purchaseDate?.toISOString().slice(0, 10),
+    notes: row.notes ?? undefined,
+    details:
+      row.details &&
+      typeof row.details === "object" &&
+      !Array.isArray(row.details)
+        ? Object.fromEntries(
+            Object.entries(row.details).filter(
+              (entry): entry is [string, string] =>
+                typeof entry[1] === "string",
+            ),
+          )
+        : undefined,
   }));
 }
 
@@ -155,89 +267,15 @@ export async function createOwnAsset(input: unknown): Promise<Result> {
   if (!parsed.success)
     return { success: false, error: "Invalid asset details" };
   const { category, values } = parsed.data;
-  const quantity = category === "savings" ? 1 : numberValue(values, "quantity");
-  const buyPrice =
-    category === "savings"
-      ? numberValue(values, "balance")
-      : numberValue(values, "buyPrice");
-  if (quantity === null || quantity <= 0 || buyPrice === null) {
-    return {
-      success: false,
-      error: "Enter a valid quantity and purchase price",
-    };
-  }
-
-  let name = values.name?.trim();
-  let symbol: string | null = null;
-  let unit = "item";
-  let currentPrice: number;
-  let changePercent: number | null = null;
-  let interestRate: number | null = null;
-  let details: Record<string, string> = {};
 
   try {
-    if (category === "stock" || category === "crypto") {
-      symbol = values.ticker?.trim().toUpperCase() ?? "";
-      if (!/^[A-Z0-9.-]{1,20}$/.test(symbol))
-        return { success: false, error: "Enter a valid ticker symbol" };
-      const quoteSymbol =
-        category === "crypto" ? `BINANCE:${symbol}USDT` : symbol;
-      const quote = await fetchFinnhubQuote(quoteSymbol);
-      currentPrice = quote.price;
-      changePercent = quote.changePercent;
-      name ??= symbol;
-      unit = category === "crypto" ? symbol : "shares";
-    } else if (category === "metal") {
-      symbol = values.metal ?? "XAU";
-      unit = values.unit ?? "oz";
-      name =
-        (
-          {
-            XAU: "Gold",
-            XAG: "Silver",
-            XPT: "Platinum",
-            XPD: "Palladium",
-          } as Record<string, string>
-        )[symbol] ?? symbol;
-      const ouncePrice = await fetchMetalSpotPrice(symbol);
-      const unitInOunces =
-        unit === "g" ? 1 / 31.1034768 : unit === "kg" ? 1000 / 31.1034768 : 1;
-      currentPrice = ouncePrice * unitInOunces;
-    } else if (category === "savings") {
-      currentPrice = buyPrice;
-      name = values.institution?.trim() ?? values.accountType ?? "Savings";
-      interestRate = numberValue(values, "interestRate");
-      unit = values.currency ?? "USD";
-      details = {
-        accountType: values.accountType ?? "savingsAccount",
-        currency: unit,
-        maturityDate: values.maturityDate ?? "",
-      };
-    } else {
-      const currentValue = numberValue(values, "currentValue");
-      if (!currentValue)
-        return { success: false, error: "Enter a valid current value" };
-      currentPrice = currentValue / quantity;
-      name ??= category === "realEstate" ? "Real estate" : "Other asset";
-    }
+    const prepared = await prepareAssetData(category, values);
+    if (!prepared.success) return prepared;
 
     await db.asset.create({
       data: {
         userId: session.user.id,
-        category,
-        name: name || category,
-        symbol,
-        quantity,
-        unit,
-        buyPrice,
-        currentPrice,
-        changePercent,
-        interestRate,
-        purchaseDate: values.purchaseDate
-          ? new Date(`${values.purchaseDate}T00:00:00.000Z`)
-          : null,
-        notes: values.notes?.trim() ?? null,
-        details,
+        ...prepared.data,
       },
     });
     return { success: true };
@@ -249,6 +287,55 @@ export async function createOwnAsset(input: unknown): Promise<Result> {
         error instanceof UserFacingError
           ? error.message
           : "Unable to add asset",
+    };
+  }
+}
+
+/** Updates an asset only when it belongs to the signed-in user. */
+export async function updateOwnAsset(
+  id: string,
+  input: unknown,
+): Promise<Result> {
+  const session = await auth();
+  if (!session?.user?.id) {
+    return { success: false, error: "Please sign in to edit an asset" };
+  }
+  if (typeof id !== "string" || id.length === 0) {
+    return { success: false, error: "Invalid asset" };
+  }
+
+  const parsed = inputSchema.safeParse(input);
+  if (!parsed.success) {
+    return { success: false, error: "Invalid asset details" };
+  }
+
+  try {
+    const existing = await db.asset.findFirst({
+      where: { id, userId: session.user.id },
+      select: { id: true },
+    });
+    if (!existing) return { success: false, error: "Asset not found" };
+
+    const prepared = await prepareAssetData(
+      parsed.data.category,
+      parsed.data.values,
+    );
+    if (!prepared.success) return prepared;
+
+    const result = await db.asset.updateMany({
+      where: { id, userId: session.user.id },
+      data: prepared.data,
+    });
+    if (result.count === 0) return { success: false, error: "Asset not found" };
+    return { success: true };
+  } catch (error) {
+    console.error("Update asset failed:", error);
+    return {
+      success: false,
+      error:
+        error instanceof UserFacingError
+          ? error.message
+          : "Unable to update asset",
     };
   }
 }

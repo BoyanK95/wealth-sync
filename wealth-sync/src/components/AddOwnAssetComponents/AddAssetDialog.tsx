@@ -10,7 +10,11 @@ import {
 import { AssetForm, type AddAssetFormData } from "./AssetForm";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { createOwnAsset, getOwnAssets } from "@/server/actions/assets";
+import {
+  createOwnAsset,
+  getOwnAssets,
+  updateOwnAsset,
+} from "@/server/actions/assets";
 import type { Asset } from "./types";
 import ErrorState from "../Common/ErrorState";
 import { toast } from "sonner";
@@ -19,23 +23,45 @@ type AddAssetDialogProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onAssetAdded?: (assets: Asset[]) => void;
+  asset?: Asset | null;
 };
 
 export default function AddAssetDialog({
   open,
   onOpenChange,
   onAssetAdded,
+  asset = null,
 }: AddAssetDialogProps) {
   const t = useTranslations("AddOwnAssetPage.Dialog");
 
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
+  const details = asset?.details ?? {};
+  const initialValues: Record<string, string> = asset
+    ? {
+        name: asset.name,
+        ticker: asset.symbol ?? "",
+        metal: asset.symbol ?? "XAU",
+        quantity: String(asset.quantity),
+        unit: asset.unit,
+        buyPrice: String(asset.buyPrice),
+        currentValue: String(asset.quantity * asset.currentPrice),
+        purchaseDate: asset.purchaseDate ?? "",
+        notes: asset.notes ?? "",
+        accountType: details.accountType ?? "savingsAccount",
+        institution: asset.name,
+        currency: details.currency ?? asset.unit,
+        balance: String(asset.buyPrice),
+        interestRate: String(asset.interestRate ?? ""),
+        maturityDate: details.maturityDate ?? "",
+      }
+    : {};
 
   async function handleSubmit(data: AddAssetFormData) {
     setPending(true);
     setError(null);
     try {
-      const result = await createOwnAsset({
+      const values = {
         category: data.category,
         values: Object.fromEntries(
           Object.entries(data.values).map(([key, value]) => [
@@ -45,7 +71,10 @@ export default function AddAssetDialog({
               : String(value),
           ]),
         ),
-      });
+      };
+      const result = asset
+        ? await updateOwnAsset(asset.id, values)
+        : await createOwnAsset(values);
 
       if (!result.success) {
         setError(result.error);
@@ -57,14 +86,23 @@ export default function AddAssetDialog({
       onOpenChange(false);
       try {
         onAssetAdded?.(await getOwnAssets());
-        toast.success("Asset added successfully!");
+        toast.success(
+          asset ? "Asset updated successfully!" : "Asset added successfully!",
+        );
       } catch (refreshError) {
         console.error("Asset list refresh failed:", refreshError);
       }
     } catch (error) {
-      toast.error(`An error occured ${String(error)}`);
-      setError("Unable to add asset. Please try again!");
-      console.error("Create asset failed", error);
+      toast.error(`An error occurred: ${String(error)}`);
+      setError(
+        asset
+          ? "Unable to update asset. Please try again."
+          : "Unable to add asset. Please try again!",
+      );
+      console.error(
+        asset ? "Update asset failed" : "Create asset failed",
+        error,
+      );
     } finally {
       setPending(false);
     }
@@ -83,14 +121,20 @@ export default function AddAssetDialog({
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>{t("title")}</DialogTitle>
-          <DialogDescription>{t("description")}</DialogDescription>
+          <DialogTitle>{asset ? t("editTitle") : t("title")}</DialogTitle>
+          <DialogDescription>
+            {asset ? t("editDescription") : t("description")}
+          </DialogDescription>
         </DialogHeader>
 
         <AssetForm
+          key={open ? (asset?.id ?? "new-asset") : "closed"}
           onCancel={() => handleOpenChange(false)}
           onSubmit={handleSubmit}
           pending={pending}
+          initialCategory={asset?.category}
+          initialValues={initialValues}
+          submitLabel={asset ? t("saveChanges") : undefined}
         />
         {error && <ErrorState title={error} />}
       </DialogContent>
