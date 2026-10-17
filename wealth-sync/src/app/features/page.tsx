@@ -19,7 +19,7 @@ const FeaturesectionPage = async () => {
               {t("description", { siteName: SITE_NAME })}
             </p>
             <div className="mt-8 grid gap-4 text-left md:grid-cols-2">
-              <div className="rounded-lg border bg-white p-6 shadow-sm">
+              <div className="rounded-lg border bg-white dark:bg-transparent/50 p-6 shadow-sm">
                 <h3 className="mb-2 font-semibold text-green-800">
                   {t("supportedPlatforms.title")}
                 </h3>
@@ -30,7 +30,7 @@ const FeaturesectionPage = async () => {
                   <li>{t("supportedPlatforms.items.four")}</li>
                 </ul>
               </div>
-              <div className="rounded-lg border bg-white p-6 shadow-sm">
+              <div className="rounded-lg border bg-white dark:bg-transparent/50 p-6 shadow-sm">
                 <h3 className="mb-2 font-semibold text-green-800">
                   {t("benefits.title")}
                 </h3>
