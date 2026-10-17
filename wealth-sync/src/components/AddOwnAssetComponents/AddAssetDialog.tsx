@@ -13,6 +13,7 @@ import { useState } from "react";
 import { createOwnAsset, getOwnAssets } from "@/server/actions/assets";
 import type { Asset } from "./types";
 import ErrorState from "../Common/ErrorState";
+import { toast } from "sonner";
 
 type AddAssetDialogProps = {
   open: boolean;
@@ -48,14 +49,17 @@ export default function AddAssetDialog({
 
       if (!result.success) {
         setError(result.error);
+        toast.error(`An error occurred ${result.error}`);
         setPending(false);
         return;
       }
 
       onAssetAdded?.(await getOwnAssets());
+      toast.success('Asset added successfully!')
       onOpenChange(false);
     } catch (error) {
       setError(`An error occured  ${String(error)}`);
+      toast.error(`An error occured ${String(error)}`)
       throw error;
     } finally {
       setPending(false);

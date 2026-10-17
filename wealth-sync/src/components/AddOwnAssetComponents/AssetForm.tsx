@@ -121,7 +121,7 @@ export function AssetForm({
           className={
             pending
               ? "disabled:cursor-not-allowed bg-gray-400"
-              : "bg-green-700 hover:bg-green-800"
+              : "bg-green-700 hover:bg-green-800 hover:text-white"
           }
         >
           {pending && (
