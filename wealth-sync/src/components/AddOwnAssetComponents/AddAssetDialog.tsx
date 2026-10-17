@@ -12,6 +12,7 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { createOwnAsset, getOwnAssets } from "@/server/actions/assets";
 import type { Asset } from "./types";
+import ErrorState from "../Common/ErrorState";
 
 type AddAssetDialogProps = {
   open: boolean;
@@ -50,11 +51,12 @@ export default function AddAssetDialog({
       }
 
       onAssetAdded?.(await getOwnAssets());
+      onOpenChange(false);
     } catch (error) {
+      setError(`An error occured  ${String(error)}`)
       throw error;
     } finally {
       setPending(false);
-      onOpenChange(false);
     }
   }
 
@@ -71,11 +73,7 @@ export default function AddAssetDialog({
           onSubmit={handleSubmit}
           pending={pending}
         />
-        {error && (
-          <p role="alert" className="text-sm text-red-600">
-            {error}
-          </p>
-        )}
+        {error && <ErrorState title={error} />}
       </DialogContent>
     </Dialog>
   );

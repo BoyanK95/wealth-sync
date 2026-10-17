@@ -20,6 +20,7 @@ import { TickerField } from "./DialogFields/TickerFields";
 import { MetalFields } from "./DialogFields/MetalFields";
 import { AssetFormFields } from "./DialogFields/AssetFormFields";
 import { useTranslations } from "next-intl";
+import LoadingCircle from "../Common/LoadingCircle";
 
 const initialSavings: SavingsFormValues = {
   accountType: "savingsAccount",
@@ -117,8 +118,15 @@ export function AssetForm({
         <Button
           type="submit"
           disabled={pending}
-          className="bg-green-700 hover:bg-green-800"
+          className={
+            pending
+              ? "disabled:cursor-not-allowed bg-gray-400"
+              : "bg-green-700 hover:bg-green-800"
+          }
         >
+          {pending && (
+            <LoadingCircle />
+          )}
           {t("addAssetButton")}
         </Button>
       </div>
