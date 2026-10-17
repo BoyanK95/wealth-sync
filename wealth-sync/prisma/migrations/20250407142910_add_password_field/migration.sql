@@ -1,16 +1,27 @@
--- CreateTable
-CREATE TABLE "Post" (
-    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "name" TEXT NOT NULL,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" DATETIME NOT NULL,
-    "createdById" TEXT NOT NULL,
-    CONSTRAINT "Post_createdById_fkey" FOREIGN KEY ("createdById") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+-- PostgreSQL baseline for the original auth and post tables.
+CREATE TABLE "users" (
+    "id" TEXT NOT NULL,
+    "name" TEXT,
+    "email" TEXT,
+    "emailVerified" TIMESTAMP(3),
+    "image" TEXT,
+    "password" TEXT,
+    CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 );
 
--- CreateTable
-CREATE TABLE "Account" (
-    "id" TEXT NOT NULL PRIMARY KEY,
+CREATE TABLE "Post" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "createdById" TEXT NOT NULL,
+    CONSTRAINT "Post_pkey" PRIMARY KEY ("id"),
+    CONSTRAINT "Post_createdById_fkey" FOREIGN KEY ("createdById")
+        REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+CREATE TABLE "accounts" (
+    "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
     "type" TEXT NOT NULL,
     "provider" TEXT NOT NULL,
@@ -23,49 +34,32 @@ CREATE TABLE "Account" (
     "id_token" TEXT,
     "session_state" TEXT,
     "refresh_token_expires_in" INTEGER,
-    CONSTRAINT "Account_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT "accounts_pkey" PRIMARY KEY ("id"),
+    CONSTRAINT "accounts_userId_fkey" FOREIGN KEY ("userId")
+        REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
 
--- CreateTable
-CREATE TABLE "Session" (
-    "id" TEXT NOT NULL PRIMARY KEY,
+CREATE TABLE "sessions" (
+    "id" TEXT NOT NULL,
     "sessionToken" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
-    "expires" DATETIME NOT NULL,
-    CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+    "expires" TIMESTAMP(3) NOT NULL,
+    CONSTRAINT "sessions_pkey" PRIMARY KEY ("id"),
+    CONSTRAINT "sessions_userId_fkey" FOREIGN KEY ("userId")
+        REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
 
--- CreateTable
-CREATE TABLE "User" (
-    "id" TEXT NOT NULL PRIMARY KEY,
-    "name" TEXT,
-    "email" TEXT,
-    "emailVerified" DATETIME,
-    "image" TEXT,
-    "password" TEXT
-);
-
--- CreateTable
-CREATE TABLE "VerificationToken" (
+CREATE TABLE "verification_tokens" (
     "identifier" TEXT NOT NULL,
     "token" TEXT NOT NULL,
-    "expires" DATETIME NOT NULL
+    "expires" TIMESTAMP(3) NOT NULL
 );
 
--- CreateIndex
+CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 CREATE INDEX "Post_name_idx" ON "Post"("name");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Account_provider_providerAccountId_key" ON "Account"("provider", "providerAccountId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Session_sessionToken_key" ON "Session"("sessionToken");
-
--- CreateIndex
-CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
-
--- CreateIndex
-CREATE UNIQUE INDEX "VerificationToken_token_key" ON "VerificationToken"("token");
-
--- CreateIndex
-CREATE UNIQUE INDEX "VerificationToken_identifier_token_key" ON "VerificationToken"("identifier", "token");
+CREATE UNIQUE INDEX "accounts_provider_providerAccountId_key"
+    ON "accounts"("provider", "providerAccountId");
+CREATE UNIQUE INDEX "sessions_sessionToken_key" ON "sessions"("sessionToken");
+CREATE UNIQUE INDEX "verification_tokens_token_key" ON "verification_tokens"("token");
+CREATE UNIQUE INDEX "verification_tokens_identifier_token_key"
+    ON "verification_tokens"("identifier", "token");

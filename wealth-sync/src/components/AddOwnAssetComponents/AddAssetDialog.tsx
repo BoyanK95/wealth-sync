@@ -55,19 +55,28 @@ export default function AddAssetDialog({
       }
 
       onAssetAdded?.(await getOwnAssets());
-      toast.success('Asset added successfully!')
+      toast.success("Asset added successfully!");
       onOpenChange(false);
     } catch (error) {
       setError(`An error occured  ${String(error)}`);
-      toast.error(`An error occured ${String(error)}`)
+      toast.error(`An error occured ${String(error)}`);
       throw error;
     } finally {
       setPending(false);
     }
   }
 
+  /**
+   * reset Dialog error state
+   * @param next - boolean
+   */
+  function handleOpenChange(next: boolean) {
+    if (!next) setError(null)
+      onOpenChange(next)
+  }
+
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-lg">
         <DialogHeader>
           <DialogTitle>{t("title")}</DialogTitle>
@@ -75,7 +84,7 @@ export default function AddAssetDialog({
         </DialogHeader>
 
         <AssetForm
-          onCancel={() => onOpenChange(false)}
+          onCancel={() => handleOpenChange(false)}
           onSubmit={handleSubmit}
           pending={pending}
         />
