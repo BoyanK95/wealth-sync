@@ -14,6 +14,7 @@ export enum Routes {
   CONTACT = "/contact",
   SETTINGS = "/settings",
   ADD_YOUR_OWN_ASSET = "/add-your-own-asset",
+  ADD_YOUR_OWN_LIABILITY = "/add-your-own-liability",
   CONNECT_TRADING212 = "/connect/trading212",
   CONNECT_ETORO = "/connect/etoro",
   CONNECT_BINANCE = "/connect/binance",
