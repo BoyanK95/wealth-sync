@@ -5,9 +5,9 @@ import { redirect } from "next/navigation";
 import type React from "react";
 
 export const metadata: Metadata = {
-  title: "Dashboard | WealthSync",
+  title: "Add Your Own Assets | WealthSync",
   description:
-    "Manage and track your investment portfolio across multiple platforms.",
+    "Add, edit and delete your own custom asset so you can track their performance",
 };
 
 export default async function AddYourOwnAssetLayout({

@@ -21,6 +21,14 @@ export const Platforms: Platform[] = [
     isConnected: false,
   },
   {
+    id: "add-your-own-liability",
+    name: "Add your own liability",
+    logo: "/platforms/add-your-own-asset-icon.png",
+    connectUrl: Routes.ADD_YOUR_OWN_LIABILITY,
+    platformKey: PlatformKey.NONE,
+    isConnected: false,
+  },
+  {
     id: "trading212",
     name: "Trading212",
     logo: "/platforms/trading-212-icon.png",
